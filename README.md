@@ -7,6 +7,8 @@ Dotfiles for my current nixos system. These files configure my OS and applicatio
 <img src="./screenshots/vscodeFullscreen.png"  width=50% height=50%>
 <img src="./screenshots/appList.png"  width=50% height=50%>
 
+[see more](./screenshots/)
+
 ## What does it use?
 
 The system uses the classic combo of the Gnome desktop manager and the GDM3 display manager. It includes most of the basic Gnome apps along with media editing software and code editing software. In the terminal, it also includes programs such as Neovim, Git (of course), zsh, the Go programming language and more!
