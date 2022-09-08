@@ -101,9 +101,6 @@ users = {headb = {
     allowedUDPPorts = [];
   };
 
-  # Appearance
-
-
   # Fonts
   fonts.fonts = with pkgs; [
     ibm-plex
@@ -118,8 +115,8 @@ users = {headb = {
   services.xserver = {
     enable = true;
     displayManager.gdm = {
- enable = true;
-};
+      enable = true;
+    };
     desktopManager.gnome = {
       enable = true;
     };
