@@ -1,4 +1,8 @@
 # dotfiles
 Dotfiles for my current nixos system.
 
-## How to recreate.
+## What does it use?
+
+## What is it like?
+
+## How do I recreate it?
