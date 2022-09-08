@@ -358,7 +358,7 @@ in
       boldIsBright = false;
       deleteBinding = "delete-sequence";
       audibleBell = false;
-      transparencyPercent = 50;
+      transparencyPercent = 0;
     };
   };
   # This value determines the Home Manager release that your
