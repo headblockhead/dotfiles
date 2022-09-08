@@ -83,6 +83,9 @@ in
       gpgPath = "/run/current-system/sw/bin/gpg2";
       signByDefault = true;
     };
+    extraConfig = {
+       pull.rebase = false;
+    };
   };
   programs.neovim = {
     enable = true;
