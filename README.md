@@ -29,6 +29,7 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
    nmtui
    ~~~
 4. Partition the drive.
+
     ~~~
     cfdisk /dev/sda
     ~~~
@@ -36,7 +37,8 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
       - a 525M EFI System partition
       - a Linux Swap partition (I went with 15G as I have 12G of RAM - [size guide](https://itsfoss.com/swap-size/))
       - and a Linux Filesystem partition to fill the rest of the disk.
-5. Format the partitions
+5. Format the partitions.
+
     First, format the EFI System partition with FAT
     ```bash
     mkfs.fat -F 32 -n boot /dev/sda1
@@ -49,7 +51,8 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     ```bash
     mkfs.ext4 -L nixos /dev/sda3
     ```
-6. Mount the newly created partitions
+6. Mount the newly created partitions.
+
     First, mount the main Linux Filesystem
     ```bash
     mount /dev/sda3 /mnt
@@ -63,7 +66,8 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     ```bash
     swapon /dev/sda2
     ```
-7. Setup the new system config
+7. Setup the new system config.
+
     First, generate the default config.
     ```bash
     nixos-generate-config --root /mnt
