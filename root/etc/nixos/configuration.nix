@@ -77,7 +77,8 @@
   services.pcscd.enable = true;
   programs.gnupg.agent = {
     enable = true;
-    pinentryFlavor = "curses";
+#    pinentryFlavor = "curses"; # works in console interactive only, not good with vscode
+    pinentryFlavor = "gtk2";
     enableSSHSupport = true;
   };
 
