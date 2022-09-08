@@ -84,7 +84,7 @@ in
       signByDefault = true;
     };
     extraConfig = {
-       pull.rebase = false;
+      pull.rebase = false;
     };
   };
   programs.neovim = {
