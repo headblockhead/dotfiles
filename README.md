@@ -1,2 +1,4 @@
 # dotfiles
-Dotfiles for a system with recreateability.
+Dotfiles for my current nixos system.
+
+## How to recreate.
