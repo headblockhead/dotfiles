@@ -6,8 +6,8 @@
 {
   # Include the results of the hardware scan.
   imports =
-    [      
-        ./hardware-configuration.nix
+    [
+      ./hardware-configuration.nix
     ];
 
   # Use the GRUB bootloader.
@@ -16,9 +16,9 @@
       canTouchEfiVariables = true;
     };
     grub = {
-       enable = true;
-       efiSupport = true;
-       device = "nodev";
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
     };
   };
 
@@ -53,14 +53,16 @@
   # Touchpad support.
   services.xserver.libinput.enable = true;
 
-    # Define users. Passwords need to be defined manually using passwd. This config will not set passwords.
+  # Define users. Passwords need to be defined manually using passwd. This config will not set passwords.
   users = {
-defaultUserShell = pkgs.zsh;
-users = {headb = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "dialout" ];
-  };};
-};
+    defaultUserShell = pkgs.zsh;
+    users = {
+      headb = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" "networkmanager" "docker" "dialout" ];
+      };
+    };
+  };
   # Global system packages.
   environment.systemPackages = with pkgs; [
     neovim
@@ -95,14 +97,11 @@ users = {headb = {
   services.openssh.permitRootLogin = "no";
 
   # Firewall configuration
-  networking.firewall = { 
+  networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 22 ]; # Allow SSH connections.
-    allowedUDPPorts = [];
+    allowedUDPPorts = [ ];
   };
-
-  # Appearance
-
 
   # Fonts
   fonts.fonts = with pkgs; [
@@ -118,22 +117,22 @@ users = {headb = {
   services.xserver = {
     enable = true;
     displayManager.gdm = {
- enable = true;
-};
+      enable = true;
+    };
     desktopManager.gnome = {
       enable = true;
     };
   };
 
-# Exclude certain xserver packages.
-services.xserver.excludePackages = [ pkgs.xterm ];
+  # Exclude certain xserver packages.
+  services.xserver.excludePackages = [ pkgs.xterm ];
 
-# Disable nixos-help apps.
-documentation.nixos.enable = false;
+  # Disable nixos-help apps.
+  documentation.nixos.enable = false;
 
-# Exclude certain default gnome apps.
-# https://github.com/NixOS/nixpkgs/tree/master/pkgs/desktops/gnome/apps
-environment.gnome.excludePackages = (with pkgs; [
+  # Exclude certain default gnome apps.
+  # https://github.com/NixOS/nixpkgs/tree/master/pkgs/desktops/gnome/apps
+  environment.gnome.excludePackages = (with pkgs; [
     gnome-tour
   ]) ++ (with pkgs.gnome; [
     gnome-music
@@ -159,7 +158,7 @@ environment.gnome.excludePackages = (with pkgs; [
     gnome.gnome-settings-daemon
   ];
 
-# Allow gnome theming
+  # Allow gnome theming
   programs.dconf.enable = true;
 
   # Copy the NixOS configuration file and link it from the resulting system
@@ -174,6 +173,5 @@ environment.gnome.excludePackages = (with pkgs; [
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
-
 }
 
