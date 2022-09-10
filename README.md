@@ -16,6 +16,8 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
 
 *It's actually surprisingly simple!*
 
+**This guide doubles as an installation guide for nixos. If you already know how to install nixos, you can skip to Step 9 - Installing Home-Manager**
+
 1. Creating an install USB.
 
     To install nixos, we will need the [nixos minimal stable iso](https://channels.nixos.org/nixos-22.05/latest-nixos-minimal-x86_64-linux.iso). This ISO contains many useful command-line tools for installing nixos. Download it and write it to a USB using your prefered USB writing tool. 
@@ -78,7 +80,7 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     ```bash
     mkfs.ext4 -L nixos /dev/sda3
     ```
-    
+
 6. Mounting the new partitions.
 
     To edit the contents of the disk, it needs to be mounted into a folder.
@@ -119,7 +121,7 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     cd dotfiles-master
     ```
 
-    Then, copy the system config to the new system. Don't edit it yet.
+    Then, copy the system config to the new system. If you want to make any major changes before the install (such as changing the username), now is the time to do that.
 
     ```bash
     cp ./root/etc/nixos/configuration.nix /mnt/etc/nixos/configuration.nix
@@ -133,11 +135,73 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     ```
 
 
-8. Installing Home-Manager.
-    asd
+8. First Time Login.
 
-9. Setting up the local copy of the dotfiles.
-    asd
+    Now that the system has been installed, you should be able to log in as the installed user. If you have any problems, try opening a TTY console with ```ctrl+alt+F3``` (or any F-key apart from ```F7``` as that is used for the GDM3 login screen), log in as root using the password set earlier and set the password for your user.
 
-10. Enjoy!
-    asd
+    ```bash
+    passwd YOUR_USERNAME 
+    ```
+
+    The gnome desktop should now reveal itself.
+
+9. Installing Home-Manager.
+
+    You may notice that a lot of the apps are missing and unthemed. This is because most of the user configuration is stored in home-manager instead of the core system configuration. This allows quick management of the system without a reboot and also allows nix configuration files to manage other apps like zsh, vim and vscode. To fix this, we need to install home-manager.
+
+    The simplest way to install home-manager is as a command-line app. This command installs the stable release to go along with the stable nixos version we installed.
+
+    ```bash
+    nix-channel --add https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz 
+    nix-channel --update
+    nix-shell '<home-manager>' -A install
+    ```
+
+    Now to install the custom profile.
+
+    ```bash
+    curl -LO https://github.com/headblockhead/dotfiles/archive/refs/heads/master.zip
+    unzip master.zip
+    cd dotfiles-master
+    cp ./root/home/headb/.config/nixpkgs/home.nix ~/.config/nixpkgs/home.nix
+    # Don't forget to update the copied home.nix with your own username and home folder, along with your own git username, email and gpg fingerprint.
+    home-manager switch
+    ```
+
+    But we haven't finished yet, it is time to make a proper dotfiles folder.
+
+10. Setting up the local copy of the dotfiles.
+
+    So far, we have set up the system configuration by downloading a zip of the repository and copying the contents. However, this is not a very effective way of managing nix configuration. A better method for managing config is to create (or clone) a git repository and symlink the appropriate files from the repository's folder. This allows easy revision and sharing of configuration without the hassle of copying files back and forth.
+
+    First, fork this git repository on github. Then clone your fork. I would recommend cloning it from your home directory so the path would be ```~/dotfiles```. Now the system has been installed, it will be much easier to clone using git instead of downloading a zip file.
+    ```bash
+    git clone git@github.com:your_github_username/dotfiles.git
+    cd dotfiles
+    ```
+
+    Then, copy the generated hardware-configuration.nix from ```/etc/nixos/hardware-configuration.nix``` to overwrite the one in the dotfiles folder.
+    ```bash
+    cp /etc/nixos/hardware-configuration.nix ./root/etc/nixos/hardware-configuration.nix
+    ```
+
+    Next, rename the folder named 'headb' to the name of your user.
+    ```bash
+    mv PATH_TO_YOUR_DOTFILES/root/home/headb PATH_TO_YOUR_DOTFILES/root/home/YOUR_USERNAME
+    ```
+
+    After that, overwrite the cloned repository's files with your customised ones
+    ```bash
+    cp /etc/nixos/configuration.nix PATH_TO_YOUR_DOTFILES/root/etc/nixos/configuration.nix 
+    cp ~/custom.zsh-theme PATH_TO_YOUR_DOTFILES/root/home/YOUR_USERNAME/custom.zsh-theme
+    cp ~/.config/nixpkgs/home.nix PATH_TO_YOUR_DOTFILES/root/home/YOUR_USERNAME/.config/nixpkgs/home.nix
+    ```
+
+    Now, symlink the files:
+    ```bash
+    ln -sf PATH_TO_YOUR_DOTFILES/root/etc/nixos/configuration.nix /etc/nixos/configuration.nix
+    ln -sf PATH_TO_YOUR_DOTFILES/root/home/YOUR_USERNAME/custom.zsh-theme ~/custom.zsh-theme
+    ln -sf PATH_TO_YOUR_DOTFILES/root/home/YOUR_USERNAME/.config/nixpkgs/home.nix ~/.config/nixpkgs/home.nix
+    ```
+
+    And enjoy your new system!

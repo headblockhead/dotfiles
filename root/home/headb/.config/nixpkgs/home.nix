@@ -100,7 +100,7 @@ in
       vim-lastplace
       vim-nix
       vim-go
-      cocnvim # defined from github
+      cocnvim # plugin defined from github
     ];
     extraConfig = ''
       " Dont try to be compatible with vi - be iMproved
@@ -151,7 +151,7 @@ in
       plugins = [ "aws" "git" ];
     };
     initExtra = ''
-      source /home/headb/custom.zsh-theme;
+      source ~/custom.zsh-theme;
       export PATH="$GOBIN:$PATH";
       export NIXPKGS_ALLOW_UNFREE=1;
     '';
