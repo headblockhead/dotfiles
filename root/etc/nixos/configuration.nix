@@ -22,6 +22,9 @@
     };
   };
 
+# Allow nix flakes
+nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Clear the tmp directory on boot.
   boot.cleanTmpDir = true;
 
