@@ -53,6 +53,7 @@ in
     #    pkgs.vscodium # non-proprietary version of vscode  
     pkgs.gnome.gnome-terminal
     pkgs.p7zip
+    pkgs.deja-dup
     pkgs.vlc
     pkgs.tinygo
     pkgs.gnumake
