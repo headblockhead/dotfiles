@@ -31,7 +31,12 @@ let
       sha256 = "TIkx/Sp9jnRd+3jokab91S5Mb3JV8yyz3wy7+UAd0A0=";
     };
   };
-
+  my-python-packages = python-packages: with python-packages; [
+    pandas
+    requests
+    pyautogui
+  ]; 
+  python-with-pyautogui = python3.withPackages my-python-packages;
 in
 {
   # Home Manager needs a bit of information about you and the
@@ -39,10 +44,10 @@ in
   home.username = "headb";
   home.homeDirectory = "/home/headb";
 
-
   # Packages for this user.
   home.packages = [
     #    pkgs.google-chrome
+    pkgs.minecraft
     pkgs.chromium # Needs chromium to manage chrome extensions
     pkgs.neofetch
     pkgs.cmatrix
@@ -58,6 +63,7 @@ in
     pkgs.tinygo
     pkgs.gnumake
     pkgs.nodejs
+    python-with-pyautogui # Defined above
     pkgs.oh-my-zsh
     pkgs.gopls # go language server
     pkgs.nodePackages.prettier # prettier formatter
@@ -195,7 +201,7 @@ in
       q = "exit";
       p = "gopass show -c -n";
       ns = "nix-shell -p";
-      code = "codium";
+      #code = "codium";
     };
   };
   programs.vscode = {
