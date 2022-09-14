@@ -111,6 +111,7 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
   fonts.fonts = with pkgs; [
     ibm-plex
     powerline
+    ubuntu_font_family
     siji
     unifont
     font-awesome

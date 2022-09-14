@@ -231,6 +231,12 @@ in
     # https://marketplace.visualstudio.com/vscode
     extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
+        name = "vim";
+        publisher = "vscodevim";
+        version = "1.23.2";
+        sha256 = "QC+5FJYjWsEaao1ifgMTJyg7vZ5JUbNNJiV+OuiIaM0=";
+      }
+      {
         name = "copilot";
         publisher = "GitHub";
         version = "1.43.6621";
