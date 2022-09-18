@@ -75,10 +75,6 @@ in
     pkgs.spotify
   ];
 
-  # Allow home-manager to start the X session.
-  xsession.enable = true;
-  xsession.windowManager.command = "…";
-
   # Configure installed packages
   # https://github.com/nix-community/home-manager/tree/master/modules/programs
   programs.git = {
@@ -230,12 +226,12 @@ in
     };
     # https://marketplace.visualstudio.com/vscode
     extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      {
-        name = "vim";
-        publisher = "vscodevim";
-        version = "1.23.2";
-        sha256 = "QC+5FJYjWsEaao1ifgMTJyg7vZ5JUbNNJiV+OuiIaM0=";
-      }
+#      {
+#        name = "vim";
+#        publisher = "vscodevim";
+#        version = "1.23.2";
+#        sha256 = "QC+5FJYjWsEaao1ifgMTJyg7vZ5JUbNNJiV+OuiIaM0=";
+#      }
       {
         name = "copilot";
         publisher = "GitHub";
