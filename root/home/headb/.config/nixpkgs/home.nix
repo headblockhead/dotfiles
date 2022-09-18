@@ -73,6 +73,7 @@ in
     pkgs.gimp
     pkgs.tinygo
     pkgs.spotify
+    pkgs.thunderbird
   ];
 
   # Configure installed packages
