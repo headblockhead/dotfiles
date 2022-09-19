@@ -52,6 +52,7 @@
 
   # Printing support.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplip ];
 
   # Touchpad support.
   services.xserver.libinput.enable = true;

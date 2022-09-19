@@ -74,6 +74,7 @@ in
     pkgs.tinygo
     pkgs.spotify
     pkgs.thunderbird
+    pkgs.libreoffice
   ];
 
   # Configure installed packages
