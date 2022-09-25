@@ -46,9 +46,11 @@ in
 
   # Packages for this user.
   home.packages = [
-    #    pkgs.google-chrome
+    pkgs.google-chrome
     pkgs.minecraft
-    pkgs.chromium # Needs chromium to manage chrome extensions
+    pkgs.cura
+#    pkgs.unityhub
+#    pkgs.chromium # Needs chromium to manage chrome extensions
     pkgs.neofetch
     pkgs.cmatrix
     pkgs.gopass
@@ -75,6 +77,7 @@ in
     pkgs.spotify
     pkgs.thunderbird
     pkgs.libreoffice
+    pkgs.hugo
   ];
 
   # Configure installed packages
@@ -215,7 +218,7 @@ in
       "workbench.iconTheme" = "material-icon-theme";
       "workbench.productIconTheme" = "material-product-icons";
       "editor.formatOnSave" = true;
-      "terminal.integrated.fontFamily" = "'fontawesome'";
+      "terminal.integrated.fontFamily" = "fontawesome";
       "terminal.integrated.fontSize" = 16;
       "editor.formatOnPaste" = true;
       "terminal.integrated.allowChords" = false;
@@ -225,9 +228,30 @@ in
       "editor.inlineSuggest.enabled" = true;
       "security.workspace.trust.enabled" = true;
       "security.workspace.trust.untrustedFiles" = "open";
+    "playdate.source" = "source";
+    "playdate.output" = "builds/out.pdx";
+    "Lua.runtime.version" = "Lua 5.4";
+    "Lua.diagnostics.globals"= [ "playdate" "import" ];
+    "Lua.diagnostics.disable" = [ "undefined-global" "lowercase-global" ];
+    "Lua.runtime.nonstandardSymbol" = [ "+=" "-=" "*=" "/=" ];
+    "Lua.workspace.library" = ["/home/headb/playdate_sdk-1.12.3/CoreLibs"];
+    "Lua.workspace.preloadFileSize" = 1000;
     };
     # https://marketplace.visualstudio.com/vscode
     extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "lua";
+        publisher = "sumneko";
+        version = "3.5.6";
+        sha256 = "Unzs9rX/0MlQprSvScdBCCFMeLCaGzWsMbcFqSKY2XY=";
+      }
+      {
+        name = "lua-plus";
+        publisher = "jep-a";
+        version = "1.1.1";
+        sha256 = "wuZaVYemm05AFIJyBqhKEJxiwkeYHHuQN8+ARqq35OE=";
+      }
+
 #      {
 #        name = "vim";
 #        publisher = "vscodevim";

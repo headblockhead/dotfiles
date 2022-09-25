@@ -34,6 +34,7 @@
   # Networking settings.
   networking.hostName = "edwards-laptop";
   networking.networkmanager.enable = true;
+  networking.nameservers = [ "192.168.155.222" "1.1.1.1" ];
 
   # Localisation.
   time.timeZone = "Europe/London";
