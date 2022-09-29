@@ -205,3 +205,12 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     ```
 
     And enjoy your new system!
+
+11. Aditional Setup
+    
+    Set up OneDrive support:
+    ```bash
+    onedrive --confdir=$HOME/.config/onedrive-0
+    systemctl --user enable onedrive@onedrive-0.service
+    systemctl --user start onedrive@onedrive-0.service
+    ```

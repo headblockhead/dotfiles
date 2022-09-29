@@ -46,6 +46,7 @@ in
 
   # Packages for this user.
   home.packages = [
+    pkgs.onedrive
     pkgs.google-chrome
     pkgs.minecraft
     pkgs.cura
