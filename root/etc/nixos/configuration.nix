@@ -22,10 +22,6 @@
     };
   };
 
-  # Syncronise a OneDrive folder
-  # https://nixos.wiki/wiki/OneDrive
-  services.onedrive.enable = true;
-
   # Allow nix flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 

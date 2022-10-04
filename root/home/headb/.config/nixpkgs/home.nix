@@ -46,6 +46,8 @@ in
 
   # Packages for this user.
   home.packages = [
+    pkgs.picotool
+    pkgs.platformio
     pkgs.onedrive
     pkgs.google-chrome
     pkgs.minecraft
@@ -237,9 +239,16 @@ in
     "Lua.runtime.nonstandardSymbol" = [ "+=" "-=" "*=" "/=" ];
     "Lua.workspace.library" = ["/home/headb/playdate_sdk-1.12.3/CoreLibs"];
     "Lua.workspace.preloadFileSize" = 1000;
+    "platformio-ide.useBuiltinPIOCore" = false;
     };
     # https://marketplace.visualstudio.com/vscode
     extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "platformio-ide";
+        publisher = "platformio";
+        version = "2.5.4";
+        sha256 = "KbXlegQSLjMCVotR1mU/CDiaQMKLLSX+nnbRJgdFTz8=";
+      }
       {
         name = "lua";
         publisher = "sumneko";
