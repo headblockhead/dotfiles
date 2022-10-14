@@ -44,43 +44,49 @@ in
   home.username = "headb";
   home.homeDirectory = "/home/headb";
 
+  # Allow ObinsKit to use outdated software.
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-13.6.9"
+  ];
+
   # Packages for this user.
   home.packages = [
-    pkgs.picotool
-    pkgs.platformio
-    pkgs.onedrive
-    pkgs.google-chrome
-    pkgs.minecraft
-    pkgs.cura
-#    pkgs.unityhub
-#    pkgs.chromium # Needs chromium to manage chrome extensions
-    pkgs.neofetch
-    pkgs.cmatrix
-    pkgs.gopass
-    pkgs.gh
-    pkgs.go
-    pkgs.vscode
-    #    pkgs.vscodium # non-proprietary version of vscode  
-    pkgs.gnome.gnome-terminal
-    pkgs.p7zip
-    pkgs.deja-dup
-    pkgs.vlc
-    pkgs.tinygo
-    pkgs.gnumake
-    pkgs.nodejs
     python-with-pyautogui # Defined above
-    pkgs.oh-my-zsh
-    pkgs.gopls # go language server
-    pkgs.nodePackages.prettier # prettier formatter
-    pkgs.nixpkgs-fmt # vscode formattings
-    pkgs.gnomeExtensions.dash-to-panel
-    pkgs.kdenlive
-    pkgs.gimp
-    pkgs.tinygo
-    pkgs.spotify
-    pkgs.thunderbird
-    pkgs.libreoffice
-    pkgs.hugo
+#    pkgs.chromium # Needed to manage chrome extensions - normal chrome does not allow extention control.
+#    pkgs.zoom-us # Plague
+#    pkgs.vscodium # Non-proprietary version of vscode
+#    pkgs.gnomeExtensions.dash-to-panel # Extention to pretend you want a taskbar
+    pkgs.obs-studio # Streaming and recording software
+    pkgs.asciinema # Terminal recorder
+    pkgs.onedrive # Cloud storage from school
+    pkgs.google-chrome # Web Browser
+    pkgs.minecraft # Block Game
+    pkgs.cura # 3D Printing Slicer
+    pkgs.unityhub # Game-making tool - Launcher for Unity
+    pkgs.neofetch # System show-off tool
+    pkgs.cmatrix # Pretend you are in The Matrix
+    pkgs.gopass # Password manager
+    pkgs.gh # GitHub command-line tool
+    pkgs.go # Go programming language compiler
+    pkgs.vscode # Code editor
+    pkgs.gnome.gnome-terminal # Customisable terminal - not in the default installation of gnome
+    pkgs.p7zip # 7zip compression and extraction tool.
+    pkgs.deja-dup # Backup software
+    pkgs.vlc # Video and audio player
+    pkgs.tinygo # Go programming language complier but for small places
+    pkgs.gnumake # Runs Makefiles
+    pkgs.nodejs # Javascript stuff
+    pkgs.oh-my-zsh # ZSH customiser
+    pkgs.gopls # Go programming language formatting tools
+    pkgs.nodePackages.prettier # Code tidier
+    pkgs.nixpkgs-fmt # Nix formatting tools
+    pkgs.kdenlive # Video editing software
+    pkgs.gimp # Image editing software
+    pkgs.spotify # Desktop music player
+    pkgs.thunderbird # Email client
+    pkgs.libreoffice # Microsoft Office alternative for Linux
+    pkgs.hugo # Website builder written in Go
+    pkgs.obinskit # Anne Pro keyboard configurer - has to be run with 'sudo $(which obinskit) --no-sandbox' to interface with keyboard.
   ];
 
   # Configure installed packages
@@ -204,6 +210,7 @@ in
     shellAliases = {
       q = "exit";
       p = "gopass show -c -n";
+      obinskit = "pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ~/.nix-profile/bin/obinskit --no-sandbox"; # ObinsKit has to be run without sandbox to interface with keyboard.
       ns = "nix-shell -p";
       #code = "codium";
     };
@@ -240,6 +247,7 @@ in
     "Lua.workspace.library" = ["/home/headb/playdate_sdk-1.12.3/CoreLibs"];
     "Lua.workspace.preloadFileSize" = 1000;
     "platformio-ide.useBuiltinPIOCore" = false;
+    "github.copilot.enable" = {"*" = true;"yaml" = false;"plaintext" = true;"markdown" = true;};
     };
     # https://marketplace.visualstudio.com/vscode
     extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
@@ -253,7 +261,7 @@ in
         name = "lua";
         publisher = "sumneko";
         version = "3.5.6";
-        sha256 = "Unzs9rX/0MlQprSvScdBCCFMeLCaGzWsMbcFqSKY2XY=";
+        sha256 = "ZJsuYe74lsF1gcqyKCFqD+KlcX3tNgWu6tGOJfq4H6c=";
       }
       {
         name = "lua-plus";
@@ -313,8 +321,8 @@ in
       {
         name = "cpptools";
         publisher = "ms-vscode";
-        version = "1.12.4";
-        sha256 = "3DJmlyQuwj40YJKqyXfHMBnaR4KjZ5n2Rje5Cx7QRIw=";
+        version = "1.13.2";
+        sha256 = "c45grknJPcIICYhDWH+dwr1XsCsshxTJFGHYZPHrCQs=";
       }
       {
         name = "gitlens";
