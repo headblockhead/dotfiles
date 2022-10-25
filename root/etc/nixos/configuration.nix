@@ -30,6 +30,8 @@
 
   # Allow proprietary packages.
   nixpkgs.config.allowUnfree = true;
+  # Allow packages that are broken.
+  nixpkgs.config.allowBroken = true;
 
   # Networking settings.
   networking.hostName = "edwards-laptop";
@@ -58,17 +60,25 @@
   # Touchpad support.
   services.xserver.libinput.enable = true;
 
+  # Enable virtualisation with virtualbox.
+  virtualisation.virtualbox.host.enable = true;
+  # VirtualBox Oracle Extensions
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+  # VirtualBox Guest Additions
+  virtualisation.virtualbox.guest.enable = true;
+  virtualisation.virtualbox.guest.x11 = true;
+
   # Define users. Passwords need to be defined manually using passwd. This config will not set passwords.
   users = {
     defaultUserShell = pkgs.zsh;
     users = {
       headb = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" "docker" "dialout" ];
+        extraGroups = [ "wheel" "networkmanager" "docker" "dialout" "vboxusers" ];
       };
     };
   };
-  # Global system packages.
+  # Global system packages - available to all users.
   environment.systemPackages = with pkgs; [
     neovim
     git
@@ -76,27 +86,21 @@
     gnupg
     pinentry
     docker
-    gnome.gnome-boxes
   ];
 
   services.pcscd.enable = true;
   programs.gnupg.agent = {
     enable = true;
-#    pinentryFlavor = "curses"; # works in console interactive only, not good with vscode
-    pinentryFlavor = "gtk2";
+#    pinentryFlavor = "curses"; # works in console interactive only, does not work with vscode
+    pinentryFlavor = "gtk2"; # creates a GUI window always, works with vscode
     enableSSHSupport = true;
   };
 
   # ZSH autocomplete
   programs.zsh.enable = true;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  # Network diagnostic tool.
+  programs.mtr.enable = true;
 
   # SSH login support.
   services.openssh.enable = true;

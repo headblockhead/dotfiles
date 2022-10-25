@@ -56,6 +56,10 @@ in
 #    pkgs.zoom-us # Plague
 #    pkgs.vscodium # Non-proprietary version of vscode
 #    pkgs.gnomeExtensions.dash-to-panel # Extention to pretend you want a taskbar
+    pkgs.nixfmt
+    pkgs.ngrok
+    pkgs.awscli2
+    pkgs.musescore
     pkgs.obs-studio # Streaming and recording software
     pkgs.asciinema # Terminal recorder
     pkgs.onedrive # Cloud storage from school
@@ -411,7 +415,7 @@ in
       boldIsBright = false;
       deleteBinding = "delete-sequence";
       audibleBell = false;
-      transparencyPercent = 0;
+      transparencyPercent = 80;
     };
   };
   # This value determines the Home Manager release that your
