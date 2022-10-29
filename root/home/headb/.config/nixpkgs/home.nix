@@ -31,35 +31,33 @@ let
       sha256 = "TIkx/Sp9jnRd+3jokab91S5Mb3JV8yyz3wy7+UAd0A0=";
     };
   };
-  my-python-packages = python-packages: with python-packages; [
-    pandas
-    requests
-    pyautogui
-  ]; 
+  my-python-packages = python-packages:
+    with python-packages; [
+      pandas
+      requests
+      pyautogui
+    ];
   python-with-pyautogui = python3.withPackages my-python-packages;
-in
-{
+in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "headb";
   home.homeDirectory = "/home/headb";
 
-  # Allow ObinsKit to use outdated software.
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-13.6.9"
-  ];
+  # Allow ObinsKit to use outdated packages.
+  nixpkgs.config.permittedInsecurePackages = [ "electron-13.6.9" ];
 
   # Packages for this user.
   home.packages = [
     python-with-pyautogui # Defined above
-#    pkgs.chromium # Needed to manage chrome extensions - normal chrome does not allow extention control.
-#    pkgs.zoom-us # Plague
-#    pkgs.vscodium # Non-proprietary version of vscode
-#    pkgs.gnomeExtensions.dash-to-panel # Extention to pretend you want a taskbar
-    pkgs.nixfmt
-    pkgs.ngrok
-    pkgs.awscli2
-    pkgs.musescore
+    #    pkgs.zoom-us # Video conferencing platform - not enabled in order to reduce invasive software.
+    pkgs.lm_sensors # a program to read the temperature of the components and speed of the fans.
+    pkgs.blender # 3D program
+    pkgs.transgui # a GUI for managing the Transmission bittorrent client.
+    pkgs.nixfmt # a command line tool to fix ugly .nix files
+    pkgs.ngrok # share local server remotely
+    pkgs.awscli2 # aws command line utility
+    pkgs.musescore # music notation software
     pkgs.obs-studio # Streaming and recording software
     pkgs.asciinema # Terminal recorder
     pkgs.onedrive # Cloud storage from school
@@ -89,7 +87,7 @@ in
     pkgs.spotify # Desktop music player
     pkgs.thunderbird # Email client
     pkgs.libreoffice # Microsoft Office alternative for Linux
-    pkgs.hugo # Website builder written in Go
+    pkgs.hugo # Static site generator written in Go
     pkgs.obinskit # Anne Pro keyboard configurer - has to be run with 'sudo $(which obinskit) --no-sandbox' to interface with keyboard.
   ];
 
@@ -104,9 +102,7 @@ in
       gpgPath = "/run/current-system/sw/bin/gpg2";
       signByDefault = true;
     };
-    extraConfig = {
-      pull.rebase = false;
-    };
+    extraConfig = { pull.rebase = false; };
   };
   programs.neovim = {
     enable = true;
@@ -214,7 +210,8 @@ in
     shellAliases = {
       q = "exit";
       p = "gopass show -c -n";
-      obinskit = "pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ~/.nix-profile/bin/obinskit --no-sandbox"; # ObinsKit has to be run without sandbox to interface with keyboard.
+      obinskit =
+        "pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ~/.nix-profile/bin/obinskit --no-sandbox"; # ObinsKit has to be run without sandbox to interface with keyboard.
       ns = "nix-shell -p";
       #code = "codium";
     };
@@ -242,16 +239,21 @@ in
       "editor.inlineSuggest.enabled" = true;
       "security.workspace.trust.enabled" = true;
       "security.workspace.trust.untrustedFiles" = "open";
-    "playdate.source" = "source";
-    "playdate.output" = "builds/out.pdx";
-    "Lua.runtime.version" = "Lua 5.4";
-    "Lua.diagnostics.globals"= [ "playdate" "import" ];
-    "Lua.diagnostics.disable" = [ "undefined-global" "lowercase-global" ];
-    "Lua.runtime.nonstandardSymbol" = [ "+=" "-=" "*=" "/=" ];
-    "Lua.workspace.library" = ["/home/headb/playdate_sdk-1.12.3/CoreLibs"];
-    "Lua.workspace.preloadFileSize" = 1000;
-    "platformio-ide.useBuiltinPIOCore" = false;
-    "github.copilot.enable" = {"*" = true;"yaml" = false;"plaintext" = true;"markdown" = true;};
+      "playdate.source" = "source";
+      "playdate.output" = "builds/out.pdx";
+      "Lua.runtime.version" = "Lua 5.4";
+      "Lua.diagnostics.globals" = [ "playdate" "import" ];
+      "Lua.diagnostics.disable" = [ "undefined-global" "lowercase-global" ];
+      "Lua.runtime.nonstandardSymbol" = [ "+=" "-=" "*=" "/=" ];
+      "Lua.workspace.library" = [ "/home/headb/playdate_sdk-1.12.3/CoreLibs" ];
+      "Lua.workspace.preloadFileSize" = 1000;
+      "platformio-ide.useBuiltinPIOCore" = false;
+      "github.copilot.enable" = {
+        "*" = true;
+        "yaml" = false;
+        "plaintext" = true;
+        "markdown" = true;
+      };
     };
     # https://marketplace.visualstudio.com/vscode
     extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
@@ -274,12 +276,12 @@ in
         sha256 = "wuZaVYemm05AFIJyBqhKEJxiwkeYHHuQN8+ARqq35OE=";
       }
 
-#      {
-#        name = "vim";
-#        publisher = "vscodevim";
-#        version = "1.23.2";
-#        sha256 = "QC+5FJYjWsEaao1ifgMTJyg7vZ5JUbNNJiV+OuiIaM0=";
-#      }
+      #      {
+      #        name = "vim";
+      #        publisher = "vscodevim";
+      #        version = "1.23.2";
+      #        sha256 = "QC+5FJYjWsEaao1ifgMTJyg7vZ5JUbNNJiV+OuiIaM0=";
+      #      }
       {
         name = "copilot";
         publisher = "GitHub";
