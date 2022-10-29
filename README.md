@@ -124,7 +124,7 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     Then, copy the system config to the new system. If you want to make any major changes before the install (such as changing the username), now is the time to do that.
 
     ```bash
-    cp ./root/etc/nixos/configuration.nix /mnt/etc/nixos/configuration.nix
+    cp ./edwards-laptop/root/etc/nixos/configuration.nix /mnt/etc/nixos/configuration.nix
     ```
 
     Finally, install the system, set the root password (this is prompted at the end of nixos-install) and reboot
@@ -163,7 +163,7 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     curl -LO https://github.com/headblockhead/dotfiles/archive/refs/heads/master.zip
     unzip master.zip
     cd dotfiles-master
-    cp ./root/home/headb/.config/nixpkgs/home.nix ~/.config/nixpkgs/home.nix
+    cp ./edwards-laptop/root/home/headb/.config/nixpkgs/home.nix ~/.config/nixpkgs/home.nix
     # Don't forget to update the copied home.nix with your own username and home folder, along with your own git username, email and gpg fingerprint.
     home-manager switch
     ```
@@ -182,26 +182,27 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
 
     Then, copy the generated hardware-configuration.nix from ```/etc/nixos/hardware-configuration.nix``` to overwrite the one in the dotfiles folder.
     ```bash
-    cp /etc/nixos/hardware-configuration.nix ./root/etc/nixos/hardware-configuration.nix
+    cp /etc/nixos/hardware-configuration.nix ./edwards-laptop/root/etc/nixos/hardware-configuration.nix
     ```
 
     Next, rename the folder named 'headb' to the name of your user.
     ```bash
-    mv PATH_TO_YOUR_DOTFILES/root/home/headb PATH_TO_YOUR_DOTFILES/root/home/YOUR_USERNAME
+    mv PATH_TO_YOUR_DOTFILES/edwards-laptop/root/home/headb PATH_TO_YOUR_DOTFILES/edwards-laptop/root/home/YOUR_USERNAME
+    mv PATH_TO_YOUR_DOTFILES/edwards-laptop/root/home/YOUR_USERNAME PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME
     ```
 
     After that, overwrite the cloned repository's files with your customised ones
     ```bash
-    cp /etc/nixos/configuration.nix PATH_TO_YOUR_DOTFILES/root/etc/nixos/configuration.nix 
-    cp ~/custom.zsh-theme PATH_TO_YOUR_DOTFILES/root/home/YOUR_USERNAME/custom.zsh-theme
-    cp ~/.config/nixpkgs/home.nix PATH_TO_YOUR_DOTFILES/root/home/YOUR_USERNAME/.config/nixpkgs/home.nix
+    cp /etc/nixos/configuration.nix PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/etc/nixos/configuration.nix 
+    cp ~/custom.zsh-theme PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/custom.zsh-theme
+    cp ~/.config/nixpkgs/home.nix PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/.config/nixpkgs/home.nix
     ```
 
     Now, symlink the files:
     ```bash
-    ln -sf PATH_TO_YOUR_DOTFILES/root/etc/nixos/configuration.nix /etc/nixos/configuration.nix
-    ln -sf PATH_TO_YOUR_DOTFILES/root/home/YOUR_USERNAME/custom.zsh-theme ~/custom.zsh-theme
-    ln -sf PATH_TO_YOUR_DOTFILES/root/home/YOUR_USERNAME/.config/nixpkgs/home.nix ~/.config/nixpkgs/home.nix
+    ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/etc/nixos/configuration.nix /etc/nixos/configuration.nix
+    ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/custom.zsh-theme ~/custom.zsh-theme
+    ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/.config/nixpkgs/home.nix ~/.config/nixpkgs/home.nix
     ```
 
     And enjoy your new system!
