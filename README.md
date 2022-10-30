@@ -2,6 +2,10 @@
 
 Reproducable configuration for nixos.
 
+## New addition - Keyboard configuration!
+
+I have installed QMK on my keyboard so I decided to publish my configuration here. You can find it [in the annepro2-qmk folder](annepro2-qmk/)
+
 ## What does it look like?
 
 Chromium, zsh and vim theming            |  VSCode extentions and theming | Gnome desktop 
@@ -202,7 +206,8 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     ```bash
     ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/etc/nixos/configuration.nix /etc/nixos/configuration.nix
     ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/custom.zsh-theme ~/custom.zsh-theme
-    ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/.config/nixpkgs/home.nix ~/.config/nixpkgs/home.nix
+    rm -r ~/.config/nixpkgs/
+    ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/.config/nixpkgs/ ~/.config/
     ```
 
     And enjoy your new system!

@@ -49,6 +49,7 @@
     package = pkgs.pulseaudioFull;
   };
   sound.enable = true;
+  security.rtkit.enable = true;
 
   # Printing support.
   services.printing.enable = true;
@@ -178,7 +179,11 @@
       vinagre # remote desktop viewer
       accerciser # accsesibility tester
       gnome-books # e-book viewer
-    ]);
+    ]
+  );
+
+  # Do not enable gnome remote desktop - it enables pipewire which can cause memory leaks.
+  services.gnome.gnome-remote-desktop.enable = false;
 
   # Add gnome udev rules.
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];

@@ -50,8 +50,9 @@ in {
   # Packages for this user.
   home.packages = [
     python-with-pyautogui # Defined above
-    #    pkgs.zoom-us # Video conferencing platform - not enabled in order to reduce invasive software.
-    pkgs.lm_sensors # a program to read the temperature of the components and speed of the fans.
+    pkgs.cargo # Rust programming language package manager
+    pkgs.rustc # Rust programming language compiler
+    pkgs.zoom-us # Video conferencing platform
     pkgs.blender # 3D program
     pkgs.transgui # a GUI for managing the Transmission bittorrent client.
     pkgs.nixfmt # a command line tool to fix ugly .nix files
@@ -384,17 +385,6 @@ in {
         version = "0.1.23";
         sha256 = "64gwwajfgniVzJqgVLK9b8PfkNG5mk1W+qewKL7Dv0Q=";
       }
-    ];
-  };
-  programs.chromium = {
-    enable = true;
-    extensions = [
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
-      "fpnmgdkabkmnadcjpehmlllkndpkmiak" # wayback archiver
-      "mefhakmgclhhfbdadeojlkbllmecialg" # cat new tab page
-      "ljeonhoonibcofjepiphcekbihoiaife" # shades of purple theme
-      "mnjggcdmjocbbbhaepdhchncahnbgone" # youtube sponsor block
-      "amaaokahonnfjjemodnpmeenfpnnbkco" # codegrepper
     ];
   };
   programs.gnome-terminal = {
