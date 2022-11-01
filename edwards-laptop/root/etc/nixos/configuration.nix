@@ -27,8 +27,6 @@
 
   # Allow proprietary packages.
   nixpkgs.config.allowUnfree = true;
-  # Allow packages that are broken.
-  nixpkgs.config.allowBroken = true;
 
   # Networking settings.
   networking.hostName = "edwards-laptop";
@@ -178,7 +176,6 @@
       gnome-weather # weather viewer
       vinagre # remote desktop viewer
       accerciser # accsesibility tester
-      gnome-books # e-book viewer
     ]
   );
 
