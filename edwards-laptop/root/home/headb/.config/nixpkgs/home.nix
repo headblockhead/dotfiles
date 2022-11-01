@@ -89,7 +89,6 @@ in {
     pkgs.thunderbird # Email client
     pkgs.libreoffice # Microsoft Office alternative for Linux
     pkgs.hugo # Static site generator written in Go
-    pkgs.obinskit # Anne Pro keyboard configurer - has to be run with 'sudo $(which obinskit) --no-sandbox' to interface with keyboard.
   ];
 
   # Configure installed packages
@@ -211,8 +210,6 @@ in {
     shellAliases = {
       q = "exit";
       p = "gopass show -c -n";
-      obinskit =
-        "pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY ~/.nix-profile/bin/obinskit --no-sandbox"; # ObinsKit has to be run without sandbox to interface with keyboard.
       ns = "nix-shell -p";
       #code = "codium";
     };
