@@ -245,7 +245,6 @@ in {
       "Lua.runtime.nonstandardSymbol" = [ "+=" "-=" "*=" "/=" ];
       "Lua.workspace.library" = [ "/home/headb/playdate_sdk-1.12.3/CoreLibs" ];
       "Lua.workspace.preloadFileSize" = 1000;
-      "platformio-ide.useBuiltinPIOCore" = false;
       "github.copilot.enable" = {
         "*" = true;
         "yaml" = false;
@@ -256,53 +255,28 @@ in {
     # https://marketplace.visualstudio.com/vscode
     extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
-        name = "platformio-ide";
-        publisher = "platformio";
-        version = "2.5.4";
-        sha256 = "KbXlegQSLjMCVotR1mU/CDiaQMKLLSX+nnbRJgdFTz8=";
-      }
-      {
-        name = "lua";
-        publisher = "sumneko";
-        version = "3.5.6";
-        sha256 = "ZJsuYe74lsF1gcqyKCFqD+KlcX3tNgWu6tGOJfq4H6c=";
-      }
-      {
-        name = "lua-plus";
-        publisher = "jep-a";
-        version = "1.1.1";
-        sha256 = "wuZaVYemm05AFIJyBqhKEJxiwkeYHHuQN8+ARqq35OE=";
-      }
-
-      #      {
-      #        name = "vim";
-      #        publisher = "vscodevim";
-      #        version = "1.23.2";
-      #        sha256 = "QC+5FJYjWsEaao1ifgMTJyg7vZ5JUbNNJiV+OuiIaM0=";
-      #      }
-      {
         name = "copilot";
         publisher = "GitHub";
-        version = "1.43.6621";
-        sha256 = "JrD0t8wSvz8Z1j6n0wfkG6pfIjt2DNZmfAbaLdj8olQ=";
+        version = "1.57.7193";
+        sha256 = "DdR5RqkJWlJvAhY7Rs51GDo+blBAMYmzGaoplHn3vso=";
       }
       {
         name = "shades-of-purple";
         publisher = "ahmadawais";
-        version = "6.13.0";
-        sha256 = "DcrLeI7k1ZDX9idL8J5nk2OvtT3gW2t067nkAe9EeQY=";
+        version = "7.1.5";
+        sha256 = "FdMCmSMB3HOrqBt111kCrqFLT0VnymEfmWiuSR/buvc=";
       }
       {
         name = "material-icon-theme";
         publisher = "PKief";
-        version = "4.20.0";
-        sha256 = "OfFN//lnRPouREucEJKpKfXcyCN/nnZtH5oD23B4YX0=";
+        version = "4.21.0";
+        sha256 = "EwJ4zGDdEak9fBAnn5pfuAU/+ONYWzl7Q6OMyc6mcZU=";
       }
       {
         name = "material-product-icons";
         publisher = "PKief";
-        version = "1.4.0";
-        sha256 = "cPH6IgQePfhfVpiEXusAXmNo2+owZW1k+5poJyxlbz8=";
+        version = "1.4.1";
+        sha256 = "CXhnfrIMmqTXXoxtJ5VgDdZxcs7ERuGUrNHXjMQMweE=";
       }
       {
         name = "Go";
@@ -311,46 +285,22 @@ in {
         sha256 = "YQPKB6dtIwmghw1VnYu+9krVICV2gm7Vq1FRq7lJbto=";
       }
       {
-        name = "vscode-docker";
-        publisher = "ms-azuretools";
-        version = "1.22.1";
-        sha256 = "okR1mmwg1ZEUfP924LTa98LxCenwDZ1BIS/FLt0wo8c=";
-      }
-      {
-        name = "python";
-        publisher = "ms-python";
-        version = "2022.15.12451011";
-        sha256 = "zO7L2we37bbn5i/vVhNoxUgMeY5WaPVS895wK8UbT2Q=";
-      }
-      {
         name = "cpptools";
         publisher = "ms-vscode";
-        version = "1.13.2";
-        sha256 = "c45grknJPcIICYhDWH+dwr1XsCsshxTJFGHYZPHrCQs=";
+        version = "1.13.3";
+        sha256 = "BxBOFlkRrk+QOba5BaNiRnkfJlHMMU61bBC6g4WcZmQ=";
       }
       {
         name = "gitlens";
         publisher = "eamodio";
-        version = "2022.8.3105";
-        sha256 = "3MyPCTZGD6axHvMd8yi9JWjviMdflbF7WhBIA2JXXYU=";
-      }
-      {
-        name = "remote-containers";
-        publisher = "ms-vscode-remote";
-        version = "0.252.0";
-        sha256 = "pXd2IjbRwYgUAGVIMLE9mQwR8mG/x0MoMfK8zVh3Mvs=";
+        version = "2022.11.405";
+        sha256 = "01cN6PqE4g/jOWXUuWScS5qZzMmFN/70SPAVLHHsejQ=";
       }
       {
         name = "auto-rename-tag";
         publisher = "formulahendry";
         version = "0.1.10";
         sha256 = "uXqWebxnDwaUVLFG6MUh4bZ7jw5d2rTHRm5NoR2n0Vs=";
-      }
-      {
-        name = "vsliveshare";
-        publisher = "MS-vsliveshare";
-        version = "1.0.5705";
-        sha256 = "4Tv97WqrFSk7Mtcq6vF0NnsggVj9HPKFV+GKgX15ogM=";
       }
       {
         name = "path-intellisense";
@@ -375,12 +325,6 @@ in {
         publisher = "2gua";
         version = "0.0.6";
         sha256 = "TVBvF/5KQVvWX1uHwZDlmvwGjOO5/lXbgVzB26U8rNQ=";
-      }
-      {
-        name = "nix-ide";
-        publisher = "jnoortheen";
-        version = "0.1.23";
-        sha256 = "64gwwajfgniVzJqgVLK9b8PfkNG5mk1W+qewKL7Dv0Q=";
       }
     ];
   };
