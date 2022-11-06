@@ -67,10 +67,10 @@
   # Enable virtualisation with docker.
   virtualisation.docker.enable = true;
 
-  # Run the Sheepit Renderfarm client on startup.
+  # Sheepit Renderfarm is a blender renderfarm service. This image allows you to render other people's projects to earn points.
   virtualisation.oci-containers.containers.sheepit = {
     image = "sheepitrenderfarm/client:text";
-    autoStart = true;
+    autoStart = false; # Only run when I ask. Do not start automatically.
     environment = {
       SHEEP_LOGIN = "headblockhead";
       SHEEP_PASSWORD =
