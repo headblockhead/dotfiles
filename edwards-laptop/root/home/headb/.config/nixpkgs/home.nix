@@ -227,8 +227,9 @@ in {
       "workbench.iconTheme" = "material-icon-theme";
       "workbench.productIconTheme" = "material-product-icons";
       "editor.formatOnSave" = true;
-      "terminal.integrated.fontFamily" = "fontawesome";
+      "terminal.integrated.fontFamily" = "Source Code Pro";
       "terminal.integrated.fontSize" = 16;
+      "terminal.integrated.minimumContrastRatio" = 1;
       "editor.formatOnPaste" = true;
       "terminal.integrated.allowChords" = false;
       "terminal.integrated.altClickMovesCursor" = false;

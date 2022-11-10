@@ -15,7 +15,6 @@
 CURRENT_BG='NONE'
 
 case ${SOLARIZED_THEME:-dark} in
-    light) CURRENT_FG='white';;
     *)     CURRENT_FG='black';;
 esac
 
