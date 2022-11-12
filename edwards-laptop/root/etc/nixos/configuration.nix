@@ -12,20 +12,18 @@
   # Use the GRUB bootloader.
   boot = {
     loader = {
-      efi = { 
-       canTouchEfiVariables = true; 
+      efi = {
+        canTouchEfiVariables = true;
         efiSysMountPoint = "/boot/EFI";
       };
       grub = {
-       enable = true;
+        enable = true;
         efiSupport = true;
         device = "nodev";
       };
     };
- # Enable plymouth for boot animations
-  plymouth = {
-    enable = true;
-  };
+    # Enable plymouth for boot animations
+    plymouth = { enable = true; };
     # Silent Boot
     # https://wiki.archlinux.org/title/Silent_boot
     kernelParams = [
@@ -37,9 +35,7 @@
       "udev.log_priority=3"
     ];
     consoleLogLevel = 0;
-    initrd = {
-      verbose = false;
-    };
+    initrd = { verbose = false; };
   };
 
   # Allow nix flakes
@@ -102,13 +98,8 @@
     users = {
       headb = {
         isNormalUser = true;
-        extraGroups = [
-          "wheel"
-          "networkmanager"
-          "docker"
-          "dialout"
-          "transmission"
-        ];
+        extraGroups =
+          [ "wheel" "networkmanager" "docker" "dialout" "transmission" ];
       };
     };
   };
@@ -190,8 +181,7 @@
       gnome-weather # weather viewer
       vinagre # remote desktop viewer
       accerciser # accsesibility tester
-    ]
-  );
+    ]);
 
   # Do not enable gnome remote desktop - it enables pipewire which can cause memory leaks.
   services.gnome.gnome-remote-desktop.enable = false;
