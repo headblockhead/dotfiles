@@ -10,12 +10,35 @@
   imports = [ ./hardware-configuration.nix ];
 
   # Use the GRUB bootloader.
-  boot.loader = {
-    efi = { canTouchEfiVariables = true; };
-    grub = {
-      enable = true;
-      efiSupport = true;
-      device = "nodev";
+  boot = {
+    loader = {
+      efi = { 
+       canTouchEfiVariables = true; 
+        efiSysMountPoint = "/boot/EFI";
+      };
+      grub = {
+       enable = true;
+        efiSupport = true;
+        device = "nodev";
+      };
+    };
+ # Enable plymouth for boot animations
+  plymouth = {
+    enable = true;
+  };
+    # Silent Boot
+    # https://wiki.archlinux.org/title/Silent_boot
+    kernelParams = [
+      "quiet"
+      "splash"
+      "vga=current"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+    ];
+    consoleLogLevel = 0;
+    initrd = {
+      verbose = false;
     };
   };
 
@@ -56,14 +79,6 @@
   # Touchpad support.
   services.xserver.libinput.enable = true;
 
-  # Enable virtualisation with virtualbox.
-  virtualisation.virtualbox.host.enable = true;
-  # VirtualBox Oracle Extensions
-  virtualisation.virtualbox.host.enableExtensionPack = true;
-  # VirtualBox Guest Additions
-  virtualisation.virtualbox.guest.enable = true;
-  virtualisation.virtualbox.guest.x11 = true;
-
   # Enable virtualisation with docker.
   virtualisation.docker.enable = true;
 
@@ -92,7 +107,6 @@
           "networkmanager"
           "docker"
           "dialout"
-          "vboxusers"
           "transmission"
         ];
       };
