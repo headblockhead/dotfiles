@@ -91,10 +91,21 @@ in {
     pkgs.thunderbird # Email client
     pkgs.libreoffice # Microsoft Office alternative for Linux
     pkgs.hugo # Static site generator written in Go
+    pkgs.adwaita-qt # QT theme to bend Qt applications to look like they belong into GNOME Shell
   ];
 
   # Configure installed packages
   # https://github.com/nix-community/home-manager/tree/master/modules/programs
+
+  qt = {
+    enable = true;
+    style = {
+      name = "adwaita-qt";
+      package = pkgs.adwaita-qt;
+    };
+    platformTheme = "gnome";
+  };
+
   programs.git = {
     enable = true;
     userName = "headblockhead";
