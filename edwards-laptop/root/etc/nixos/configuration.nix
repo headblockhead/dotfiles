@@ -86,7 +86,7 @@
       SHEEP_LOGIN = "headblockhead";
       SHEEP_PASSWORD =
         "xfbzVlWFQRTa5vUHnhCMVrswAy1HMiiEOLnpWMXW"; # This is a render key. This is not a password. It can only be used to render. It is randomly generated and can be revoked at any time.
-      SHEEP_HOSTNAME = "nixos-thinkpad-docker";
+      SHEEP_HOSTNAME = "nixos-thinkpad-container";
       SHEEP_CORES = "2"; # Use only 2 cores.
       SHEEP_MEMORY = "8GB"; # Limit to 8GB to leave 4GB for the system.
     };
@@ -111,14 +111,13 @@
     gnupg
     pinentry
     docker
-    steam
   ];
 
   # Enable Steam game launcher
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    remotePlay.openFirewall = false; # Do not open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = false; # Do not open ports in the firewall for Source Dedicated Server
   };
 
   services.pcscd.enable = true;

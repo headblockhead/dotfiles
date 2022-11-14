@@ -50,6 +50,8 @@ in {
   # Packages for this user.
   home.packages = [
     python-with-pyautogui # Defined above
+    pkgs.gnomeExtensions.appindicator # When apps 'minimise to tray' this is where they go
+    pkgs.steam # Video game distribution platform
     pkgs.cargo # Rust programming language package manager
     pkgs.rustc # Rust programming language compiler
     pkgs.zoom-us # Video conferencing platform
@@ -228,7 +230,7 @@ in {
       "workbench.productIconTheme" = "material-product-icons";
       "editor.formatOnSave" = true;
       "terminal.integrated.fontFamily" = "Source Code Pro";
-      "terminal.integrated.fontSize" = 16;
+      "terminal.integrated.fontSize" = 12;
       "terminal.integrated.minimumContrastRatio" = 1;
       "editor.formatOnPaste" = true;
       "terminal.integrated.allowChords" = false;
