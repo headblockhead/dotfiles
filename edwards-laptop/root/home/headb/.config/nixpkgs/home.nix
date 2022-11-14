@@ -43,6 +43,7 @@ in {
   # paths it should manage.
   home.username = "headb";
   home.homeDirectory = "/home/headb";
+  home.enableNixpkgsReleaseCheck = true;
 
   # Allow ObinsKit to use outdated packages.
   nixpkgs.config.permittedInsecurePackages = [ "electron-13.6.9" ];
@@ -100,10 +101,20 @@ in {
   qt = {
     enable = true;
     style = {
-      name = "adwaita-qt";
-      package = pkgs.adwaita-qt;
+      name = "adwaita-dark";
     };
-    platformTheme = "gnome";
+    platformTheme = "gtk";
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark"; # Enable dark mode for GTK2
+    };
+    gtk2.extraConfig = "gtk-application-prefer-dark-theme = \"true\"";
+    gtk3.bookmarks = [ "file:///home/headb/OneDrive" ]; # Set nautilus bookmarks
+    gtk3.extraConfig = {"gtk-application-prefer-dark-theme" = "true";};
+    gtk4.extraConfig = {"gtk-application-prefer-dark-theme" = "true";};
   };
 
   programs.git = {
