@@ -122,7 +122,7 @@ in {
 
   programs.git = {
     enable = true;
-    userName = "headblockhead";
+    userName = "Edward Hesketh";
     userEmail = "headblockhead@gmail.com";
     signing = {
       key = "7B485B936DB40FD57939E2A8A5D1F48A8CDD4F44";

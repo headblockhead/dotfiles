@@ -116,8 +116,8 @@
   # Enable Steam game launcher
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = false; # Do not open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = false; # Do not open ports in the firewall for Source Dedicated Server
+    remotePlay.openFirewall = true; # Do open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Do open ports in the firewall for Source Dedicated Server
   };
 
   services.pcscd.enable = true;
@@ -159,7 +159,8 @@
   # Use the X11 windowing system.
   services.xserver = {
     enable = true;
-    displayManager.gdm = { enable = true; };
+    # Disable wayland to allow for legacy screen share (Steam, Zoom etc.)
+    displayManager.gdm = { enable = true; wayland = false; };
     desktopManager.gnome = { enable = true; };
   };
 
