@@ -96,6 +96,7 @@
   users = {
     defaultUserShell = pkgs.zsh;
     users = {
+      root.hashedPassword = "!"; # Disable root login
       headb = {
         isNormalUser = true;
         extraGroups =

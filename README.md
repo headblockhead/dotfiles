@@ -131,10 +131,10 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     cp ./edwards-laptop/root/etc/nixos/configuration.nix /mnt/etc/nixos/configuration.nix
     ```
 
-    Finally, install the system, set the root password (this is prompted at the end of nixos-install) and reboot
+    Finally, install the system and reboot
 
     ```bash
-    nixos-install
+    nixos-install --no-root-password
     reboot
     ```
 
@@ -211,3 +211,14 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     ```
 
     And enjoy your new system!
+
+11. Notes.
+
+    Extra setup notes - may or may not be required.
+
+    Lock root account:
+    ```bash
+    sudo passwd -l root
+    sudo usermod -L root
+    ```
+
