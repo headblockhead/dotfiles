@@ -93,6 +93,7 @@
   };
 
   # Define users. Passwords need to be defined manually using passwd. This config will not set passwords.
+  # There is an option to set a password hash for a user, however it is hard to store secrets safely in a public github repo.
   users = {
     defaultUserShell = pkgs.zsh;
     users = {

@@ -198,6 +198,7 @@ in {
       source ~/custom.zsh-theme;
       export PATH="$GOBIN:$PATH";
       export NIXPKGS_ALLOW_UNFREE=1;
+      export ZSH_HIGHLIGHT_STYLES[comment]=fg=245,bold # Set comments to highlight in grey
     '';
     plugins = [
       {
