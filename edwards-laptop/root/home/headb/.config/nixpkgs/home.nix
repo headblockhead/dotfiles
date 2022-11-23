@@ -43,7 +43,10 @@ in {
   # paths it should manage.
   home.username = "headb";
   home.homeDirectory = "/home/headb";
-  home.enableNixpkgsReleaseCheck = true;
+#  home.enableNixpkgsReleaseCheck = true;
+
+  # Don't show home-manager news
+  news.display = "silent";
 
   # Allow ObinsKit to use outdated packages.
   nixpkgs.config.permittedInsecurePackages = [ "electron-13.6.9" ];
@@ -105,7 +108,6 @@ in {
     };
     platformTheme = "gtk";
   };
-
   gtk = {
     enable = true;
     theme = {
@@ -119,11 +121,62 @@ in {
     gtk3.extraConfig = {"gtk-application-prefer-dark-theme" = "true";};
     gtk4.extraConfig = {"gtk-application-prefer-dark-theme" = "true";};
   };
-
+  dconf = {
+    enable = true;
+    settings = {
+    "org/gnome/deja-dup" = {
+      periodic = true;
+      periodic-period = 1;
+      delete-after = 0;
+    };
+    "org/gnome/desktop/interface" = {
+      clock-format = "12h";
+      color-scheme = "prefer-dark"; # Enable dark mode on GNOME
+      show-battery-percentage = true;
+    };
+    "org/gnome/nautilus/compression" = {
+      default-compression-format = "7z";
+    };
+    "org/gnome/nautilus/icon-view" = {
+      default-zoom-level = "medium";
+    };
+    "org/gnome/nautilus/list-view" = {
+      default-zoom-level = "small";
+      use-tree-view = true;
+      default-column-order = [ "name" "size" "type" "owner" "group" "permissions" "mime_type" "where" "date_modified" "date_modified_with_time" "date_accessed" "date_created" "recency" "starred" ];
+      default-visible-columns = ["name" "size" "date_modified"];
+    };
+   };
+  };
+  programs.go = {
+    enable = true;
+    goBin = "go/bin";
+    goPath = "go";
+    packages = {
+  "github.com/go-delve/delve/cmd/dlv" = pkgs.fetchFromGitHub {owner = "go-delve";repo = "delve";rev="master";sha256="/26wOIhMaI8FzLfKQq7kV8WcL1F9/ELNRA/9wfy/x8g=";};
+  "github.com/sago35/tinygo-edit" = pkgs.fetchFromGitHub {owner = "sago35";repo = "tinygo-edit";rev="master";sha256="KgC/ReCjZlvnBrQv5vhGvG+7+lV7fd723rQtuV9ezYI=";};
+};
+};
+programs.gh = {
+  enable = true;
+  settings = {
+  git_protocol = "ssh";
+  prompt = "enabled";
+  editor="";
+  pager="";
+  http_unix_socket="";
+  browser="";
+};
+};
   programs.git = {
     enable = true;
     userName = "Edward Hesketh";
     userEmail = "headblockhead@gmail.com";
+    difftastic = {
+      enable = true;
+      background = "dark";
+      display="inline";
+    };
     signing = {
       key = "7B485B936DB40FD57939E2A8A5D1F48A8CDD4F44";
       gpgPath = "/run/current-system/sw/bin/gpg2";
@@ -195,10 +248,9 @@ in {
       plugins = [ "aws" "git" ];
     };
     initExtra = ''
-      source ~/custom.zsh-theme;
-      export PATH="$GOBIN:$PATH";
-      export NIXPKGS_ALLOW_UNFREE=1;
-      export ZSH_HIGHLIGHT_STYLES[comment]=fg=245,bold # Set comments to highlight in grey
+      source ~/custom.zsh-theme
+      export NIXPKGS_ALLOW_UNFREE=1
+      export ZSH_HIGHLIGHT_STYLES[comment]=fg=245,bold
     '';
     plugins = [
       {
@@ -234,17 +286,16 @@ in {
       EDITOR = "nvim";
       GOPATH = "/home/$USER/go";
       GOBIN = "/home/$USER/go/bin";
+      PATH = "$GOBIN:$PATH";
     };
     shellAliases = {
       q = "exit";
       p = "gopass show -c -n";
       ns = "nix-shell -p";
-      #code = "codium";
     };
   };
   programs.vscode = {
     enable = true;
-    #    package = pkgs.vscodium;
     userSettings = {
       "git.enableCommitSigning" = true;
       "editor.cursorSmoothCaretAnimation" = true;
@@ -288,6 +339,12 @@ in {
         publisher = "GitHub";
         version = "1.57.7193";
         sha256 = "DdR5RqkJWlJvAhY7Rs51GDo+blBAMYmzGaoplHn3vso=";
+      }
+      {
+        name = "copilot-labs";
+        publisher = "GitHub";
+        version = "0.4.488";
+        sha256="Vy7T8PfU/4vAgHtFb++mJCfQYVijIL183XgfOJRB0ck=";
       }
       {
         name = "shades-of-purple";
@@ -356,29 +413,6 @@ in {
         sha256 = "TVBvF/5KQVvWX1uHwZDlmvwGjOO5/lXbgVzB26U8rNQ=";
       }
     ];
-  };
-  programs.gnome-terminal = {
-    enable = true;
-    showMenubar = false;
-    themeVariant = "dark";
-    profile.nix = {
-      default = true;
-      visibleName = "Nix Custom";
-      cursorBlinkMode = "on";
-      cursorShape = "ibeam";
-      font = null;
-      allowBold = true;
-      scrollOnOutput = true;
-      showScrollbar = false;
-      scrollbackLines = 10000;
-      customCommand = null;
-      loginShell = false;
-      backspaceBinding = "ascii-delete";
-      boldIsBright = false;
-      deleteBinding = "delete-sequence";
-      audibleBell = false;
-      transparencyPercent = 80;
-    };
   };
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
