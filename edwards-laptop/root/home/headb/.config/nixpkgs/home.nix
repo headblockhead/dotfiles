@@ -132,7 +132,6 @@ in {
     "org/gnome/desktop/interface" = {
       clock-format = "12h";
       color-scheme = "prefer-dark"; # Enable dark mode on GNOME
-      show-battery-percentage = true;
     };
     "org/gnome/nautilus/compression" = {
       default-compression-format = "7z";
