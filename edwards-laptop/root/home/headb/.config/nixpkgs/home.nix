@@ -55,6 +55,7 @@ in {
   home.packages = [
     python-with-pyautogui # Defined above
     pkgs.gnomeExtensions.appindicator # When apps 'minimise to tray' this is where they go
+    pkgs.bat # Cat alternative
     pkgs.steam # Video game distribution platform
     pkgs.cargo # Rust programming language package manager
     pkgs.rustc # Rust programming language compiler
@@ -146,7 +147,14 @@ in {
       default-visible-columns = ["name" "size" "date_modified"];
     };
    };
-  };
+ };
+ programs.fzf = {
+   enable = true;
+   enableZshIntegration = true;
+   defaultOptions = [
+     "--preview 'bat --style=numbers --color=always --line-range :500 {}'"
+   ];
+ };
   programs.go = {
     enable = true;
     goBin = "go/bin";

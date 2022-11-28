@@ -161,8 +161,10 @@
   # Use the X11 windowing system.
   services.xserver = {
     enable = true;
-    # Disable wayland to allow for legacy screen share (Steam, Zoom etc.)
-    displayManager.gdm = { enable = true; wayland = false; };
+    displayManager.gdm = { 
+      enable = true; 
+      #walyand = false; # Disable wayland to allow for legacy screen share (Steam, Zoom etc.)
+    };
     desktopManager.gnome = { enable = true; };
   };
 
