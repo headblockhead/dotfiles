@@ -221,4 +221,3 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     sudo passwd -l root
     sudo usermod -L root
     ```
-

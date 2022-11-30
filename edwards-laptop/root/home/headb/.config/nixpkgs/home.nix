@@ -38,6 +38,7 @@ let
       pyautogui
     ];
   python-with-pyautogui = python3.withPackages my-python-packages;
+  unityhub = import ./unityhub.nix;
 in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -54,6 +55,7 @@ in {
   # Packages for this user.
   home.packages = [
     python-with-pyautogui # Defined above
+    unityhub # Game-making tool - Launcher for Unity. defined above in unityhub.nix - nixpkgs is outdated https://github.com/huantianad/nixos-config/blob/main/packages/unityhub.nix
     pkgs.gnomeExtensions.appindicator # When apps 'minimise to tray' this is where they go
     pkgs.bat # Cat alternative
     pkgs.steam # Video game distribution platform
@@ -72,7 +74,6 @@ in {
     pkgs.google-chrome # Web Browser
     pkgs.minecraft # Block Game
     pkgs.cura # 3D Printing Slicer
-    pkgs.unityhub # Game-making tool - Launcher for Unity
     pkgs.neofetch # System show-off tool
     pkgs.cmatrix # Pretend you are in The Matrix
     pkgs.gopass # Password manager
