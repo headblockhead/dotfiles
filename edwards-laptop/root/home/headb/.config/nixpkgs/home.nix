@@ -38,7 +38,7 @@ let
       pyautogui
     ];
   python-with-pyautogui = python3.withPackages my-python-packages;
-  unityhub = import ./unityhub.nix;
+   unityhub = callPackage ./unityhub.nix {};
 in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.

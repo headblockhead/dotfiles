@@ -1,5 +1,4 @@
 { lib, stdenv, fetchurl, dpkg, makeWrapper, buildFHSUserEnv }:
-
 stdenv.mkDerivation rec {
   name = "unityhub";
   version = "3.3.0";
