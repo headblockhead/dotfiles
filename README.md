@@ -34,7 +34,7 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
 
 1. Creating an install USB.
 
-    To install nixos, we will need the [nixos minimal stable iso](https://channels.nixos.org/nixos-22.05/latest-nixos-minimal-x86_64-linux.iso). This ISO contains many useful command-line tools for installing nixos. Download it and write it to a USB using your prefered USB writing tool. 
+    To install nixos, we will need the [nixos minimal stable iso](https://channels.nixos.org/nixos-22.11/latest-nixos-minimal-x86_64-linux.iso). This ISO contains many useful command-line tools for installing nixos. Download it and write it to a USB using your prefered USB writing tool. 
 
 2. Booting into the USB.
 
@@ -166,7 +166,7 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     The simplest way to install home-manager is as a command-line app. This command installs the stable release to go along with the stable nixos version we installed.
 
     ```bash
-    nix-channel --add https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz 
+    nix-channel --add https://github.com/nix-community/home-manager/archive/release-22.11.tar.gz 
     nix-channel --update
     nix-shell '<home-manager>' -A install
     ```
@@ -218,6 +218,7 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/custom.zsh-theme ~/custom.zsh-theme
     rm -r ~/.config/nixpkgs/
     ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/.config/nixpkgs/ ~/.config/
+    ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/.config/nvim/ ~/.config/
     ```
 
     And enjoy your new system!
