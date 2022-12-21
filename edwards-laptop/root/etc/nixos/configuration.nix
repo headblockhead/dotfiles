@@ -143,7 +143,7 @@
   # Firewall configuration
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 ]; # Allow SSH connections.
+    allowedTCPPorts = [ 22 29654 ]; # Allow SSH connections and transmission
     allowedUDPPorts = [ ];
   };
 
@@ -161,11 +161,13 @@
   # Use the X11 windowing system.
   services.xserver = {
     enable = true;
-    displayManager.gdm = { 
+    displayManager = {
+    gdm = { 
       enable = true; 
       #walyand = false; # Disable wayland to allow for legacy screen share (Steam, Zoom etc.)
     };
-    desktopManager.gnome = { enable = true; };
+  };
+  desktopManager.gnome.enable = true;
   };
 
   # Exclude certain xserver packages.
@@ -175,31 +177,32 @@
   documentation.nixos.enable = false;
 
   # Exclude certain default gnome apps.
-  # https://github.com/NixOS/nixpkgs/tree/master/pkgs/desktops/gnome/apps
-  environment.gnome.excludePackages = (with pkgs; [ gnome-tour ])
-    ++ (with pkgs.gnome; [
-      gnome-music
-      epiphany # web browser
-      geary # email reader
-      totem # video player
-      tali # poker game
-      iagno # go game
-      hitori # sudoku game
-      atomix # puzzle game
-      gnome-calendar # calenidar
-      gnome-characters # full unicode list to copy and paste from
-      gnome-maps # maps
-      gnome-todo # todo list
-      gnome-weather # weather viewer
-      vinagre # remote desktop viewer
-      accerciser # accsesibility tester
+  # See https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/x11/desktop-managers/gnome.nix#L251 for a list of all apps.
+  environment.gnome.excludePackages = (with pkgs.gnome; [
+    pkgs.gnome-tour # Tour
+    gnome-logs # Logs
+    yelp # Help
+    cheese # Cheese
+    gnome-maps # Maps
+    gnome-music # Music
+    geary # Geary (Mail)
+    epiphany # Web
+    gnome-characters # Characters
+    pkgs.gnome-console # the dreaded Console
+    totem # Videos
+    pkgs.gnome-photos # Photos
+    gnome-contacts # Contacts
+    gnome-font-viewer # Fonts
+    gnome-maps # Maps
+    gnome-music # Music
+    gnome-weather # Weather
+    pkgs.gnome-connections # Connections
     ]);
 
   # Do not enable gnome remote desktop - it enables pipewire which can cause memory leaks.
   services.gnome.gnome-remote-desktop.enable = false;
-
-  # Add gnome udev rules.
-  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+  # Add udev rules.
+  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon platformio ];
 
   # Allow gnome theming
   programs.dconf.enable = true;
@@ -223,14 +226,9 @@
       lpd-enabled = true; # Local Peer Discovery
 
       port-forwarding-enabled = true; # Allow seeding.
-      peer-port-random-on-start = true; # Randomise the port.
-      peer-port-random-high = 65535;
-      peer-port-random-low = 1000;
-
+      peer-port = 29654; # Set port, exposed in firewall earlier.
       speed-limit-down-enabled = false; # Do not limit the download speed.
-      speed-limit-down = 800;
-      speed-limit-up-enabled = true; # Do limit the upload speed.
-      speed-limit-up = 500;
+      speed-limit-up-enabled = false; # Also do not limit the upload speed.
 
       upload-slots-per-torrent = 8;
 
@@ -239,12 +237,11 @@
       download-queue-size = 3;
 
       queue-stalled-enabled =
-        true; # If a torrent has not shared data for 1 hour, do not count it for the queue limits.
-      queue-stalled-minutes = 60;
+        true; # If a torrent has not shared data for 8 minutes, do not count it for the queue limits.
+      queue-stalled-minutes = 8;
 
       seed-queue-enabled =
         false; # Don't limit the amount of torrents that can be seeded at once.
-      seed-queue-size = 10;
     };
   };
 

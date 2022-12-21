@@ -13,24 +13,6 @@ let
       sha256 = "KhacybPPzplSs6oyJtKSkgQ3JFxOjLSqvueafkYRPSw=";
     };
   };
-  lspSignatureNvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    name = "lsp_signature.nvim";
-    src = pkgs.fetchFromGitHub {
-      owner = "ray-x";
-      repo = "lsp_signature.nvim";
-      rev = "f7c308e99697317ea572c6d6bafe6d4be91ee164";
-      sha256 = "0s48bamqwhixlzlyn431z7k3bhp0y2mx16d36g66c9ccgrs5ifmm";
-    };
-  };
-  cocnvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    name = "coc.nvim";
-    src = pkgs.fetchFromGitHub {
-      owner = "neoclide";
-      repo = "coc.nvim";
-      rev = "v0.0.82";
-      sha256 = "TIkx/Sp9jnRd+3jokab91S5Mb3JV8yyz3wy7+UAd0A0=";
-    };
-  };
   my-python-packages = python-packages:
     with python-packages; [
       pandas
@@ -38,13 +20,13 @@ let
       pyautogui
     ];
   python-with-pyautogui = python3.withPackages my-python-packages;
-   unityhub = callPackage ./unityhub.nix {};
+  unityhub = callPackage ./unityhub.nix {};
 in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "headb";
   home.homeDirectory = "/home/headb";
-#  home.enableNixpkgsReleaseCheck = true;
+  home.enableNixpkgsReleaseCheck = true;
 
   # Don't show home-manager news
   news.display = "silent";
@@ -56,7 +38,11 @@ in {
   home.packages = [
     python-with-pyautogui # Defined above
     unityhub # Game-making tool - Launcher for Unity. defined above in unityhub.nix - nixpkgs is outdated https://github.com/huantianad/nixos-config/blob/main/packages/unityhub.nix
+    pkgs.tinygo # Go programming language complier but for small places
     pkgs.gnomeExtensions.appindicator # When apps 'minimise to tray' this is where they go
+    pkgs.remmina # Remote desktop application.
+    pkgs.platformio
+    pkgs.audacity # Audio app
     pkgs.bat # Cat alternative
     pkgs.steam # Video game distribution platform
     pkgs.cargo # Rust programming language package manager
@@ -72,7 +58,8 @@ in {
     pkgs.asciinema # Terminal recorder
     pkgs.onedrive # Cloud storage from school
     pkgs.google-chrome # Web Browser
-    pkgs.minecraft # Block Game
+#    pkgs.minecraft # Block Game
+    pkgs.prismlauncher # Custom Block Game Launcher
     pkgs.cura # 3D Printing Slicer
     pkgs.neofetch # System show-off tool
     pkgs.cmatrix # Pretend you are in The Matrix
@@ -84,7 +71,6 @@ in {
     pkgs.p7zip # 7zip compression and extraction tool.
     pkgs.deja-dup # Backup software
     pkgs.vlc # Video and audio player
-    pkgs.tinygo # Go programming language complier but for small places
     pkgs.gnumake # Runs Makefiles
     pkgs.nodejs # Javascript stuff
     pkgs.oh-my-zsh # ZSH customiser
@@ -205,13 +191,8 @@ programs.gh = {
       vim-lastplace
       vim-nix
       vim-go
-      cocnvim # plugin defined from github
     ];
     extraConfig = ''
-      " Dont try to be compatible with vi - be iMproved
-      set nocompatible
-      " Dont check filetype
-      filetype off
       " Theming - for the looks only.
       colorscheme purpura
       set background=dark
@@ -228,7 +209,10 @@ programs.gh = {
       hi LineNr ctermbg=NONE guibg=NONE guifg=NONE 
       hi EndOfBuffer ctermbg=NONE guibg=NONE
       hi SignColumn  ctermbg=NONE guibg=NONE
-      " Claim space in the column for when there are errors in the future
+      " Change how vim represents characters on the screen.
+      set encoding=utf-8
+      set fileencoding=utf-8
+      " Claim space in the column for error display, even without errors.
       set signcolumn=yes
       " Disable mouse input reading.
       set mouse=
@@ -240,9 +224,6 @@ programs.gh = {
       au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
       " Set an easier to reach leader.
       let mapleader = ","
-      " Change how vim represents characters on the screen.
-      set encoding=utf-8
-      set fileencoding=utf-8
       " Use leader + f to format the document.
       xmap <leader>f  <Plug>(coc-format)
       nmap <leader>f  <Plug>(coc-format)
@@ -310,7 +291,7 @@ programs.gh = {
       "git.enableSmartCommit" = true;
       "git.confirmSync" = false;
       "git.autofetch" = true;
-      "files.eol" = "\n";
+      "files.eol" = ""; # Do not end files with a newline.
       "workbench.iconTheme" = "material-icon-theme";
       "workbench.productIconTheme" = "material-product-icons";
       "editor.formatOnSave" = true;
@@ -325,8 +306,6 @@ programs.gh = {
       "editor.inlineSuggest.enabled" = true;
       "security.workspace.trust.enabled" = true;
       "security.workspace.trust.untrustedFiles" = "open";
-      "playdate.source" = "source";
-      "playdate.output" = "builds/out.pdx";
       "Lua.runtime.version" = "Lua 5.4";
       "Lua.diagnostics.globals" = [ "playdate" "import" ];
       "Lua.diagnostics.disable" = [ "undefined-global" "lowercase-global" ];
@@ -340,8 +319,21 @@ programs.gh = {
         "markdown" = true;
       };
     };
+    mutableExtensionsDir = false; # Helps to run platformio-ide
     # https://marketplace.visualstudio.com/vscode
     extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "vscode-pull-request-github";
+        publisher = "github";
+        version = "0.54.1";
+        sha256 = "AhsKTjIhyhGW9KcqAhWAzYAOv/wuQvNFKWlPmiK7hUQ=";
+      }
+      {
+        name = "platformio-ide";
+        publisher = "platformio";
+        version = "2.5.5";
+        sha256 = "hg4Ru+mMJBXPlPPluhh7kL/ThWt2fwb2AxgHo4K0LgA=";
+      }
       {
         name = "copilot";
         publisher = "GitHub";
@@ -379,11 +371,17 @@ programs.gh = {
         sha256 = "YQPKB6dtIwmghw1VnYu+9krVICV2gm7Vq1FRq7lJbto=";
       }
       {
-        name = "cpptools";
-        publisher = "ms-vscode";
-        version = "1.13.3";
-        sha256 = "BxBOFlkRrk+QOba5BaNiRnkfJlHMMU61bBC6g4WcZmQ=";
+        name = "lua";
+        publisher = "sumneko";
+        version = "3.6.4";
+        sha256 = "/JZqls/+aBzGuQPp+LuderM7/H932U9gYA6p5IcSSdA="; 
       }
+#      {
+#        name = "cpptools";
+#        publisher = "ms-vscode";
+#        version = "1.13.3";
+#        sha256 = "BxBOFlkRrk+QOba5BaNiRnkfJlHMMU61bBC6g4WcZmQ=";
+#      }
       {
         name = "gitlens";
         publisher = "eamodio";

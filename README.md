@@ -1,22 +1,32 @@
 # dotfiles
 
-Reproducable configuration for nixos.
+Reproducable configuration for my nixos laptop and other gadgets.
 
-## New addition - Keyboard configuration!
+## Table of Contents
+
+  * [Keyboard Configuration](#keyboard-configuration)
+  * [NixOS Laptop Configuration](#nixos-laptop-configuration)
+    * [What does it look like?](#what-does-it-look-like)
+    * [What does it use?](#what-does-it-use)
+    * [How do I recreate it?](#how-do-i-recreate-it)
+
+## Keyboard configuration!
 
 I have installed QMK on my keyboard so I decided to publish my configuration here. You can find it [in the annepro2-qmk folder](annepro2-qmk/)
 
-## What does it look like?
+## NixOS Laptop Configuration
+
+### What does it look like?
 
 Chromium, zsh and vim theming            |  VSCode extentions and theming | Gnome desktop 
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](screenshots/terminalsAndChrome.png)  |  ![](screenshots/vscodeFullscreen.png) | ![](screenshots/appList.png)
 
-## What does it use?
+### What does it use?
 
 The system uses the classic combo of the Gnome desktop manager and the GDM3 display manager. It includes most of the basic Gnome apps along with media editing software and code editing software. In the terminal, it also includes programs such as Neovim, Git (of course), zsh, the Go programming language and more!
 
-## How do I recreate it?
+### How do I recreate it?
 
 *It's actually surprisingly simple!*
 
