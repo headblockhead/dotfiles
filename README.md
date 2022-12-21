@@ -218,7 +218,8 @@ The system uses the classic combo of the Gnome desktop manager and the GDM3 disp
     ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/custom.zsh-theme ~/custom.zsh-theme
     rm -r ~/.config/nixpkgs/
     ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/.config/nixpkgs/ ~/.config/
-    ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/.config/nvim/ ~/.config/
+    mkdir ~/.config/nvim/
+    ln -sf PATH_TO_YOUR_DOTFILES/YOUR_HOSTNAME/root/home/YOUR_USERNAME/.config/nvim/lua ~/.config/nvim
     ```
 
     And enjoy your new system!
