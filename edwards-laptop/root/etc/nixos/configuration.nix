@@ -7,7 +7,10 @@
 {
 
   # Include the results of the hardware scan.
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ 
+    "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/lenovo/thinkpad/t450s"
+    ./hardware-configuration.nix 
+  ];
 
   # Use the GRUB bootloader.
   boot = {
@@ -74,6 +77,9 @@
 
   # Touchpad support.
   services.xserver.libinput.enable = true;
+
+  # TRIM the SSD weekly.
+  services.fstrim.enable = true;
 
   # Enable virtualisation with docker.
   virtualisation.docker.enable = true;
