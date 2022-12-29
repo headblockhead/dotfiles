@@ -41,6 +41,11 @@
     initrd = { verbose = false; };
   };
 
+  # Allow insecure electron for obinskit.
+                            nixpkgs.config.permittedInsecurePackages = [
+                "electron-13.6.9"
+              ];
+
   # Allow nix flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -208,7 +213,7 @@
   # Do not enable gnome remote desktop - it enables pipewire which can cause memory leaks.
   services.gnome.gnome-remote-desktop.enable = false;
   # Add udev rules.
-  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon platformio ];
+  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon platformio qmk-udev-rules ];
 
   # Allow gnome theming
   programs.dconf.enable = true;

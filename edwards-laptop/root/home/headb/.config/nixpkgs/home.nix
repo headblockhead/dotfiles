@@ -42,13 +42,13 @@ in {
   # Don't show home-manager news
   news.display = "silent";
 
-  # Allow ObinsKit to use outdated packages.
-  nixpkgs.config.permittedInsecurePackages = [ "electron-13.6.9" ];
-
   # Packages for this user.
   home.packages = [
     python-with-pyautogui # Defined above
     unityhub # Game-making tool - Launcher for Unity. defined above in unityhub.nix - nixpkgs is outdated https://github.com/huantianad/nixos-config/blob/main/packages/unityhub.nix
+    pkgs.obinskit # Annepro2 configurator
+    pkgs.cmake # C Makefile creator.
+    pkgs.silver-searcher # AG - used for vim.
     pkgs.ccls # C langauge server.
     pkgs.tinygo # Go programming language complier but for small places
     pkgs.gnomeExtensions.appindicator # When apps 'minimise to tray' this is where they go
@@ -88,6 +88,7 @@ in {
     pkgs.gnumake # Runs Makefiles
     pkgs.nodejs # Javascript stuff
     pkgs.oh-my-zsh # ZSH customiser
+    pkgs.qmk # Keyboard tool
     pkgs.gopls # Go programming language formatting tools
     pkgs.nodePackages.prettier # Code tidier
     pkgs.nixpkgs-fmt # Nix formatting tools
