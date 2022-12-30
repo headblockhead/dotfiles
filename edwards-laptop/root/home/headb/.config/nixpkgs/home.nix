@@ -51,6 +51,8 @@ in {
     python-with-pyautogui # Defined above
     unityhub # Game-making tool - Launcher for Unity. defined above in unityhub.nix - nixpkgs is outdated https://github.com/huantianad/nixos-config/blob/main/packages/unityhub.nix
     pkgs.obinskit # Annepro2 configurator
+    pkgs.alacritty # Terminal.
+    pkgs.gcc
     pkgs.cmake # C Makefile creator.
     pkgs.silver-searcher # AG - used for vim.
     pkgs.ccls # C langauge server.
@@ -85,7 +87,6 @@ in {
     pkgs.gh # GitHub command-line tool
     pkgs.go # Go programming language compiler
     pkgs.vscode # Code editor
-    pkgs.gnome.gnome-terminal # Customisable terminal - not in the default installation of gnome
     pkgs.p7zip # 7zip compression and extraction tool.
     pkgs.deja-dup # Backup software
     pkgs.vlc # Video and audio player
@@ -268,7 +269,8 @@ programs.alacritty = {
         vim-nix
         # Colour scheme.
         # Use :TSHighlightCapturesUnderCursor to see the syntax under cursor.
-        (pluginGit "nvim-treesitter" "playground" "e6a0bfaf9b5e36e3a327a1ae9a44a989eae472cf" "wst6YwtTJbR65+jijSSgsS9Isv1/vO9uAjuoUg6tVQc=")
+        (pluginGit "nvim-treesitter" "playground" "8a887bcf66017bd775a0fb19c9d8b7a4d6759c48" "uBSSGdlpj3g2wEYYaZCvPz+gHlwxjJP+C0ES8JcKPrA=")
+        nvim-treesitter.withAllGrammars
         # Go test coverage highlighting.
         (pluginGit "rafaelsq" "nvim-goc.lua" "7d23d820feeb30c6346b8a4f159466ee77e855fd" "1b9ri5s4mcs0k539kfhf5zd3fajcr7d4lc0216pbjq2bvg8987wn")
         # General test coverage highlighting.
@@ -303,7 +305,7 @@ programs.alacritty = {
         vim-test #janko/vim-test
         vim-visual-multi #mg979/vim-visual-multi
         cmp-nvim-lsp
-        nvim-treesitter-with-plugins #github.com/nvim-treesitter/nvim-treesitter
+#        nvim-treesitter-with-plugins #github.com/nvim-treesitter/nvim-treesitter
         targets-vim # https://github.com/wellle/targets.vim
       ];
       extraConfig = "lua require('init')";
@@ -411,6 +413,12 @@ programs.alacritty = {
         publisher = "github";
         version = "0.54.1";
         sha256 = "AhsKTjIhyhGW9KcqAhWAzYAOv/wuQvNFKWlPmiK7hUQ=";
+      }
+      {
+        name = "cpptools";
+        publisher = "ms-vscode";
+        version = "1.13.8";
+        sha256 = "qwFuENV1zx5ugLekHbpjwJeeqpBkMuuL0xgKiUTLyRM=";
       }
       {
         name = "platformio-ide";

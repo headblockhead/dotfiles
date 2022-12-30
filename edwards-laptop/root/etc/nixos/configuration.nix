@@ -120,7 +120,6 @@
   environment.systemPackages = with pkgs; [
     neovim
     git
-    alacritty
     zsh
     gnupg
     pinentry
@@ -206,7 +205,6 @@
     gnome-maps # Maps
     gnome-music # Music
     gnome-weather # Weather
-    gnome-terminal # Default terminal
     pkgs.gnome-connections # Connections
     ]);
 
