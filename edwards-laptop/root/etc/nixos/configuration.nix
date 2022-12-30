@@ -120,6 +120,7 @@
   environment.systemPackages = with pkgs; [
     neovim
     git
+    alacritty
     zsh
     gnupg
     pinentry
@@ -159,14 +160,13 @@
   };
 
   # Fonts
+  fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
     ibm-plex
     powerline
+    source-code-pro
     ubuntu_font_family
-    siji
-    unifont
-    font-awesome
-    roboto
+    nerdfonts
   ];
 
   # Use the X11 windowing system.
@@ -203,10 +203,10 @@
     totem # Videos
     pkgs.gnome-photos # Photos
     gnome-contacts # Contacts
-    gnome-font-viewer # Fonts
     gnome-maps # Maps
     gnome-music # Music
     gnome-weather # Weather
+    gnome-terminal # Default terminal
     pkgs.gnome-connections # Connections
     ]);
 

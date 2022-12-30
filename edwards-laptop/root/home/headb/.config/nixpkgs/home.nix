@@ -42,6 +42,10 @@ in {
   # Don't show home-manager news
   news.display = "silent";
 
+  nixpkgs.config.permittedInsecurePackages = [
+                "electron-13.6.9"
+  ];
+
   # Packages for this user.
   home.packages = [
     python-with-pyautogui # Defined above
@@ -177,6 +181,57 @@ programs.gh = {
   browser="";
 };
 };
+programs.alacritty = {
+  enable = true;
+  settings = {
+    window.dimensions = {
+              lines = 32;
+              columns = 128;
+            };
+            font={
+              builtin_box_drawing=true;
+              size=12;
+              normal = {
+                family = "SauceCodePro Nerd Font";
+              };
+              bold = {
+                family = "SauceCodePro Nerd Font";
+              };
+              italic = {
+                family = "SauceCodePro Nerd Font";
+              };
+              bold_italic = {
+                family = "SauceCodePro Nerd Font";
+              };
+            };
+          colors = {
+            primary = {
+              background  = "#000000";
+              foreground = "#ffffff";
+            };
+            normal = {
+                   black =  "#000000";
+                   red=     "#cd0000";
+                   green=   "#00cd00";
+                   yellow=  "#cdcd00";
+                   blue=    "#0000ee";
+                   magenta= "#cd00cd";
+                   cyan=    "#00cdcd";
+                   white=   "#e5e5e5";
+                 };
+                    bright = {
+     black=   "#7f7f7f";
+     red=     "#ff0000";
+     green=   "#00ff00";
+     yellow=  "#ffff00";
+     blue=    "#5c5cff";
+     magenta= "#ff00ff";
+     cyan =    "#00ffff";
+     white = "#ffffff";
+   };
+          };
+        };
+      };
   programs.git = {
     enable = true;
     userName = "Edward Hesketh";
@@ -199,8 +254,7 @@ programs.gh = {
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
       # Theming plugins
-      vim-airline
-      vim-airline-themes
+      (pluginGit "nvim-lualine" "lualine.nvim" "32a7382a75a52e8ad05f4cec7eeb8bbfbe80d461" "gm6nGdbx466xEXI6s/Wd4xBTLbydn7tMnG32m/jgA7U=")
       #(pluginGit "yassinebridi" "vim-purpura" "2398344cb16af941a9057e6b0cf4247ce1abb5de" "KhacybPPzplSs6oyJtKSkgQ3JFxOjLSqvueafkYRPSw="); # Removed - Not tree-sitter compatible :(
       (pluginGit "Mofiqul" "dracula.nvim" "55f24e76a978c73c63d22951b0700823f21253b7" "YwcbSj+121/QaEIAqqG4EvCpCYj3VzgCE8Ndl1ABbFI=")
       # Everything else
