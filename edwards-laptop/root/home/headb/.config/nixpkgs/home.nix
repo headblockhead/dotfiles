@@ -215,7 +215,6 @@ programs.gnome-terminal = {
         ];
         backgroundColor = "#000000";
       };
-      transparencyPercent = 20;
     };
   };
 };
