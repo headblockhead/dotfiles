@@ -22,5 +22,9 @@ vim.opt.number = true
 -- Disable mouse control.
 vim.cmd("set mouse=")
 
+-- Enable undo and swap file
+vim.cmd("set undofile")
+vim.cmd("set swapfile")
+
 -- Use system clipboard.
 --vim.api.nvim_command('set clipboard+=unnamedplus')

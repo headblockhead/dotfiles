@@ -7,9 +7,11 @@
 {
 
   # Include the results of the hardware scan.
-  imports = [ 
-    "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/lenovo/thinkpad/t450s"
-    ./hardware-configuration.nix 
+  imports = [
+    "${
+      builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }
+    }/lenovo/thinkpad/t450s"
+    ./hardware-configuration.nix
   ];
 
   # Use the GRUB bootloader.
@@ -42,9 +44,7 @@
   };
 
   # Allow insecure electron for obinskit.
-                            nixpkgs.config.permittedInsecurePackages = [
-                "electron-13.6.9"
-              ];
+  nixpkgs.config.permittedInsecurePackages = [ "electron-13.6.9" ];
 
   # Allow nix flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -129,8 +129,10 @@
   # Enable Steam game launcher
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = true; # Do open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Do open ports in the firewall for Source Dedicated Server
+    remotePlay.openFirewall =
+      true; # Do open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall =
+      true; # Do open ports in the firewall for Source Dedicated Server
   };
 
   services.pcscd.enable = true;
@@ -155,8 +157,38 @@
   # Firewall configuration
   networking.firewall = {
     enable = true;
+    logReversePathDrops = true;
+    extraCommands = ''
+      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
+      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
+    '';
+    extraStopCommands = ''
+      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
+      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
+    '';
     allowedTCPPorts = [ 22 29654 ]; # Allow SSH connections and transmission
-    allowedUDPPorts = [ ];
+    allowedUDPPorts = [ 33545 ]; # Wireguard.
+  };
+
+  networking.wg-quick.interfaces = {
+    wg0 = {
+      address = [ "10.0.0.2/24" "fdc9:281f:04d7:9ee9::2/64" ];
+      dns = [ "1.1.1.1" "1.1.2.2" ]; # Use cloudflare for IPv4.
+      privateKeyFile = "/root/wireguard-keys/private";
+      peers = [{
+        # Public key of the server (not a file path).
+        publicKey = "mMF588A74vZJd4yFWGoDUpMsPd7zCPIexkDURs8PHEI=";
+
+        # Forward all the traffic via VPN.
+        allowedIPs = [ "0.0.0.0/0" "::/0" ];
+
+        # Set the server IP and port.
+        endpoint = (builtins.readFile /root/wireguard-keys/endpoint);
+
+        # Send keepalives every 25 seconds. Important to keep NAT tables alive.
+        persistentKeepalive = 25;
+      }];
+    };
   };
 
   # Fonts
@@ -173,12 +205,12 @@
   services.xserver = {
     enable = true;
     displayManager = {
-    gdm = { 
-      enable = true; 
-      #walyand = false; # Disable wayland to allow for legacy screen share (Steam, Zoom etc.)
+      gdm = {
+        enable = true;
+        #walyand = false; # Disable wayland to allow for legacy screen share (Steam, Zoom etc.)
+      };
     };
-  };
-  desktopManager.gnome.enable = true;
+    desktopManager.gnome.enable = true;
   };
 
   # Exclude certain xserver packages.
@@ -207,12 +239,16 @@
     gnome-music # Music
     gnome-weather # Weather
     pkgs.gnome-connections # Connections
-    ]);
+  ]);
 
   # Do not enable gnome remote desktop - it enables pipewire which can cause memory leaks.
   services.gnome.gnome-remote-desktop.enable = false;
   # Add udev rules.
-  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon platformio qmk-udev-rules ];
+  services.udev.packages = with pkgs; [
+    gnome.gnome-settings-daemon
+    platformio
+    qmk-udev-rules
+  ];
 
   # Allow gnome theming
   programs.dconf.enable = true;

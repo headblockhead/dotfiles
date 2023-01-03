@@ -13,6 +13,7 @@
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
 CURRENT_BG='NONE'
+CURRENT_NIX_SHELL_COUNT=0
 
 case ${SOLARIZED_THEME:-dark} in
     *)     CURRENT_FG='black';;
@@ -91,24 +92,9 @@ prompt_context() {
 
 # nix-shell: if currently running nix-shell
 prompt_nix_shell() {
-  if [[ -n "$IN_NIX_SHELL" ]]; then
-    if [[ -n $NIX_SHELL_PACKAGES ]]; then
-      local package_names=""
-      local packages=($NIX_SHELL_PACKAGES)
-      local IFS=' '
-
-      for package in $packages; do
-        package_names+=" ${${package##*.}// /, }"
-      done
-      prompt_segment 164 255 "nix-shell:$package_names"
-    elif [[ -n $name ]]; then
-      local cleanName=${name#interactive-}
-      cleanName=${cleanName#lorri-keep-env-hack-}
-      cleanName=${cleanName%-environment}
-      prompt_segment 164 255 "{ $cleanName }"
-    else # This case is only reached if the nix-shell plugin isn't installed or failed in some way
-      prompt_segment 164 255 "nix-shell"
-    fi
+  NIXSHELL=$(echo $PATH | tr ':' '\n' | grep '/nix/store' | sed 's#^/nix/store/[a-z0-9]\+-##' | sed 's#-[^-]\+$##' | xargs -n2 -d'\n')
+  if [ "$NIXSHELL"  ]; then # Detectes flakes.
+    prompt_segment 164 255 "nix-shell"
   fi
 }
 
