@@ -43,11 +43,6 @@ in {
   home.homeDirectory = "/home/headb";
   home.enableNixpkgsReleaseCheck = true;
 
-  home.sessionVariables = {
-     PATH = "$GOBIN:$PATH";
-    NIXPKGS_ALLOW_UNFREE = "1";
-  };
-
   # Don't show home-manager news
   news.display = "silent";
 
@@ -362,8 +357,8 @@ in {
       plugins = [ "aws" "git" ];
     };
     initExtra = ''
-       source ~/custom.zsh-theme
-       export ZSH_HIGHLIGHT_STYLES[comment]=fg=245,bold
+      source ~/custom.zsh-theme
+      export ZSH_HIGHLIGHT_STYLES[comment]=fg=245,bold
     '';
     plugins = [
       {
@@ -389,6 +384,11 @@ in {
     shellAliases = {
       q = "exit";
       p = "gopass show -c -n";
+      ls = "ls --color=tty -A";
+    };
+    sessionVariables = {
+      PATH = "$GOBIN:$PATH";
+      NIXPKGS_ALLOW_UNFREE = "1";
     };
   };
   programs.vscode = {
