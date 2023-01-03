@@ -58,7 +58,6 @@ in {
     python-with-pyautogui # Defined above
     unityhub # Game-making tool - Launcher for Unity. defined above in unityhub.nix - nixpkgs is outdated https://github.com/huantianad/nixos-config/blob/main/packages/unityhub.nix
     pkgs.obinskit # Annepro2 configurator
-    pkgs.alacritty # Terminal.
     pkgs.gcc
     pkgs.cmake # C Makefile creator.
     pkgs.silver-searcher # AG - used for vim.
@@ -238,49 +237,6 @@ in {
             "#55ffff"
             "#ffffff"
           ];
-        };
-      };
-    };
-  };
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      window.dimensions = {
-        lines = 32;
-        columns = 128;
-      };
-      font = {
-        builtin_box_drawing = true;
-        size = 12;
-        normal = { family = "SauceCodePro Nerd Font"; };
-        bold = { family = "SauceCodePro Nerd Font"; };
-        italic = { family = "SauceCodePro Nerd Font"; };
-        bold_italic = { family = "SauceCodePro Nerd Font"; };
-      };
-      colors = {
-        primary = {
-          background = "#000000";
-          foreground = "#ffffff";
-        };
-        normal = {
-          black = "#000000";
-          red = "#aa0000";
-          green = "#00aa00";
-          yellow = "#aa5500";
-          blue = "#0000aa";
-          magenta = "#aa00aa";
-          cyan = "#00aaaa";
-          white = "#aaaaaa";
-        };
-        bright = {
-          black = "#555555";
-          red = "#ff5555";
-          green = "#55ff55";
-          yellow = "#ffff55";
-          blue = "#5555ff";
-          magenta = "#ff55ff";
-          cyan = "#55ffff";
-          white = "#ffffff";
         };
       };
     };
