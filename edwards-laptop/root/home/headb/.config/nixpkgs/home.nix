@@ -358,6 +358,7 @@ in {
     };
     initExtra = ''
       source ~/custom.zsh-theme
+      export PATH="$GOBIN:$PATH"
       export ZSH_HIGHLIGHT_STYLES[comment]=fg=245,bold
     '';
     plugins = [
@@ -386,10 +387,7 @@ in {
       p = "gopass show -c -n";
       ls = "ls --color=tty -A";
     };
-    sessionVariables = {
-      PATH = "$GOBIN:$PATH";
-      NIXPKGS_ALLOW_UNFREE = "1";
-    };
+    sessionVariables = { NIXPKGS_ALLOW_UNFREE = "1"; };
   };
   programs.vscode = {
     enable = true;
