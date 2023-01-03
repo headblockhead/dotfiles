@@ -44,9 +44,7 @@ in {
   home.enableNixpkgsReleaseCheck = true;
 
   home.sessionVariables = {
-    #     GOPATH = "/home/$USER/go";
-    #     GOBIN = "/home/$USER/go/bin";
-    #     PATH = "$GOBIN:$PATH";
+     PATH = "$GOBIN:$PATH";
     NIXPKGS_ALLOW_UNFREE = "1";
   };
 
