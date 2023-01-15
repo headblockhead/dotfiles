@@ -425,26 +425,32 @@ in {
         "markdown" = true;
       };
     };
-    mutableExtensionsDir = false; # Helps to run platformio-ide
+    mutableExtensionsDir = true;
     # https://marketplace.visualstudio.com/vscode
     extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
-        name = "vscode-pull-request-github";
-        publisher = "github";
-        version = "0.54.1";
-        sha256 = "AhsKTjIhyhGW9KcqAhWAzYAOv/wuQvNFKWlPmiK7hUQ=";
+        name = "remote-containers";
+        publisher = "ms-vscode-remote";
+        version = "0.266.1";
+        sha256="D0nwLKGojvvRuviGRI9zo4SZmpZgee7ZpHLWjUK3LWA=";
+      }
+      {
+        name = "cmake-tools";
+        publisher = "ms-vscode";
+        version = "1.12.27";
+        sha256 = "Q5QpVusHt0qgWwbn7Xrgk8hGh/plTx/Z4XwxISnm72s=";
+      }
+      {
+        name="cmake";
+        publisher="twxs";
+        version  ="0.0.17";
+        sha256="CFiva1AO/oHpszbpd7lLtDzbv1Yi55yQOQPP/kCTH4Y=";
       }
       {
         name = "cpptools";
         publisher = "ms-vscode";
         version = "1.13.8";
         sha256 = "qwFuENV1zx5ugLekHbpjwJeeqpBkMuuL0xgKiUTLyRM=";
-      }
-      {
-        name = "platformio-ide";
-        publisher = "platformio";
-        version = "2.5.5";
-        sha256 = "hg4Ru+mMJBXPlPPluhh7kL/ThWt2fwb2AxgHo4K0LgA=";
       }
       {
         name = "copilot";
@@ -483,52 +489,10 @@ in {
         sha256 = "YQPKB6dtIwmghw1VnYu+9krVICV2gm7Vq1FRq7lJbto=";
       }
       {
-        name = "lua";
-        publisher = "sumneko";
-        version = "3.6.4";
-        sha256 = "/JZqls/+aBzGuQPp+LuderM7/H932U9gYA6p5IcSSdA=";
-      }
-      #      {
-      #        name = "cpptools";
-      #        publisher = "ms-vscode";
-      #        version = "1.13.3";
-      #        sha256 = "BxBOFlkRrk+QOba5BaNiRnkfJlHMMU61bBC6g4WcZmQ=";
-      #      }
-      {
         name = "gitlens";
         publisher = "eamodio";
         version = "2022.11.405";
         sha256 = "01cN6PqE4g/jOWXUuWScS5qZzMmFN/70SPAVLHHsejQ=";
-      }
-      {
-        name = "auto-rename-tag";
-        publisher = "formulahendry";
-        version = "0.1.10";
-        sha256 = "uXqWebxnDwaUVLFG6MUh4bZ7jw5d2rTHRm5NoR2n0Vs=";
-      }
-      {
-        name = "path-intellisense";
-        publisher = "christian-kohler";
-        version = "2.8.1";
-        sha256 = "lTKzMphkGgOG2XWqz3TW2G9sISBc/kG7oXqcIH8l+Mg=";
-      }
-      {
-        name = "indent-rainbow";
-        publisher = "oderwat";
-        version = "8.3.1";
-        sha256 = "dOicya0B2sriTcDSdCyhtp0Mcx5b6TUaFKVb0YU3jUc=";
-      }
-      {
-        name = "vscode-todo-highlight";
-        publisher = "wayou";
-        version = "1.0.5";
-        sha256 = "CQVtMdt/fZcNIbH/KybJixnLqCsz5iF1U0k+GfL65Ok=";
-      }
-      {
-        name = "rainbow-brackets";
-        publisher = "2gua";
-        version = "0.0.6";
-        sha256 = "TVBvF/5KQVvWX1uHwZDlmvwGjOO5/lXbgVzB26U8rNQ=";
       }
     ];
   };
