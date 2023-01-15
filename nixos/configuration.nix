@@ -108,14 +108,14 @@
     };
   };
   # Global system packages - available to all users.
-  environment.systemPackages = with pkgs; [
-    neovim
-    git
-    zsh
-    gnupg
-    pinentry
-    docker
-    home-manager
+  environment.systemPackages = [
+    pkgs.neovim
+    pkgs.git
+    pkgs.zsh
+    pkgs.gnupg
+    pkgs.pinentry
+    pkgs.docker
+    pkgs.home-manager
   ];
 
   # Enable Steam game launcher
