@@ -6,21 +6,17 @@ Reproducable configuration for my nixos laptop and other gadgets. Now with nix f
 
   * [Keyboard Configuration](#keyboard-configuration)
   * [NixOS Laptop Configuration](#nixos-laptop-configuration)
-    * [What does it look like?](#what-does-it-look-like)
     * [What does it use?](#what-does-it-use)
-    * [Installation Reminders](#installation-reminders)
+    * [Installation reminders](#installation-reminders)
+  * [Commands](#commands)
 
 ## Keyboard configuration!
 
-I have installed QMK on my keyboard so I decided to publish my configuration here. You can find it [in the annepro2-qmk folder](annepro2-qmk/).
+I have installed QMK on my keyboard so I decided to publish my configuration here. You can find it [in the annepro2-qmk folder](keyboard/annepro2-qmk).
 
-*Update:* I have moved back to the OEM software, due to some issues I was facing with QMK. You can find my json config [in the annepro2 folder](annepro2/).
+*Update:* I have moved back to the OEM software, due to some issues I was facing with QMK. You can find my json config [in the annepro2-oem folder](keyboard/annepro2-oem/).
 
 ## NixOS Laptop Configuration
-
-### What does it look like?
-
-![](screenshots/terminalsAndChrome.png)
 
 ### What does it use?
 
@@ -143,3 +139,20 @@ The install uses Gnome as the desktop manager, with dconf rules managed by home-
     sudo passwd -l root
     sudo usermod -L root
     ```
+## Commands
+
+Reload:
+
+```bash
+home-manager switch --flake '/home/headb/dotfiles/edwards-laptop/root/home/headb/.config/nixpkgs/#headb' --impure
+sudo nixos-rebuild switch --flake "/home/headb/dotfiles/edwards-laptop/root/etc/nixos/#edwards-laptop" --impure
+```
+
+Clean:
+
+```bash
+home-manager expire-generations -1+second
+sudo nix-collect-garbage -d
+nix-store --gc
+sudo nixos-rebuild switch
+```
