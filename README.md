@@ -154,5 +154,6 @@ Clean:
 home-manager expire-generations -1+second
 sudo nix-collect-garbage -d
 nix-store --gc
-sudo nixos-rebuild switch
+sudo nixos-rebuild switch --flake ".#edwards-laptop" --impure
+home-manager switch --flake '.#headb' --impure
 ```
