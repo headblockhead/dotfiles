@@ -5,15 +5,6 @@
 { config, pkgs, lib, ... }:
 
 {
-
-  # Include the results of the hardware scan.
-  imports = [
-    "${
-      builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }
-    }/lenovo/thinkpad/t450s"
-    ./hardware-configuration.nix
-  ];
-
   # Use the GRUB bootloader.
   boot = {
     loader = {
@@ -124,6 +115,7 @@
     gnupg
     pinentry
     docker
+    home-manager
   ];
 
   # Enable Steam game launcher
@@ -290,11 +282,6 @@
         false; # Don't limit the amount of torrents that can be seeded at once.
     };
   };
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
