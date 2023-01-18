@@ -1,6 +1,5 @@
-{ config, pkgs, ... }:
+{ config, pkgs,... }:
 
-with import <nixpkgs> { };
 let
       pluginGit = owner: repo: ref: sha:
         pkgs.vimUtils.buildVimPluginFrom2Nix {
@@ -13,7 +12,6 @@ let
             sha256 = sha;
           };
         };
-  unityhub = callPackage ./unityhub.nix { };
 in {
   # Home Manager needs a bit of information about you and the
 # paths it should manage.
@@ -28,7 +26,10 @@ nixpkgs.config.permittedInsecurePackages = [ "electron-13.6.9" ];
 
 # Packages for this user.
 home.packages = [
-  unityhub # Game-making tool - Launcher for Unity. defined above in unityhub.nix - nixpkgs is outdated https://github.com/huantianad/nixos-config/blob/main/packages/unityhub.nix
+  pkgs.unityhub # Game-making tool - Launcher for Unity. Overlayed by definition in custom-packages/unityhub.nix - nixpkgs is outdated https://github.com/huantianad/nixos-config/blob/main/packages/unityhub.nix.
+  pkgs.pdc # PlayDateCompiler - Not in nixpkgs, overlayed by github:headblockhead/nix-playdatesdk. See flake.nix.
+  pkgs.pdutil # PlayDateUtility - Not in nixpkgs, overlayed by github:headblockhead/nix-playdatesdk. See flake.nix.
+  pkgs.PlaydateSimulator # Not in nixpkgs, overlayed by github:headblockhead/nix-playdatesdk. See flake.nix. 
   pkgs.obinskit # Annepro2 configurator
   pkgs.gcc
   pkgs.cmake # C Makefile creator.
@@ -40,7 +41,6 @@ home.packages = [
   pkgs.sumneko-lua-language-server # Lua language server for vim.
   pkgs.lua5_4 # Lua language
   pkgs.remmina # Remote desktop application.
-  pkgs.platformio
   pkgs.audacity # Audio app
   pkgs.bat # Cat alternative
   pkgs.steam # Video game distribution platform
@@ -407,7 +407,7 @@ programs.vscode = {
       name = "cpptools";
       publisher = "ms-vscode";
       version = "1.13.8";
-      sha256 = "qwFuENV1zx5ugLekHbpjwJeeqpBkMuuL0xgKiUTLyRM=";
+      sha256 = "Cfi96o7/6smiPnXSlUfg8fI6H+2k1MVaZnjIWqRe9Uk=";
     }
     {
       name = "copilot";

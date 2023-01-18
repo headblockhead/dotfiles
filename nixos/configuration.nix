@@ -238,7 +238,6 @@
   # Add udev rules.
   services.udev.packages = with pkgs; [
     gnome.gnome-settings-daemon
-    platformio
     qmk-udev-rules
   ];
 
