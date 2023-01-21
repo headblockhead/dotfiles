@@ -11,9 +11,13 @@
       url = "github:headblockhead/nix-playdatesdk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    xc = {
+      url = "github:joerdav/xc";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, playdatesdk, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, playdatesdk, xc, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -23,6 +27,7 @@
         pdc = playdatesdk.packages.x86_64-linux.pdc;
         pdutil = playdatesdk.packages.x86_64-linux.pdutil;
         PlaydateSimulator = playdatesdk.packages.x86_64-linux.PlaydateSimulator;
+        xc = xc.packages.x86_64-linux.xc;
     })
   ];
 };

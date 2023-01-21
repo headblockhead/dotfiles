@@ -30,6 +30,7 @@ home.packages = [
   pkgs.pdc # PlayDateCompiler - Not in nixpkgs, overlayed by github:headblockhead/nix-playdatesdk. See flake.nix.
   pkgs.pdutil # PlayDateUtility - Not in nixpkgs, overlayed by github:headblockhead/nix-playdatesdk. See flake.nix.
   pkgs.PlaydateSimulator # Not in nixpkgs, overlayed by github:headblockhead/nix-playdatesdk. See flake.nix. 
+  pkgs.xc # Not in nixpkgs, overlayed by github:joerdav/xc. See flake.nix.
   pkgs.obinskit # Annepro2 configurator
   pkgs.gcc
   pkgs.cmake # C Makefile creator.
@@ -317,6 +318,7 @@ programs.zsh = {
     export PATH="$GOBIN:$PATH"
     export ZSH_HIGHLIGHT_STYLES[comment]=fg=245,bold
     export NIXPKGS_ALLOW_UNFREE=1
+    export PLAYDATE_SDK_PATH=~/playdatesdk-1.12.3
   '';
   plugins = [
     {
@@ -344,7 +346,7 @@ programs.zsh = {
     p = "gopass show -c -n";
     ls = "ls --color=tty -A";
   };
-  sessionVariables = { NIXPKGS_ALLOW_UNFREE = "1"; };
+  sessionVariables = { NIXPKGS_ALLOW_UNFREE = "1"; PLAYDATE_SDK_PATH= "~/playdatesdk-1.12.3"; };
 };
 programs.vscode = {
   enable = true;
