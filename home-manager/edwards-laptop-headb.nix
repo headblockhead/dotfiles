@@ -31,6 +31,7 @@ home.packages = [
   pkgs.pdutil # PlayDateUtility - Not in nixpkgs, overlayed by github:headblockhead/nix-playdatesdk. See flake.nix.
   pkgs.PlaydateSimulator # Not in nixpkgs, overlayed by github:headblockhead/nix-playdatesdk. See flake.nix. 
   pkgs.xc # Not in nixpkgs, overlayed by github:joerdav/xc. See flake.nix.
+  pkgs.pico-sdk # RP2040 SDK.
   pkgs.obinskit # Annepro2 configurator
   pkgs.gcc
   pkgs.cmake # C Makefile creator.
@@ -84,6 +85,10 @@ home.packages = [
   pkgs.libreoffice # Microsoft Office alternative for Linux
   pkgs.hugo # Static site generator written in Go
   pkgs.adwaita-qt # QT theme to bend Qt applications to look like they belong into GNOME Shell
+  pkgs.gcc-arm-embedded # GCC for ARM
+  pkgs.picotool # RP2040 tool for uploading uf2s.
+  pkgs.python39 # Python interpreter
+  pkgs.minicom # Serial console/modem controller.
   pkgs.gnome.gnome-terminal # Gnome terminal
 ];
 
@@ -319,6 +324,13 @@ programs.zsh = {
     export ZSH_HIGHLIGHT_STYLES[comment]=fg=245,bold
     export NIXPKGS_ALLOW_UNFREE=1
     export PLAYDATE_SDK_PATH=~/playdatesdk-1.12.3
+    if [ ! -d ~/pico-sdk ]
+    then
+      git clone https://github.com/raspberrypi/pico-sdk.git ~/pico-sdk
+      git -C ~/pico-sdk submodule update --init ~/pico-sdk
+      cp -r ${pkgs.pico-sdk}/lib/pico-sdk ~/pico-sdk
+    fi
+    export PICO_SDK_PATH="~/pico-sdk"
   '';
   plugins = [
     {
@@ -346,7 +358,7 @@ programs.zsh = {
     p = "gopass show -c -n";
     ls = "ls --color=tty -A";
   };
-  sessionVariables = { NIXPKGS_ALLOW_UNFREE = "1"; PLAYDATE_SDK_PATH= "~/playdatesdk-1.12.3"; };
+  sessionVariables = { NIXPKGS_ALLOW_UNFREE = "1"; PLAYDATE_SDK_PATH= "~/playdatesdk-1.12.3";};
 };
 programs.vscode = {
   enable = true;
