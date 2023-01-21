@@ -42,7 +42,19 @@
               nix.nixPath = [ "nixpkgs=/etc/nix/channels/nixpkgs" ];
             })
             ./nixos/configuration.nix
-            ./nixos/hardware-configuration.nix
+            ./nixos/edwards-laptop-hardware.nix
+          ];
+        };
+        edwards-laptop-2 = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            ({ pkgs, ... }: {
+              environment.etc."nix/channels/nixpkgs".source = inputs.nixpkgs.outPath;
+              nix.nixPath = [ "nixpkgs=/etc/nix/channels/nixpkgs" ];
+            })
+            ./nixos/configuration.nix
+            ./nixos/edwards-laptop-2-hardware.nix
           ];
         };
       };
