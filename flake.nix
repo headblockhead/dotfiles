@@ -41,7 +41,7 @@
               environment.etc."nix/channels/nixpkgs".source = inputs.nixpkgs.outPath;
               nix.nixPath = [ "nixpkgs=/etc/nix/channels/nixpkgs" ];
             })
-            ./nixos/configuration.nix
+            ./nixos/edwards-laptop-config.nix
             ./nixos/edwards-laptop-hardware.nix
           ];
         };
@@ -53,7 +53,7 @@
               environment.etc."nix/channels/nixpkgs".source = inputs.nixpkgs.outPath;
               nix.nixPath = [ "nixpkgs=/etc/nix/channels/nixpkgs" ];
             })
-            ./nixos/configuration.nix
+            ./nixos/edwards-laptop-2-config.nix
             ./nixos/edwards-laptop-2-hardware.nix
           ];
         };
