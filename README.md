@@ -144,7 +144,7 @@ The install uses Gnome as the desktop manager, with dconf rules managed by home-
 Reload:
 
 ```bash
-home-manager switch --flake '.#headb' --impure
+home-manager switch --flake '.#edwards-laptop-headb' --impure
 sudo nixos-rebuild switch --flake ".#edwards-laptop" --impure
 ```
 
@@ -155,5 +155,5 @@ home-manager expire-generations -1+second
 sudo nix-collect-garbage -d
 nix-store --gc
 sudo nixos-rebuild switch --flake ".#edwards-laptop" --impure
-home-manager switch --flake '.#headb' --impure
+home-manager switch --flake '.#edwards-laptop-headb' --impure
 ```

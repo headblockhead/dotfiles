@@ -58,9 +58,15 @@
           ];
         };
       };
-      homeConfigurations.headb = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations = {
+        edwards-laptop-headb = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./home-manager/home.nix ];
+        modules = [ ./home-manager/edwards-laptop-headb.nix ];
       };
+      edwards-laptop-2-headb  = home-manager.lib.homeManagerConfiguration { 
+        inherit pkgs;
+        modules = [ ./home-manager/edwards-laptop-2-headb.nix ];
+      };
+    };
     };
 }
