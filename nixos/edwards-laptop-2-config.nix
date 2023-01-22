@@ -99,7 +99,7 @@
     ibm-plex
     source-code-pro
     ubuntu_font_family
-    (nerdfonts.override { fonts = [ "IBM Plex Mono" ]; })
+    (nerdfonts.override { fonts = [ "BlexMono" ]; })
   ];
 
   # Use the X11 windowing system.
