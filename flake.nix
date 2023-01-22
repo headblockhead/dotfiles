@@ -15,9 +15,13 @@
       url = "github:joerdav/xc";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mcpelauncher = {
+      url = "github:headblockhead/nix-mcpelauncher";
+      inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, playdatesdk, xc, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, playdatesdk, xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -28,6 +32,7 @@
         pdutil = playdatesdk.packages.x86_64-linux.pdutil;
         PlaydateSimulator = playdatesdk.packages.x86_64-linux.PlaydateSimulator;
         xc = xc.packages.x86_64-linux.xc;
+        mcpelauncher = mcpelauncher.defaultPackage.x86_64;
     })
   ];
 };
