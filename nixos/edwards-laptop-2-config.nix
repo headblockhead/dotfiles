@@ -98,8 +98,7 @@
   fonts.fonts = with pkgs; [
     ibm-plex
     source-code-pro
-    ubuntu_font_family
-    (nerdfonts.override { fonts = [ "IBMPlexMono" ]; })
+    (nerdfonts.override { fonts = [ "IBMPlexMono" "SourceCodePro"]; })
   ];
 
   # Use the X11 windowing system.
