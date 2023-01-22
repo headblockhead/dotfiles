@@ -5,6 +5,7 @@
   imports = [
     ./modules/dconf.nix
     ./modules/everydayapps.nix
+#    ./moudles/everydayappsminimal.nix
     ./modules/extraapps.nix
     ./modules/fzf.nix
     ./modules/games.nix
@@ -23,6 +24,7 @@
     ./modules/unity.nix
     ./modules/vscode.nix
     ./modules/zsh.nix
+#    ./modules/zshminimal.nix
   ];
   # Home Manager needs a bit of information about you and the
 # paths it should manage.
