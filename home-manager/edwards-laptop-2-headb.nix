@@ -9,7 +9,6 @@
     ./modules/gnome.nix
     ./modules/gnome-terminal.nix
     ./modules/gtk.nix
-    ./modules/neovim.nix
     ./modules/qt.nix
     ./modules/terminalutils.nix
     ./modules/zshminimal.nix
