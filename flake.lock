@@ -36,6 +36,26 @@
         "type": "github"
       }
     },
+    "mcpelauncher": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1674391877,
+        "narHash": "sha256-oRdyVpJ0mrG/cEGzjka4ZPSkOTIzpSLqH1gatGA5fGs=",
+        "owner": "headblockhead",
+        "repo": "nix-mcpelauncher",
+        "rev": "87a54ab6422535861c3d82e5ef370ab0c73b3a31",
+        "type": "github"
+      },
+      "original": {
+        "owner": "headblockhead",
+        "repo": "nix-mcpelauncher",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1673796341,
@@ -74,6 +94,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "mcpelauncher": "mcpelauncher",
         "nixpkgs": "nixpkgs",
         "playdatesdk": "playdatesdk",
         "xc": "xc"

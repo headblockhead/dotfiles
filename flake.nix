@@ -32,7 +32,7 @@
         pdutil = playdatesdk.packages.x86_64-linux.pdutil;
         PlaydateSimulator = playdatesdk.packages.x86_64-linux.PlaydateSimulator;
         xc = xc.packages.x86_64-linux.xc;
-        mcpelauncher = mcpelauncher.defaultPackage.x86_64;
+        mcpelauncher = mcpelauncher.defaultPackage.x86_64-linux;
     })
   ];
 };
