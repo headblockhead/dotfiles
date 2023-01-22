@@ -4,7 +4,7 @@
 
   imports = [
     ./modules/dconf.nix
-    ./modules/everydayapps.nix
+    ./modules/everydayappsminimal.nix
     ./modules/fzf.nix
     ./modules/gnome.nix
     ./modules/gnome-terminal.nix
