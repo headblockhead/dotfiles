@@ -90,55 +90,8 @@
     pkgs.neovim
     pkgs.git
     pkgs.zsh
-    pkgs.gnupg
-    pkgs.pinentry
-    pkgs.docker
     pkgs.home-manager
   ];
-
-  # Enable Steam game launcher
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall =
-      true; # Do open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall =
-      true; # Do open ports in the firewall for Source Dedicated Server
-  };
-
-  services.pcscd.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    #    pinentryFlavor = "curses"; # works in console interactive only, does not work with vscode
-    #    pinentryFlavor = "gtk2"; # creates a gtk popup
-    pinentryFlavor = "gnome3"; # creates a gnome popup.
-    enableSSHSupport = true;
-  };
-
-  # ZSH autocomplete
-  programs.zsh.enable = true;
-
-  # Network diagnostic tool.
-  programs.mtr.enable = true;
-
-  # SSH login support.
-  services.openssh.enable = true;
-  services.openssh.permitRootLogin = "no";
-
-  # Firewall configuration
-  networking.firewall = {
-    enable = true;
-    logReversePathDrops = true;
-    extraCommands = ''
-      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
-      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
-    '';
-    extraStopCommands = ''
-      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
-      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
-    '';
-    allowedTCPPorts = [ 22 29654 ]; # Allow SSH connections and transmission
-    allowedUDPPorts = [ 33545 ]; # Wireguard.
-  };
 
   # Fonts
   fonts.fontDir.enable = true;
@@ -146,6 +99,7 @@
     ibm-plex
     source-code-pro
     ubuntu_font_family
+    (nerdfonts.override { fonts = [ "IBM Plex Mono" ]; })
   ];
 
   # Use the X11 windowing system.
@@ -154,7 +108,6 @@
     displayManager = {
       gdm = {
         enable = true;
-        #walyand = false; # Disable wayland to allow for legacy screen share (Steam, Zoom etc.)
       };
     };
     desktopManager.gnome.enable = true;
@@ -188,8 +141,6 @@
     pkgs.gnome-connections # Connections
   ]);
 
-  # Do not enable gnome remote desktop - it enables pipewire which can cause memory leaks.
-  services.gnome.gnome-remote-desktop.enable = false;
   # Add udev rules.
   services.udev.packages = with pkgs; [
     gnome.gnome-settings-daemon
