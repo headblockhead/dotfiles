@@ -13,7 +13,7 @@
     imports = [
     ./modules/dconf.nix
 #    ./modules/everydayapps.nix
-    ./moudles/everydayappsminimal.nix
+    ./modules/everydayappsminimal.nix
 #    ./modules/extraapps.nix
     ./modules/fzf.nix
 #    ./modules/games.nix
