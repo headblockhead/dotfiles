@@ -10,7 +10,6 @@
     ./modules/gnome-terminal.nix
     ./modules/gtk.nix
     ./modules/qt.nix
-    ./modules/terminalutils.nix
     ./modules/zshminimal.nix
   ];
   # Home Manager needs a bit of information about you and the
