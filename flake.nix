@@ -18,25 +18,25 @@
     mcpelauncher = {
       url = "github:headblockhead/nix-mcpelauncher";
       inputs.nixpkgs.follows = "nixpkgs";
-      };
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, playdatesdk, xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
-      overlays = [
-      (self: super: {
-        unityhub = super.callPackage ./custom-packages/unityhub.nix { };
-        pdc = playdatesdk.packages.x86_64-linux.pdc;
-        pdutil = playdatesdk.packages.x86_64-linux.pdutil;
-        PlaydateSimulator = playdatesdk.packages.x86_64-linux.PlaydateSimulator;
-        xc = xc.packages.x86_64-linux.xc;
-        mcpelauncher = mcpelauncher.defaultPackage.x86_64-linux;
-    })
-  ];
-};
-    in {
+        overlays = [
+          (self: super: {
+            unityhub = super.callPackage ./custom-packages/unityhub.nix { };
+            pdc = playdatesdk.packages.x86_64-linux.pdc;
+            pdutil = playdatesdk.packages.x86_64-linux.pdutil;
+            PlaydateSimulator = playdatesdk.packages.x86_64-linux.PlaydateSimulator;
+            xc = xc.packages.x86_64-linux.xc;
+            mcpelauncher = mcpelauncher.defaultPackage.x86_64-linux;
+          })
+        ];
+      };
+    in rec { # Allow self referencing.
       nixosConfigurations = {
         edwards-laptop = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -62,16 +62,28 @@
             ./nixos/edwards-laptop-2-hardware.nix
           ];
         };
+        rpi-home-assistant = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
+            ./nixos/rpi-home-assistant-conf.nix
+            {
+              nixpkgs.config.allowUnsupportedSystem = true;
+              nixpkgs.crossSystem.system = "aarch64-linux";
+                          }
+          ];
+        };
       };
+      images.rpi-home-assistant = nixosConfigurations.rpi-home-assistant.config.system.build.sdImage;
       homeConfigurations = {
-      edwards-laptop-headb = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home-manager/edwards-laptop-headb.nix ];
+        edwards-laptop-headb = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./home-manager/edwards-laptop-headb.nix ];
+        };
+        edwards-laptop-2-headb = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./home-manager/edwards-laptop-2-headb.nix ];
+        };
       };
-      edwards-laptop-2-headb  = home-manager.lib.homeManagerConfiguration { 
-        inherit pkgs;
-        modules = [ ./home-manager/edwards-laptop-2-headb.nix ];
-      };
-    };
     };
 }
