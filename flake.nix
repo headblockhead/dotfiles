@@ -62,19 +62,27 @@
             ./nixos/edwards-laptop-2-hardware.nix
           ];
         };
-        rpi-home-assistant = nixpkgs.lib.nixosSystem {
+        rpi-headless-image = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
-            ./nixos/rpi-home-assistant-conf.nix
+            ./nixos/rpi-headless-image-conf.nix
             {
               nixpkgs.config.allowUnsupportedSystem = true;
               nixpkgs.crossSystem.system = "aarch64-linux";
                           }
           ];
         };
+        rpi-home-assistant =nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./nixos/rpi-home-assistant-conf.nix
+            ./nixos/rpi-home-assistant-hardware.nix
+          ];
+        };
       };
-      images.rpi-home-assistant = nixosConfigurations.rpi-home-assistant.config.system.build.sdImage;
+      images.rpi-headless-image = nixosConfigurations.rpi-headless-image.config.system.build.sdImage;
       homeConfigurations = {
         edwards-laptop-headb = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
