@@ -55,6 +55,20 @@ systemd.services.customstartnetworking = {
      wget
    ];
 
+     services.home-assistant = {
+    enable = true;
+    extraComponents = [
+      # Components required to complete the onboarding
+      "met"
+      "radio_browser"
+    ];
+    config = {
+      # Includes dependencies for a basic setup
+      # https://www.home-assistant.io/integrations/default_config/
+      default_config = {};
+    };
+  };
+
 
    sound.enable = true;
 hardware.pulseaudio.enable = true;
