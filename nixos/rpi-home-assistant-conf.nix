@@ -62,6 +62,7 @@ systemd.services.customstartnetworking = {
       # Components required to complete the onboarding
       "met"
       "radio_browser"
+      "backup"
     ];
     config = {
       # Includes dependencies for a basic setup
