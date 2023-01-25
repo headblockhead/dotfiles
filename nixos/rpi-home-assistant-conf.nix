@@ -53,6 +53,7 @@ systemd.services.customstartnetworking = {
    environment.systemPackages = with pkgs; [
      vim
      wget
+     home-assistant
    ];
 
      services.home-assistant = {
