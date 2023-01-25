@@ -57,7 +57,9 @@ systemd.services.customstartnetworking = {
    ];
 
      services.home-assistant = {
-    enable = true;
+       enable = true;
+       openFirewall = true;
+           port = 8123;
     extraComponents = [
       # Components required to complete the onboarding
       "met"
@@ -67,7 +69,15 @@ systemd.services.customstartnetworking = {
     config = {
       # Includes dependencies for a basic setup
       # https://www.home-assistant.io/integrations/default_config/
-      default_config = {};
+          default_config = {};
+          met = {};
+          config = {};
+      http = {
+        server_host = "0.0.0.0";
+        server_port = 8123;
+      };
+      lovelace = { mode = "yaml"; };
+      logger = { default = "debug"; };
     };
   };
 
