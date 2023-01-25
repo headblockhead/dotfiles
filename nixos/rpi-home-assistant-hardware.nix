@@ -10,7 +10,6 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelPackages = pkgs.linuxPackages_rpi4;
   boot.tmpOnTmpfs = true;
   boot.kernelParams = [
          "8250.nr_uarts=1"
