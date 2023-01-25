@@ -20,7 +20,6 @@
      ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
 
   # Required for the Wireless firmware
   hardware.enableRedistributableFirmware = true;
