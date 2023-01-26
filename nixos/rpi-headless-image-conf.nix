@@ -68,7 +68,7 @@ networking.wireless = {
     };
 
     networking.interfaces.wlan0.ipv4.addresses = [ {
-  address = "192.168.155.222";
+  address = "192.168.155.235";
   prefixLength = 24;
 } ];
 networking.defaultGateway = "192.168.155.1";
