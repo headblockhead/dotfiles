@@ -24,7 +24,7 @@ in
   hardware.enableRedistributableFirmware = true;
 
   networking = {
-    hostName = "serverpi"; # Define your hostname.
+    hostName = "nixospi"; # Define your hostname.
   };
 
   nix = {
@@ -91,9 +91,9 @@ systemd.services.customstartnetworking = {
      wget
    ];
 
-   networking.firewall.enable = false;
+   networking.firewall.enable = true;
    networking.firewall.allowedUDPPorts = [];
-   networking.firewall.allowedTCPPorts = [ 22 8123 ];
+   networking.firewall.allowedTCPPorts = [ 22];
 
   system.stateVersion = "23.05";
 }

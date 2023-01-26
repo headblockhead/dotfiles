@@ -17,5 +17,6 @@
   p7zip 
   hugo
   nodejs
+  nmap
   ];
 }

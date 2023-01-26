@@ -81,6 +81,15 @@
             ./nixos/rpi-home-assistant-hardware.nix
           ];
         };
+        rpi-generic-nixos =nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = { inherit inputs; };
+modules = [
+            ./nixos/rpi-generic-nixos-conf.nix
+            ./nixos/rpi-generic-nixos-hardware.nix
+          ];
+
+        };
       };
       images.rpi-headless-image = nixosConfigurations.rpi-headless-image.config.system.build.sdImage;
       homeConfigurations = {
