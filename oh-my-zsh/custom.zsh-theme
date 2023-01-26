@@ -77,15 +77,15 @@ prompt_time() {
 # - are there background jobs? (cog)
 prompt_status() {
   local symbols
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{grey}%}✘ %?"
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
+  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{grey}%}✘ %? "
+  [[ $UID -eq 0 ]] && symbols+="%{%F{grey}%} "
   [[  -n "$symbols" ]] && prompt_segment 196 255 "$symbols"
 }
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment 92 255 "%(!.%{%F{yellow}%}.)%n@%m"
+    prompt_segment 92 255 "%(!.%{%F{bright-white}%}.)%n@%m"
   fi
 }
 
