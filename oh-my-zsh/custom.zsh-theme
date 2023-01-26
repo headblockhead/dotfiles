@@ -33,7 +33,20 @@ esac
   # what font the user is viewing this source code in. Do not replace the
   # escape sequence with a single literal character.
   # Do not change this! Do not make it '\u2b80'; that is the old, wrong code point.
-  SEGMENT_SEPARATOR=$'\ue0b0'
+  
+  # https://github.com/ryanoasis/powerline-extra-symbols#glyphs
+  
+  SEGMENT_SEPARATOR=$'\ue0b0' # Regular powerline
+  #SEGMENT_SEPARATOR=$'\ue0d1' # LEGO POWER
+  #SEGMENT_SEPARATOR=$'\ue0b4' # Curves
+  #SEGMENT_SEPARATOR=$'\ue0cc' # hexagons
+  #SEGMENT_SEPARATOR=$'\ue0c0' # fire
+  #SEGMENT_SEPARATOR=$'\ue0c4' # small pixel blend
+  #SEGMENT_SEPARATOR=$'\ue0c6' # large pixel blend
+  #SEGMENT_SEPARATOR=$'\ue0d2' # angles
+  #SEGMENT_SEPARATOR=$'\ue0c8' # spikes
+  #SEGMENT_SEPARATOR=$'\ue0b8' # -45deg 
+  #SEGMENT_SEPARATOR=$'\ue0bc' # 45deg 
 }
 
 # Begin a segment
