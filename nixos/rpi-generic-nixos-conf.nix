@@ -11,6 +11,7 @@ in
 {
   imports = [
     /root/rpi-wireless.nix
+    ./modules/homemanager.nix
   ];
 
   boot.loader.raspberryPi = {
