@@ -13,7 +13,7 @@
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
 CURRENT_BG='NONE'
-CURRENT_NIX_SHELL_COUNT=0
+DEFAULT_USER='headb'
 
 case ${SOLARIZED_THEME:-dark} in
     *)     CURRENT_FG='black';;
@@ -76,18 +76,17 @@ prompt_time() {
 # - am I root (lighhtningbolt)
 # - are there background jobs? (cog)
 prompt_status() {
-  local -a symbols
-
+  local symbols
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{grey}%}✘ %?"
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{grey}%}⚙ %j"
-
-  [[ -n "$symbols" ]] && prompt_segment 196 255 "$symbols"
+  [[  -n "$symbols" ]] && prompt_segment 196 255 "$symbols"
 }
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
+  if [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     prompt_segment 92 255 "%(!.%{%F{yellow}%}.)%n@%m"
+  fi
 }
 
 # nix-shell: if currently running nix-shell
@@ -160,7 +159,7 @@ build_prompt() {
   prompt_time
   prompt_status
   prompt_context
-  prompt_commands
+#  prompt_commands
   prompt_nix_shell
   prompt_dir
   prompt_git
