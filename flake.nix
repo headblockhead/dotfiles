@@ -101,6 +101,10 @@ modules = [
           inherit pkgs;
           modules = [ ./home-manager/edwards-laptop-2-headb.nix ];
         };
+        rpi-generic-nixos-pi = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./home-manager/rpi-generic-nixos-pi.nix ];
+        };
       };
     };
 }
