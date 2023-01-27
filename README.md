@@ -139,6 +139,13 @@ The install uses Gnome as the desktop manager, with dconf rules managed by home-
     sudo passwd -l root
     sudo usermod -L root
     ```
+
+    Add channel for `command-not-found`:
+    ```bash
+    sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+    sudo nix-channel --update
+    ```
+
 ## Commands
 
 Reload:
