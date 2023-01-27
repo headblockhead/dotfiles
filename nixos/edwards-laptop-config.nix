@@ -42,8 +42,8 @@
   # Networking settings.
   networking.hostName = "edwards-laptop";
 
-  # Disable nixos-help apps.
-  documentation.nixos.enable = false;
+  # Enable nixos-help apps.
+  documentation.nixos.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
