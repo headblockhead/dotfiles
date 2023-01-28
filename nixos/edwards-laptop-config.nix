@@ -24,6 +24,7 @@
     ./modules/ssh.nix
     ./modules/steam.nix
     ./modules/transmission.nix
+    ./modules/thinkpad-dock.nix
     ./modules/users.nix
     ./modules/wireguard.nix
     ./modules/xserver.nix
@@ -46,6 +47,7 @@
   documentation.nixos.enable = true;
   programs.command-not-found.enable = true;
 
+   
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

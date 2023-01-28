@@ -145,7 +145,12 @@ The install uses Gnome as the desktop manager, with dconf rules managed by home-
     sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
     sudo nix-channel --update
     ```
-
+    
+    Setup auto smart home features:
+    ```bash
+    nano /root/hassapi # Add home-assistant long-lived api key here.
+    truncate -s -1 /root/hassapi # Remove the trailing newline.
+    ```
 ## Commands
 
 Reload:
