@@ -96,8 +96,8 @@ users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
   # Networking settings.
   networking.hostName = "nixospi";
 
-  # Disable nixos-help apps.
-  documentation.nixos.enable = false;
+  # Enable nixos-help apps.
+  documentation.nixos.enable = true;
   programs.command-not-found.enable = true;
 
   # This value determines the NixOS release from which the default
