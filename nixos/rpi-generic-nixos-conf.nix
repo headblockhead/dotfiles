@@ -85,7 +85,7 @@ services.xmrig = {
     cuda = false;
     pools = [
       {
-        url = "gulf.moneroocean.stream:10002";
+        url = "gulf.moneroocean.stream:443";
         user = "48pEZBjqjNRCbVptEMGRdeYeUgmXaHbz7gLErTneJnN8Uc5r2qHyEPoGmS1NSmQqaK5hUjZUvRG24jBNRKjA51qbDkWM1oX";
         keepalive = true;
         tls = true;
