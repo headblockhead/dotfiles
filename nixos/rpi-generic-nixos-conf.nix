@@ -21,6 +21,7 @@ in
     version = 4;
   };
   boot.loader.grub.enable = false;
+  generic-extlinux-compatible.enable = lib.mkForce false;
 
   networking.wireless = {
     enable = true;
