@@ -3,6 +3,6 @@
     pkgs.zsh
     pkgs.git
   ];
-  users.defaultUserShell = pkgs.bash;
-  users.users.headb.shell = pkgs.zsh;
+  users.defaultUserShell = pkgs.zsh;
+  users.users.root.shell = pkgs.bash;
 }
