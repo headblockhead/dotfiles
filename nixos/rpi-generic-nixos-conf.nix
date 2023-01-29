@@ -98,6 +98,7 @@ users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
 
   # Disable nixos-help apps.
   documentation.nixos.enable = false;
+  programs.command-not-found.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -46,7 +46,6 @@
   # Enable nixos-help apps.
   documentation.nixos.enable = true;
   programs.command-not-found.enable = true;
-
    
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
