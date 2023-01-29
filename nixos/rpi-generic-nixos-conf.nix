@@ -75,15 +75,12 @@ users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
     opengl = {
       enable = true;
       driSupport = true;
-      driSupport32Bit = true;
-      extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
       extraPackages = with pkgs.unstable; [
         amdvlk
         rocm-opencl-icd
         rocm-runtime
       ];
     };
-    pulseaudio.support32Bit = true;
   };
     nixpkgs.config.allowUnsupportedSystem = true;
 
