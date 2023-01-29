@@ -57,6 +57,7 @@ systemd.services.customstartnetworking = {
    environment.systemPackages = with pkgs; [
      vim
      wget
+     rocm-opencl-runtime
    ];
 
 services.openssh = {
@@ -73,6 +74,7 @@ users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
     hardware.raspberry-pi."4".fkms-3d.enable = true;
 
     nixpkgs.config.allowUnsupportedSystem = true;
+
 
 services.xmrig = {
   enable = true;
