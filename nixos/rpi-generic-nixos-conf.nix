@@ -13,6 +13,7 @@ in
     /root/rpi-wireless.nix
     ./modules/homemanager.nix
     ./modules/zsh.nix
+    "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/936e4649098d6a5e0762058cb7687be1b2d90550.tar.gz" }/raspberry-pi/4"
   ];
 
   boot.loader.raspberryPi = {
@@ -38,7 +39,7 @@ in
   prefixLength = 24;
 } ];
 networking.defaultGateway = "192.168.155.1";
-networking.nameservers = [ "1.1.1.1" ];
+networking.nameservers = [ "192.168.155.1" "1.1.1.1" ];
 
 systemd.services.customstartnetworking = {
   script = ''
@@ -57,9 +58,6 @@ systemd.services.customstartnetworking = {
      wget
    ];
 
-   sound.enable = true;
-hardware.pulseaudio.enable = true;
-
 services.openssh = {
   enable = true;
   passwordAuthentication = false;
@@ -69,6 +67,9 @@ services.openssh = {
 
 users.users.root.openssh.authorizedKeys.keys = [ sshkey ];
 users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
+
+    # Enable GPU acceleration
+    hardware.raspberry-pi."4".fkms-3d.enable = true;
 
   nix = {
     settings.auto-optimise-store = true;
