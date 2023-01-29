@@ -75,7 +75,7 @@ users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
     opengl = {
       enable = true;
       driSupport = true;
-      extraPackages = with pkgs.unstable; [
+      extraPackages = with pkgs; [
         amdvlk
         rocm-opencl-icd
         rocm-runtime
