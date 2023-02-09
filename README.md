@@ -149,18 +149,138 @@ The install uses Gnome as the desktop manager, with dconf rules managed by home-
     Setup auto smart home features:
     ```bash
     nano /root/hassapi # Add home-assistant long-lived api key here.
-    truncate -s -1 /root/hassapi # Remove the trailing newline.
+    truncate -s -1 /root/hassapi # Remove the dastardly trailing newline.
     ```
-## Commands
 
-Reload:
+## Extras!
+
+I use this section of my dotfiles to remind me how to run various complicated tasks, in case I forget them in the future.
+
+### Running macOS using docker for XCode development.
+Allow docker containers to connect to the X Server.
+```bash
+nix-shell -p xorg.xhost
+xhost +
+exit # exits the nix shell.
+```
+
+Create the main docker container it should appear as a QEMU window.
+```bash
+docker run -it --device /dev/kvm -p 50922:10022 -e DEVICE_MODEL="iMacPro1,1" -e WIDTH=1440 -e HEIGHT=900 -e RAM=8 -e INTERNAL_SSH_PORT=23 -e AUDIO_DRIVER=pa,server=unix:/tmp/pulseaudio.socket -v "/run/user/$(id -u)/pulse/native:/tmp/pulseaudio.socket" -e CORES=2 -v /tmp/.X11-unix:/tmp/.X11-unix -e "DISPLAY=${DISPLAY:-:0.0}" -e GENERATE_UNIQUE=true -e MASTER_PLIST_URL=https://raw.githubusercontent.com/sickcodes/osx-serial-generator/master/config-custom.plist sickcodes/docker-osx:ventura
+```
+
+Install OSX after using disk manager to format the 200gig drive.
+
+Installing may take several hours.
+
+Install XCode through the app store.
+
+Installing XCode will also take a large amount of time. This would be a good time for a cup of tea.
+
+Setting up USB Passthrough:
+```bash
+nix-shell -p usbmuxd avahi socat
+sudo usbmuxd -fv # foreground, verbose
+```
+Make sure SSH is enabled.
+
+In the mac, install brew:
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+Now, install theese packages:
+```bash
+brew install make automake autoconf libtool pkg-config gcc libimobiledevice usbmuxd socat
+```
+
+Use this script on the mac to connect to your host machine's ssh. (172.17.0.1 inside of docker).
+Thanks to [the creator of this script - leonjza](https://gist.github.com/leonjza/3751e551437c108edd688501deafa2a1) and [their blog post](https://sensepost.com/blog/2022/using-a-cloud-mac-with-a-local-ios-device/) which both helped me with this.
+```bash
+#!/bin/bash
+
+# forward a remote usbmuxd socket locally.
+# useful to make remote iOS devices available to cloud macOS instances
+#
+# 2022 @leonjza
+
+set -e
+
+# arg 1 being the target. eg: leon@remote
+SSH_TARGET=$1
+
+if [ -z $SSH_TARGET ]
+then
+	echo "[+] usage: $0 ssh_target (eg: $0 user@host)"
+	exit 1
+fi
+
+REAL_SOCKET=/var/run/usbmuxd
+BACKUP_SOCKET=/var/run/usbmuxd.orig
+REMOTE_SOCKET=/var/run/usbmuxd.remote
+
+SSH_TUNNEL_PID=""
+
+# handle ^C && errors
+trap cleanup INT
+trap cleanup ERR
+
+function cleanup() {
+
+	if [ ! -z $SSH_TUNNEL_PID ]
+	then
+		echo "[+] killing ssh tunnel with PID $SSH_TUNNEL_PID"
+		kill -15 $SSH_TUNNEL_PID 
+	fi
+
+	echo "[+] restoring real usbmuxd socket"
+	mv $BACKUP_SOCKET $REAL_SOCKET
+	echo "[+] removing dangling remote socket"
+	rm -f $REMOTE_SOCKET
+
+	exit
+}
+
+echo "[+] moving real usbmuxd socket out of the way"
+mv $REAL_SOCKET $BACKUP_SOCKET
+
+echo "[+] configuring ssh tunnel to $SSH_TARGET"
+ssh -C -L $REMOTE_SOCKET:$REAL_SOCKET $SSH_TARGET -N -f
+SSH_TUNNEL_PID=$(pgrep ssh | tail -n 1)
+echo "[+] ssh tunnel PID is $SSH_TUNNEL_PID"
+
+echo "[+] connecting remote socket to local socket. ^C to quit and revert"
+socat UNIX-LISTEN:$REAL_SOCKET,mode=777,reuseaddr,fork UNIX-CONNECT:$REMOTE_SOCKET
+```
+
+Now, with both usbmuxd and the above script running, XCode should be able to see a physically connected iphone to the host computer.
+To list IOS devices, run:
+```bash
+idevice_id -l
+```
+
+If any errors are encountered, try doing the following:
+- Quit XCode
+- Disconnect device
+- Power off device (iPhone)
+- `sudo launchctl stop com.apple.usbmuxd`
+- Power on device (iPhone)
+- Connect device
+- Relaunch Xcode
+
+## Tasks
+
+### Reload
+
+Reload refreshes home-manager and nixos.
 
 ```bash
 home-manager switch --flake '.#edwards-laptop-headb' --impure
 sudo nixos-rebuild switch --flake ".#edwards-laptop" --impure
 ```
 
-Clean:
+### Clean
+
+Clean deletes all generations except the current, and cleans the nix store.
 
 ```bash
 home-manager expire-generations -1+second

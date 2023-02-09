@@ -6,7 +6,7 @@ users = {
         description = "Edward Hesketh";
         isNormalUser = true;
         extraGroups =
-          [ "wheel" "networkmanager" "docker" "dialout" "transmission" ];
+          [ "wheel" "networkmanager" "dialout" "transmission" "docker"];
       };
     };
   };

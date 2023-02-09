@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    stablenixpkgs.url = "nixpkgs/nixos-22.11";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,9 +22,10 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, playdatesdk, xc, mcpelauncher, ... }:
+  outputs = inputs@{ self, stablenixpkgs, nixpkgs, home-manager, playdatesdk, xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
+      stablepkgs = import stablenixpkgs {};
       pkgs = import nixpkgs {
         overlays = [
           (self: super: {
@@ -33,6 +35,7 @@
             PlaydateSimulator = playdatesdk.packages.x86_64-linux.PlaydateSimulator;
             xc = xc.packages.x86_64-linux.xc;
             mcpelauncher = mcpelauncher.defaultPackage.x86_64-linux;
+            handbrake = stablepkgs.handbrake;
           })
         ];
       };

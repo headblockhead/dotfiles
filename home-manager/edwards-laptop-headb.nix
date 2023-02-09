@@ -26,6 +26,11 @@
     ./modules/zsh.nix
 #    ./modules/zshminimal.nix
   ];
+
+  home.packages = [
+    pkgs.handbrake
+  ];
+
   # Home Manager needs a bit of information about you and the
 # paths it should manage.
 home.username = "headb";

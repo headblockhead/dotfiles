@@ -8,6 +8,7 @@
   imports = [
     ./modules/basicpackages.nix
     ./modules/bluetooth.nix
+    ./modules/docker.nix
     ./modules/firewall.nix
 #    ./modules/fontsminimal.nix
     ./modules/fonts.nix
@@ -26,7 +27,7 @@
     ./modules/transmission.nix
     ./modules/thinkpad-dock.nix
     ./modules/users.nix
-    ./modules/wireguard.nix
+#    ./modules/wireguard.nix
     ./modules/xserver.nix
     ./modules/zsh.nix
   ];
