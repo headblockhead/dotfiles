@@ -179,7 +179,7 @@ Installing XCode will also take a large amount of time. This would be a good tim
 
 Setting up USB Passthrough:
 ```bash
-nix-shell -p usbmuxd avahi socat
+nix-shell -p usbmuxd2 avahi socat
 sudo usbmuxd -fv # foreground, verbose
 ```
 Make sure SSH is enabled.
