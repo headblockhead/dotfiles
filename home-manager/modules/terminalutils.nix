@@ -18,5 +18,6 @@
   hugo
   nodejs
   nmap
+  killall
   ];
 }
