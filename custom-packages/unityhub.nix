@@ -1,11 +1,15 @@
-{ lib, stdenv, fetchurl, dpkg, makeWrapper, buildFHSUserEnv }:
+{ lib, stdenv, fetchurl, dpkg, makeWrapper, buildFHSUserEnv, pkgs
+, extraPkgs ? pkgs: [ ]
+, extraLibs ? pkgs: [ ]
+}:
+
 stdenv.mkDerivation rec {
   name = "unityhub";
-  version = "3.3.0";
+  version = "3.4.1";
 
   src = fetchurl {
     url = "https://hub-dist.unity3d.com/artifactory/hub-debian-prod-local/pool/main/u/unity/unityhub_amd64/unityhub-amd64-${version}.deb";
-    sha256 = "sha256-W5NPOvIUFDyNuauUDXD/jaMD5USPO/7Wty6FuxtFbRk=";
+    sha256 = "sha256-/P6gPLSRGfwEN801cyNrZTpHyZKO+4tU6cFvLz8ERuo=";
   };
 
   nativeBuildInputs = [
@@ -16,15 +20,31 @@ stdenv.mkDerivation rec {
   fhsEnv = buildFHSUserEnv {
     name = "${name}-fhs-env";
     runScript = "";
+
+    # Seems to be needed for GTK filepickers to work in FHSUserEnv
+    profile = "XDG_DATA_DIRS=\"\$XDG_DATA_DIRS:/usr/share/\"";
+
     targetPkgs = pkgs: with pkgs; [
-      # Unity Hub dependencies
+      xorg.libXrandr
+
+      # GTK filepicker
+      gsettings-desktop-schemas
+      hicolor-icon-theme
+
+      # Bug Reporter dependencies
+      fontconfig
+      freetype
+      lsb-release
+    ] ++ extraPkgs pkgs;
+
+    multiPkgs = pkgs: with pkgs; [
+      # Unity Hub ldd dependencies
       cups
       gtk3
       expat
       libxkbcommon
       lttng-ust_2_12
       krb5
-      at-spi2-core
       alsa-lib
       nss_latest
       libdrm
@@ -32,10 +52,9 @@ stdenv.mkDerivation rec {
       nspr
       atk
       dbus
-      at-spi2-atk
-      gnome2.pango
+      at-spi2-core
+      pango
       xorg.libXcomposite
-      xorg.libXrandr
       xorg.libXext
       xorg.libXdamage
       xorg.libXfixes
@@ -44,6 +63,7 @@ stdenv.mkDerivation rec {
       xorg.libXScrnSaver
       xorg.libXtst
 
+      # Unity Hub additional dependencies
       libva
       openssl_1_1
       cairo
@@ -56,7 +76,7 @@ stdenv.mkDerivation rec {
       wayland
       cpio
       icu
-      libpulseaudio # Not a ldd thing, but needed for sound to work
+      libpulseaudio
 
       # Editor dependencies
       libglvnd # provides ligbl
@@ -67,29 +87,10 @@ stdenv.mkDerivation rec {
       libxml2
       zlib
       clang
-
-      # Bug Reporter dependencies
-      fontconfig
-      freetype
-      lsb-release
-
-      # these are probably not needed
-      xorg.libXinerama
-      # hicolor-icon-theme
-
-      # My Unity projects depend on these
-      harfbuzz
-      libogg
-    ];
+    ] ++ extraLibs pkgs;
   };
 
-  unpackCmd = ''
-    runHook preUnpack
-
-    dpkg-deb -x $src src
-
-    runHook postUnpack
-  '';
+  unpackCmd = "dpkg -x $curSrc src";
 
   dontConfigure = true;
   dontBuild = true;
@@ -100,11 +101,11 @@ stdenv.mkDerivation rec {
     mkdir -p $out
     mv opt/ usr/share/ $out
 
-    # `unityhub` is a shell wrapper that runs `unityhub-bin`
-    # Which we don't need and replace with our own custom wrapper
+    # `/opt/unityhub/unityhub` is a shell wrapper that runs `/opt/unityhub/unityhub-bin`
+    # Which we don't need and overwrite with our own custom wrapper
     makeWrapper ${fhsEnv}/bin/${name}-fhs-env $out/opt/unityhub/unityhub \
-      --inherit-argv0 \
-      --add-flags $out/opt/unityhub/unityhub-bin
+      --add-flags $out/opt/unityhub/unityhub-bin \
+      --argv0 unityhub
 
     # Link binary
     mkdir -p $out/bin
@@ -118,10 +119,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Download and manage Unity Projects and installations.";
+    description = "Official Unity3D app to download and manage Unity Projects and installations";
     homepage = "https://unity3d.com/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ huantian ];
+    maintainers = with maintainers; [ tesq0 huantian ];
     platforms = [ "x86_64-linux" ];
   };
 }
+
+

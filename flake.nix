@@ -2,8 +2,7 @@
   description = "NixOS and Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-    stablenixpkgs.url = "nixpkgs/nixos-22.11";
+    nixpkgs.url = "nixpkgs/nixos-22.11";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,20 +21,20 @@
     };
   };
 
-  outputs = inputs@{ self, stablenixpkgs, nixpkgs, home-manager, playdatesdk, xc, mcpelauncher, ... }:
+  outputs = inputs@{ self,  nixpkgs, home-manager, playdatesdk, xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
-      stablepkgs = import stablenixpkgs {};
       pkgs = import nixpkgs {
         overlays = [
           (self: super: {
-            unityhub = super.callPackage ./custom-packages/unityhub.nix { };
+            unityhub = super.callPackage ./custom-packages/unityhub.nix { 
+              inherit pkgs;
+            };
             pdc = playdatesdk.packages.x86_64-linux.pdc;
             pdutil = playdatesdk.packages.x86_64-linux.pdutil;
             PlaydateSimulator = playdatesdk.packages.x86_64-linux.PlaydateSimulator;
             xc = xc.packages.x86_64-linux.xc;
             mcpelauncher = mcpelauncher.defaultPackage.x86_64-linux;
-            handbrake = stablepkgs.handbrake;
           })
         ];
       };

@@ -27,10 +27,21 @@
     ./modules/transmission.nix
     ./modules/thinkpad-dock.nix
     ./modules/users.nix
-  #  ./modules/wireguard.nix
+#  ./modules/wireguard.nix
     ./modules/xserver.nix
     ./modules/zsh.nix
   ];
+
+    hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.enable = true;
+  hardware.pulseaudio.support32Bit = true;
+
+  environment.systemPackages = [
+    pkgs.vulkan-tools
+  ];
+
+  programs.adb.enable = true;
+  users.users.headb.extraGroups = ["adbusers"];
 
   # Allow nix flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
