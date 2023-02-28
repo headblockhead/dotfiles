@@ -57,6 +57,7 @@ systemd.services.customstartnetworking = {
    environment.systemPackages = with pkgs; [
      vim
      wget
+     git
    ];
 
 services.openssh = {
