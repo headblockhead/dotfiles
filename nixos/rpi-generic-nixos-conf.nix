@@ -85,23 +85,24 @@ users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
     nixpkgs.config.allowUnsupportedSystem = true;
 
 
-services.xmrig = {
-  enable = true;
-  settings = {
-    autosave = true;
-    cpu = true;
-    opencl = true;
-    cuda = false;
-    pools = [
-      {
-        url = "gulf.moneroocean.stream:443";
-        user = "48pEZBjqjNRCbVptEMGRdeYeUgmXaHbz7gLErTneJnN8Uc5r2qHyEPoGmS1NSmQqaK5hUjZUvRG24jBNRKjA51qbDkWM1oX";
-        keepalive = true;
-        tls = true;
-      }
-    ];
-  };
-};
+    
+#services.xmrig = {
+#  enable = true;
+#  settings = {
+#    autosave = true;
+#    cpu = true;
+#    opencl = true;
+#    cuda = false;
+#    pools = [
+#      {
+#        url = "gulf.moneroocean.stream:443";
+#        user = "48pEZBjqjNRCbVptEMGRdeYeUgmXaHbz7gLErTneJnN8Uc5r2qHyEPoGmS1NSmQqaK5hUjZUvRG24jBNRKjA51qbDkWM1oX";
+#        keepalive = true;
+#        tls = true;
+#      }
+#    ];
+#  };
+#};
 
   nix = {
     settings.auto-optimise-store = true;
