@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-22.11";
+    oldnixpkgs.url = "nixpkgs/nixos-21.05";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,15 +22,17 @@
     };
   };
 
-  outputs = inputs@{ self,  nixpkgs, home-manager, playdatesdk, xc, mcpelauncher, ... }:
+  outputs = inputs@{ self,  nixpkgs, oldnixpkgs, home-manager, playdatesdk, xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
+      oldpkgs = import oldnixpkgs{};
       pkgs = import nixpkgs {
         overlays = [
           (self: super: {
             unityhub = super.callPackage ./custom-packages/unityhub.nix { 
               inherit pkgs;
             };
+            thonny = oldpkgs.thonny;
             pdc = playdatesdk.packages.x86_64-linux.pdc;
             pdutil = playdatesdk.packages.x86_64-linux.pdutil;
             PlaydateSimulator = playdatesdk.packages.x86_64-linux.PlaydateSimulator;

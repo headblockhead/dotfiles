@@ -29,6 +29,11 @@
 
   home.packages = [
     pkgs.handbrake
+    pkgs.tmux
+    pkgs.arduino
+    pkgs.thonny
+    pkgs.lmms
+    pkgs.polyphone
   ];
 
   # Home Manager needs a bit of information about you and the
