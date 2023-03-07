@@ -99,7 +99,8 @@ modules = [
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            ./nixos/virtualbox-conf.nix
+            ./nixos/virtualbox-config.nix
+            ./nixos/virtualbox-hardware.nix
           ];
         };
       };
