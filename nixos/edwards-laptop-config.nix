@@ -32,6 +32,8 @@
     ./modules/zsh.nix
   ];
 
+  boot.supportedFilesystems = [ "ntfs" ];
+
     hardware.opengl.driSupport32Bit = true;
   hardware.opengl.enable = true;
   hardware.pulseaudio.support32Bit = true;
@@ -39,6 +41,17 @@
   environment.systemPackages = [
     pkgs.vulkan-tools
   ];
+
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "headb" ];
+    virtualisation.virtualbox.guest.enable = true;
+  virtualisation.virtualbox.guest.x11 = true;
+
+  environment.sessionVariables = {
+ QT_STYLE_OVERRIDE="adwaita-dark";
+  };
+
+  qt5.style = "adwaita-dark";
 
   programs.adb.enable = true;
   users.users.headb.extraGroups = ["adbusers"];

@@ -16,6 +16,7 @@ programs.zsh = {
     export PLAYDATE_SDK_PATH="~/playdatesdk-1.12.3"
     export NIXPKGS_ALLOW_UNFREE="1"
     export PICO_SDK_PATH="~/pico-sdk"
+    export QT_STYLE_OVERRIDE="adwaita-dark"
     if [ ! -d ~/pico-sdk ]
     then
       git clone https://github.com/raspberrypi/pico-sdk.git ~/pico-sdk

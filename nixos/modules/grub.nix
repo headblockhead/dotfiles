@@ -3,7 +3,7 @@
     loader = {
       efi = {
         canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
+        efiSysMountPoint = "/boot/EFI";
       };
   # Use the GRUB bootloader.
       grub = {
