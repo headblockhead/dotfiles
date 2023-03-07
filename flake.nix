@@ -95,6 +95,13 @@ modules = [
           ];
 
         };
+        virtualbox = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./nixos/virtualbox-conf.nix
+          ];
+        };
       };
       images.rpi-headless-image = nixosConfigurations.rpi-headless-image.config.system.build.sdImage;
       homeConfigurations = {
