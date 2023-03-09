@@ -29,7 +29,6 @@ programs.vscode = {
     "Lua.diagnostics.globals" = [ "playdate" "import" ];
     "Lua.diagnostics.disable" = [ "undefined-global" "lowercase-global" ];
     "Lua.runtime.nonstandardSymbol" = [ "+=" "-=" "*=" "/=" ];
-    "Lua.workspace.library" = [ "/home/headb/playdate_sdk-1.12.3/CoreLibs" ];
     "Lua.workspace.preloadFileSize" = 1000;
     "github.copilot.enable" = {
       "*" = true;

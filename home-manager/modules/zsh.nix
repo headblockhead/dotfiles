@@ -13,7 +13,7 @@ programs.zsh = {
     source ~/custom.zsh-theme
     export PATH="$GOBIN:$PATH"
     export ZSH_HIGHLIGHT_STYLES[comment]=fg=245,bold
-    export PLAYDATE_SDK_PATH="~/playdatesdk-1.12.3"
+    export PLAYDATE_SDK_PATH="~/playdatesdk-`pdc --version`"
     export NIXPKGS_ALLOW_UNFREE="1"
     export PICO_SDK_PATH="~/pico-sdk"
     export QT_STYLE_OVERRIDE="adwaita-dark"

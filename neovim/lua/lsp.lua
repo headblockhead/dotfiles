@@ -114,9 +114,9 @@ local server_settings = {
       diagnostics = {
         globals = { 'playdate', 'import', 'vim' },
       },
-      workspace = {
-        library = { "/home/headb/playdate_sdk-1.12.3/CoreLibs/" },
-      },
+      --      workspace = {
+      --        library = { "/home/headb/playdate_sdk-1.12.3/CoreLibs/" },
+      --      },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
         enable = false,
