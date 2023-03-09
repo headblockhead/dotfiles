@@ -93,11 +93,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1678315324,
-        "narHash": "sha256-wSLIAN5XSrRTN6F+zgJbKWyAFMQjN3Ph8w2ZaKK+SH8=",
+        "lastModified": 1678384428,
+        "narHash": "sha256-0uOm6P8/nj/OiokUoslzzA+12jEb149KMTwo+V2ylaE=",
         "owner": "headblockhead",
         "repo": "nix-playdatesdk",
-        "rev": "793663f42c8354463c8e2741cb23bc3a930f21a3",
+        "rev": "995f7a14827a4c4689584f80c854c5b3a48869cc",
         "type": "github"
       },
       "original": {
