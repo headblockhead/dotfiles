@@ -34,6 +34,7 @@
     pkgs.thonny
     pkgs.lmms
     pkgs.rpi-imager
+    pkgs.teams
   ];
 
   # Home Manager needs a bit of information about you and the
