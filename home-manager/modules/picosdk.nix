@@ -6,7 +6,7 @@
   ccls 
   gcc-arm-embedded
   picotool
-  python39 
+#  python39 
   minicom
   gnumake
 ];

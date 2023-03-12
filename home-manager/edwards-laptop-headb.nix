@@ -1,5 +1,13 @@
 { config, pkgs,... }:
 
+let 
+    my-python-packages = p: with p; [
+    pandas
+    requests
+    # other python packages
+  ];
+
+in
 {
 
   imports = [
@@ -35,6 +43,8 @@
     pkgs.lmms
     pkgs.rpi-imager
     pkgs.teams
+    pkgs.chiaki # PS4 remote play for Linux.
+    (pkgs.python3.withPackages my-python-packages)
   ];
 
   # Home Manager needs a bit of information about you and the

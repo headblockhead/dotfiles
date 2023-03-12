@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   networking.firewall = {
-    enable = true;
+    enable = false;
     logReversePathDrops = true;
     allowedTCPPorts = [8000];
   };
