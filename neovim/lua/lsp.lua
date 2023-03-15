@@ -148,6 +148,10 @@ end
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
+-- copilot-vim mapping: control + [ accepts autocomplete.
+vim.cmd('inoremap <silent><expr> <C-]> copilot#Accept("")')
+vim.cmd('let g:copilot_no_tab_map = 1')
+
 -- luasnip setup
 local luasnip = require 'luasnip'
 

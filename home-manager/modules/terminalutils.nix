@@ -16,7 +16,7 @@
   gopass
   p7zip 
   hugo
-  nodejs
+  nodejs-16_x
   nmap
   killall
   ];

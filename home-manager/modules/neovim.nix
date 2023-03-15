@@ -40,6 +40,8 @@ in {
     vim-lastplace
     # Syntax highlighting for Nix files.
     vim-nix
+    # Github Copilot
+    copilot-vim
     # Colour scheme.
     # Use :TSHighlightCapturesUnderCursor to see the syntax under cursor.
       playground
