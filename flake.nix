@@ -12,6 +12,10 @@
       url = "github:headblockhead/nix-playdatesdk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    playdatemirror = {
+      url = "github:headblockhead/nix-playdatemirror";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     xc = {
       url = "github:joerdav/xc";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,7 +26,7 @@
     };
   };
 
-  outputs = inputs@{ self,  nixpkgs, oldnixpkgs, home-manager, playdatesdk, xc, mcpelauncher, ... }:
+  outputs = inputs@{ self,  nixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
       oldpkgs = import oldnixpkgs{};
@@ -36,6 +40,7 @@
             pdc = playdatesdk.packages.x86_64-linux.pdc;
             pdutil = playdatesdk.packages.x86_64-linux.pdutil;
             PlaydateSimulator = playdatesdk.packages.x86_64-linux.PlaydateSimulator;
+            playdatemirror = playdatemirror.packages.x86_64-linux.Mirror;
             xc = xc.packages.x86_64-linux.xc;
             mcpelauncher = mcpelauncher.defaultPackage.x86_64-linux;
           })

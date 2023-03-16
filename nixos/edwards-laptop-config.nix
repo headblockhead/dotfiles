@@ -45,7 +45,7 @@
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "headb" ];
     virtualisation.virtualbox.guest.enable = true;
-  virtualisation.virtualbox.guest.x11 = true;
+ virtualisation.virtualbox.guest.x11 = true;
 
   environment.sessionVariables = {
  QT_STYLE_OVERRIDE="adwaita-dark";

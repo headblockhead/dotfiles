@@ -8,5 +8,6 @@
   cmake
   ccls 
   gcc-arm-embedded
+  playdatemirror
 ];
 }

@@ -17,6 +17,7 @@
   p7zip 
   hugo
   nodejs-16_x
+  wireshark
   nmap
   killall
   ];

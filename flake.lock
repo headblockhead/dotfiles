@@ -86,6 +86,26 @@
         "type": "indirect"
       }
     },
+    "playdatemirror": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1673646356,
+        "narHash": "sha256-V/G2H9N+0zfygtf0b/p3T37mg1hn5wTDuRErqL+e7KQ=",
+        "owner": "headblockhead",
+        "repo": "nix-playdatemirror",
+        "rev": "833cdea720a4dec698b18968b59053cb425f6b14",
+        "type": "github"
+      },
+      "original": {
+        "owner": "headblockhead",
+        "repo": "nix-playdatemirror",
+        "type": "github"
+      }
+    },
     "playdatesdk": {
       "inputs": {
         "nixpkgs": [
@@ -112,6 +132,7 @@
         "mcpelauncher": "mcpelauncher",
         "nixpkgs": "nixpkgs",
         "oldnixpkgs": "oldnixpkgs",
+        "playdatemirror": "playdatemirror",
         "playdatesdk": "playdatesdk",
         "xc": "xc"
       }
