@@ -44,6 +44,7 @@ in
     pkgs.rpi-imager
     pkgs.teams
     pkgs.chiaki # PS4 remote play for Linux.
+    pkgs.nodePackages.node2nix
     (pkgs.python3.withPackages my-python-packages)
   ];
 
