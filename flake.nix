@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-22.11";
+    unstablenixpkgs.url = "nixpkgs/nixos-unstable";
     oldnixpkgs.url = "nixpkgs/nixos-21.05";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -26,16 +27,15 @@
     };
   };
 
-  outputs = inputs@{ self,  nixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
+  outputs = inputs@{ self, unstablenixpkgs, nixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
       oldpkgs = import oldnixpkgs{};
+      unstablepkgs = import unstablenixpkgs {};
       pkgs = import nixpkgs {
         overlays = [
           (self: super: {
-            unityhub = super.callPackage ./custom-packages/unityhub.nix { 
-              inherit pkgs;
-            };
+            unityhub = unstablepkgs.unityhub;
             thonny = oldpkgs.thonny;
             pdc = playdatesdk.packages.x86_64-linux.pdc;
             pdutil = playdatesdk.packages.x86_64-linux.pdutil;
