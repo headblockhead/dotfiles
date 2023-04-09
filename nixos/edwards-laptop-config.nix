@@ -40,6 +40,7 @@
 
   environment.systemPackages = [
     pkgs.vulkan-tools
+    pkgs.monero-gui
   ];
 
   virtualisation.virtualbox.host.enable = true;
