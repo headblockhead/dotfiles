@@ -36,6 +36,8 @@ in
   # Allow nix flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot/efi";
+
   services.openssh.enable = true;
   services.openssh.permitRootLogin = lib.mkForce "yes";
   users.users.root.openssh.authorizedKeys.keys = [ sshkey ];
