@@ -33,12 +33,15 @@
 #    ./modules/vscode.nix
 #    ./modules/zsh.nix
     ./modules/zshminimal.nix
-  ];
+];
+
   # Home Manager needs a bit of information about you and the
 # paths it should manage.
 home.username = "headb";
 home.homeDirectory = "/home/headb";
 home.enableNixpkgsReleaseCheck = true;
+
+home.packages = [pkgs.xc];
 
 # Don't show home-manager news
 news.display = "silent";

@@ -34,8 +34,6 @@ in
     ./modules/zsh.nix
   ];
 
-  environment.systemPackages = with pkgs; [ xc ];
-
   # Allow nix flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
