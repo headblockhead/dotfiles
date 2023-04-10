@@ -37,7 +37,7 @@ in
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   services.openssh.enable = true;
-  services.openssh.permitRootLogin = "yes";
+  services.openssh.permitRootLogin = lib.mkForce "yes";
   users.users.root.openssh.authorizedKeys.keys = [ sshkey ];
   users.users.headb.openssh.authorizedKeys.keys = [ sshkey ];
   services.openssh.passwordAuthentication = false;
