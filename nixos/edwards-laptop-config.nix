@@ -16,6 +16,7 @@
     ./modules/gpg.nix
     ./modules/grub.nix
     ./modules/homemanager.nix
+    ./modules/lenovo-bat-save.nix
     ./modules/network.nix
     ./modules/printer.nix
     ./modules/region.nix
@@ -39,17 +40,14 @@
   hardware.pulseaudio.support32Bit = true;
 
   environment.systemPackages = [
-    pkgs.vulkan-tools
-    pkgs.monero-gui
   ];
 
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "headb" ];
-    virtualisation.virtualbox.guest.enable = true;
- virtualisation.virtualbox.guest.x11 = true;
+ #  virtualisation.virtualbox.host.enable = true;
+#  users.extraGroups.vboxusers.members = [ "headb" ];
 
   environment.sessionVariables = {
- QT_STYLE_OVERRIDE="adwaita-dark";
+    QT_STYLE_OVERRIDE="adwaita-dark";
+DOTNET_ROOT = "${pkgs.dotnet-sdk}";
   };
 
   qt5.style = "adwaita-dark";

@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     pkgs.vscode
+    pkgs.mono
   ];
 programs.vscode = {
   enable = true;
@@ -36,6 +37,8 @@ programs.vscode = {
       "plaintext" = true;
       "markdown" = true;
     };
+#    "omnisharp.dotnetPath" = "/home/headb/.nix-profile/bin/dotnet";
+    "omnisharp.useGlobalMono" ="always";
   };
 };
 }

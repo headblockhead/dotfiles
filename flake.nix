@@ -43,6 +43,8 @@
             playdatemirror = playdatemirror.packages.x86_64-linux.Mirror;
             xc = xc.packages.x86_64-linux.xc;
             mcpelauncher = mcpelauncher.defaultPackage.x86_64-linux;
+            platformio = unstablepkgs.platformio;
+            vscode = unstablepkgs.vscode;
           })
         ];
       };
@@ -83,14 +85,6 @@
                           }
           ];
         };
-        rpi-home-assistant =nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./nixos/rpi-home-assistant-conf.nix
-            ./nixos/rpi-home-assistant-hardware.nix
-          ];
-        };
         rpi-generic-nixos =nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = { inherit inputs; };
@@ -99,14 +93,6 @@ modules = [
             ./nixos/rpi-generic-nixos-hardware.nix
           ];
 
-        };
-        virtualbox = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./nixos/virtualbox-config.nix
-            ./nixos/virtualbox-hardware.nix
-          ];
         };
       };
       images.rpi-headless-image = nixosConfigurations.rpi-headless-image.config.system.build.sdImage;

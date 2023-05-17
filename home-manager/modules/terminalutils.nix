@@ -20,5 +20,8 @@
   wireshark
   nmap
   killall
+  flyctl
+    platformio
+    tmux
   ];
 }

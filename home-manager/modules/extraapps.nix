@@ -11,5 +11,12 @@
   kdenlive
   gimp
   transgui
+  monero-gui
+    teams
+    rpi-imager
+    lmms
+    arduino
+    thonny
+    chiaki
   ];
 }

@@ -1,13 +1,5 @@
 { config, pkgs,... }:
 
-let 
-    my-python-packages = p: with p; [
-    pandas
-    requests
-    # other python packages
-  ];
-
-in
 {
 
   imports = [
@@ -36,16 +28,8 @@ in
   ];
 
   home.packages = [
-    pkgs.tmux
-    pkgs.git-lfs
-    pkgs.arduino
-    pkgs.thonny
-    pkgs.lmms
-    pkgs.rpi-imager
-    pkgs.teams
-    pkgs.chiaki # PS4 remote play for Linux.
-    pkgs.nodePackages.node2nix
-    (pkgs.python3.withPackages my-python-packages)
+    pkgs.omnisharp-roslyn
+    pkgs.dotnet-sdk
   ];
 
   # Home Manager needs a bit of information about you and the
@@ -59,10 +43,12 @@ news.display = "silent";
 
 home.sessionVariables = {
   QT_STYLE_OVERRIDE="adwaita-dark";
+           DOTNET_ROOT = "${pkgs.dotnet-sdk}"; 
 };
 
 systemd.user.sessionVariables = {
   QT_STYLE_OVERRIDE="adwaita-dark";
+           DOTNET_ROOT = "${pkgs.dotnet-sdk}"; 
 };
 
 # This value determines the Home Manager release that your
