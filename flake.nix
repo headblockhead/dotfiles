@@ -5,8 +5,9 @@
     nixpkgs.url = "nixpkgs/nixos-22.11";
     unstablenixpkgs.url = "nixpkgs/nixos-unstable";
     oldnixpkgs.url = "nixpkgs/nixos-21.05";
+    unitynixpkgs.url = "github:NixOS/nixpkgs/afb1ed8";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     playdatesdk = {
@@ -27,15 +28,16 @@
     };
   };
 
-  outputs = inputs@{ self, unstablenixpkgs, nixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
+  outputs = inputs@{ self, unstablenixpkgs, nixpkgs, unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
       oldpkgs = import oldnixpkgs{};
       unstablepkgs = import unstablenixpkgs {};
+      unitypkgs = import unitynixpkgs {};
       pkgs = import nixpkgs {
         overlays = [
           (self: super: {
-            unityhub = unstablepkgs.unityhub;
+            unityhub = unitypkgs.unityhub;
             thonny = oldpkgs.thonny;
             pdc = playdatesdk.packages.x86_64-linux.pdc;
             pdutil = playdatesdk.packages.x86_64-linux.pdutil;
@@ -45,6 +47,7 @@
             mcpelauncher = mcpelauncher.defaultPackage.x86_64-linux;
             platformio = unstablepkgs.platformio;
             vscode = unstablepkgs.vscode;
+            home-manager = home-manager;
           })
         ];
       };

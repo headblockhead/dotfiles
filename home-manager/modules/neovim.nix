@@ -24,7 +24,7 @@ in {
   enable = true;
   viAlias = true;
   vimAlias = true;
-  defaultEditor = true;
+  #defaultEditor = true;
   plugins = with pkgs.vimPlugins; [
     # Theming plugins
     lualine-nvim

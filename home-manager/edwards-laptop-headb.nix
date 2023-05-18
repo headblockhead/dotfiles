@@ -28,8 +28,7 @@
   ];
 
   home.packages = [
-    pkgs.omnisharp-roslyn
-    pkgs.dotnet-sdk
+
   ];
 
   # Home Manager needs a bit of information about you and the
