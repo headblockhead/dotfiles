@@ -28,7 +28,7 @@
     ./modules/transmission.nix
     ./modules/thinkpad-dock.nix
     ./modules/users.nix
-#  ./modules/wireguard.nix
+ ./modules/wireguard.nix
     ./modules/xserver.nix
     ./modules/zsh.nix
   ];

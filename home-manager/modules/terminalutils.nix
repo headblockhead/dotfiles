@@ -23,5 +23,7 @@
   flyctl
     platformio
     tmux
+    lm_sensors
+    inetutils
   ];
 }
