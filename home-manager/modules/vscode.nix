@@ -8,7 +8,9 @@
 programs.vscode = {
   enable = true;
   mutableExtensionsDir = true;
-  extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace  [
+   extensions = with pkgs.vscode-extensions; [
+#    ms-dotnettools.csharp # This does not work either
+  ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace  [
       {
         name = "cpptools";
         publisher = "ms-vscode";
@@ -20,6 +22,12 @@ programs.vscode = {
         publisher = "ms-vscode";
         version = "2.0.0";
         sha256 = "YWA5UsA+cgvI66uB9d9smwghmsqf3vZPFNpSCK+DJxc=";
+      }
+      {
+        name = "shades-of-purple";
+        publisher = "ahmadawais";
+        version = "7.1.5";
+        sha256 = "FdMCmSMB3HOrqBt111kCrqFLT0VnymEfmWiuSR/buvc=";
       }
       # Needs to be installed manually :(
 #      {
@@ -79,7 +87,7 @@ programs.vscode = {
   ];
   userSettings = {
     "git.enableCommitSigning" = true;
-    "editor.cursorSmoothCaretAnimation" = true;
+    "editor.cursorSmoothCaretAnimation" = "on";
     "git.enableSmartCommit" = true;
     "git.confirmSync" = false;
     "git.autofetch" = true;
@@ -94,7 +102,7 @@ programs.vscode = {
     "terminal.integrated.allowChords" = false;
     "terminal.integrated.altClickMovesCursor" = false;
     "terminal.integrated.drawBoldTextInBrightColors" = false;
-    "workbench.colorTheme" = "Shades of Purple";
+    "workbench.colorTheme" = "Shades of Purple (Super Dark)";
     "editor.inlineSuggest.enabled" = true;
     "security.workspace.trust.enabled" = true;
     "security.workspace.trust.untrustedFiles" = "open";
