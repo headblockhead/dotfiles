@@ -5,6 +5,7 @@
     nixpkgs.url = "nixpkgs/nixos-22.11";
     unstablenixpkgs.url = "nixpkgs/nixos-unstable";
     oldnixpkgs.url = "nixpkgs/nixos-21.05";
+    csharpnixpkgs.url = "github:NixOS/nixpkgs/fd78240";
     unitynixpkgs.url = "github:NixOS/nixpkgs/afb1ed8";
     home-manager = {
       url = "github:nix-community/home-manager/release-22.11";
@@ -28,15 +29,17 @@
     };
   };
 
-  outputs = inputs@{ self, unstablenixpkgs, nixpkgs, unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
+  outputs = inputs@{ self, unstablenixpkgs, nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
       oldpkgs = import oldnixpkgs{};
       unstablepkgs = import unstablenixpkgs {};
       unitypkgs = import unitynixpkgs {};
+      csharppkgs = import csharpnixpkgs {};
       pkgs = import nixpkgs {
         overlays = [
           (self: super: {
+            vscode-extensions.ms-dotnettools.csharp = csharppkgs.vscode-extensions.ms-dotnettools.csharp;
             unityhub = unitypkgs.unityhub;
             thonny = oldpkgs.thonny;
             pdc = playdatesdk.packages.x86_64-linux.pdc;

@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "csharpnixpkgs": {
+      "locked": {
+        "lastModified": 1648653000,
+        "narHash": "sha256-L6uICes39sUfZPBTYuZv3FWmBYuPcv3rnOnDUzaT1OA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "fd78240ac82ada2b598d4491dbf6ff8622bd3dff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "fd78240",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1667395993,
@@ -129,6 +145,7 @@
     },
     "root": {
       "inputs": {
+        "csharpnixpkgs": "csharpnixpkgs",
         "home-manager": "home-manager",
         "mcpelauncher": "mcpelauncher",
         "nixpkgs": "nixpkgs",

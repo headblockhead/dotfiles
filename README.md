@@ -267,10 +267,6 @@ If any errors are encountered, try doing the following:
 - Connect device
 - Relaunch Xcode
 
-### Using Unity and C# with NixOS!
-
-From some testing, using C# with my setup requires version v1.23.12 of the C# vscode extension as newer versions have had [this pull request](https://github.com/OmniSharp/omnisharp-vscode/pull/4738) merged and fail looking for uname [(issue raised here)](https://github.com/OmniSharp/omnisharp-vscode/issues/5575).
-
 ## Tasks
 
 ### Reload

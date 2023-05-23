@@ -9,7 +9,7 @@ programs.vscode = {
   enable = true;
   mutableExtensionsDir = true;
    extensions = with pkgs.vscode-extensions; [
-#    ms-dotnettools.csharp # This does not work either
+     ms-dotnettools.csharp
   ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace  [
       {
         name = "cpptools";
@@ -29,13 +29,6 @@ programs.vscode = {
         version = "7.1.5";
         sha256 = "FdMCmSMB3HOrqBt111kCrqFLT0VnymEfmWiuSR/buvc=";
       }
-      # Needs to be installed manually :(
-#      {
-#        name = "csharp";
-#        publisher = "ms-dotnettools";
-#        version = "1.23.12";
-#        sha256 = "n6Auvo3KC2c/17ODF+Ey9rd8bGzypSvxsB724lIa5sg=";
-#      }
       {
         name = "cmake";
         publisher = "twxs";
@@ -117,6 +110,7 @@ programs.vscode = {
       "plaintext" = true;
       "markdown" = true;
     };
+    "omnisharp.useModernNet" =false;
     "omnisharp.useGlobalMono" ="always";
 "extensions.autoUpdate" = false;
   };
