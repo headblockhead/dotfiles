@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
   oh-my-zsh
-    zsh
   ];
 programs.zsh = {
   enable = true;

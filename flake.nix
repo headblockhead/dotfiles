@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-22.11";
+    rpi-nixpkgs.url = "github:NixOS/nixpkgs/d91e1f9";
     unstablenixpkgs.url = "nixpkgs/nixos-unstable";
     oldnixpkgs.url = "nixpkgs/nixos-21.05";
     csharpnixpkgs.url = "github:NixOS/nixpkgs/fd78240";
@@ -29,7 +30,7 @@
     };
   };
 
-  outputs = inputs@{ self, unstablenixpkgs, nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
+  outputs = inputs@{ self, unstablenixpkgs, nixpkgs, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
       oldpkgs = import oldnixpkgs{};
@@ -40,6 +41,7 @@
         overlays = [
           (self: super: {
             vscode-extensions.ms-dotnettools.csharp = csharppkgs.vscode-extensions.ms-dotnettools.csharp;
+            obinskit = super.callPackage ./custom-packages/obinskit.nix { };
             unityhub = unitypkgs.unityhub;
             thonny = oldpkgs.thonny;
             pdc = playdatesdk.packages.x86_64-linux.pdc;
@@ -60,10 +62,6 @@
           inherit system;
           specialArgs = { inherit inputs; };
           modules = [
-            ({ pkgs, ... }: {
-              environment.etc."nix/channels/nixpkgs".source = inputs.nixpkgs.outPath;
-              nix.nixPath = [ "nixpkgs=/etc/nix/channels/nixpkgs" ];
-            })
             ./nixos/edwards-laptop-config.nix
             ./nixos/edwards-laptop-hardware.nix
           ];
@@ -72,10 +70,6 @@
           inherit system;
           specialArgs = { inherit inputs; };
           modules = [
-            ({ pkgs, ... }: {
-              environment.etc."nix/channels/nixpkgs".source = inputs.nixpkgs.outPath;
-              nix.nixPath = [ "nixpkgs=/etc/nix/channels/nixpkgs" ];
-            })
             ./nixos/edwards-laptop-2-config.nix
             ./nixos/edwards-laptop-2-hardware.nix
           ];
@@ -83,7 +77,7 @@
         rpi-headless-image = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
+            "${rpi-nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
             ./nixos/rpi-headless-image-conf.nix
             {
               nixpkgs.config.allowUnsupportedSystem = true;

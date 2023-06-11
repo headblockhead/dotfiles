@@ -1,7 +1,14 @@
-{ pkgs, ... }: {
+{ pkgs,nixos-artwork, ... }: {
+  home.packages = with pkgs; [
+    gnome.dconf-editor
+    ];
 dconf = {
   enable = true;
   settings = {
+    "org/gnome/desktop/background" = {
+      picture-uri = "file://${pkgs.nixos-artwork.wallpapers.nineish.gnomeFilePath}";
+      picture-uri-dark = "file://${pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath}";
+    };
     "org/gnome/deja-dup" = {
       periodic = true;
       periodic-period = 1;

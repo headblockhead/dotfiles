@@ -3,9 +3,12 @@
 {
 
   imports = [
+    ./modules/basehomemanagersettings.nix
     ./modules/dconf.nix
+
     ./modules/everydayapps.nix
 #    ./moudles/everydayappsminimal.nix
+
     ./modules/extraapps.nix
     ./modules/fzf.nix
     ./modules/games.nix
@@ -23,12 +26,12 @@
     ./modules/terminalutils.nix
     ./modules/unity.nix
     ./modules/vscode.nix
+
     ./modules/zsh.nix
 #    ./modules/zshminimal.nix
   ];
 
   home.packages = [
-
   ];
 
   # Home Manager needs a bit of information about you and the
@@ -36,19 +39,6 @@
 home.username = "headb";
 home.homeDirectory = "/home/headb";
 home.enableNixpkgsReleaseCheck = true;
-
-# Don't show home-manager news
-news.display = "silent";
-
-home.sessionVariables = {
-  QT_STYLE_OVERRIDE="adwaita-dark";
-           DOTNET_ROOT = "${pkgs.dotnet-sdk}"; 
-};
-
-systemd.user.sessionVariables = {
-  QT_STYLE_OVERRIDE="adwaita-dark";
-           DOTNET_ROOT = "${pkgs.dotnet-sdk}"; 
-};
 
 # This value determines the Home Manager release that your
 # configuration is compatible with. This helps avoid breakage

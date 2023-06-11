@@ -6,19 +6,25 @@
 
 {
   imports = [
+    ./modules/adb.nix
+    ./modules/basesystemsettings.nix
     ./modules/basicpackages.nix
     ./modules/bluetooth.nix
     ./modules/docker.nix
     ./modules/firewall.nix
-#    ./modules/fontsminimal.nix
+
+#   ./modules/fontsminimal.nix
     ./modules/fonts.nix
+
     ./modules/gnome.nix
     ./modules/gpg.nix
     ./modules/grub.nix
+    ./modules/hardware-filesystems.nix
     ./modules/homemanager.nix
     ./modules/lenovo-bat-save.nix
     ./modules/network.nix
     ./modules/printer.nix
+    ./modules/qt.nix
     ./modules/region.nix
 #    ./modules/sheepit.nix
     ./modules/sound.nix
@@ -28,48 +34,19 @@
     ./modules/transmission.nix
     ./modules/thinkpad-dock.nix
     ./modules/users.nix
-# ./modules/wireguard.nix
+#   ./modules/wireguard.nix
     ./modules/xserver.nix
     ./modules/zsh.nix
   ];
 
-  boot.supportedFilesystems = [ "ntfs" ];
-
-    hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-
   environment.systemPackages = [
   ];
 
- #  virtualisation.virtualbox.host.enable = true;
+#  virtualisation.virtualbox.host.enable = true;
 #  users.extraGroups.vboxusers.members = [ "headb" ];
-
-  environment.sessionVariables = {
-    QT_STYLE_OVERRIDE="adwaita-dark";
-DOTNET_ROOT = "${pkgs.dotnet-sdk}";
-  };
-
-  qt5.style = "adwaita-dark";
-
-  programs.adb.enable = true;
-  users.users.headb.extraGroups = ["adbusers"];
-
-  # Allow nix flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # Clear the tmp directory on boot.
-  boot.cleanTmpDir = true;
-
-  # Allow proprietary packages.
-  nixpkgs.config.allowUnfree = true;
 
   # Networking settings.
   networking.hostName = "edwards-laptop";
-
-  # Enable nixos-help apps.
-  documentation.nixos.enable = true;
-  programs.command-not-found.enable = true;
    
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

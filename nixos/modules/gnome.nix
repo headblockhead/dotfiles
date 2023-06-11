@@ -5,15 +5,14 @@
   # See https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/x11/desktop-managers/gnome.nix#L251 for a list of all apps.
   environment.gnome.excludePackages = (with pkgs.gnome; [
     pkgs.gnome-tour # Tour
-    gnome-logs # Logs
+    # gnome-logs # Logs
     yelp # Help
-    cheese # Cheese
     gnome-maps # Maps
     gnome-music # Music
     geary # Geary (Mail)
     epiphany # Web
     gnome-characters # Characters
-    pkgs.gnome-console # the dreaded Console
+    pkgs.gnome-console # the Console - a "simplified" terminal emulator :P
     totem # Videos
     pkgs.gnome-photos # Photos
     gnome-contacts # Contacts

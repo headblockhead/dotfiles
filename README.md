@@ -1,6 +1,6 @@
 # dotfiles
 
-Reproducable configuration for my nixos laptop and other gadgets. Now with nix flakes!
+Reproducable configuration for my nixos laptop and other gadgets. Now as a nix flake!
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@ I have installed QMK on my keyboard so I decided to publish my configuration her
 
 ### What does it use?
 
-The install uses Gnome as the desktop manager, with dconf rules managed by home-manager. It includes almost everything I need and/or needed for most of my projects. It includes a fully set-up neovim, along with a nice terminal emulator, the Unity game engine and a lovely zsh powerline prompt.
+The install uses Gnome as the desktop manager, with dconf rules managed by home-manager. It includes a fully set-up neovim, along with a nicely configured terminal emulator, the Unity game engine, a lovely zsh powerline prompt and much more!
 
 ### Installation reminders:
 
@@ -40,10 +40,11 @@ The install uses Gnome as the desktop manager, with dconf rules managed by home-
       - savegames (minecraft, etc.),
       - uncommitted git changes,
       - other files from outside the /home folder,
-      - wireguard configuration - I forgot this one time, it was an absolute pain.
-      - THE ENTIRE /home folder
+      - wireguard configuration,
+      - the whole /home directory,
+      - /root for secrets.
 
-    Once the check list is done, the easiest option in my opinion for simple partitioning is `cfdisk`. Like NetworkManager, it has a nice little tui!
+    Once the check list is done, the easiest option in my opinion for simple partitioning is `cfdisk`, another TUI utility.
 
     ```bash
     cfdisk /dev/sda
@@ -169,13 +170,9 @@ Create the main docker container it should appear as a QEMU window.
 docker run -it --device /dev/kvm -p 50922:10022 -e DEVICE_MODEL="iMacPro1,1" -e WIDTH=1440 -e HEIGHT=900 -e RAM=8 -e INTERNAL_SSH_PORT=23 -e AUDIO_DRIVER=pa,server=unix:/tmp/pulseaudio.socket -v "/run/user/$(id -u)/pulse/native:/tmp/pulseaudio.socket" -e CORES=2 -v /tmp/.X11-unix:/tmp/.X11-unix -e "DISPLAY=${DISPLAY:-:0.0}" -e GENERATE_UNIQUE=true -e MASTER_PLIST_URL=https://raw.githubusercontent.com/sickcodes/osx-serial-generator/master/config-custom.plist sickcodes/docker-osx:ventura
 ```
 
-Install OSX after using disk manager to format the 200gig drive.
+Install OSX after using disk manager to format the 200gig drive. Installing may take several hours.
 
-Installing may take several hours.
-
-Install XCode through the app store.
-
-Installing XCode will also take a large amount of time. This would be a good time for a cup of tea.
+Install XCode through the app store. Installing XCode will also take a large amount of time. This would be a good time for a break.
 
 Setting up USB Passthrough:
 ```bash
@@ -258,7 +255,7 @@ To list IOS devices, run:
 idevice_id -l
 ```
 
-If any errors are encountered, try doing the following:
+If errors are encountered, try doing the following:
 - Quit XCode
 - Disconnect device
 - Power off device (iPhone)
@@ -269,13 +266,28 @@ If any errors are encountered, try doing the following:
 
 ## Tasks
 
-### Reload
+### Reload-NixOS
 
-Reload refreshes home-manager and nixos.
+Updates NixOS with the current config.
+
+```bash
+sudo nixos-rebuild switch --flake ".#edwards-laptop" --impure
+```
+
+### Reload-HomeManager
+
+Updates Home Manager with the current config.
 
 ```bash
 home-manager switch --flake '.#edwards-laptop-headb' --impure
-sudo nixos-rebuild switch --flake ".#edwards-laptop" --impure
+```
+
+### Build-rpi-sd-card-image
+
+Builds an sd-card image for use with the raspberry pi 4.
+
+```bash
+nix build .\#images.rpi-headless-image --impure
 ```
 
 ### Clean

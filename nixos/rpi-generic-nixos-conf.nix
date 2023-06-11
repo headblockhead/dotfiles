@@ -1,21 +1,21 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, lib, ... }:
-
 
 let
   sshkey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9IxocfA5legUO3o+cbbQt75vc19UG9yrrPmWVLkwbmvGxCtEayW7ubFNXo9CwlPRqcudOARZjas3XJ4+ZwrDJC8qWrSNDSw1izZizcE5oFe/eTaw+E7jT8KcUWWfdUmyx3cuJCHUAH5HtqTXc5KtZ2PiW91lgx77CYEoDKtt14cqqKvBvWCgj8xYbuoZ5lS/tuF2TkYstxI9kNI2ibk14/YyUfPs+hVTeBCz+0/l87WePzYWwA6xkkZZzGstcpXyOKSrP/fchFC+CWs7oeoJSJ5QGkNqia6HFQrdw93BtGoD2FdR3ruNJa27lOFQcXRyijx43KVr4iLuYvdGw5TEt headb@Edwards-Laptop";
 in
 {
   imports = [
-    /root/rpi-wireless.nix
+    ./modules/basesystemsettings.nix
     ./modules/homemanager.nix
     ./modules/zsh.nix
-    "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/936e4649098d6a5e0762058cb7687be1b2d90550.tar.gz" }/raspberry-pi/4"
   ];
 
+  imports = [
+    /root/rpi-wireless.nix
+  ];
+imports = [
+  "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/936e4649098d6a5e0762058cb7687be1b2d90550.tar.gz" }/raspberry-pi/4"
+];
   boot.loader.raspberryPi = {
     enable = true;
     version = 4;
@@ -85,26 +85,6 @@ users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
   };
     nixpkgs.config.allowUnsupportedSystem = true;
 
-
-    
-#services.xmrig = {
-#  enable = true;
-#  settings = {
-#    autosave = true;
-#    cpu = true;
-#    opencl = true;
-#    cuda = false;
-#    pools = [
-#      {
-#        url = "gulf.moneroocean.stream:443";
-#        user = "48pEZBjqjNRCbVptEMGRdeYeUgmXaHbz7gLErTneJnN8Uc5r2qHyEPoGmS1NSmQqaK5hUjZUvRG24jBNRKjA51qbDkWM1oX";
-#        keepalive = true;
-#        tls = true;
-#      }
-#    ];
-#  };
-#};
-
   nix = {
     settings.auto-optimise-store = true;
     gc = {
@@ -119,21 +99,8 @@ users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
     '';
 };
 
-  # Allow nix flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # Clear the tmp directory on boot.
-  boot.cleanTmpDir = true;
-
-  # Allow proprietary packages.
-  nixpkgs.config.allowUnfree = true;
-
   # Networking settings.
   networking.hostName = "nixospi";
-
-  # Enable nixos-help apps.
-  documentation.nixos.enable = true;
-  programs.command-not-found.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
