@@ -8,6 +8,9 @@
     oldnixpkgs.url = "nixpkgs/nixos-21.05";
     csharpnixpkgs.url = "github:NixOS/nixpkgs/fd78240";
     unitynixpkgs.url = "github:NixOS/nixpkgs/afb1ed8";
+    prismlauncher = {
+      url = "github:PrismLauncher/PrismLauncher";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +33,7 @@
     };
   };
 
-  outputs = inputs@{ self, unstablenixpkgs, nixpkgs, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
+  outputs = inputs@{ self, unstablenixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
       oldpkgs = import oldnixpkgs{};
@@ -44,6 +47,7 @@
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };
             unityhub = unitypkgs.unityhub;
             thonny = oldpkgs.thonny;
+            prismlauncher = prismlauncher.packages.x86_64-linux.prismlauncher;
             pdc = playdatesdk.packages.x86_64-linux.pdc;
             pdutil = playdatesdk.packages.x86_64-linux.pdutil;
             PlaydateSimulator = playdatesdk.packages.x86_64-linux.PlaydateSimulator;

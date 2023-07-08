@@ -9,7 +9,8 @@ programs.zsh = {
     enable = true;
   };
   initExtra = ''
-    source ~/custom.zsh-theme
+  source ~/custom.zsh-theme
+    export EDITOR='code'
     export PATH="$GOBIN:$PATH"
     export ZSH_HIGHLIGHT_STYLES[comment]=fg=245,bold
     export PLAYDATE_SDK_PATH="~/playdatesdk-`pdc --version`"

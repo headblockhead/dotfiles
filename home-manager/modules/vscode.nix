@@ -18,6 +18,18 @@ programs.vscode = {
         sha256 = "ldgbAaJ4sVFMEXuhXbMBwSvpsym4XOQ0//JGeOVHpyY=";
       }
       {
+        name = "vscode-eslint";
+        publisher = "dbaeumer";
+        version = "2.4.0";
+        sha256 = "7MUQJkLPOF3oO0kpmfP3bWbS3aT7J0RF7f74LW55BQs=";
+      }
+      {
+        name = "vscode-mdx";
+        publisher = "unifiedjs";
+        version = "1.3.0";
+        sha256 = "TfqSU9V5vG7GwxEihUdEGC19VFHEUjlrTg+XXHdOYn4=";
+      }
+      {
         name = "cpptools-themes";
         publisher = "ms-vscode";
         version = "2.0.0";
