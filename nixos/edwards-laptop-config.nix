@@ -40,10 +40,11 @@
   ];
 
   environment.systemPackages = [
+    pkgs.virtualbox
   ];
 
-#  virtualisation.virtualbox.host.enable = true;
-#  users.extraGroups.vboxusers.members = [ "headb" ];
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "headb" ];
 
   # Networking settings.
   networking.hostName = "edwards-laptop";

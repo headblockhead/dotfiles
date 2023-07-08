@@ -45,6 +45,7 @@
           (self: super: {
             vscode-extensions.ms-dotnettools.csharp = csharppkgs.vscode-extensions.ms-dotnettools.csharp;
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };
+            immersed = super.callPackage ./custom-packages/immersed-vr.nix { };
             unityhub = unitypkgs.unityhub;
             thonny = oldpkgs.thonny;
             prismlauncher = prismlauncher.packages.x86_64-linux.prismlauncher;
