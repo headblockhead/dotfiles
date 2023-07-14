@@ -6,7 +6,7 @@
   # Allow nix flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Clear the tmp directory on boot.
-  boot.cleanTmpDir = true;
+  boot.tmp.cleanOnBoot =true;
   # Allow proprietary packages.
   nixpkgs.config.allowUnfree = true;
   # Enable nixos-help apps.

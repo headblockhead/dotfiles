@@ -1,6 +1,4 @@
-{ stdenv, wrapGAppsHook, autoPatchelfHook, fetchurl, ffmpeg-full, p7zip, lib
-, gtk3, gdk-pixbuf, glib, pango, cairo, fontconfig, libva,webkitgtk, coreutils
-, xorg, zlib, glibc, libpulseaudio, libGL, libvaDriverName ? "iHD" }:
+{ stdenv, wrapGAppsHook, autoPatchelfHook, pkgs,lib,fetchurl,libvaDriverName ? "iHD" ,ffmpeg}:
 
 stdenv.mkDerivation {
   pname = "Immersed";
@@ -11,13 +9,13 @@ stdenv.mkDerivation {
     sha256 = "KBovokBetSLJJU8njPoRmBLLnHdKMNVuZKWIsySreDk=";
   };
 
-  nativeBuildInputs = [
+  nativeBuildInputs = with pkgs; [
     autoPatchelfHook
     wrapGAppsHook 
     p7zip
   ];
 
-  buildInputs = [
+  buildInputs = with pkgs;[
     libpulseaudio
     gtk3
     pango
@@ -30,6 +28,7 @@ stdenv.mkDerivation {
     libva
     libGL
     webkitgtk
+    mesa
     coreutils
 
     xorg.libX11
@@ -55,13 +54,13 @@ stdenv.mkDerivation {
 
     install -Dm755 usr/bin/Immersed $out/bin/Immersed
 
-    ln -s ${ffmpeg-full}/lib/libavcodec.so $out/lib/va2
-    ln -s ${ffmpeg-full}/lib/libavdevice.so $out/lib/va2
-    ln -s ${ffmpeg-full}/lib/libavfilter.so $out/lib/va2
-    ln -s ${ffmpeg-full}/lib/libavformat.so $out/lib/va2
-    ln -s ${ffmpeg-full}/lib/libavutil.so $out/lib/va2
-    ln -s ${ffmpeg-full}/lib/libswresample.so $out/lib/va2
-    ln -s ${ffmpeg-full}/lib/libswscale.so $out/lib/va2
+    ln -s ${ffmpeg.lib}/lib/libavcodec.so $out/lib/va2
+    ln -s ${ffmpeg.lib}/lib/libavdevice.so $out/lib/va2
+    ln -s ${ffmpeg.lib}/lib/libavfilter.so $out/lib/va2
+    ln -s ${ffmpeg.lib}/lib/libavformat.so $out/lib/va2
+    ln -s ${ffmpeg.lib}/lib/libavutil.so $out/lib/va2
+    ln -s ${ffmpeg.lib}/lib/libswresample.so $out/lib/va2
+    ln -s ${ffmpeg.lib}/lib/libswscale.so $out/lib/va2
   '';
 
   preFixup = ''

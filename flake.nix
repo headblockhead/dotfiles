@@ -2,17 +2,18 @@
   description = "NixOS and Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-22.11";
+    nixpkgs.url = "nixpkgs/nixos-23.05";
     rpi-nixpkgs.url = "github:NixOS/nixpkgs/d91e1f9";
     unstablenixpkgs.url = "nixpkgs/nixos-unstable";
     oldnixpkgs.url = "nixpkgs/nixos-21.05";
     csharpnixpkgs.url = "github:NixOS/nixpkgs/fd78240";
     unitynixpkgs.url = "github:NixOS/nixpkgs/afb1ed8";
+    vscodeutilsnixpkgs.url = "nixpkgs/nixos-22.11";
     prismlauncher = {
       url = "github:PrismLauncher/PrismLauncher";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-22.11";
+      url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     playdatesdk = {
@@ -33,19 +34,23 @@
     };
   };
 
-  outputs = inputs@{ self, unstablenixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
+  outputs = inputs@{ self, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
       oldpkgs = import oldnixpkgs{};
       unstablepkgs = import unstablenixpkgs {};
       unitypkgs = import unitynixpkgs {};
+      vscodeutilspkgs = import vscodeutilsnixpkgs {};
       csharppkgs = import csharpnixpkgs {};
       pkgs = import nixpkgs {
         overlays = [
           (self: super: {
             vscode-extensions.ms-dotnettools.csharp = csharppkgs.vscode-extensions.ms-dotnettools.csharp;
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };
-            immersed = super.callPackage ./custom-packages/immersed-vr.nix { };
+            immersed = super.callPackage ./custom-packages/immersed-vr.nix { 
+              pkgs = unstablepkgs;
+              ffmpeg = unstablepkgs.ffmpeg;
+            };
             unityhub = unitypkgs.unityhub;
             thonny = oldpkgs.thonny;
             prismlauncher = prismlauncher.packages.x86_64-linux.prismlauncher;
@@ -56,7 +61,8 @@
             xc = xc.packages.x86_64-linux.xc;
             mcpelauncher = mcpelauncher.defaultPackage.x86_64-linux;
             platformio = unstablepkgs.platformio;
-            vscode = unstablepkgs.vscode;
+            vscode = vscodeutilspkgs.vscode;
+            vscode-utils = vscodeutilspkgs.vscode-utils;
             home-manager = home-manager;
           })
         ];

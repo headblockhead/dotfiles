@@ -16,7 +16,7 @@
   gopass
   p7zip 
   hugo
-  nodejs-16_x
+  nodejs
   wireshark
   nmap
   killall
