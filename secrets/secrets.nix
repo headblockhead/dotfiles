@@ -5,4 +5,6 @@ let
 in
 {
   "home-assistant-api-key.age".publicKeys = [headb system ];
+  "wireguard-public-key.age".publicKeys = [headb system ];
+  "wireguard-private-key.age".publicKeys = [headb system ];
 }

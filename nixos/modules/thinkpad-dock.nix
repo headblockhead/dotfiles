@@ -3,6 +3,7 @@ let
 hass-api-key = config.age.secrets.home-assistant-api-key.path;
 in
   {
+    age.secrets.home-assistant-api-key.file = ../../secrets/home-assistant-api-key.age;
   imports = [
     ../../nixos-thinkpad-dock
   ];
