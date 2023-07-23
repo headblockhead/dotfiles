@@ -48,10 +48,9 @@ services.openssh = {
   enable = true;
   passwordAuthentication = false;
   kbdInteractiveAuthentication = false;
-  permitRootLogin = "yes";
+  permitRootLogin = "no";
 };
 
-users.users.root.openssh.authorizedKeys.keys = [ sshkey ];
 users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
 users.users.nixos.openssh.authorizedKeys.keys = [ sshkey ];
 
@@ -76,7 +75,8 @@ networking.nameservers = [ "1.1.1.1" ];
 
 systemd.services.customstartnetworking = {
   script = ''
-    systemctl start wpa_supplicant
+  systemctl start wpa_supplicant
+  wall "WiFi started"
   '';
   wantedBy = [ "multi-user.target" ];
 };
@@ -88,7 +88,8 @@ systemd.services.customstartnetworking = {
 
    environment.systemPackages = with pkgs; [
      vim
-     wget
+     git
+    wget
    ];
 
    networking.firewall.enable = true;
