@@ -5,7 +5,12 @@ let
 in
   {
 
-    # wifi-config.nix example:
+# Get the wifi-config.nix. See example.
+    imports = [
+     "/home/headb/dotfiles/nixos/wifi-config.nix"
+    ];
+
+# Example of a wifi-config.nix file:
 
 #{pkgs,...}:
 #{
@@ -15,29 +20,51 @@ in
 #   };
 # };
 #}
-    imports = [
-     "/home/headb/dotfiles/nixos/wifi-config.nix"
-    ];
 
   boot = {
-    tmpOnTmpfs = true;
+    tmp.useTmpfs = true;
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
-    kernelParams = [
-        "8250.nr_uarts=1"
-        "console=ttyAMA0,115200" # UART debugging.
-        "console=tty1"
-        "cma=128M"
-    ];
+
+    # UART debugging with GPIO.
+#    kernelParams = [
+#        "8250.nr_uarts=1"
+#        "console=ttyAMA0,115200" # Change this for other output? (ttyUSB0 for USB?)
+#        "console=tty1"
+#        "cma=128M"
+#    ];
+
   };
 
   # Required for the Wireless firmware
   hardware.enableRedistributableFirmware = true;
 
+  # Setup WiFi. Credentials are in wifi-config.nix.
+networking.wireless = {
+    enable = true;
+    };
+    networking.interfaces.wlan0.ipv4.addresses = [ {
+  address = "192.168.155.235";
+  prefixLength = 24;
+} ];
+networking.defaultGateway = "192.168.155.1";
+networking.nameservers = [ "1.1.1.1" ];
+
+# wpa_supplicant is not started by default..?, so we need to start it manually.
+systemd.services.customstartnetworking = {
+  script = ''
+  systemctl start wpa_supplicant
+  wall "WiFi started" # Tell all users that WiFi is started. Useful for debugging.
+  '';
+  wantedBy = [ "multi-user.target" ]; # Start after system is booted.
+};
+
+# Hostname.
   networking = {
-    hostName = "nixospi"; # Define your hostname.
+    hostName = "nixospi";
   };
 
   nix = {
+    # Garbage collection for small SD cards.
     settings.auto-optimise-store = true;
     gc = {
       automatic = true;
@@ -51,54 +78,41 @@ in
     '';
 };
 
+# Sound using pulseaudio.
 sound.enable = true;
 hardware.pulseaudio.enable = true;
 
+# Allow SSH from authorized keys.
 services.openssh = {
   enable = true;
-  passwordAuthentication = false;
-  kbdInteractiveAuthentication = false;
-  permitRootLogin = "yes";
+  settings.PasswordAuthentication = false;
+  settings.KbdInteractiveAuthentication = false;
+  settings.PermitRootLogin = "yes";
 };
 
-users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
-users.users.nixos.openssh.authorizedKeys.keys = [ sshkey ];
-
-networking.wireless = {
-    enable = true;
-    userControlled.enable = true;
-
-    };
-
-    networking.interfaces.wlan0.ipv4.addresses = [ {
-  address = "192.168.155.235";
-  prefixLength = 24;
-} ];
-networking.defaultGateway = "192.168.155.1";
-networking.nameservers = [ "1.1.1.1" ];
-
-systemd.services.customstartnetworking = {
-  script = ''
-  systemctl start wpa_supplicant
-  wall "WiFi started"
-  '';
-  wantedBy = [ "multi-user.target" ];
-};
-
-    users.users.pi = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    };
-
-   environment.systemPackages = with pkgs; [
-     vim
-     git
-    wget
-   ];
-
+# Open ports for SSH.
    networking.firewall.enable = true;
    networking.firewall.allowedUDPPorts = [];
    networking.firewall.allowedTCPPorts = [ 22];
+
+
+# Add the users.
+    users.users.pi = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+      openssh.authorizedKeys.keys = [ sshkey ]; # Add the SSH key for access.
+    };
+
+    # Included packages:
+   environment.systemPackages = with pkgs; [
+     vim
+     git
+     wget
+     xc
+     tmux
+     lm_sensors
+     inetutils
+   ];
 
   system.stateVersion = "23.05";
 }
