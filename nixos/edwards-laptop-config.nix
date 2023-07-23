@@ -2,9 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, agenix, ... }:
 
 {
+
+    age.secrets.home-assistant-api-key.file = ../secrets/home-assistant-api-key.age;
+
   imports = [
     ./modules/adb.nix
     ./modules/basesystemsettings.nix
@@ -34,12 +37,14 @@
     ./modules/transmission.nix
     ./modules/thinkpad-dock.nix
     ./modules/users.nix
-#   ./modules/wireguard.nix
+   ./modules/wireguard.nix
     ./modules/xserver.nix
     ./modules/zsh.nix
   ];
 
+
   environment.systemPackages = [
+      agenix.packages.x86_64-linux.default
   ];
 
   nix.settings.trusted-users = [ "headb" ];

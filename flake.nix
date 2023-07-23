@@ -9,6 +9,11 @@
     csharpnixpkgs.url = "github:NixOS/nixpkgs/fd78240";
     unitynixpkgs.url = "github:NixOS/nixpkgs/afb1ed8";
     vscodeutilsnixpkgs.url = "nixpkgs/nixos-22.11";
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+};
     prismlauncher = {
       url = "github:PrismLauncher/PrismLauncher";
     };
@@ -34,7 +39,7 @@
     };
   };
 
-  outputs = inputs@{ self, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
+  outputs = inputs@{ self, agenix, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
       oldpkgs = import oldnixpkgs{};
@@ -72,10 +77,12 @@
       nixosConfigurations = {
         edwards-laptop = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs; inherit agenix; };
           modules = [
             ./nixos/edwards-laptop-config.nix
             ./nixos/edwards-laptop-hardware.nix
+
+            agenix.nixosModules.default
           ];
         };
         edwards-laptop-2 = nixpkgs.lib.nixosSystem {
@@ -84,17 +91,22 @@
           modules = [
             ./nixos/edwards-laptop-2-config.nix
             ./nixos/edwards-laptop-2-hardware.nix
+
+            agenix.nixosModules.default
           ];
         };
         rpi-headless-image = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
           modules = [
             "${rpi-nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
             ./nixos/rpi-headless-image-conf.nix
             {
               nixpkgs.config.allowUnsupportedSystem = true;
               nixpkgs.crossSystem.system = "aarch64-linux";
-                          }
+            }
+
+            agenix.nixosModules.default
           ];
         };
         rpi-generic-nixos =nixpkgs.lib.nixosSystem {
@@ -103,8 +115,9 @@
 modules = [
             ./nixos/rpi-generic-nixos-conf.nix
             ./nixos/rpi-generic-nixos-hardware.nix
-          ];
 
+            agenix.nixosModules.default
+          ];
         };
       };
       images.rpi-headless-image = nixosConfigurations.rpi-headless-image.config.system.build.sdImage;

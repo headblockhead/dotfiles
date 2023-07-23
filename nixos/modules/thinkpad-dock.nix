@@ -1,6 +1,6 @@
-{ pkgs, ... }: 
+{ pkgs, config, ... }: 
 let
-hass-api-key = (builtins.readFile /root/hassapi);
+hass-api-key = config.age.secrets.home-assistant-api-key.path;
 in
   {
   imports = [
@@ -12,10 +12,10 @@ in
 
       # Tell my HomeAssistant server that the laptop has been docked.
       dockEvent = ''
-      ${pkgs.curl}/bin/curl -X POST -H 'Authorization: Bearer ${hass-api-key}' -H 'Content-Type: application/json' -d '{ \"state\": true}' http://192.168.155.222:8123/api/states/sensor.Laptop_Docked > /tmp/acpiDock.log
+      ${pkgs.curl}/bin/curl -X POST -H 'Authorization: Bearer `cat ${hass-api-key}`' -H 'Content-Type: application/json' -d '{ \"state\": true}' http://192.168.155.222:8123/api/states/sensor.Laptop_Docked > /tmp/acpiDock.log
       '';
       undockEvent = ''
-${pkgs.curl}/bin/curl -X POST -H 'Authorization: Bearer ${hass-api-key}' -H 'Content-Type: application/json' -d ' {\"state\": false}' http://192.168.155.222:8123/api/states/sensor.Laptop_Docked > /tmp/acpiUndock.log
+${pkgs.curl}/bin/curl -X POST -H 'Authorization: Bearer `cat ${hass-api-key}`' -H 'Content-Type: application/json' -d ' {\"state\": false}' http://192.168.155.222:8123/api/states/sensor.Laptop_Docked > /tmp/acpiUndock.log
       '';
     };
   };
