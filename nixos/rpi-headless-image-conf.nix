@@ -7,14 +7,16 @@ in
 
     # wifi-config.nix example:
 
-    #networking.wireless.networks = {
-    #   "networkSSID" = {
-    #     psk = "networkPassword";
-    #   };
-    # };
-
-    modules= [
-      ./wifi-config.nix
+#{pkgs,...}:
+#{
+#networking.wireless.networks = {
+#   "wifi-ssid" = {
+#     psk = "wifi-password";
+#   };
+# };
+#}
+    imports = [
+     "/home/headb/dotfiles/nixos/wifi-config.nix"
     ];
 
   boot = {
@@ -56,7 +58,7 @@ services.openssh = {
   enable = true;
   passwordAuthentication = false;
   kbdInteractiveAuthentication = false;
-  permitRootLogin = "no";
+  permitRootLogin = "yes";
 };
 
 users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
