@@ -48,8 +48,9 @@
             vscode-extensions.ms-dotnettools.csharp = csharppkgs.vscode-extensions.ms-dotnettools.csharp;
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };
             immersed = super.callPackage ./custom-packages/immersed-vr.nix { 
+              ffmpeg-full = unstablepkgs.ffmpeg-full;
               pkgs = unstablepkgs;
-              ffmpeg = unstablepkgs.ffmpeg;
+              libvaDriverName = "i965";
             };
             unityhub = unitypkgs.unityhub;
             thonny = oldpkgs.thonny;

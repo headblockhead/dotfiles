@@ -1,4 +1,7 @@
-{ stdenv, wrapGAppsHook, autoPatchelfHook, pkgs,lib,fetchurl,libvaDriverName ? "iHD" ,ffmpeg}:
+{ stdenv, lib, fetchurl, dpkg,
+autoPatchelfHook, makeDesktopItem, makeWrapper, patchelfUnstable, ffmpeg-full, wrapGAppsHook, p7zip,
+libvaDriverName, pkgs
+}:
 
 stdenv.mkDerivation {
   pname = "Immersed";
@@ -6,16 +9,18 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://immersedvr.com/dl/Immersed-x86_64.AppImage";
+    #sha256 = "1rjag5xlgf3d9wzh1dkj83xkv27n2npmyadn4n85a2fv76mjiyvy";
     sha256 = "KBovokBetSLJJU8njPoRmBLLnHdKMNVuZKWIsySreDk=";
   };
 
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     autoPatchelfHook
     wrapGAppsHook 
     p7zip
   ];
 
-  buildInputs = with pkgs;[
+  buildInputs = with pkgs; [
+    webkitgtk
     libpulseaudio
     gtk3
     pango
@@ -27,9 +32,7 @@ stdenv.mkDerivation {
     glibc
     libva
     libGL
-    webkitgtk
     mesa
-    coreutils
 
     xorg.libX11
     xorg.libXcomposite
@@ -54,13 +57,13 @@ stdenv.mkDerivation {
 
     install -Dm755 usr/bin/Immersed $out/bin/Immersed
 
-    ln -s ${ffmpeg.lib}/lib/libavcodec.so $out/lib/va2
-    ln -s ${ffmpeg.lib}/lib/libavdevice.so $out/lib/va2
-    ln -s ${ffmpeg.lib}/lib/libavfilter.so $out/lib/va2
-    ln -s ${ffmpeg.lib}/lib/libavformat.so $out/lib/va2
-    ln -s ${ffmpeg.lib}/lib/libavutil.so $out/lib/va2
-    ln -s ${ffmpeg.lib}/lib/libswresample.so $out/lib/va2
-    ln -s ${ffmpeg.lib}/lib/libswscale.so $out/lib/va2
+    ln -s ${ffmpeg-full}/lib/libavcodec.so $out/lib/va2
+    ln -s ${ffmpeg-full}/lib/libavdevice.so $out/lib/va2
+    ln -s ${ffmpeg-full}/lib/libavfilter.so $out/lib/va2
+    ln -s ${ffmpeg-full}/lib/libavformat.so $out/lib/va2
+    ln -s ${ffmpeg-full}/lib/libavutil.so $out/lib/va2
+    ln -s ${ffmpeg-full}/lib/libswresample.so $out/lib/va2
+    ln -s ${ffmpeg-full}/lib/libswscale.so $out/lib/va2
   '';
 
   preFixup = ''
@@ -75,7 +78,7 @@ stdenv.mkDerivation {
     homepage = "https://immersedvr.com/";
     downloadPage = "https://immersedvr.com/dl/Immersed-x86_64.AppImage";
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.noneucat ];
+    maintainers = [lib.maintainers.noneucat ];
     platforms = [ "x86_64-linux" ];
   };
 }
