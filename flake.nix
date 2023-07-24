@@ -41,7 +41,7 @@
     };
   };
 
-  outputs = inputs@{ self, agenix, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher,rpi-perl-nixpkgs, ... }:
+  outputs = inputs@{ self, agenix, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
       oldpkgs = import oldnixpkgs{};
@@ -49,7 +49,6 @@
       unitypkgs = import unitynixpkgs {};
       vscodeutilspkgs = import vscodeutilsnixpkgs {};
       csharppkgs = import csharpnixpkgs {};
-      rpi-perl-pkgs = import rpi-perl-nixpkgs {};
       pkgs = import nixpkgs {
         overlays = [
           (self: super: {

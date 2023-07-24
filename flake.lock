@@ -396,7 +396,6 @@
         "playdatesdk": "playdatesdk",
         "prismlauncher": "prismlauncher",
         "rpi-nixpkgs": "rpi-nixpkgs",
-        "rpi-perl-nixpkgs": "rpi-perl-nixpkgs",
         "unitynixpkgs": "unitynixpkgs",
         "unstablenixpkgs": "unstablenixpkgs",
         "vscodeutilsnixpkgs": "vscodeutilsnixpkgs",
@@ -415,22 +414,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "d91e1f9",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "rpi-perl-nixpkgs": {
-      "locked": {
-        "lastModified": 1688681548,
-        "narHash": "sha256-D9v1yuQX+MeRTxsplthIEGwm30sojPAM4GW8iBGGz5o=",
-        "owner": "stigtsp",
-        "repo": "nixpkgs",
-        "rev": "fd94d3ff348685ffc84da8f7a8ab378f243c226a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "stigtsp",
-        "ref": "perl/5.38.0",
         "repo": "nixpkgs",
         "type": "github"
       }
