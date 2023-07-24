@@ -5,7 +5,6 @@
     nixpkgs.url = "nixpkgs/nixos-23.05";
 
     rpi-nixpkgs.url = "github:NixOS/nixpkgs/d91e1f9";
-    rpi-perl-nixpkgs.url = "github:stigtsp/nixpkgs/perl/5.38.0";
 
     unstablenixpkgs.url = "nixpkgs/nixos-unstable";
     oldnixpkgs.url = "nixpkgs/nixos-21.05";
@@ -74,7 +73,6 @@
             vscode = vscodeutilspkgs.vscode;
             vscode-utils = vscodeutilspkgs.vscode-utils;
             home-manager = home-manager;
-            perl = rpi-perl-pkgs.perl;
           })
         ];
       };
@@ -101,7 +99,7 @@
           ];
         };
         rpi-headless-image = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          system = "aarch64-linux";
           specialArgs = { inherit inputs; inherit rpi-nixpkgs; };
           modules = [
            ./custom-packages/sd-image-installer/sd-image-aarch64-new-kernel-no-zfs-installer.nix
