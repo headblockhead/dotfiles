@@ -98,10 +98,10 @@
           ];
         };
         rpi-headless-image = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = { inherit inputs; inherit rpi-nixpkgs; };
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs;};
           modules = [
-           ./custom-packages/sd-image-installer/sd-image-aarch64-new-kernel-no-zfs-installer.nix
+           "${rpi-nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
             ./nixos/rpi-headless-image-conf.nix
             {
               nixpkgs.config.allowUnsupportedSystem = true;

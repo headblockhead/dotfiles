@@ -34,15 +34,15 @@ in
 
   };
 
-  boot.loader.generic-extlinux-compatible.enable = lib.mkForce false;
-  boot.loader.grub = {
-      enable = lib.mkForce true;
-      device = "nodev";
-      efiSupport = true;
-      enableCryptodisk = true;
-    };
-    boot.loader.efi.canTouchEfiVariables = true;
-        boot.loader.efi.efiSysMountPoint = "/boot/efi";
+#  boot.loader.generic-extlinux-compatible.enable = lib.mkForce false;
+#  boot.loader.grub = {
+#      enable = lib.mkForce true;
+#      device = "nodev";
+#      efiSupport = true;
+#      enableCryptodisk = true;
+#    };
+#    boot.loader.efi.canTouchEfiVariables = true;
+#        boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   boot.initrd.kernelModules = [ "usb_storage" ];
   # Load encrypted root partition.
