@@ -3,8 +3,10 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-23.05";
+
     rpi-nixpkgs.url = "github:NixOS/nixpkgs/d91e1f9";
-rpi-perl-nixpkgs.url = "github:stigtsp/nixpkgs/perl/5.38.0";
+    rpi-perl-nixpkgs.url = "github:stigtsp/nixpkgs/perl/5.38.0";
+
     unstablenixpkgs.url = "nixpkgs/nixos-unstable";
     oldnixpkgs.url = "nixpkgs/nixos-21.05";
     csharpnixpkgs.url = "github:NixOS/nixpkgs/fd78240";
@@ -48,6 +50,7 @@ rpi-perl-nixpkgs.url = "github:stigtsp/nixpkgs/perl/5.38.0";
       unitypkgs = import unitynixpkgs {};
       vscodeutilspkgs = import vscodeutilsnixpkgs {};
       csharppkgs = import csharpnixpkgs {};
+      rpi-perl-pkgs = import rpi-perl-nixpkgs {};
       pkgs = import nixpkgs {
         overlays = [
           (self: super: {
@@ -71,16 +74,7 @@ rpi-perl-nixpkgs.url = "github:stigtsp/nixpkgs/perl/5.38.0";
             vscode = vscodeutilspkgs.vscode;
             vscode-utils = vscodeutilspkgs.vscode-utils;
             home-manager = home-manager;
-          })
-        ];
-      };
-      rpi-perl-pkgs = import rpi-perl-nixpkgs {};
-      rpi-pkgs = import rpi-nixpkgs {
-        overlays = [
-          (self: super: {
             perl = rpi-perl-pkgs.perl;
-#            perlPackages = rpi-perl-pkgs.perlPackages;
-#            grub = rpi-perl-pkgs.grub;
           })
         ];
       };
@@ -106,9 +100,8 @@ rpi-perl-nixpkgs.url = "github:stigtsp/nixpkgs/perl/5.38.0";
             agenix.nixosModules.default
           ];
         };
-        rpi-headless-image = rpi-nixpkgs.lib.nixosSystem {
+        rpi-headless-image = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          pkgs = rpi-pkgs;
           specialArgs = { inherit inputs; inherit rpi-nixpkgs; };
           modules = [
            ./custom-packages/sd-image-installer/sd-image-aarch64-new-kernel-no-zfs-installer.nix
