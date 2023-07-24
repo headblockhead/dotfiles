@@ -3,7 +3,8 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-23.05";
-    rpi-nixpkgs.url = "github:NixOS/nixpkgs/d91e1f9";
+#    rpi-nixpkgs.url = "github:NixOS/nixpkgs/d91e1f9";
+    rpi-nixpkgs.url = "github:stigtsp/nixpkgs/perl/5.38.0";
     unstablenixpkgs.url = "nixpkgs/nixos-unstable";
     oldnixpkgs.url = "nixpkgs/nixos-21.05";
     csharpnixpkgs.url = "github:NixOS/nixpkgs/fd78240";
@@ -95,11 +96,11 @@
             agenix.nixosModules.default
           ];
         };
-        rpi-headless-image = nixpkgs.lib.nixosSystem {
+        rpi-headless-image = rpi-nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs; inherit rpi-nixpkgs; };
           modules = [
-            "${rpi-nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
+           ./custom-packages/sd-image-installer/sd-image-aarch64-new-kernel-no-zfs-installer.nix
             ./nixos/rpi-headless-image-conf.nix
             {
               nixpkgs.config.allowUnsupportedSystem = true;

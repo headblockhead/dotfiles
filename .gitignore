@@ -1,1 +1,3 @@
 nixos/wifi-config.nix
+encryption_support_sd.img
+rpi-image.key

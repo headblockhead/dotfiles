@@ -24,7 +24,7 @@ in
   boot = {
     tmp.useTmpfs = true;
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
-
+  
     # UART debugging with GPIO.
 #    kernelParams = [
 #        "8250.nr_uarts=1"
@@ -33,6 +33,28 @@ in
 #        "cma=128M"
 #    ];
 
+  };
+
+  boot.loader.generic-extlinux-compatible.enable = lib.mkForce false;
+  boot.loader.grub = {
+      enable = lib.mkForce true;
+      device = "nodev";
+      efiSupport = true;
+      enableCryptodisk = true;
+    };
+    boot.loader.efi.canTouchEfiVariables = true;
+        boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
+  boot.initrd.kernelModules = [ "usb_storage" ];
+  # Load encrypted root partition.
+  boot.initrd.luks.devices = {
+    root = {
+      device = "/dev/disk/by-label/NIXOS_SD";
+      preLVM = true;
+
+      keyFileSize = 4096;
+      keyFile = "/dev/disk/by-id/usb-_USB_DISK_3.0_9000247F312FA892-0:0";
+    };
   };
 
   # Required for the Wireless firmware

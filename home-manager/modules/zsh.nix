@@ -10,7 +10,7 @@ programs.zsh = {
   };
   initExtra = ''
   source ~/custom.zsh-theme
-    export EDITOR='code'
+    export EDITOR='vim'
     export PATH="$GOBIN:$PATH"
     export ZSH_HIGHLIGHT_STYLES[comment]=fg=245,bold
     export PLAYDATE_SDK_PATH="~/playdatesdk-`pdc --version`"

@@ -404,16 +404,16 @@
     },
     "rpi-nixpkgs": {
       "locked": {
-        "lastModified": 1671768439,
-        "narHash": "sha256-AZDO7GyByLyZbzFBnXaLoyKlX42tmOWqLgMu/hmS2c0=",
-        "owner": "NixOS",
+        "lastModified": 1688681548,
+        "narHash": "sha256-D9v1yuQX+MeRTxsplthIEGwm30sojPAM4GW8iBGGz5o=",
+        "owner": "stigtsp",
         "repo": "nixpkgs",
-        "rev": "d91e1f98fa83fecf614111b3bfde9bf2b3c3aa3d",
+        "rev": "fd94d3ff348685ffc84da8f7a8ab378f243c226a",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "d91e1f9",
+        "owner": "stigtsp",
+        "ref": "perl/5.38.0",
         "repo": "nixpkgs",
         "type": "github"
       }
