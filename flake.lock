@@ -396,6 +396,7 @@
         "playdatesdk": "playdatesdk",
         "prismlauncher": "prismlauncher",
         "rpi-nixpkgs": "rpi-nixpkgs",
+        "rpi-perl-nixpkgs": "rpi-perl-nixpkgs",
         "unitynixpkgs": "unitynixpkgs",
         "unstablenixpkgs": "unstablenixpkgs",
         "vscodeutilsnixpkgs": "vscodeutilsnixpkgs",
@@ -403,6 +404,22 @@
       }
     },
     "rpi-nixpkgs": {
+      "locked": {
+        "lastModified": 1671768439,
+        "narHash": "sha256-AZDO7GyByLyZbzFBnXaLoyKlX42tmOWqLgMu/hmS2c0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d91e1f98fa83fecf614111b3bfde9bf2b3c3aa3d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "d91e1f9",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "rpi-perl-nixpkgs": {
       "locked": {
         "lastModified": 1688681548,
         "narHash": "sha256-D9v1yuQX+MeRTxsplthIEGwm30sojPAM4GW8iBGGz5o=",

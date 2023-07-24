@@ -3,8 +3,8 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-23.05";
-#    rpi-nixpkgs.url = "github:NixOS/nixpkgs/d91e1f9";
-    rpi-nixpkgs.url = "github:stigtsp/nixpkgs/perl/5.38.0";
+    rpi-nixpkgs.url = "github:NixOS/nixpkgs/d91e1f9";
+rpi-perl-nixpkgs.url = "github:stigtsp/nixpkgs/perl/5.38.0";
     unstablenixpkgs.url = "nixpkgs/nixos-unstable";
     oldnixpkgs.url = "nixpkgs/nixos-21.05";
     csharpnixpkgs.url = "github:NixOS/nixpkgs/fd78240";
@@ -40,7 +40,7 @@
     };
   };
 
-  outputs = inputs@{ self, agenix, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
+  outputs = inputs@{ self, agenix, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher,rpi-perl-nixpkgs, ... }:
     let
       system = "x86_64-linux";
       oldpkgs = import oldnixpkgs{};
@@ -74,6 +74,16 @@
           })
         ];
       };
+      rpi-perl-pkgs = import rpi-perl-nixpkgs {};
+      rpi-pkgs = import rpi-nixpkgs {
+        overlays = [
+          (self: super: {
+            perl = rpi-perl-pkgs.perl;
+#            perlPackages = rpi-perl-pkgs.perlPackages;
+#            grub = rpi-perl-pkgs.grub;
+          })
+        ];
+      };
     in rec { # Allow self referencing.
       nixosConfigurations = {
         edwards-laptop = nixpkgs.lib.nixosSystem {
@@ -98,6 +108,7 @@
         };
         rpi-headless-image = rpi-nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          pkgs = rpi-pkgs;
           specialArgs = { inherit inputs; inherit rpi-nixpkgs; };
           modules = [
            ./custom-packages/sd-image-installer/sd-image-aarch64-new-kernel-no-zfs-installer.nix

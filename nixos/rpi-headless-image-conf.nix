@@ -22,7 +22,6 @@ in
 #}
 
   boot = {
-    tmp.useTmpfs = true;
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
   
     # UART debugging with GPIO.
@@ -107,9 +106,9 @@ hardware.pulseaudio.enable = true;
 # Allow SSH from authorized keys.
 services.openssh = {
   enable = true;
-  settings.PasswordAuthentication = false;
-  settings.KbdInteractiveAuthentication = false;
-  settings.PermitRootLogin = "yes";
+  passwordAuthentication = false;
+  kbdInteractiveAuthentication = false;
+  permitRootLogin = "yes";
 };
 
 # Open ports for SSH.
@@ -130,10 +129,6 @@ services.openssh = {
      vim
      git
      wget
-     xc
-     tmux
-     lm_sensors
-     inetutils
    ];
 
   system.stateVersion = "23.05";
