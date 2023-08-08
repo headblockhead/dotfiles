@@ -160,6 +160,22 @@ Use the NixOS mininal ISO for a more customisable install.
 
 I use this section of my dotfiles to remind me how to run various complicated tasks, in case I forget them in the future.
 
+### Pin `nix shell` to specific nixpkgs
+Get the version of nixpkgs used in your flake.
+```bash
+nix flake info
+```
+
+Use it to pin `flake:nixpkgs`. This only applies to your user.
+```bash
+nix registry pin flake:nixpkgs github:NixOS/nixpkgs/<commit-hash>
+```
+
+If you want to remove this:
+```bash
+nix registry remove flake:nixpkgs
+```
+
 ### Running macOS using docker for XCode development.
 Allow docker containers to connect to the X Server.
 ```bash

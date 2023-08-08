@@ -33,24 +33,12 @@ in
 #    ];
 
   };
-
-#  boot.loader.generic-extlinux-compatible.enable = lib.mkForce false;
-#  boot.loader.grub = {
-#      enable = lib.mkForce true;
-#      device = "nodev";
-#      efiSupport = true;
-#      enableCryptodisk = true;
-#    };
-#    boot.loader.efi.canTouchEfiVariables = true;
-#        boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
   boot.initrd.kernelModules = [ "usb_storage" ];
   # Load encrypted root partition.
   boot.initrd.luks.devices = {
     root = {
-      device = "/dev/disk/by-label/NIXOS_SD";
-      preLVM = true;
-
+      device = "/dev/disk/by-id/mmc-SC16G_0xe2c64fa2-part2";
+      preLVM = false;
       keyFileSize = 4096;
       keyFile = "/dev/disk/by-id/usb-_USB_DISK_3.0_9000247F312FA892-0:0";
     };
@@ -111,6 +99,10 @@ services.openssh = {
   permitRootLogin = "yes";
 };
 
+users.users.root.openssh.authorizedKeys.keys = [ sshkey ];
+users.users.nixos.openssh.authorizedKeys.keys = [ sshkey ];
+users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
+
 # Open ports for SSH.
    networking.firewall.enable = true;
    networking.firewall.allowedUDPPorts = [];
@@ -121,7 +113,6 @@ services.openssh = {
     users.users.pi = {
       isNormalUser = true;
       extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-      openssh.authorizedKeys.keys = [ sshkey ]; # Add the SSH key for access.
     };
 
     # Included packages:

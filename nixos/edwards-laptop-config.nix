@@ -32,7 +32,7 @@
     ./modules/ssh.nix
     ./modules/steam.nix
     ./modules/transmission.nix
-    ./modules/thinkpad-dock.nix
+#    ./modules/thinkpad-dock.nix
     ./modules/users.nix
 #   ./modules/wireguard.nix
     ./modules/xserver.nix
