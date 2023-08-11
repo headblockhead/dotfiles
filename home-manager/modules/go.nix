@@ -11,8 +11,8 @@ programs.go = {
     "github.com/go-delve/delve/cmd/dlv" = pkgs.fetchFromGitHub {
       owner = "go-delve";
       repo = "delve";
-      rev = "master";
-      sha256 = "/26wOIhMaI8FzLfKQq7kV8WcL1F9/ELNRA/9wfy/x8g=";
+      rev = "891a1f0";
+      sha256 = "mcfXMkQbVk7Z10vloo9Wc8HKMzefW+s+sbmCaGdK9e8";
     };
     "github.com/sago35/tinygo-edit" = pkgs.fetchFromGitHub {
       owner = "sago35";
