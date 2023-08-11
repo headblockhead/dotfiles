@@ -5,7 +5,7 @@ Reproducable configuration for my nixos laptop and other gadgets. Now as a nix f
 ## Table of Contents
 
   * [Keyboard Configuration](#keyboard-configuration)
-  * [Edwards-Laptop Configuration](#edwards-laptop-configuration)
+  * [Compute01 Configuration](#compute-01-configuration)
     * [What does it use?](#what-does-it-use)
     * [Installation](#installation)
   * [Extras](#extras)
@@ -17,7 +17,7 @@ I have installed QMK on my keyboard so I decided to publish my configuration her
 
 *Update:* I have moved back to the OEM software, due to some issues I was facing with QMK. You can find my json config [in the annepro2-oem folder](keyboard/annepro2-oem/).
 
-## Edwards-Laptop Configuration
+## Compute01 Configuration
 
 ### What does it use?
 
@@ -25,7 +25,7 @@ The install uses Gnome managed by home-manager. It includes configured neovim, n
 
 ### Installation:
 
-Here are a couple reminders for installing nixos on `edwards-laptop`.
+Here are a couple reminders for installing nixos on `compute-01`.
 
 1. Use the NixOS minimal ISO.
 
@@ -274,7 +274,7 @@ idevice_id -l
 Updates NixOS with the current config.
 
 ```bash
-sudo nixos-rebuild switch --flake ".#edwards-laptop" --impure
+sudo nixos-rebuild switch --flake ".#compute-01" --impure
 ```
 
 ### Reload-HomeManager
@@ -282,7 +282,7 @@ sudo nixos-rebuild switch --flake ".#edwards-laptop" --impure
 Updates Home Manager with the current config.
 
 ```bash
-home-manager switch --flake '.#edwards-laptop-headb' --impure
+home-manager switch --flake '.#compute-01-headb' --impure
 ```
 
 ### Build-rpi-sd-card-image
@@ -301,6 +301,6 @@ Clean deletes all generations except the current, and cleans the nix store.
 home-manager expire-generations -1+second
 sudo nix-collect-garbage -d
 nix-store --gc
-sudo nixos-rebuild switch --flake ".#edwards-laptop" --impure
-home-manager switch --flake '.#edwards-laptop-headb' --impure
+sudo nixos-rebuild switch --flake ".#compute-01" --impure
+home-manager switch --flake '.#compute-01-headb' --impure
 ```

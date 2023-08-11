@@ -135,6 +135,11 @@ modules = [
       };
       images.rpi-headless-image = nixosConfigurations.rpi-headless-image.config.system.build.sdImage;
       homeConfigurations = {
+compute-01-headb = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./home-manager/compute-01-headb.nix ];
+        };
+
         edwards-laptop-headb = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./home-manager/edwards-laptop-headb.nix ];
