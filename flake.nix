@@ -76,7 +76,18 @@
         ];
       };
     in rec { # Allow self referencing.
-      nixosConfigurations = {
+    nixosConfigurations = {
+        compute-01 = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; inherit agenix; };
+          modules = [
+            ./nixos/compute-01-config.nix
+            ./nixos/compute-01-hardware.nix
+
+            agenix.nixosModules.default
+          ];
+        };
+
         edwards-laptop = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs; inherit agenix; };

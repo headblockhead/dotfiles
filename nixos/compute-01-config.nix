@@ -21,7 +21,7 @@
     ./modules/grub.nix
     ./modules/hardware-filesystems.nix
     ./modules/homemanager.nix
-    ./modules/lenovo-bat-save.nix
+#    ./modules/lenovo-bat-save.nix
     ./modules/network.nix
     ./modules/openrgb.nix
     ./modules/printer.nix
@@ -51,7 +51,7 @@
   users.extraGroups.vboxusers.members = [ "headb" ];
 
   # Networking settings.
-  networking.hostName = "edwards-laptop";
+  networking.hostName = "compute-01";
    
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
