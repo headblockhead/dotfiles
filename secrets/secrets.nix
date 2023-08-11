@@ -4,7 +4,6 @@ let
   system = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCzHYmvZTtOnxEcv+/pqGC7bp8aHsWRLl+cXvn1druMOXgDF+7Ioj+sII56FGUG2NCXsdkvtJinEBGSZOaojI1e4iCIMZaZS7Q11JiCGhgoDHSmeJoKpG7+qE8Xeh71KOw2NbtXIQeAXVgmRk07iYzVD+KowwLs1p9u23oFfF+zgj698SBx3ZQyaXJ8c10U23YjABT0zHXPTfRbC5pwZLzbbfSMkvJ5iDQgGrshwxgHB93imUpRqQ4SWLTnSxDn8WzvcCJ+zPFvLi8nc7YfXO6iPGLoB7DGhI4FUjKxvDU+H2kX00GiXzouItZDi3UijuvP04HtmpE16ZtBBahXuY1lkJOYM+vrkKhcgMAwgdHxycXxmHN9PeJmvayentwtQN9T4BSehRCIhuOIxWVyI+wUEIyRJTRpaEh5gqwuXxbYNmHnWaCoP+BRmYuCviWBnYyn2HI9HnspWSmq3wueFH7K+/VyRBpBfsRaKoObv/i7nDDUm60JpCE8givOrvP1lfvhNJIXnz216pkBvvsqzioYM7hv5N8z9WpoYsg+9B0RGcunjuVn9R4DrPJ5j5gFe7gdDdq7gZRiKFm5thKbsjhK3BGr/p4Yvn3TvhdVfZzOU8Ttn1LbdcNDnh0qB0/qsC8jSuSdDnvArC7hQtflc0l7+3hx6up7IZOEfpjGcmq9dQ== root@edwards-laptop";
 in
 {
-  "home-assistant-api-key.age".publicKeys = [headb system ];
   "wireguard-public-key.age".publicKeys = [headb system ];
   "wireguard-private-key.age".publicKeys = [headb system ];
 }

@@ -139,7 +139,7 @@ Use the NixOS mininal ISO for a more customisable install.
 
   Lock root account from login:
   ```bash
-  sudo passwd -l root
+  sudo passwd -dl root
   sudo usermod -L root
   ```
 
@@ -147,13 +147,6 @@ Use the NixOS mininal ISO for a more customisable install.
   ```bash
   sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
   sudo nix-channel --update
-  ```
-
-  Home Assistant API secret should not have a newline at the end. Use this command to remove it.
-  ```bash
-  # dotfiles/secrets/
-  export EDITOR="truncate -s -1"
-  agenix -e home-assistant-api-key.age
   ```
 
 ## Extras!
