@@ -12,7 +12,7 @@ programs.go = {
       owner = "go-delve";
       repo = "delve";
       rev = "891a1f0";
-      sha256 = "mcfXMkQbVk7Z10vloo9Wc8HKMzefW+s+sbmCaGdK9e8=";
+      sha256 = "mcfXMkQbVk7Z1Ovloo9Wc8HKMzefW+s+sbmCaGdK9e8=";
     };
     "github.com/sago35/tinygo-edit" = pkgs.fetchFromGitHub {
       owner = "sago35";
