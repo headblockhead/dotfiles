@@ -149,9 +149,10 @@ Use the NixOS mininal ISO for a more customisable install.
   sudo nix-channel --update
   ```
 
-  Symlink `custom.zsh-theme`:
+  Symlinks:
   ```bash
   ln -s ~/dotfiles/oh-my-zsh/custom.zsh-theme ~/custom.zsh-theme
+  ln -s ~/dotfiles/neovim/lua/ ~/.config/nvim/
   ```
 
 ## Extras!
