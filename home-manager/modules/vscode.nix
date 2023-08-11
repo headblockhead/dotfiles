@@ -15,7 +15,7 @@ programs.vscode = {
         name = "cpptools";
         publisher = "ms-vscode";
         version = "1.15.4";
-        sha256 = "ldgbAaJ4sVFMEXuhXbMBwSvpsym4XOQ0//JGeOVHpyY=";
+        sha256 = "+EfEeta+qAnX/xmcGP0sa6U0+VhToiqdHEXQDENxyGA=";
       }
       {
         name = "vscode-eslint";

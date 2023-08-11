@@ -17,7 +17,7 @@ programs.go = {
     "github.com/sago35/tinygo-edit" = pkgs.fetchFromGitHub {
       owner = "sago35";
       repo = "tinygo-edit";
-      rev = "master";
+      rev = "6db7ba8";
       sha256 = "KgC/ReCjZlvnBrQv5vhGvG+7+lV7fd723rQtuV9ezYI=";
     };
   };
