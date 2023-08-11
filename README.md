@@ -149,6 +149,11 @@ Use the NixOS mininal ISO for a more customisable install.
   sudo nix-channel --update
   ```
 
+  Symlink `custom.zsh-theme`:
+  ```bash
+  ln -s ~/dotfiles/oh-my-zsh/custom.zsh-theme ~/custom.zsh-theme
+  ```
+
 ## Extras!
 
 I use this section of my dotfiles to remind me how to run various complicated tasks, in case I forget them in the future.
