@@ -13,6 +13,8 @@
 
   services.xserver.videoDrivers = ["nvidia"];
 
+boot.blacklistedKernelModules = [ "nouveau" ];
+
     hardware.nvidia = {
 
     # Modesetting is needed for most Wayland compositors
