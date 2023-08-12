@@ -63,7 +63,7 @@ configs.templ = {
     filetypes = { 'templ' },
     root_dir = nvim_lsp.util.root_pattern("go.mod", ".git"),
     settings = {},
-  };
+  },
 }
 -- Java language server.
 configs.jdtls = {
@@ -71,7 +71,7 @@ configs.jdtls = {
     cmd = { "jdtls" },
     filetypes = { 'java' },
     root_dir = nvim_lsp.util.root_pattern("Makefile", ".git", "build.gradle"),
-  };
+  },
 }
 
 -- Add additional capabilities supported by nvim-cmp
@@ -81,7 +81,7 @@ local server_settings = {
   gopls = {
     gopls = {
       codelenses = {
-        generate = true, -- show the `go generate` lens.
+        generate = true,   -- show the `go generate` lens.
         gc_details = true, -- show a code lens toggling the display of gc's choices.
         test = true,
         upgrade_dependency = true,
@@ -105,7 +105,7 @@ local server_settings = {
       enable = true,
     },
   },
-  sumneko_lua = {
+  lua_ls = {
     Lua = {
       runtime = {
         version = 'Lua 5.4',
@@ -130,7 +130,7 @@ local server_settings = {
 -- map buffer local keybindings when the language server attaches
 -- eslint comes from:
 -- npm i -g vscode-langservers-extracted
-local servers = { 'gopls', 'ccls', 'cmake', 'tsserver', 'templ', 'rls', 'eslint', 'sumneko_lua', 'jdtls' }
+local servers = { 'gopls', 'ccls', 'cmake', 'tsserver', 'templ', 'rls', 'eslint', 'lua_ls', 'jdtls' }
 for _, lsp in ipairs(servers) do
   local opts = {
     on_attach = on_attach,
