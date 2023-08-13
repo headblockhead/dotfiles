@@ -3,7 +3,7 @@
     loader = {
       efi = {
         canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/EFI";
+        efiSysMountPoint = "/boot";
       };  # Use the systemd-boot EFI boot loader.
     systemd-boot = {
         enable = true;
