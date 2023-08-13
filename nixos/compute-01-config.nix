@@ -18,7 +18,8 @@
 
     ./modules/gnome.nix
     ./modules/gpg.nix
-    ./modules/grub.nix
+#    ./modules/grub.nix
+./modules/systemd-boot.nix
     ./modules/hardware-filesystems.nix
     ./modules/homemanager.nix
 #    ./modules/lenovo-bat-save.nix
