@@ -3,6 +3,10 @@
 {
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
 
+  environment.systemPackages = with pkgs; [
+    openrgb-with-all-plugins
+  ];
+
   systemd.services.openrgb = {
     enable = true;
   description = "Run an OpenRGB server for controlling RGB devices";
