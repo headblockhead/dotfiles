@@ -9,7 +9,10 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-  };
+};
+
+boot.loader.grub.efiInstallAsRemovable = lib.mkForce true;
+boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
 
   services.xserver.videoDrivers = ["nvidia"];
 
