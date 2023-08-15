@@ -1,5 +1,3 @@
-{ config, pkgs,... }:
-
 {
 
   imports = [
@@ -9,6 +7,7 @@
     ./modules/everydayapps.nix
 #    ./moudles/everydayappsminimal.nix
 
+    ./modules/furnace.nix
     ./modules/extraapps.nix
     ./modules/fzf.nix
     ./modules/games.nix
@@ -30,11 +29,6 @@
     ./modules/zsh.nix
 #    ./modules/zshminimal.nix
   ];
-
-  home.packages = [
-    pkgs.furnace # chiptune tracker
-  ];
-
   # Home Manager needs a bit of information about you and the
 # paths it should manage.
 home.username = "headb";

@@ -71,6 +71,7 @@
             platformio = unstablepkgs.platformio;
             vscode = vscodeutilspkgs.vscode;
             vscode-utils = vscodeutilspkgs.vscode-utils;
+            flyctl = unstablepkgs.flyctl;
             home-manager = home-manager;
           })
         ];

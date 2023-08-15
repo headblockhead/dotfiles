@@ -10,6 +10,9 @@
     };
     desktopManager.gnome.enable = true;
   };
+  environment.systemPackages = with pkgs; [
+    xorg.xhost
+  ];
   services.xserver.libinput.enable = true;
   # Exclude certain xserver packages.
   services.xserver.excludePackages = [ pkgs.xterm ];

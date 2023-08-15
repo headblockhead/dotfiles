@@ -36,7 +36,7 @@
     ./modules/transmission.nix
     ./modules/users.nix
 #   ./modules/wireguard.nix
-    ./modules/xserver.nix
+./modules/xserver.nix
     ./modules/zsh.nix
   ];
 
