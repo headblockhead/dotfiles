@@ -175,6 +175,20 @@ If you want to remove this:
 nix registry remove flake:nixpkgs
 ```
 
+### Run SteamVR with the Meta Quest 2.
+
+[Source](https://github.com/alvr-org/ALVR/wiki/ALVR-wired-setup-(ALVR-over-USB))
+
+Run ALVR.
+
+Look for the required communication ports. ( Settings > Connection > "Stream port", "Osc local port" )
+
+Forward with adb using SideQuest. ( Custom Command > `adb forward tcp:9944 tcp:9944` `adb forward tcp:9942 tcp:9942` )
+
+Run SteamVR, ignore root request. ALVR should autoconnect.
+
+Connect ALVR to 127.0.0.1. 
+
 ### Running macOS using docker for XCode development.
 Allow docker containers to connect to the X Server.
 ```bash
@@ -280,7 +294,7 @@ idevice_id -l
 Updates NixOS with the current config.
 
 ```bash
-sudo nixos-rebuild switch --flake ".#compute-01" --impure
+sudo --preserve-env=NIXPKGS_ALLOW_UNFREE nixos-rebuild switch --flake ".#compute-01" --impure
 ```
 
 ### Reload-HomeManager
@@ -307,6 +321,6 @@ Clean deletes all generations except the current, and cleans the nix store.
 home-manager expire-generations -1+second
 sudo nix-collect-garbage -d
 nix-store --gc
-sudo nixos-rebuild switch --flake ".#compute-01" --impure
+sudo --preserve-env=NIXPKGS_ALLOW_UNFREE nixos-rebuild switch --flake ".#compute-01" --impure
 home-manager switch --flake '.#compute-01-headb' --impure
 ```

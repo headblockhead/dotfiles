@@ -46,7 +46,8 @@
   nix.settings.trusted-users = [ "headb" ];
 
   virtualisation.virtualbox.host.enable = true;
-   virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+
   users.extraGroups.vboxusers.members = [ "headb" ];
 
   # Networking settings.

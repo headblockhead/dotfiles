@@ -33,6 +33,7 @@
     ./modules/ssd.nix
     ./modules/ssh.nix
     ./modules/steam.nix
+    ./modules/steamvr.nix
     ./modules/transmission.nix
     ./modules/users.nix
 #   ./modules/wireguard.nix
@@ -47,7 +48,8 @@
   nix.settings.trusted-users = [ "headb" ];
 
   virtualisation.virtualbox.host.enable = true;
-   virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+
   users.extraGroups.vboxusers.members = [ "headb" ];
 
   # Networking settings.

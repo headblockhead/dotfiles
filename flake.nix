@@ -50,10 +50,12 @@
       vscodeutilspkgs = import vscodeutilsnixpkgs {};
       csharppkgs = import csharpnixpkgs {};
       pkgs = import nixpkgs {
+        allowUnfree = true;
         overlays = [
           (self: super: {
             vscode-extensions.ms-dotnettools.csharp = csharppkgs.vscode-extensions.ms-dotnettools.csharp;
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };
+            alvr = super.callPackage ./custom-packages/alvr.nix { };
             immersed = super.callPackage ./custom-packages/immersed-vr.nix { 
               ffmpeg-full = unstablepkgs.ffmpeg-full;
               pkgs = unstablepkgs;
@@ -80,6 +82,7 @@
     nixosConfigurations = {
         compute-01 = nixpkgs.lib.nixosSystem {
           inherit system;
+          inherit pkgs;
           specialArgs = { inherit inputs; inherit agenix; };
           modules = [
             ./nixos/compute-01-config.nix
@@ -91,6 +94,7 @@
 
         edwards-laptop = nixpkgs.lib.nixosSystem {
           inherit system;
+          inherit pkgs;
           specialArgs = { inherit inputs; inherit agenix; };
           modules = [
             ./nixos/edwards-laptop-config.nix
