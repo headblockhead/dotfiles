@@ -2,7 +2,10 @@
   home.packages = with pkgs; [
   remmina
   zoom-us
-  blender
+  (blender.override {
+    cudaSupport = true;
+  })
+  fractal
   musescore
   obs-studio
   cura 

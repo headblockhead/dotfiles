@@ -2,7 +2,7 @@
   description = "NixOS and Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-23.05";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
 
     rpi-nixpkgs.url = "github:NixOS/nixpkgs/d91e1f9";
 
@@ -20,7 +20,7 @@
       url = "github:PrismLauncher/PrismLauncher";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     playdatesdk = {
@@ -44,23 +44,22 @@
   outputs = inputs@{ self, agenix, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
     let
       system = "x86_64-linux";
+      sshkey= ''ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9IxocfA5legUO3o+cbbQt75vc19UG9yrrPmWVLkwbmvGxCtEayW7ubFNXo9CwlPRqcudOARZjas3XJ4+ZwrDJC8qWrSNDSw1izZizcE5oFe/eTaw+E7jT8KcUWWfdUmyx3cuJCHUAH5HtqTXc5KtZ2PiW91lgx77CYEoDKtt14cqqKvBvWCgj8xYbuoZ5lS/tuF2TkYstxI9kNI2ibk14/YyUfPs+hVTeBCz+0/l87WePzYWwA6xkkZZzGstcpXyOKSrP/fchFC+CWs7oeoJSJ5QGkNqia6HFQrdw93BtGoD2FdR3ruNJa27lOFQcXRyijx43KVr4iLuYvdGw5TEt headb@compute-01'';
+      
       oldpkgs = import oldnixpkgs{};
       unstablepkgs = import unstablenixpkgs {};
       unitypkgs = import unitynixpkgs {};
       vscodeutilspkgs = import vscodeutilsnixpkgs {};
       csharppkgs = import csharpnixpkgs {};
+
       pkgs = import nixpkgs {
         allowUnfree = true;
+        cudaSupport = true;
         overlays = [
           (self: super: {
             vscode-extensions.ms-dotnettools.csharp = csharppkgs.vscode-extensions.ms-dotnettools.csharp;
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };
             alvr = super.callPackage ./custom-packages/alvr.nix { };
-            immersed = super.callPackage ./custom-packages/immersed-vr.nix { 
-              ffmpeg-full = unstablepkgs.ffmpeg-full;
-              pkgs = unstablepkgs;
-              libvaDriverName = "i965";
-            };
             unityhub = unitypkgs.unityhub;
             thonny = oldpkgs.thonny;
             prismlauncher = prismlauncher.packages.x86_64-linux.prismlauncher;
@@ -83,7 +82,7 @@
         compute-01 = nixpkgs.lib.nixosSystem {
           inherit system;
           inherit pkgs;
-          specialArgs = { inherit inputs; inherit agenix; };
+          specialArgs = { inherit inputs; inherit agenix;           inherit sshkey;};
           modules = [
             ./nixos/compute-01-config.nix
             ./nixos/compute-01-hardware.nix
@@ -95,7 +94,7 @@
         edwards-laptop = nixpkgs.lib.nixosSystem {
           inherit system;
           inherit pkgs;
-          specialArgs = { inherit inputs; inherit agenix; };
+          specialArgs = { inherit inputs; inherit agenix; inherit sshkey;};
           modules = [
             ./nixos/edwards-laptop-config.nix
             ./nixos/edwards-laptop-hardware.nix
@@ -105,7 +104,8 @@
         };
         edwards-laptop-2 = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs; };
+          inherit pkgs;
+          specialArgs = { inherit inputs; inherit agenix;inherit sshkey; };
           modules = [
             ./nixos/edwards-laptop-2-config.nix
             ./nixos/edwards-laptop-2-hardware.nix
@@ -115,7 +115,8 @@
         };
         rpi-headless-image = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs;};
+          inherit pkgs;
+          specialArgs = { inherit inputs; inherit sshkey;};
           modules = [
            "${rpi-nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
             ./nixos/rpi-headless-image-conf.nix
@@ -127,24 +128,13 @@
             agenix.nixosModules.default
           ];
         };
-        rpi-generic-nixos =nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = { inherit inputs; };
-modules = [
-            ./nixos/rpi-generic-nixos-conf.nix
-            ./nixos/rpi-generic-nixos-hardware.nix
-
-            agenix.nixosModules.default
-          ];
-        };
       };
       images.rpi-headless-image = nixosConfigurations.rpi-headless-image.config.system.build.sdImage;
       homeConfigurations = {
-compute-01-headb = home-manager.lib.homeManagerConfiguration {
+        compute-01-headb = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./home-manager/compute-01-headb.nix ];
         };
-
         edwards-laptop-headb = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./home-manager/edwards-laptop-headb.nix ];

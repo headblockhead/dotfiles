@@ -9,9 +9,27 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+    extraPackages = with pkgs; [
+    vaapiVdpau
+    libvdpau-va-gl
+
+    rocm-opencl-icd
+    rocm-opencl-runtime
+
+      nvidia-vaapi-driver
+  ];
 };
 
+systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
+  ];
+
   services.xserver.videoDrivers = ["nvidia"];
+boot.blacklistedKernelModules = [ "nouveau" ];
+
+  environment.systemPackages = with pkgs; [
+    cudatoolkit
+  ];
 
     hardware.nvidia = {
 
@@ -26,13 +44,16 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+    boot.initrd.kernelModules = [ "amdgpu" "nvidia-uvm" ];
+      boot.kernelParams = [
+      "amd_iommu=on"
+    ];
+  boot.kernelModules = [ "kvm-amd" "nvidia-uvm" "vfio-pci" "amdgpu" ];
   boot.extraModulePackages = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

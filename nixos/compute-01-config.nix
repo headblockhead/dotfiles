@@ -38,6 +38,7 @@
     ./modules/users.nix
 #   ./modules/wireguard.nix
 ./modules/xserver.nix
+./modules/xmrig.nix
     ./modules/zsh.nix
   ];
 
@@ -47,10 +48,10 @@
 
   nix.settings.trusted-users = [ "headb" ];
 
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
+#  virtualisation.virtualbox.host.enable = true;
+#  virtualisation.virtualbox.host.enableExtensionPack = true;
 
-  users.extraGroups.vboxusers.members = [ "headb" ];
+#  users.extraGroups.vboxusers.members = [ "headb" ];
 
   # Networking settings.
   networking.hostName = "compute-01";
