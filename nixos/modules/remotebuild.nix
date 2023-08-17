@@ -7,6 +7,8 @@
     sshKey = "/home/headb/.ssh/id_rsa";
     sshUser = "headb";
     protocol = "ssh-ng";
+    maxJobs = 16;
+    speedFactor = 1;
   }
 ];
   nix.distributedBuilds = true;

@@ -115,7 +115,6 @@
         };
         rpi-headless-image = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          inherit pkgs;
           specialArgs = { inherit inputs; inherit sshkey;};
           modules = [
            "${rpi-nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
