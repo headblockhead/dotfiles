@@ -6,9 +6,10 @@
     system = "x86_64-linux";
     sshKey = "/home/headb/.ssh/id_rsa";
     sshUser = "headb";
-    protocol = "ssh-ng";
-    maxJobs = 16;
-    speedFactor = 1;
+    protocol = "ssh";
+    supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+    mandatoryFeatures = [ ];
+    maxJobs = 4;
   }
 ];
   nix.distributedBuilds = true;
