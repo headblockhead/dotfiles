@@ -28,6 +28,7 @@
     ./modules/printer.nix
     ./modules/qt.nix
     ./modules/region.nix
+    ./modules/remotebuild.nix
 #    ./modules/sheepit.nix
     ./modules/sound.nix
     ./modules/ssd.nix
