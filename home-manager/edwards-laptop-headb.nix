@@ -7,25 +7,24 @@
     ./modules/dconf.nix
 
     ./modules/everydayapps.nix
-#    ./moudles/everydayappsminimal.nix
 
-    ./modules/extraapps.nix
+#    ./modules/extraapps.nix
     ./modules/fzf.nix
-    ./modules/games.nix
+#    ./modules/games.nix
     ./modules/git.nix
     ./modules/gnome.nix
     ./modules/gnome-terminal.nix
-    ./modules/go.nix
-    ./modules/gtk-custom-bookmarks.nix
+#    ./modules/go.nix
+#    ./modules/gtk-custom-bookmarks.nix
     ./modules/gtk.nix
     ./modules/neovim.nix
-    ./modules/obinskit.nix
-    ./modules/picosdk.nix
-    ./modules/playdatesdk.nix
+#    ./modules/obinskit.nix
+#    ./modules/picosdk.nix
+#    ./modules/playdatesdk.nix
     ./modules/qt.nix
     ./modules/terminalutils.nix
-    ./modules/unity.nix
-    ./modules/vscode.nix
+#    ./modules/unity.nix
+#    ./modules/vscode.nix
 
     ./modules/zsh.nix
 #    ./modules/zshminimal.nix
