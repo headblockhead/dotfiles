@@ -22,6 +22,7 @@
     ./modules/hardware-filesystems.nix
     ./modules/homemanager.nix
     ./modules/lenovo-bat-save.nix
+    ./modules/monero.nix
     ./modules/network.nix
     ./modules/openrgb.nix
     ./modules/printer.nix
