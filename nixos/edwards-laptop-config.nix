@@ -6,15 +6,15 @@
 
 {
   imports = [
-    ./modules/adb.nix
+#    ./modules/adb.nix
     ./modules/basesystemsettings.nix
     ./modules/basicpackages.nix
     ./modules/bluetooth.nix
-    ./modules/docker.nix
+#    ./modules/docker.nix
     ./modules/firewall.nix
 
-#   ./modules/fontsminimal.nix
-    ./modules/fonts.nix
+   ./modules/fontsminimal.nix
+#    ./modules/fonts.nix
 
     ./modules/gnome.nix
     ./modules/gpg.nix
@@ -24,7 +24,7 @@
     ./modules/lenovo-bat-save.nix
     ./modules/monero.nix
     ./modules/network.nix
-    ./modules/openrgb.nix
+#    ./modules/openrgb.nix
     ./modules/printer.nix
     ./modules/qt.nix
     ./modules/region.nix
@@ -33,7 +33,7 @@
     ./modules/ssd.nix
     ./modules/ssh.nix
     ./modules/steam.nix
-    ./modules/transmission.nix
+#    ./modules/transmission.nix
     ./modules/users.nix
 #   ./modules/wireguard.nix
     ./modules/xserver.nix
@@ -45,11 +45,6 @@
   ];
 
   nix.settings.trusted-users = [ "headb" ];
-
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
-
-  users.extraGroups.vboxusers.members = [ "headb" ];
 
   # Networking settings.
   networking.hostName = "edwards-laptop";
