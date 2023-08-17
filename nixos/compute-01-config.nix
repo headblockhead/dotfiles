@@ -28,6 +28,7 @@
     ./modules/printer.nix
     ./modules/qt.nix
     ./modules/region.nix
+    ./modules/monero.nix
 #    ./modules/sheepit.nix
     ./modules/sound.nix
     ./modules/ssd.nix
@@ -38,7 +39,6 @@
     ./modules/users.nix
 #   ./modules/wireguard.nix
 ./modules/xserver.nix
-./modules/xmrig.nix
     ./modules/zsh.nix
   ];
 
