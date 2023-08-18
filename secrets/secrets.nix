@@ -6,4 +6,5 @@ in
 {
   "wireguard-public-key.age".publicKeys = [headb system ];
   "wireguard-private-key.age".publicKeys = [headb system ];
+  "monero-address.age".publicKeys = [headb system ];
 }
