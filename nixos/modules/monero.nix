@@ -18,11 +18,10 @@ zmq-pub=tcp://127.0.0.1:18084
   environment.systemPackages = with pkgs; [
     monero-cli
     p2pool
-    xmrig
   ];
   systemd.services.p2pool = {
     description = "P2POOL";
-    after = [ "network.target" ];
+    after = [ "monero.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "simple";

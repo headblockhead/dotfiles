@@ -11,6 +11,7 @@
     csharpnixpkgs.url = "github:NixOS/nixpkgs/fd78240";
     unitynixpkgs.url = "github:NixOS/nixpkgs/afb1ed8";
     vscodeutilsnixpkgs.url = "nixpkgs/nixos-22.11";
+    xmrignixpkgs.url = "nixpkgs/nixos-22.11";
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -41,7 +42,7 @@
     };
   };
 
-  outputs = inputs@{ self, agenix, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, ... }:
+  outputs = inputs@{ self, agenix, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,xc, mcpelauncher, xmrignixpkgs, ... }:
     let
       system = "x86_64-linux";
       sshkey= ''ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9IxocfA5legUO3o+cbbQt75vc19UG9yrrPmWVLkwbmvGxCtEayW7ubFNXo9CwlPRqcudOARZjas3XJ4+ZwrDJC8qWrSNDSw1izZizcE5oFe/eTaw+E7jT8KcUWWfdUmyx3cuJCHUAH5HtqTXc5KtZ2PiW91lgx77CYEoDKtt14cqqKvBvWCgj8xYbuoZ5lS/tuF2TkYstxI9kNI2ibk14/YyUfPs+hVTeBCz+0/l87WePzYWwA6xkkZZzGstcpXyOKSrP/fchFC+CWs7oeoJSJ5QGkNqia6HFQrdw93BtGoD2FdR3ruNJa27lOFQcXRyijx43KVr4iLuYvdGw5TEt headb@compute-01'';
@@ -51,6 +52,7 @@
       unitypkgs = import unitynixpkgs {};
       vscodeutilspkgs = import vscodeutilsnixpkgs {};
       csharppkgs = import csharpnixpkgs {};
+      xmrigpkgs = import xmrignixpkgs {};
 
       pkgs = import nixpkgs {
         allowUnfree = true;
@@ -74,6 +76,7 @@
             vscode-utils = vscodeutilspkgs.vscode-utils;
             flyctl = unstablepkgs.flyctl;
             home-manager = home-manager;
+            xmrig = xmrigpkgs.xmrig;
           })
         ];
       };
