@@ -10,6 +10,7 @@
     ];
     limits.upload = 1048576; # 1048576 kB/s == 1GB/s; a raise from default 2048 kB/s; contribute more to p2p network
     limits.download = 1048576; # 1048576 kB/s == 1GB/s; a raise from default 8192 kB/s; allow for faster initial sync
+    rpc.address = "0.0.0.0"; # Allow RPC connections from anywhere
     extraConfig = '' 
 out-peers=64              # This will enable much faster sync and tx awareness; the default 8 is suboptimal nowadays
 in-peers=1024             # The default is unlimited; we prefer to put a cap on this
