@@ -3,6 +3,7 @@
   age.secrets.monero-address.file = ../../secrets/monero-address.age;
   services.monero = {
     enable = true;
+    dataDir = "/var/lib/monero";
     priorityNodes = [
       "nodes.hashvault.pro:18080"
       "p2pmd.xmrvsbeast.com:18080"
