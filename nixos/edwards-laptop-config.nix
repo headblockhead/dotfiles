@@ -46,8 +46,9 @@
       agenix.packages.x86_64-linux.default
   ];
 
-#  hardware.pulseaudio.extraConfig = "default-server = 192.168.155.6";
-  hardware.pulseaudio.zeroconf.discovery.enable = true;
+  environment.sessionVariables = {
+    PULSE_SERVER = "192.168.155.6";
+  };
 
   nix.settings.trusted-users = [ "headb" ];
 
