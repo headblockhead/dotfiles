@@ -48,6 +48,7 @@ Use the NixOS mininal ISO for a more customisable install.
       - uncommitted git changes,
       - other files from outside the /home folder,
       - wireguard configuration,
+      - clone hero songs,
       - the whole /home directory,
 
     Once the check list is done, the easiest option in my opinion for simple partitioning is `cfdisk`, another TUI utility.
