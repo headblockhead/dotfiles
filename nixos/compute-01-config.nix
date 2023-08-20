@@ -47,6 +47,8 @@
       agenix.packages.x86_64-linux.default
   ];
 
+  hardware.pulseaudio.zeroconf.publish.enable = true;
+
   nix.settings.trusted-users = [ "headb" ];
 
 #  virtualisation.virtualbox.host.enable = true;
