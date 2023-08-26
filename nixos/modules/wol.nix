@@ -10,7 +10,7 @@ in
       {
         commands = [ 
           {
-            command = "${pkgs.pmutils}/lib/pm-utils/bin/pm-action";
+            command = "${pkgs.pmutils}/bin/pm-suspend";
             options = [ "NOPASSWD" ];
           }
         ];
