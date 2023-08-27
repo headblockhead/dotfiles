@@ -156,6 +156,13 @@ Use the NixOS mininal ISO for a more customisable install.
   ln -s ~/dotfiles/neovim/lua/ ~/.config/nvim/
   ```
 
+  In some cases, a boot option is not found. Sometimes this needs to be run from a bootable USB and then booted from, then [the bootloader re-installed.](https://nixos.wiki/wiki/Bootloader#Re-installing_the_bootloader)
+  ```bash
+  mv /boot/EFI/NixOS-boot /boot/EFI/boot
+  mv /boot/EFI/boot/grubx64.efi /boot/EFI/boot/bootx64.efi
+  ```
+  This can help with detection.
+
 ## Extras!
 
 I use this section of my dotfiles to remind me how to run various complicated tasks, in case I forget them in the future.
