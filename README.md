@@ -150,6 +150,11 @@ Use the NixOS mininal ISO for a more customisable install.
   sudo nix-channel --update
   ```
 
+  Enable Wake on WLAN:
+  ```bash
+  sudo iw phy0 wowlan enable magic-packet
+  ```
+
   Symlinks:
   ```bash
   ln -s ~/dotfiles/oh-my-zsh/custom.zsh-theme ~/custom.zsh-theme
