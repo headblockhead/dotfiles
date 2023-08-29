@@ -150,11 +150,23 @@ Use the NixOS mininal ISO for a more customisable install.
   sudo nix-channel --update
   ```
 
+  Enable Wake on WLAN:
+  ```bash
+  sudo iw phy0 wowlan enable magic-packet
+  ```
+
   Symlinks:
   ```bash
   ln -s ~/dotfiles/oh-my-zsh/custom.zsh-theme ~/custom.zsh-theme
   ln -s ~/dotfiles/neovim/lua/ ~/.config/nvim/
   ```
+
+  In some cases, a boot option is not found. Sometimes this needs to be run from a bootable USB and then booted from, then [the bootloader re-installed.](https://nixos.wiki/wiki/Bootloader#Re-installing_the_bootloader)
+  ```bash
+  mv /boot/EFI/NixOS-boot /boot/EFI/boot
+  mv /boot/EFI/boot/grubx64.efi /boot/EFI/boot/bootx64.efi
+  ```
+  This can help with detection.
 
 ## Extras!
 

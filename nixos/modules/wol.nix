@@ -18,6 +18,7 @@ in
       }
     ];
   };
+  networking.interfaces.wlp13s0.wakeOnLan.enable = true;
   users.users.hass = {
     isNormalUser = true;
     home = "/var/lib/hass";
