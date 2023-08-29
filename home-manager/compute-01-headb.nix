@@ -1,3 +1,4 @@
+{lib, config, pkgs, ...}:
 {
 
   imports = [
@@ -34,6 +35,8 @@
 home.username = "headb";
 home.homeDirectory = "/home/headb";
 home.enableNixpkgsReleaseCheck = true;
+
+home.file.".config/monitors.xml".text = builtins.readFile ../monitors/compute-01.xml;
 
 # This value determines the Home Manager release that your
 # configuration is compatible with. This helps avoid breakage

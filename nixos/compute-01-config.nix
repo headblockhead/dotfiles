@@ -47,6 +47,11 @@
       agenix.packages.x86_64-linux.default
   ];
 
+systemd.tmpfiles.rules = [
+    "L+ /run/gdm/.config/monitors.xml - - - - ${pkgs.writeText "gdm-monitors.xml" ''${builtins.readFile ../monitors/compute-01.xml}''}"
+  ];
+
+
   nix.settings.trusted-users = [ "headb" ];
 
 #  virtualisation.virtualbox.host.enable = true;
