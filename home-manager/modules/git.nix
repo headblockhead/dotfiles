@@ -29,7 +29,7 @@ programs.git = {
     gpgPath = "/run/current-system/sw/bin/gpg2";
     signByDefault = true;
   };
-  extraConfig = { pull.rebase = false; };
+  extraConfig = { pull.rebase = false; commit.gpgsign = true;};
 };
 
 }

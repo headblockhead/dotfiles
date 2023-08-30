@@ -52,6 +52,7 @@ systemd.tmpfiles.rules = [
     "L+ /run/gdm/.config/monitors.xml - - - - ${pkgs.writeText "gdm-monitors.xml" ''${builtins.readFile ../monitors/compute-01.xml}''}"
   ];
 
+    boot.loader.grub.gfxmodeEfi = "1920x1080";
 
   nix.settings.trusted-users = [ "headb" ];
 
