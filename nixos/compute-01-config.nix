@@ -29,7 +29,7 @@
     ./modules/qt.nix
     ./modules/region.nix
 #    ./modules/monero.nix # run on edwards-lapotop
-    ./modules/miner.nix
+#    ./modules/miner.nix
 #    ./modules/sheepit.nix
     ./modules/sound.nix
     ./modules/ssd.nix
@@ -39,14 +39,20 @@
     ./modules/transmission.nix
     ./modules/users.nix
     ./modules/wol.nix
-#   ./modules/wireguard.nix
+#    ./modules/wireguard.nix
 ./modules/xserver.nix
     ./modules/zsh.nix
   ];
 
   environment.systemPackages = [
       agenix.packages.x86_64-linux.default
+      pkgs.cachix
   ];
+
+  nix.settings = {
+    extra-substituters = "https://cachix.cachix.org";
+    extra-trusted-public-keys = "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM=";
+  };
 
 systemd.tmpfiles.rules = [
     "L+ /run/gdm/.config/monitors.xml - - - - ${pkgs.writeText "gdm-monitors.xml" ''${builtins.readFile ../monitors/compute-01.xml}''}"
