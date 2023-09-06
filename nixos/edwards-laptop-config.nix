@@ -46,10 +46,6 @@
       agenix.packages.x86_64-linux.default
   ];
 
-  environment.sessionVariables = {
-    PULSE_SERVER = "192.168.155.6";
-  };
-
   nix.settings.trusted-users = [ "headb" ];
 
   # Networking settings.
