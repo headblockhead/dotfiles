@@ -23,7 +23,7 @@
     ./modules/homemanager.nix
     ./modules/lenovo-bat-save.nix
     ./modules/monero.nix
-    ./modules/miner.nix # Also on edwards-laptop for max mining.
+#    ./modules/miner.nix
     ./modules/network.nix
 #    ./modules/openrgb.nix
     ./modules/printer.nix
