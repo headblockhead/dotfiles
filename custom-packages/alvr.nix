@@ -16,13 +16,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "alvr";
-  version = "20.1.0";
+  version = "20.2.1";
 
 src = appimageTools.wrapType2 {
   name = "alvr";
   src = fetchurl {
     url = "https://github.com/alvr-org/ALVR/releases/download/v${version}/ALVR-x86_64.AppImage";
-    sha256 = "J0m4Qcz3MI2ZJE1nAtP3OakP4OQoBrdZWbNXY+RG2pg=";
+    sha256 = "yVLVWfMd56DL5Y++pClO2gpRr4k318CKULIVPSPNZZA=";
   };
   extraPkgs = pkgs: with pkgs; [ ];
 };

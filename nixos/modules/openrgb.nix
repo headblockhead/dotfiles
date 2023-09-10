@@ -7,16 +7,6 @@
     openrgb-with-all-plugins
   ];
 
-  systemd.services.openrgb = {
-    enable = true;
-  description = "Run an OpenRGB server for controlling RGB devices";
-  script = ''
-    ${pkgs.openrgb}/bin/openrgb --server
-    '';
-  wantedBy = [ "multi-user.target" ]; # starts after login
-};
-
-  services.udev.extraRules =  ''
-    ${builtins.readFile ./60-openrgb.rules}
-    '';
+  services.hardware.openrgb.enable = true;
+  services.hardware.openrgb.motherboard = "amd";
 }

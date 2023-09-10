@@ -58,24 +58,31 @@
         allowUnfree = true;
         cudaSupport = true;
         overlays = [
-          (self: super: {
+          (self: super: rec {
             vscode-extensions.ms-dotnettools.csharp = csharppkgs.vscode-extensions.ms-dotnettools.csharp;
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };
             alvr = super.callPackage ./custom-packages/alvr.nix { };
             unityhub = unitypkgs.unityhub;
             thonny = oldpkgs.thonny;
-            prismlauncher = prismlauncher.packages.x86_64-linux.prismlauncher;
+            prismlauncher = inputs.prismlauncher.packages.x86_64-linux.prismlauncher;
             pdc = playdatesdk.packages.x86_64-linux.pdc;
             pdutil = playdatesdk.packages.x86_64-linux.pdutil;
             PlaydateSimulator = playdatesdk.packages.x86_64-linux.PlaydateSimulator;
-            playdatemirror = playdatemirror.packages.x86_64-linux.Mirror;
-            xc = xc.packages.x86_64-linux.xc;
-            mcpelauncher = mcpelauncher.defaultPackage.x86_64-linux;
+            playdatemirror = inputs.playdatemirror.packages.x86_64-linux.Mirror;
+            xc = inputs.xc.packages.x86_64-linux.xc;
+            mcpelauncher = inputs.mcpelauncher.defaultPackage.x86_64-linux;
             platformio = unstablepkgs.platformio;
             vscode = vscodeutilspkgs.vscode;
             vscode-utils = vscodeutilspkgs.vscode-utils;
             flyctl = unstablepkgs.flyctl;
-            home-manager = home-manager;
+            home-manager = inputs.home-manager;
+            openrgb = super.libsForQt5.callPackage ./custom-packages/openrgb.nix { 
+              wrapQtAppsHook = pkgs.qt5.wrapQtAppsHook;
+              qtbase = pkgs.qt5.qtbase;
+              qttools = pkgs.qt5.qttools;
+              qmake = pkgs.qt5.qmake; 
+            };
+            openrgb-with-all-plugins = unstablepkgs.openrgb-with-all-plugins;
             xmrig = xmrigpkgs.xmrig;
           })
         ];
