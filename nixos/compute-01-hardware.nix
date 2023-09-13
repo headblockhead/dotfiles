@@ -47,7 +47,7 @@ boot.blacklistedKernelModules = [ "nouveau" ];
     package = config.boot.kernelPackages.nvidiaPackages.production;
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+#  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
     boot.initrd.kernelModules = [ "amdgpu" "nvidia-uvm" ];
       boot.kernelParams = [

@@ -34,8 +34,8 @@
     ./modules/sound.nix
     ./modules/ssd.nix
     ./modules/ssh.nix
-    ./modules/steam.nix
-    ./modules/steamvr.nix
+#    ./modules/steam.nix
+#    ./modules/steamvr.nix # on windows now
     ./modules/transmission.nix
     ./modules/users.nix
     ./modules/wol.nix
@@ -48,6 +48,12 @@
       agenix.packages.x86_64-linux.default
       pkgs.cachix
   ];
+
+  # win10 dualboot
+  boot.loader.grub.useOSProber = true;
+
+
+
 
   nix.settings = {
     extra-substituters = "https://cachix.cachix.org";
@@ -62,10 +68,10 @@ systemd.tmpfiles.rules = [
 
   nix.settings.trusted-users = [ "headb" ];
 
-#  virtualisation.virtualbox.host.enable = true;
-#  virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
 
-#  users.extraGroups.vboxusers.members = [ "headb" ];
+  users.extraGroups.vboxusers.members = [ "headb" ];
 
   # Networking settings.
   networking.hostName = "compute-01";

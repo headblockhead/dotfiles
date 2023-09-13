@@ -11,7 +11,7 @@
     ./modules/furnace.nix
     ./modules/extraapps.nix
     ./modules/fzf.nix
-    ./modules/games.nix
+#    ./modules/games.nix
     ./modules/git.nix
     ./modules/gnome.nix
     ./modules/gnome-terminal.nix
