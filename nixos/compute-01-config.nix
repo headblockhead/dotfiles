@@ -52,9 +52,6 @@
   # win10 dualboot
   boot.loader.grub.useOSProber = true;
 
-
-
-
   nix.settings = {
     extra-substituters = "https://cachix.cachix.org";
     extra-trusted-public-keys = "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM=";

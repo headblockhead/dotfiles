@@ -36,6 +36,10 @@ home.username = "headb";
 home.homeDirectory = "/home/headb";
 home.enableNixpkgsReleaseCheck = true;
 
+home.packages = [
+pkgs.prismlauncher
+];
+
 home.file.".config/monitors.xml".text = builtins.readFile ../monitors/compute-01.xml;
 
 # This value determines the Home Manager release that your
