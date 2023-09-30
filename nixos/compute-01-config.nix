@@ -29,7 +29,7 @@
     ./modules/qt.nix
     ./modules/region.nix
 #    ./modules/monero.nix # run on edwards-lapotop
-#    ./modules/miner.nix
+    ./modules/miner.nix
 #    ./modules/sheepit.nix
     ./modules/sound.nix
     ./modules/ssd.nix
@@ -39,7 +39,7 @@
     ./modules/transmission.nix
     ./modules/users.nix
     ./modules/wol.nix
-#    ./modules/wireguard.nix
+    ./modules/wireguard.nix
 ./modules/xserver.nix
     ./modules/zsh.nix
   ];

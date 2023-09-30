@@ -10,7 +10,7 @@ environment.systemPackages = with pkgs; [
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${pkgs.xmrig}/bin/xmrig -o edwards-laptop:3333"; # Laptop runs monero node and p2pool. Compute-01 runs xmrig.
+      ExecStart = "${pkgs.xmrig}/bin/xmrig -o 192.168.155.5:3333"; # Laptop runs monero node and p2pool. Compute-01 runs xmrig.
       Restart = "always";
       RestartSec = 10;
     };
