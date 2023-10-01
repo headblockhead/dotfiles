@@ -86,7 +86,7 @@
               qttools = pkgs.qt5.qttools;
               qmake = pkgs.qt5.qmake; 
             };
-            templ = inputs.templ.packages.x86_64-linux.templ;
+            templ = inputs.templ.packages.x86_64-linux.default;
             openrgb-with-all-plugins = unstablepkgs.openrgb-with-all-plugins;
             xmrig = xmrigpkgs.xmrig;
           })

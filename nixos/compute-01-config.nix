@@ -29,7 +29,7 @@
     ./modules/qt.nix
     ./modules/region.nix
 #    ./modules/monero.nix # run on edwards-lapotop
-    ./modules/miner.nix
+#    ./modules/miner.nix
 #    ./modules/sheepit.nix
     ./modules/sound.nix
     ./modules/ssd.nix
@@ -57,8 +57,9 @@
     extra-trusted-public-keys = "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM=";
   };
 
-systemd.tmpfiles.rules = [
-    "L+ /run/gdm/.config/monitors.xml - - - - ${pkgs.writeText "gdm-monitors.xml" ''${builtins.readFile ../monitors/compute-01.xml}''}"
+  systemd.tmpfiles.rules = [
+      
+    ''f+ /run/gdm/.config/monitors.xml - gdm gdm - ${builtins.readFile ../monitors/compute-01.xml}''
   ];
 
     boot.loader.grub.gfxmodeEfi = "1920x1080";

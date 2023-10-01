@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 # Fonts
   fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     ibm-plex
     powerline
     source-code-pro

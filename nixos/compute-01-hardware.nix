@@ -31,20 +31,33 @@ boot.blacklistedKernelModules = [ "nouveau" ];
     cudatoolkit
   ];
 
-    hardware.nvidia = {
+  hardware.nvidia = {
 
-    # Modesetting is needed for most Wayland compositors
+# Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+powerManagement.enable = true;
+
+    # Fine-grained power management. Turns off GPU when not in use.
+    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+    # Uses PRIME Offloading.
+    powerManagement.finegrained =false;
+
+    # Modesetting is required.
     modesetting.enable = true;
 
-    # Use the open source version of the kernel module
-    # Only available on driver 515.43.04+
-    open = false;
+    # Use the NVidia open source kernel module (not to be confused with the
+    # independent third-party "nouveau" open source driver).
+    # Support is limited to the Turing and later architectures. Full list of 
+    # supported GPUs is at: 
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+    # Only available from driver 515.43.04+
+    # Do not disable this unless your GPU is unsupported or if you have a good reason to.
+    open = true;
 
     # Enable the nvidia settings menu
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
 #  boot.kernelPackages = pkgs.linuxPackages_latest;
