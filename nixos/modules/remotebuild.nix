@@ -9,7 +9,7 @@
     protocol = "ssh-ng";
     supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     mandatoryFeatures = [ ];
-    maxJobs = 0; # No local builds
+    maxJobs = 8; # 8-Core CPU
     speedFactor = 10;
   }
     {
@@ -20,7 +20,7 @@
     protocol = "ssh-ng";
     supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     mandatoryFeatures = [ ];
-    maxJobs = 0; # No local builds
+    maxJobs = 2; # 2-Core CPU
     speedFactor = 3; # Slower than compute-01
   }
 ];
