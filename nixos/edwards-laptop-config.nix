@@ -13,9 +13,10 @@
     ./modules/fontsminimal.nix
 #    ./modules/fonts.nix
     ./modules/gnome.nix
-#    ./modules/gpg.nix
+    ./modules/gpg.nix
     ./modules/grub.nix
     ./modules/homemanager.nix
+    ./modules/hardware-filesystems.nix
     ./modules/network.nix
     ./modules/printer.nix
     ./modules/region.nix
