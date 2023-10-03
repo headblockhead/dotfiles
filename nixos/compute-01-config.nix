@@ -62,7 +62,7 @@
     ''f+ /run/gdm/.config/monitors.xml - gdm gdm - ${builtins.readFile ../monitors/compute-01.xml}''
   ];
 
-    boot.loader.grub.gfxmodeEfi = "1920x1080";
+    boot.loader.grub.gfxmodeEfi = "3840x2160x32";
 
   nix.settings.trusted-users = [ "headb" ];
 
