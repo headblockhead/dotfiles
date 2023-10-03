@@ -2,51 +2,58 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, agenix, ... }:
+{ config, pkgs, lib,sshkey, ... }:
 
 {
   imports = [
-#    ./modules/adb.nix
-    ./modules/basesystemsettings.nix
     ./modules/basicpackages.nix
     ./modules/bluetooth.nix
 #    ./modules/docker.nix
     ./modules/firewall.nix
-
-   ./modules/fontsminimal.nix
+    ./modules/fontsminimal.nix
 #    ./modules/fonts.nix
-
     ./modules/gnome.nix
-    ./modules/gpg.nix
+#    ./modules/gpg.nix
     ./modules/grub.nix
-    ./modules/hardware-filesystems.nix
     ./modules/homemanager.nix
-    ./modules/lenovo-bat-save.nix
-    ./modules/monero.nix
-#    ./modules/miner.nix
     ./modules/network.nix
-#    ./modules/openrgb.nix
     ./modules/printer.nix
-    ./modules/qt.nix
     ./modules/region.nix
     ./modules/remotebuild.nix
 #    ./modules/sheepit.nix
     ./modules/sound.nix
-    ./modules/ssd.nix
+#    ./modules/ssd.nix
     ./modules/ssh.nix
-    ./modules/steam.nix
+#    ./modules/steam.nix
 #    ./modules/transmission.nix
     ./modules/users.nix
-#   ./modules/wireguard.nix
+#    ./modules/wireguard.nix
     ./modules/xserver.nix
     ./modules/zsh.nix
   ];
 
-  environment.systemPackages = [
-      agenix.packages.x86_64-linux.default
-  ];
+  # Allow nix flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  nix.settings.trusted-users = [ "headb" ];
+  boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot/efi";
+
+  services.openssh.enable = true;
+  services.openssh.permitRootLogin = lib.mkForce "yes";
+  users.users.root.openssh.authorizedKeys.keys = [ sshkey ];
+  users.users.headb.openssh.authorizedKeys.keys = [ sshkey ];
+  services.openssh.passwordAuthentication = false;
+  services.openssh.kbdInteractiveAuthentication = false;
+
+  networking.firewall.allowedTCPPorts = [ 22 ]; # Allow SSH connections
+
+  # Clear the tmp directory on boot.
+  boot.cleanTmpDir = true;
+
+  # Allow proprietary packages.
+  nixpkgs.config.allowUnfree = true;
+
+  # Disable nixos-help apps.
+  documentation.nixos.enable = false;
 
   # Networking settings.
   networking.hostName = "edwards-laptop";
