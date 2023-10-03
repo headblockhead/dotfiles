@@ -18,17 +18,17 @@ zmq-pub=tcp://127.0.0.1:18084
   };
   environment.systemPackages = with pkgs; [
     monero-cli
-    #p2pool
+p2pool
   ];
-#  systemd.services.p2pool = {
-    #description = "P2POOL";
-    #after = [ "monero.service" ];
-    #wantedBy = [ "multi-user.target" ];
-    #serviceConfig = {
-      #Type = "simple";
-      #ExecStart = "${pkgs.p2pool}/bin/p2pool --mini --host 127.0.0.1 --rpc-port 18081 --zmq-port 18084 --wallet ${builtins.readFile config.age.secrets.monero-address.path} --stratum 0.0.0.0:3333 --p2p 0.0.0.0:37889";
-      #Restart = "always";
-      #RestartSec = 10;
-    #};
-  #};
+  systemd.services.p2pool = {
+    description = "P2POOL";
+    after = [ "monero.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.p2pool}/bin/p2pool --mini --host 127.0.0.1 --rpc-port 18081 --zmq-port 18084 --wallet ${builtins.readFile config.age.secrets.monero-address.path} --stratum 0.0.0.0:3333 --p2p 0.0.0.0:37889";
+      Restart = "always";
+      RestartSec = 10;
+    };
+  };
 }
