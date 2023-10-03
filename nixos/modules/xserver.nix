@@ -5,7 +5,7 @@
     displayManager = {
       gdm = {
         enable = true;
-        #walyand = false; # Disable wayland to allow for legacy screen share (Steam, Zoom etc.)
+        wayland = false; # Disable wayland, causes glitches.
       };
     };
     desktopManager.gnome.enable = true;

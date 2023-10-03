@@ -11,7 +11,7 @@
     ./modules/furnace.nix
     ./modules/extraapps.nix
     ./modules/fzf.nix
-    ./modules/games.nix
+#    ./modules/games.nix
     ./modules/git.nix
     ./modules/gnome.nix
     ./modules/gnome-terminal.nix
@@ -35,6 +35,10 @@
 home.username = "headb";
 home.homeDirectory = "/home/headb";
 home.enableNixpkgsReleaseCheck = true;
+
+home.packages = [
+pkgs.prismlauncher
+];
 
 home.file.".config/monitors.xml".text = builtins.readFile ../monitors/compute-01.xml;
 

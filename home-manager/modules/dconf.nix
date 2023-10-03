@@ -15,7 +15,8 @@ dconf = {
       delete-after = 0;
     };
     "org/gnome/desktop/interface" = {
-      clock-format = "12h";
+      clock-show-weekday = true;
+      clock-format = "24h";
       color-scheme = "prefer-dark"; # Enable dark mode on GNOME
     };
     "org/gnome/nautilus/compression" = { default-compression-format = "7z"; };

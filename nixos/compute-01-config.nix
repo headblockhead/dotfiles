@@ -34,12 +34,12 @@
     ./modules/sound.nix
     ./modules/ssd.nix
     ./modules/ssh.nix
-    ./modules/steam.nix
-    ./modules/steamvr.nix
+#    ./modules/steam.nix
+#    ./modules/steamvr.nix # on windows now
     ./modules/transmission.nix
     ./modules/users.nix
     ./modules/wol.nix
-#    ./modules/wireguard.nix
+    ./modules/wireguard.nix
 ./modules/xserver.nix
     ./modules/zsh.nix
   ];
@@ -49,23 +49,27 @@
       pkgs.cachix
   ];
 
+  # win10 dualboot
+  boot.loader.grub.useOSProber = true;
+
   nix.settings = {
     extra-substituters = "https://cachix.cachix.org";
     extra-trusted-public-keys = "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM=";
   };
 
-systemd.tmpfiles.rules = [
-    "L+ /run/gdm/.config/monitors.xml - - - - ${pkgs.writeText "gdm-monitors.xml" ''${builtins.readFile ../monitors/compute-01.xml}''}"
+  systemd.tmpfiles.rules = [
+      
+    ''f+ /run/gdm/.config/monitors.xml - gdm gdm - ${builtins.readFile ../monitors/compute-01.xml}''
   ];
 
     boot.loader.grub.gfxmodeEfi = "1920x1080";
 
   nix.settings.trusted-users = [ "headb" ];
 
-#  virtualisation.virtualbox.host.enable = true;
-#  virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
 
-#  users.extraGroups.vboxusers.members = [ "headb" ];
+  users.extraGroups.vboxusers.members = [ "headb" ];
 
   # Networking settings.
   networking.hostName = "compute-01";

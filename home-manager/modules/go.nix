@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     go
     gopls
+    templ
   ];
 programs.go = {
   enable = true;
