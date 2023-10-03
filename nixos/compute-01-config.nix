@@ -28,14 +28,15 @@
     ./modules/printer.nix
     ./modules/qt.nix
     ./modules/region.nix
-#    ./modules/monero.nix # run on edwards-lapotop
+    ./modules/remotebuild.nix
+#    ./modules/monero.nix
 #    ./modules/miner.nix
 #    ./modules/sheepit.nix
     ./modules/sound.nix
     ./modules/ssd.nix
     ./modules/ssh.nix
 #    ./modules/steam.nix
-#    ./modules/steamvr.nix # on windows now
+#    ./modules/steamvr.nix
     ./modules/transmission.nix
     ./modules/users.nix
     ./modules/wol.nix
@@ -58,7 +59,6 @@
   };
 
   systemd.tmpfiles.rules = [
-      
     ''f+ /run/gdm/.config/monitors.xml - gdm gdm - ${builtins.readFile ../monitors/compute-01.xml}''
   ];
 
