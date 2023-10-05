@@ -25,7 +25,7 @@
     ./modules/qt.nix
     ./modules/terminalutils.nix
     ./modules/unity.nix
-    ./modules/vscode.nix
+#    ./modules/vscode.nix
 
     ./modules/zsh.nix
 #    ./modules/zshminimal.nix
