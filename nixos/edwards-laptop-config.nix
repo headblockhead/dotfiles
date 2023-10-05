@@ -56,6 +56,10 @@
   # Disable nixos-help apps.
   documentation.nixos.enable = false;
 
+  boot.loader.grub.useOSProber = true;
+
+    boot.loader.grub.gfxmodeEfi = "1600x900x32";
+
   # Networking settings.
   networking.hostName = "edwards-laptop";
    
