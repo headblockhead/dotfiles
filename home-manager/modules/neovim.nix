@@ -2,7 +2,7 @@
 
 let
       pluginGit = owner: repo: ref: sha:
-        pkgs.vimUtils.buildVimPluginFrom2Nix {
+        pkgs.vimUtils.buildVimPlugin {
           pname = "${repo}";
           version = ref;
          src = pkgs.fetchFromGitHub {

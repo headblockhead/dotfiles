@@ -37,6 +37,7 @@ home.homeDirectory = "/home/headb";
 home.enableNixpkgsReleaseCheck = true;
 
 home.packages = [
+  pkgs.godot_4
 pkgs.prismlauncher
 ];
 

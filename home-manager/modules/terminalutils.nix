@@ -17,6 +17,7 @@
   p7zip 
   hugo
   nodejs
+  nodePackages.aws-cdk
   wireshark
   nmap
   killall
