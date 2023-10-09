@@ -2,12 +2,16 @@
 {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
 
+  networking.firewall.allowedTCPPorts = [ 8192 ];
+
   services.minecraft-servers = {
     enable = true;
     openFirewall = true;
     eula=true;
     servers.barkup = {
       enable=true;
+      restart="no";
+      jvmOpts = "-Xms10240M -Xmx10240M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20";
     package = pkgs.quiltServers.quilt-1_20_1;
   symlinks = {
     mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
@@ -18,6 +22,7 @@
         sha256 = "032d7vm5yqlnr2ag1hiypmv18d2zimgh617hr7i7kvb8rznj35ig"; 
       };
       FerriteCore = pkgs.fetchurl { url= "https://cdn.modrinth.com/data/uXXizFIs/versions/FCnCG6PS/ferritecore-6.0.0-fabric.jar"; sha256="778dTfKoliG7jXCQ4ElmeVBH2xZRP+9nOlKaB9/2av4="; };
+      C2ME = pkgs.fetchurl { url= "https://cdn.modrinth.com/data/VSNURh3q/versions/T5Pkyhit/c2me-fabric-mc1.20.1-0.2.0%2Balpha.11.0.jar"; sha256="VQIWNH3BLLtfKc6PAt5cRPSI9eVMoqGcS/6E+b6HaiE=";};
       Krypton = pkgs.fetchurl { url="https://cdn.modrinth.com/data/fQEb0iXm/versions/jiDwS0W1/krypton-0.2.3.jar"; sha256="aa0YECBs4SGBsbCDZA8ETn4lB4HDbJbGVerDYgkFdpg="; };
       StackDeobfuscator = pkgs.fetchurl { url="https://cdn.modrinth.com/data/NusMqsjF/versions/BKQIsrwC/StackDeobfuscatorFabric-1.4.1%2B03a1fe4.jar"; sha256="3rTaxwj3IrUPkEL2WSybfl9rS1fOdH6Ps5vk3KrECTg="; };
       NotEnoughCrashes = pkgs.fetchurl { url="https://cdn.modrinth.com/data/yM94ont6/versions/dUMsjI9u/notenoughcrashes-4.4.6%2B1.20.1-fabric.jar"; sha256="j1AJxJF/4sfYSJHie5R10c8J12BWwCgFRZY6Q6g9gKw="; };
