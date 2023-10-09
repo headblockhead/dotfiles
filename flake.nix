@@ -13,6 +13,7 @@
     vscodeutilsnixpkgs.url = "nixpkgs/nixos-22.11";
     xmrignixpkgs.url = "nixpkgs/nixos-22.11";
 
+nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,6 +63,7 @@
         allowUnfree = true;
         cudaSupport = true;
         overlays = [
+          inputs.nix-minecraft.overlay
           (self: super: rec {
             vscode-extensions.ms-dotnettools.csharp = csharppkgs.vscode-extensions.ms-dotnettools.csharp;
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };

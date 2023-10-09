@@ -11,7 +11,7 @@
     ./modules/basicpackages.nix
     ./modules/bluetooth.nix
     ./modules/docker.nix
-    ./modules/firewall.nix
+#    ./modules/firewall.nix
 
 #   ./modules/fontsminimal.nix
     ./modules/fonts.nix

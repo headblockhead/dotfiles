@@ -24,7 +24,8 @@
 #    ./modules/sheepit.nix
     ./modules/sound.nix
 #    ./modules/ssd.nix
-    ./modules/ssh.nix
+./modules/ssh.nix
+./modules/minecraftserver.nix
 #    ./modules/steam.nix
 #    ./modules/transmission.nix
     ./modules/users.nix
@@ -38,9 +39,7 @@
 
   boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot/efi";
 
-  services.openssh.enable = true;
-  services.openssh.permitRootLogin = lib.mkForce "yes";
-  users.users.root.openssh.authorizedKeys.keys = [ sshkey ];
+  # Allow SSH.
   users.users.headb.openssh.authorizedKeys.keys = [ sshkey ];
   services.openssh.passwordAuthentication = false;
   services.openssh.kbdInteractiveAuthentication = false;
@@ -56,9 +55,9 @@
   # Disable nixos-help apps.
   documentation.nixos.enable = false;
 
+  # Grub settings.
   boot.loader.grub.useOSProber = true;
-
-    boot.loader.grub.gfxmodeEfi = "1600x900x32";
+  boot.loader.grub.gfxmodeEfi = "1600x900x32";
 
   # Networking settings.
   networking.hostName = "edwards-laptop";
