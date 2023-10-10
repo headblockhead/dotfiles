@@ -40,7 +40,7 @@
     ./modules/transmission.nix
     ./modules/users.nix
     ./modules/wol.nix
-    ./modules/wireguard.nix
+#    ./modules/wireguard.nix
 ./modules/xserver.nix
     ./modules/zsh.nix
   ];
