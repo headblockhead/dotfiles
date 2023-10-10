@@ -5,7 +5,7 @@
     displayManager = {
       gdm = {
         enable = true;
-        wayland = false; # Disable wayland, causes glitches.
+#        wayland = false; # Disable wayland, causes glitches.
       };
     };
     desktopManager.gnome.enable = true;

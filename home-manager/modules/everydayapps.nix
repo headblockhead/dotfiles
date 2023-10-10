@@ -1,6 +1,11 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    google-chrome
+    (google-chrome.override {
+  commandLineArgs = [
+    "--ozone-platform=wayland"
+    "--disable-features=WaylandFractionalScaleV1"
+  ];
+})
     discord
   vlc
   spotify
