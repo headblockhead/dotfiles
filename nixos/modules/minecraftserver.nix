@@ -22,6 +22,7 @@
         sha256 = "032d7vm5yqlnr2ag1hiypmv18d2zimgh617hr7i7kvb8rznj35ig"; 
       };
       FerriteCore = pkgs.fetchurl { url= "https://cdn.modrinth.com/data/uXXizFIs/versions/FCnCG6PS/ferritecore-6.0.0-fabric.jar"; sha256="778dTfKoliG7jXCQ4ElmeVBH2xZRP+9nOlKaB9/2av4="; };
+      ProxyProtocolSupport = pkgs.fetchurl { url="https://mediafilez.forgecdn.net/files/4421/426/proxy_protocol_support-1.0.3-fabric.jar"; sha256=""; };
       C2ME = pkgs.fetchurl { url= "https://cdn.modrinth.com/data/VSNURh3q/versions/T5Pkyhit/c2me-fabric-mc1.20.1-0.2.0%2Balpha.11.0.jar"; sha256="VQIWNH3BLLtfKc6PAt5cRPSI9eVMoqGcS/6E+b6HaiE=";};
       Krypton = pkgs.fetchurl { url="https://cdn.modrinth.com/data/fQEb0iXm/versions/jiDwS0W1/krypton-0.2.3.jar"; sha256="aa0YECBs4SGBsbCDZA8ETn4lB4HDbJbGVerDYgkFdpg="; };
       StackDeobfuscator = pkgs.fetchurl { url="https://cdn.modrinth.com/data/NusMqsjF/versions/BKQIsrwC/StackDeobfuscatorFabric-1.4.1%2B03a1fe4.jar"; sha256="3rTaxwj3IrUPkEL2WSybfl9rS1fOdH6Ps5vk3KrECTg="; };
