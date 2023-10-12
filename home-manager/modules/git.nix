@@ -25,7 +25,7 @@ programs.git = {
     display = "inline";
   };
   signing = {
-    key = "7B485B936DB40FD57939E2A8A5D1F48A8CDD4F44";
+    key = "76C6E96B6A561DBE8F92B2E1AE25B4F5B6346CCF";
     gpgPath = "/run/current-system/sw/bin/gpg2";
     signByDefault = true;
   };

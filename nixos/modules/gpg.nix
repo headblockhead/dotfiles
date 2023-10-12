@@ -9,6 +9,7 @@
     #    pinentryFlavor = "curses"; # works in console interactive only, does not work with vscode
     #    pinentryFlavor = "gtk2"; # creates a gtk popup
     pinentryFlavor = "gnome3"; # creates a gnome popup.
+    enableBrowserSocket = true;
     enableSSHSupport = true;
   };
 }

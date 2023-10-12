@@ -1,8 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   # Allow gnome theming
   programs.dconf.enable = true;
 # Exclude certain default gnome apps.
   # See https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/x11/desktop-managers/gnome.nix#L251 for a list of all apps.
+  services.gnome.gnome-keyring.enable  = lib.mkForce false; # set SSH_AUTH_SOCK correctly
   environment.gnome.excludePackages = (with pkgs.gnome; [
     pkgs.gnome-tour # Tour
     # gnome-logs # Logs

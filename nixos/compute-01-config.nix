@@ -28,8 +28,8 @@
     ./modules/printer.nix
     ./modules/qt.nix
     ./modules/region.nix
-    ./modules/minecraftreverseproxy.nix
-    ./modules/remotebuild.nix
+#    ./modules/minecraftreverseproxy.nix
+#    ./modules/remotebuild.nix
 #    ./modules/monero.nix
 #    ./modules/miner.nix
 #    ./modules/sheepit.nix
