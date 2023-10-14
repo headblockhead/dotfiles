@@ -131,6 +131,17 @@
             agenix.nixosModules.default
           ];
         };
+        barkup = nixpkgs.lib.nixosSystem {
+          inherit system;
+          inherit pkgs;
+          specialArgs = { inherit inputs; inherit sshkey; };
+          modules = [
+            ./nixos/barkup-ec2-conf.nix
+            "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
+
+            agenix.nixosModules.default
+          ];
+        };
         rpi-headless-image = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; inherit sshkey; };
@@ -142,15 +153,6 @@
               nixpkgs.crossSystem.system = "aarch64-linux";
             }
 
-            agenix.nixosModules.default
-          ];
-        };
-        barkup = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; inherit sshkey; };
-          modules = [
-            ./nixos/barkup-ec2-conf.nix
-            "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
             agenix.nixosModules.default
           ];
         };
