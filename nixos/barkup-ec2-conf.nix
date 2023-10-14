@@ -1,4 +1,4 @@
-{ pkgs, lib, sshkey, ... }:
+{ pkgs, lib, sshkey, inputs, ... }:
 
 {
   imports = [
@@ -9,6 +9,8 @@
     ./modules/minecraftserver.nix
     ./modules/users.nix
     ./modules/zsh.nix
+
+    inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
   # Allow nix flakes

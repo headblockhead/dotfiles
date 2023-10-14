@@ -64,7 +64,7 @@
         cudaSupport = true;
         overlays = [
           inputs.nix-minecraft.overlay
-          (self: super: rec {
+          (self: super: {
             vscode-extensions.ms-dotnettools.csharp = csharppkgs.vscode-extensions.ms-dotnettools.csharp;
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };
             alvr = super.callPackage ./custom-packages/alvr.nix { };

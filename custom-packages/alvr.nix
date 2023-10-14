@@ -3,10 +3,9 @@
 , fetchurl
 , makeDesktopItem
 , appimageTools
-, writeTextDir
 }:
 let
-  desktopItem = makeDesktopItem rec {
+  desktopItem = makeDesktopItem {
     name = "ALVR";
     exec = "alvr";
     desktopName = "ALVR";
@@ -24,7 +23,6 @@ stdenv.mkDerivation rec {
       url = "https://github.com/alvr-org/ALVR/releases/download/v${version}/ALVR-x86_64.AppImage";
       sha256 = "yVLVWfMd56DL5Y++pClO2gpRr4k318CKULIVPSPNZZA=";
     };
-    extraPkgs = pkgs: with pkgs; [ ];
   };
 
 

@@ -1,47 +1,17 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
-  #    ./modules/dconf.nix
-  #./modules/everydayappsminimal.nix
-  #./modules/fzf.nix
-  #./modules/gnome.nix
-  #./modules/gnome-terminal.nix
-  #./modules/gtk.nix
-  #./modules/qt.nix
-  #./modules/zshminimal.nix
-
   imports = [
-    #    ./modules/dconf.nix
-    #    ./modules/everydayapps.nix
-    #    ./modules/everydayappsminimal.nix
-    #    ./modules/extraapps.nix
+    ./modules/basehomemanagersettings.nix
     ./modules/fzf.nix
-    #    ./modules/games.nix
-    #    ./modules/git.nix
-    #    ./modules/gnome.nix
-    #    ./modules/gnome-terminal.nix
-    #    ./modules/go.nix
-    #    ./modules/gtk-custom-bookmarks.nix
-    #    ./modules/gtk.nix
-    #    ./modules/neovim.nix
-    #    ./modules/obinskit.nix
-    #    ./modules/picosdk.nix
-    #    ./modules/playdatesdk.nix
-    #    ./modules/qt.nix
-    #    ./modules/terminalutils.nix
-    #    ./modules/unity.nix
-    #    ./modules/vscode.nix
-    #    ./modules/zsh.nix
     ./modules/zshminimal.nix
   ];
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "pi";
   home.homeDirectory = "/home/pi";
   home.enableNixpkgsReleaseCheck = true;
-
-  # Don't show home-manager news
-  news.display = "silent";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

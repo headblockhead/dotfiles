@@ -9,7 +9,7 @@
 , makeDesktopItem
 }:
 let
-  desktopItem = makeDesktopItem rec {
+  desktopItem = makeDesktopItem {
     name = "Obinskit";
     exec = "obinskit";
     icon = "obinskit";

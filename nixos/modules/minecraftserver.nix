@@ -1,7 +1,5 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 {
-  imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
-
   networking.firewall.allowedTCPPorts = [ 8192 25565 ];
 
   services.minecraft-servers = {
