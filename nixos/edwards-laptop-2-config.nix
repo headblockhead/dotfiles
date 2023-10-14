@@ -38,15 +38,6 @@
 
   boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot/efi";
 
-  services.openssh.enable = true;
-  services.openssh.permitRootLogin = lib.mkForce "yes";
-  users.users.root.openssh.authorizedKeys.keys = [ sshkey ];
-  users.users.headb.openssh.authorizedKeys.keys = [ sshkey ];
-  services.openssh.passwordAuthentication = false;
-  services.openssh.kbdInteractiveAuthentication = false;
-
-  networking.firewall.allowedTCPPorts = [ 22 ]; # Allow SSH connections
-
   # Clear the tmp directory on boot.
   boot.cleanTmpDir = true;
 
