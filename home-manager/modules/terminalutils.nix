@@ -18,6 +18,7 @@
   hugo
   nodejs
   nodePackages.aws-cdk
+  ec2-ami-tools
   wireshark
   nmap
   killall
