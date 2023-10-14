@@ -1,4 +1,4 @@
-{ pkgs, lib, sshkey, inputs, ... }:
+{ config, pkgs, lib, sshkey, inputs, ... }:
 
 {
   imports = [
@@ -12,6 +12,8 @@
 
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
+
+  services.openssh.settings.PermitRootLogin = lib.mkForce "no";
 
   # Allow nix flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
