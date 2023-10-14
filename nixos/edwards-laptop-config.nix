@@ -2,15 +2,15 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib,sshkey,inputs, ... }:
+{ config, pkgs, lib, sshkey, inputs, ... }:
 {
   imports = [
     ./modules/basicpackages.nix
     ./modules/bluetooth.nix
-#    ./modules/docker.nix
+    #    ./modules/docker.nix
     ./modules/firewall.nix
     ./modules/fontsminimal.nix
-#    ./modules/fonts.nix
+    #    ./modules/fonts.nix
     ./modules/gnome.nix
     ./modules/gpg.nix
     ./modules/grub.nix
@@ -20,15 +20,15 @@
     ./modules/printer.nix
     ./modules/region.nix
     ./modules/remotebuild.nix
-#    ./modules/sheepit.nix
+    #    ./modules/sheepit.nix
     ./modules/sound.nix
-#    ./modules/ssd.nix
-./modules/ssh.nix
-./modules/minecraftserver.nix
-#    ./modules/steam.nix
-#    ./modules/transmission.nix
+    #    ./modules/ssd.nix
+    ./modules/ssh.nix
+    ./modules/minecraftserver.nix
+    #    ./modules/steam.nix
+    #    ./modules/transmission.nix
     ./modules/users.nix
-#    ./modules/wireguard.nix
+    #    ./modules/wireguard.nix
     ./modules/xserver.nix
     ./modules/zsh.nix
   ];
@@ -40,9 +40,9 @@
 
   # Do not sleep on lid close when docked/plugged in.
   services.logind.extraConfig = ''
-  HandleLidSwitch=suspend
-  HandleLidSwitchExternalPower=ignore
-  HandleLidSwitchDocked=ignore
+    HandleLidSwitch=suspend
+    HandleLidSwitchExternalPower=ignore
+    HandleLidSwitchDocked=ignore
   '';
 
   # Allow SSH.
@@ -67,7 +67,7 @@
 
   # Networking settings.
   networking.hostName = "edwards-laptop";
-   
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

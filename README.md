@@ -320,7 +320,7 @@ home-manager switch --flake '.#compute-01-headb' --impure
 
 ### Build-rpi-sd-card-image
 
-Builds a preconfigured, encryption-ready, zfs nixos image for the raspberry pi 4.
+Builds a preconfigured, encrypted nixos image for the raspberry pi 4.
 
 ```bash
 nix build .\#images.rpi-headless-image --impure

@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-environment.systemPackages = [
-  pkgs.home-manager
-];
+  environment.systemPackages = [
+    pkgs.home-manager
+  ];
 }

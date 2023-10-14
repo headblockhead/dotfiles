@@ -1,4 +1,4 @@
-{config,pkgs,...}:
+{ config, pkgs, ... }:
 {
   age.secrets.monero-address.file = ../../secrets/monero-address.age;
   services.monero = {
@@ -18,7 +18,7 @@ zmq-pub=tcp://127.0.0.1:18084
   };
   environment.systemPackages = with pkgs; [
     monero-cli
-p2pool
+    p2pool
   ];
   systemd.services.p2pool = {
     description = "P2POOL";

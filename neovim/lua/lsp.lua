@@ -78,6 +78,13 @@ configs.jdtls = {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local server_settings = {
+  nil_ls = {
+    ['nil'] = {
+    formatting = {
+      command = { "nixpkgs-fmt" },
+    }
+  }
+  },
   gopls = {
     gopls = {
       codelenses = {
@@ -125,12 +132,11 @@ local server_settings = {
   },
 }
 
-
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 -- eslint comes from:
 -- npm i -g vscode-langservers-extracted
-local servers = { 'gopls', 'ccls', 'cmake', 'tsserver', 'templ', 'rls', 'eslint', 'lua_ls', 'jdtls' }
+local servers = { 'gopls', 'ccls', 'cmake', 'tsserver', 'templ', 'rls', 'eslint', 'lua_ls', 'jdtls', 'nil_ls' }
 for _, lsp in ipairs(servers) do
   local opts = {
     on_attach = on_attach,

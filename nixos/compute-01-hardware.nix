@@ -2,30 +2,31 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-     hardware.opengl = {
+  hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
-    vaapiVdpau
-    libvdpau-va-gl
+      vaapiVdpau
+      libvdpau-va-gl
 
-    rocm-opencl-icd
-    rocm-opencl-runtime
+      rocm-opencl-icd
+      rocm-opencl-runtime
 
       nvidia-vaapi-driver
-  ];
-};
+    ];
+  };
 
-systemd.tmpfiles.rules = [
+  systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
   ];
 
-  services.xserver.videoDrivers = ["nvidia"];
-boot.blacklistedKernelModules = [ "nouveau" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
+  boot.blacklistedKernelModules = [ "nouveau" ];
 
   environment.systemPackages = with pkgs; [
     cudatoolkit
@@ -33,13 +34,13 @@ boot.blacklistedKernelModules = [ "nouveau" ];
 
   hardware.nvidia = {
 
-# Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-powerManagement.enable = false;
+    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+    powerManagement.enable = false;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     # Uses PRIME Offloading.
-    powerManagement.finegrained =false;
+    powerManagement.finegrained = false;
 
     # Modesetting is required.
     modesetting.enable = true;
@@ -60,12 +61,12 @@ powerManagement.enable = false;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-#  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-    boot.initrd.kernelModules = [ "amdgpu" "nvidia-uvm" ];
-      boot.kernelParams = [
-      "amd_iommu=on"
-    ];
+  boot.initrd.kernelModules = [ "amdgpu" "nvidia-uvm" ];
+  boot.kernelParams = [
+    "amd_iommu=on"
+  ];
   boot.kernelModules = [ "kvm-amd" "nvidia-uvm" "vfio-pci" "amdgpu" ];
   boot.extraModulePackages = [ ];
 

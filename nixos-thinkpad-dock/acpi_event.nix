@@ -1,4 +1,6 @@
-{ stdenv, lib, utillinux
+{ stdenv
+, lib
+, utillinux
 
 , environment
 , dockEvent

@@ -1,9 +1,9 @@
-{config,pkgs,...}:
+{ config, pkgs, ... }:
 {
-environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     monero-cli
-  xmrig
-];
+    xmrig
+  ];
   systemd.services.xmrig = {
     description = "XMRig Miner";
     after = [ "p2pool.service" ];

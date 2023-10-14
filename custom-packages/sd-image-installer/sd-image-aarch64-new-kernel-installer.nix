@@ -1,4 +1,4 @@
-{ config, pkgs, rpi-nixpkgs,... }:
+{ config, pkgs, rpi-nixpkgs, ... }:
 {
   imports = [
     "${rpi-nixpkgs}/nixos/modules/profiles/installation-device.nix"

@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-home.packages = [
+  home.packages = [
     pkgs.furnace # chiptune tracker
   ];
 }

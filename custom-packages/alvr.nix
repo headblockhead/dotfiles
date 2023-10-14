@@ -18,21 +18,21 @@ stdenv.mkDerivation rec {
   pname = "alvr";
   version = "20.2.1";
 
-src = appimageTools.wrapType2 {
-  name = "alvr";
-  src = fetchurl {
-    url = "https://github.com/alvr-org/ALVR/releases/download/v${version}/ALVR-x86_64.AppImage";
-    sha256 = "yVLVWfMd56DL5Y++pClO2gpRr4k318CKULIVPSPNZZA=";
+  src = appimageTools.wrapType2 {
+    name = "alvr";
+    src = fetchurl {
+      url = "https://github.com/alvr-org/ALVR/releases/download/v${version}/ALVR-x86_64.AppImage";
+      sha256 = "yVLVWfMd56DL5Y++pClO2gpRr4k318CKULIVPSPNZZA=";
+    };
+    extraPkgs = pkgs: with pkgs; [ ];
   };
-  extraPkgs = pkgs: with pkgs; [ ];
-};
 
 
-installPhase = ''
-  mkdir -p $out
-  cp -r $src/* $out
-    mkdir -p $out/share/applications
-  ln -s ${desktopItem}/share/applications/* $out/share/applications
+  installPhase = ''
+    mkdir -p $out
+    cp -r $src/* $out
+      mkdir -p $out/share/applications
+    ln -s ${desktopItem}/share/applications/* $out/share/applications
   '';
 
   meta = with lib; {

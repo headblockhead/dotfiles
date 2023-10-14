@@ -13,11 +13,11 @@
     vscodeutilsnixpkgs.url = "nixpkgs/nixos-22.11";
     xmrignixpkgs.url = "nixpkgs/nixos-22.11";
 
-nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
-};
+    };
     prismlauncher = {
       url = "github:PrismLauncher/PrismLauncher";
     };
@@ -47,17 +47,17 @@ nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     };
   };
 
-  outputs = inputs@{ self, agenix, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs,unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror,templ, xc, mcpelauncher, xmrignixpkgs, ... }:
+  outputs = inputs@{ self, agenix, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs, unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror, templ, xc, mcpelauncher, xmrignixpkgs, ... }:
     let
       system = "x86_64-linux";
-      sshkey= ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICvr2FrC9i1bjoVzg+mdytOJ1P0KRtah/HeiMBuKD3DX cardno:23_836_181'';
-      
-      oldpkgs = import oldnixpkgs{};
-      unstablepkgs = import unstablenixpkgs {};
-      unitypkgs = import unitynixpkgs {};
-      vscodeutilspkgs = import vscodeutilsnixpkgs {};
-      csharppkgs = import csharpnixpkgs {};
-      xmrigpkgs = import xmrignixpkgs {};
+      sshkey = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICvr2FrC9i1bjoVzg+mdytOJ1P0KRtah/HeiMBuKD3DX cardno:23_836_181'';
+
+      oldpkgs = import oldnixpkgs { };
+      unstablepkgs = import unstablenixpkgs { };
+      unitypkgs = import unitynixpkgs { };
+      vscodeutilspkgs = import vscodeutilsnixpkgs { };
+      csharppkgs = import csharpnixpkgs { };
+      xmrigpkgs = import xmrignixpkgs { };
 
       pkgs = import nixpkgs {
         allowUnfree = true;
@@ -82,11 +82,11 @@ nix-minecraft.url = "github:Infinidoge/nix-minecraft";
             vscode-utils = vscodeutilspkgs.vscode-utils;
             flyctl = unstablepkgs.flyctl;
             home-manager = inputs.home-manager;
-            openrgb = super.libsForQt5.callPackage ./custom-packages/openrgb.nix { 
+            openrgb = super.libsForQt5.callPackage ./custom-packages/openrgb.nix {
               wrapQtAppsHook = pkgs.qt5.wrapQtAppsHook;
               qtbase = pkgs.qt5.qtbase;
               qttools = pkgs.qt5.qttools;
-              qmake = pkgs.qt5.qmake; 
+              qmake = pkgs.qt5.qmake;
             };
             templ = inputs.templ.packages.x86_64-linux.default;
             openrgb-with-all-plugins = unstablepkgs.openrgb-with-all-plugins;
@@ -94,12 +94,14 @@ nix-minecraft.url = "github:Infinidoge/nix-minecraft";
           })
         ];
       };
-    in rec { # Allow self referencing.
-    nixosConfigurations = {
+    in
+    rec {
+      # Allow self referencing.
+      nixosConfigurations = {
         compute-01 = nixpkgs.lib.nixosSystem {
           inherit system;
           inherit pkgs;
-          specialArgs = { inherit inputs; inherit agenix;           inherit sshkey;};
+          specialArgs = { inherit inputs; inherit agenix; inherit sshkey; };
           modules = [
             ./nixos/compute-01-config.nix
             ./nixos/compute-01-hardware.nix
@@ -107,11 +109,10 @@ nix-minecraft.url = "github:Infinidoge/nix-minecraft";
             agenix.nixosModules.default
           ];
         };
-
         edwards-laptop = nixpkgs.lib.nixosSystem {
           inherit system;
           inherit pkgs;
-          specialArgs = { inherit inputs; inherit agenix; inherit sshkey;};
+          specialArgs = { inherit inputs; inherit agenix; inherit sshkey; };
           modules = [
             ./nixos/edwards-laptop-config.nix
             ./nixos/edwards-laptop-hardware.nix
@@ -122,7 +123,7 @@ nix-minecraft.url = "github:Infinidoge/nix-minecraft";
         edwards-laptop-2 = nixpkgs.lib.nixosSystem {
           inherit system;
           inherit pkgs;
-          specialArgs = { inherit inputs; inherit agenix;inherit sshkey; };
+          specialArgs = { inherit inputs; inherit agenix; inherit sshkey; };
           modules = [
             ./nixos/edwards-laptop-2-config.nix
             ./nixos/edwards-laptop-2-hardware.nix
@@ -132,15 +133,24 @@ nix-minecraft.url = "github:Infinidoge/nix-minecraft";
         };
         rpi-headless-image = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; inherit sshkey;};
+          specialArgs = { inherit inputs; inherit sshkey; };
           modules = [
-           "${rpi-nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
+            "${rpi-nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
             ./nixos/rpi-headless-image-conf.nix
             {
               nixpkgs.config.allowUnsupportedSystem = true;
               nixpkgs.crossSystem.system = "aarch64-linux";
             }
 
+            agenix.nixosModules.default
+          ];
+        };
+        barkup = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; inherit sshkey; };
+          modules = [
+            ./nixos/barkup-ec2-conf.nix
+            "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
             agenix.nixosModules.default
           ];
         };

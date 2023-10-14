@@ -1,5 +1,5 @@
-{pkgs,...}:
+{ pkgs, ... }:
 {
-# Don't show home-manager news
-news.display = "silent";
+  # Don't show home-manager news
+  news.display = "silent";
 }

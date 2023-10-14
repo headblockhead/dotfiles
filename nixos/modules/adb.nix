@@ -1,5 +1,5 @@
-{pkgs,...}:
+{ pkgs, ... }:
 {
-programs.adb.enable = true;
-  users.users.headb.extraGroups = ["adbusers"];
+  programs.adb.enable = true;
+  users.users.headb.extraGroups = [ "adbusers" ];
 }

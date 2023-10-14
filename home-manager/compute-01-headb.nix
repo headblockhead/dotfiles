@@ -1,4 +1,4 @@
-{lib, config, pkgs, ...}:
+{ lib, config, pkgs, ... }:
 {
 
   imports = [
@@ -6,12 +6,12 @@
     ./modules/dconf.nix
 
     ./modules/everydayapps.nix
-#    ./moudles/everydayappsminimal.nix
+    #    ./moudles/everydayappsminimal.nix
 
     ./modules/furnace.nix
     ./modules/extraapps.nix
     ./modules/fzf.nix
-#    ./modules/games.nix
+    #    ./modules/games.nix
     ./modules/git.nix
     ./modules/gnome.nix
     ./modules/gnome-terminal.nix
@@ -25,34 +25,34 @@
     ./modules/qt.nix
     ./modules/terminalutils.nix
     ./modules/unity.nix
-#    ./modules/vscode.nix
+    #    ./modules/vscode.nix
 
     ./modules/zsh.nix
-#    ./modules/zshminimal.nix
+    #    ./modules/zshminimal.nix
   ];
   # Home Manager needs a bit of information about you and the
-# paths it should manage.
-home.username = "headb";
-home.homeDirectory = "/home/headb";
-home.enableNixpkgsReleaseCheck = true;
+  # paths it should manage.
+  home.username = "headb";
+  home.homeDirectory = "/home/headb";
+  home.enableNixpkgsReleaseCheck = true;
 
-home.packages = [
-  pkgs.godot_4
-pkgs.prismlauncher
-];
+  home.packages = [
+    pkgs.godot_4
+    pkgs.prismlauncher
+  ];
 
-home.file.".config/monitors.xml".text = builtins.readFile ../monitors/compute-01.xml;
+  home.file.".config/monitors.xml".text = builtins.readFile ../monitors/compute-01.xml;
 
-# This value determines the Home Manager release that your
-# configuration is compatible with. This helps avoid breakage
-# when a new Home Manager release introduces backwards
-# incompatible changes.
-#
-# You can update Home Manager without changing this value. See
-# the Home Manager release notes for a list of state version
-# changes in each release.
-home.stateVersion = "22.05";
+  # This value determines the Home Manager release that your
+  # configuration is compatible with. This helps avoid breakage
+  # when a new Home Manager release introduces backwards
+  # incompatible changes.
+  #
+  # You can update Home Manager without changing this value. See
+  # the Home Manager release notes for a list of state version
+  # changes in each release.
+  home.stateVersion = "22.05";
 
-# Let Home Manager install and manage itself.
-programs.home-manager.enable = true;
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 }

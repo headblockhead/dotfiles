@@ -4,9 +4,10 @@ with lib;
 let
   cfg = config.hardware.thinkpad-dock;
   acpiEvent = pkgs.callPackage ./acpi_event.nix {
-     inherit (cfg) environment dockEvent undockEvent;
+    inherit (cfg) environment dockEvent undockEvent;
   };
-in {
+in
+{
   options.hardware.thinkpad-dock = {
     enable = mkEnableOption "Register ThinkPad ACPI event handler for dock";
 

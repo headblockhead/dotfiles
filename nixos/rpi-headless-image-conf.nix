@@ -1,33 +1,33 @@
-{ pkgs, lib,sshkey, ... }:
+{ pkgs, lib, sshkey, ... }:
 
-  {
+{
 
-# Get the wifi-config.nix. See example.
-    imports = [
-     "/home/headb/dotfiles/nixos/wifi-config.nix"
-    ];
+  # Get the wifi-config.nix. See example.
+  imports = [
+    "/home/headb/dotfiles/nixos/wifi-config.nix"
+  ];
 
-# Example of a wifi-config.nix file:
+  # Example of a wifi-config.nix file:
 
-#{pkgs,...}:
-#{
-#networking.wireless.networks = {
-#   "wifi-ssid" = {
-#     psk = "wifi-password";
-#   };
-# };
-#}
+  #{pkgs,...}:
+  #{
+  #networking.wireless.networks = {
+  #   "wifi-ssid" = {
+  #     psk = "wifi-password";
+  #   };
+  # };
+  #}
 
   boot = {
     initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
-  
+
     # UART debugging with GPIO.
-#    kernelParams = [
-#        "8250.nr_uarts=1"
-#        "console=ttyAMA0,115200" # Change this for other output? (ttyUSB0 for USB?)
-#        "console=tty1"
-#        "cma=128M"
-#    ];
+    #    kernelParams = [
+    #        "8250.nr_uarts=1"
+    #        "console=ttyAMA0,115200" # Change this for other output? (ttyUSB0 for USB?)
+    #        "console=tty1"
+    #        "cma=128M"
+    #    ];
 
   };
   boot.initrd.kernelModules = [ "usb_storage" ];
@@ -45,26 +45,26 @@
   hardware.enableRedistributableFirmware = true;
 
   # Setup WiFi. Credentials are in wifi-config.nix.
-networking.wireless = {
+  networking.wireless = {
     enable = true;
-    };
-    networking.interfaces.wlan0.ipv4.addresses = [ {
-  address = "192.168.155.235";
-  prefixLength = 24;
-} ];
-networking.defaultGateway = "192.168.155.1";
-networking.nameservers = [ "1.1.1.1" ];
+  };
+  networking.interfaces.wlan0.ipv4.addresses = [{
+    address = "192.168.155.235";
+    prefixLength = 24;
+  }];
+  networking.defaultGateway = "192.168.155.1";
+  networking.nameservers = [ "1.1.1.1" ];
 
-# wpa_supplicant is not started by default..?, so we need to start it manually.
-systemd.services.customstartnetworking = {
-  script = ''
-  systemctl start wpa_supplicant
-  wall "WiFi started" # Tell all users that WiFi is started. Useful for debugging.
-  '';
-  wantedBy = [ "multi-user.target" ]; # Start after system is booted.
-};
+  # wpa_supplicant is not started by default..?, so we need to start it manually.
+  systemd.services.customstartnetworking = {
+    script = ''
+      systemctl start wpa_supplicant
+      wall "WiFi started" # Tell all users that WiFi is started. Useful for debugging.
+    '';
+    wantedBy = [ "multi-user.target" ]; # Start after system is booted.
+  };
 
-# Hostname.
+  # Hostname.
   networking = {
     hostName = "nixospi";
   };
@@ -82,42 +82,42 @@ systemd.services.customstartnetworking = {
       min-free = ${toString (100 * 1024 * 1024)}
       max-free = ${toString (1024 * 1024 * 1024)}
     '';
-};
+  };
 
-# Sound using pulseaudio.
-sound.enable = true;
-hardware.pulseaudio.enable = true;
+  # Sound using pulseaudio.
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
 
-# Allow SSH from authorized keys.
-services.openssh = {
-  enable = true;
-  passwordAuthentication = false;
-  kbdInteractiveAuthentication = false;
-  permitRootLogin = "yes";
-};
+  # Allow SSH from authorized keys.
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = false;
+    kbdInteractiveAuthentication = false;
+    permitRootLogin = "yes";
+  };
 
-users.users.root.openssh.authorizedKeys.keys = [ sshkey ];
-users.users.nixos.openssh.authorizedKeys.keys = [ sshkey ];
-users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
+  users.users.root.openssh.authorizedKeys.keys = [ sshkey ];
+  users.users.nixos.openssh.authorizedKeys.keys = [ sshkey ];
+  users.users.pi.openssh.authorizedKeys.keys = [ sshkey ];
 
-# Open ports for SSH.
-   networking.firewall.enable = true;
-   networking.firewall.allowedUDPPorts = [];
-   networking.firewall.allowedTCPPorts = [ 22];
+  # Open ports for SSH.
+  networking.firewall.enable = true;
+  networking.firewall.allowedUDPPorts = [ ];
+  networking.firewall.allowedTCPPorts = [ 22 ];
 
 
-# Add the users.
-    users.users.pi = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    };
+  # Add the users.
+  users.users.pi = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+  };
 
-    # Included packages:
-   environment.systemPackages = with pkgs; [
-     vim
-     git
-     wget
-   ];
+  # Included packages:
+  environment.systemPackages = with pkgs; [
+    vim
+    git
+    wget
+  ];
 
   system.stateVersion = "23.05";
 }

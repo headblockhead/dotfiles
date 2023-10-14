@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-# Fonts
+  # Fonts
   fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
     ibm-plex
