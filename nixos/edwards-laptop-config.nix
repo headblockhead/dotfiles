@@ -24,7 +24,7 @@
     ./modules/sound.nix
     #    ./modules/ssd.nix
     ./modules/ssh.nix
-    ./modules/minecraftserver.nix
+    #    ./modules/minecraftserver.nix
     #    ./modules/steam.nix
     #    ./modules/transmission.nix
     ./modules/users.nix
