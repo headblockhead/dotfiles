@@ -12,8 +12,11 @@
 
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
-
+  # No root!
   services.openssh.settings.PermitRootLogin = lib.mkForce "no";
+
+  # Passwordless sudo for headb
+  security.sudo.wheelNeedsPassword = false;
 
   # Allow nix flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
