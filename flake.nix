@@ -131,7 +131,7 @@
             agenix.nixosModules.default
           ];
         };
-        barkup = nixpkgs.lib.nixosSystem {
+        barkup-ec2 = nixpkgs.lib.nixosSystem {
           inherit system;
           inherit pkgs;
           specialArgs = { inherit inputs; inherit sshkey; };
@@ -170,6 +170,10 @@
         edwards-laptop-2-headb = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./home-manager/edwards-laptop-2-headb.nix ];
+        };
+        barkup-ec2-headb = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./home-manager/barkup-ec2-headb.nix ];
         };
         rpi-generic-nixos-pi = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
