@@ -5,6 +5,7 @@
     ./modules/basicpackages.nix
     ./modules/firewall.nix
     ./modules/region.nix
+    ./modules/homemanager.nix
     ./modules/ssh.nix
     ./modules/minecraftserver.nix
     ./modules/users.nix
