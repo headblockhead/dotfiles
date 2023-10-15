@@ -13,6 +13,9 @@
 
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
+
+  networking.hostName = "barkup";
+
   # No root!
   services.openssh.settings.PermitRootLogin = lib.mkForce "no";
 
