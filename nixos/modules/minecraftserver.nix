@@ -2,6 +2,10 @@
 {
   networking.firewall.allowedTCPPorts = [ 8192 25565 ];
 
+  environment.systemPackages = [
+    pkgs.ncurses
+  ];
+
   services.minecraft-servers = {
     enable = true;
     openFirewall = true;
@@ -13,6 +17,10 @@
       package = pkgs.quiltServers.quilt-1_20_1;
       symlinks = {
         mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
+          BetterFabricConsole = pkgs.fetchurl {
+            url = "https://cdn-raw.modrinth.com/data/Y8o1j1Sf/versions/8YUqYot0/better-fabric-console-mc1.20.1-1.1.6.jar";
+            sha256 = "Fl+bKhUwBk7Q/P3Z43g6vP51b4SyCt9QYRn631J1IOc=";
+          };
           CreateFabric = pkgs.fetchurl {
             url = "https://cdn.modrinth.com/data/Xbc0uyRg/versions/qlA1WuOK/create-fabric-0.5.1-d-build.1161%2Bmc1.20.1.jar";
             sha256 = "c7mBDzuY0Xjqnj0QG46gAPDD92Kcn9Ol5sAXdn7LRhQ=";
