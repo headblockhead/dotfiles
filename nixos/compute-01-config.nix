@@ -50,8 +50,10 @@
     pkgs.cachix
   ];
 
-  # win10 dualboot
+  # Windows dualboot
   boot.loader.grub.useOSProber = true;
+  # Grub slow on high resolution
+  boot.loader.grub.gfxmodeEfi = "1920x1080x32";
 
   nix.settings = {
     extra-substituters = "https://cachix.cachix.org";
@@ -61,8 +63,6 @@
   systemd.tmpfiles.rules = [
     ''f+ /run/gdm/.config/monitors.xml - gdm gdm - ${builtins.readFile ../monitors/compute-01.xml}''
   ];
-
-  boot.loader.grub.gfxmodeEfi = "1920x1080x24";
 
   nix.settings.trusted-users = [ "headb" ];
 
