@@ -50,6 +50,8 @@
     pkgs.cachix
   ];
 
+  networking.firewall.allowedTCPPorts = [ 7331 ];
+
   # Windows dualboot
   boot.loader.grub.useOSProber = true;
   # Grub slow on high resolution
