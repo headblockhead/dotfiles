@@ -39,6 +39,7 @@
   home.packages = [
     pkgs.godot_4
     pkgs.prismlauncher
+    pkgs.google-chrome
   ];
 
   home.file.".config/monitors.xml".text = builtins.readFile ../monitors/compute-01.xml;

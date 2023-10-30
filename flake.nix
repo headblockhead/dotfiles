@@ -67,6 +67,19 @@
           (self: super: {
             vscode-extensions.ms-dotnettools.csharp = csharppkgs.vscode-extensions.ms-dotnettools.csharp;
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };
+            rpi-imager = super.callPackage ./custom-packages/rpi-imager.nix {
+              cmake = pkgs.cmake;
+              curl = pkgs.curl;
+              libarchive = pkgs.libarchive;
+              util-linux = pkgs.util-linux;
+              qtbase = pkgs.qt5.qtbase;
+              qtdeclarative = pkgs.qt5.qtdeclarative;
+              qtsvg = pkgs.qt5.qtsvg;
+              qttools = pkgs.qt5.qttools;
+              qtquickcontrols2 = pkgs.qt5.qtquickcontrols2;
+              qtgraphicaleffects = pkgs.qt5.qtgraphicaleffects;
+              wrapQtAppsHook = pkgs.qt5.wrapQtAppsHook;
+            };
             alvr = super.callPackage ./custom-packages/alvr.nix { };
             unityhub = unitypkgs.unityhub;
             thonny = oldpkgs.thonny;

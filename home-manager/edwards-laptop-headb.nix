@@ -32,6 +32,7 @@
 
   home.packages = [
     pkgs.furnace # chiptune tracker
+    pkgs.rpi-imager
   ];
 
   # Home Manager needs a bit of information about you and the
