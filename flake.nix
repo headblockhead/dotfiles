@@ -8,9 +8,7 @@
 
     unstablenixpkgs.url = "nixpkgs/nixos-unstable";
     oldnixpkgs.url = "nixpkgs/nixos-21.05";
-    csharpnixpkgs.url = "github:NixOS/nixpkgs/fd78240";
     unitynixpkgs.url = "github:NixOS/nixpkgs/afb1ed8";
-    vscodeutilsnixpkgs.url = "nixpkgs/nixos-22.11";
     xmrignixpkgs.url = "nixpkgs/nixos-22.11";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
@@ -47,7 +45,7 @@
     };
   };
 
-  outputs = inputs@{ self, agenix, unstablenixpkgs, vscodeutilsnixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, csharpnixpkgs, unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror, templ, xc, mcpelauncher, xmrignixpkgs, ... }:
+  outputs = inputs@{ self, agenix, unstablenixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror, templ, xc, mcpelauncher, xmrignixpkgs, ... }:
     let
       system = "x86_64-linux";
       sshkey = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICvr2FrC9i1bjoVzg+mdytOJ1P0KRtah/HeiMBuKD3DX cardno:23_836_181'';
@@ -55,8 +53,6 @@
       oldpkgs = import oldnixpkgs { };
       unstablepkgs = import unstablenixpkgs { };
       unitypkgs = import unitynixpkgs { };
-      vscodeutilspkgs = import vscodeutilsnixpkgs { };
-      csharppkgs = import csharpnixpkgs { };
       xmrigpkgs = import xmrignixpkgs { };
 
       pkgs = import nixpkgs {
@@ -65,7 +61,6 @@
         overlays = [
           inputs.nix-minecraft.overlay
           (self: super: {
-            vscode-extensions.ms-dotnettools.csharp = csharppkgs.vscode-extensions.ms-dotnettools.csharp;
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };
             rpi-imager = super.callPackage ./custom-packages/rpi-imager.nix {
               cmake = pkgs.cmake;
@@ -91,8 +86,6 @@
             xc = inputs.xc.packages.x86_64-linux.xc;
             mcpelauncher = inputs.mcpelauncher.defaultPackage.x86_64-linux;
             platformio = unstablepkgs.platformio;
-            vscode = vscodeutilspkgs.vscode;
-            vscode-utils = vscodeutilspkgs.vscode-utils;
             flyctl = unstablepkgs.flyctl;
             home-manager = inputs.home-manager;
             openrgb = super.libsForQt5.callPackage ./custom-packages/openrgb.nix {
