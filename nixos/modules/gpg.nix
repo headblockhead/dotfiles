@@ -10,6 +10,7 @@
     #    pinentryFlavor = "gtk2"; # creates a gtk popup
     pinentryFlavor = "gnome3"; # creates a gnome popup.
     enableBrowserSocket = true;
+    enableExtraSocket = true;
     enableSSHSupport = true;
   };
 }
