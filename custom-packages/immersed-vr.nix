@@ -1,93 +1,32 @@
-{ stdenv
-, lib
+{ lib
+, appimageTools
 , fetchurl
-, dpkg
-, autoPatchelfHook
-, makeDesktopItem
-, makeWrapper
-, patchelfUnstable
-, ffmpeg-full
-, wrapGAppsHook
-, p7zip
-, libvaDriverName
-, pkgs
 }:
-
-stdenv.mkDerivation {
-  pname = "Immersed";
-  version = "6.3";
+appimageTools.wrapType2 rec {
+  pname = "immersed-vr";
+  version = "9.6";
+  name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "https://immersedvr.com/dl/Immersed-x86_64.AppImage";
-    sha256 = "nJe/B0/zwkJ2+I+6Tt60AwIQvHWZ6YHDj5vRFsNP7Kw=";
+    url = "http://web.archive.org/web/20231011083250/https://static.immersed.com/dl/Immersed-x86_64.AppImage";
+    hash = "sha256-iA0SQlPktETFXEqCbSoWV9NaWVahkPa6qO4Cfju0aBQ=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    wrapGAppsHook
-    p7zip
+  extraInstallCommands = ''
+    mv $out/bin/{${name},${pname}}
+  '';
+
+  extraPkgs = pkgs: with pkgs; [
+    libthai
   ];
 
-  buildInputs = with pkgs; [
-    webkitgtk
-    libpulseaudio
-    gtk3
-    pango
-    gdk-pixbuf
-    glib
-    fontconfig
-    cairo
-    zlib
-    glibc
-    libva
-    libGL
-    mesa
-
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXinerama
-    xorg.libXtst
-    xorg.libXxf86vm
-    xorg.libSM
-  ];
-
-  unpackPhase = ''
-    7z x $src 
-  '';
-
-  dontBuild = true;
-
-  installPhase = ''
-    mkdir -p $out/bin
-    mkdir -p $out/lib/va2
-
-    install -Dm755 usr/bin/Immersed $out/bin/Immersed
-
-    ln -s ${ffmpeg-full}/lib/libavcodec.so $out/lib/va2
-    ln -s ${ffmpeg-full}/lib/libavdevice.so $out/lib/va2
-    ln -s ${ffmpeg-full}/lib/libavfilter.so $out/lib/va2
-    ln -s ${ffmpeg-full}/lib/libavformat.so $out/lib/va2
-    ln -s ${ffmpeg-full}/lib/libavutil.so $out/lib/va2
-    ln -s ${ffmpeg-full}/lib/libswresample.so $out/lib/va2
-    ln -s ${ffmpeg-full}/lib/libswscale.so $out/lib/va2
-  '';
-
-  preFixup = ''
-    gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib
-      --set-default LIBVA_DRIVER_NAME ${libvaDriverName} 
-    )
-  '';
-
-  meta = {
-    description = "Immersed VR agent for Linux";
-    homepage = "https://immersedvr.com/";
-    downloadPage = "https://immersedvr.com/dl/Immersed-x86_64.AppImage";
-    license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.noneucat ];
+  meta = with lib; {
+    description = "A VR coworking platform";
+    homepage = "https://immersed.com";
+    license = licenses.unfree;
+    maintainers = with maintainers; [ haruki7049 ];
     platforms = [ "x86_64-linux" ];
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };
 }
+

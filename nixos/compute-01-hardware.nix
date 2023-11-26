@@ -67,7 +67,7 @@
   boot.kernelParams = [
     "amd_iommu=on"
   ];
-  boot.kernelModules = [ "kvm-amd" "nvidia-uvm" "vfio-pci" "amdgpu" ];
+  boot.kernelModules = [ "kvm-amd" "nvidia-uvm" "vfio-pci" "amdgpu" "v4l2loopback" ];
   boot.extraModulePackages = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

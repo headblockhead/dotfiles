@@ -28,5 +28,4 @@
     lm_sensors
     inetutils
   ];
-  services.udev.packages = [ pkgs.platformio-core.udev ];
 }

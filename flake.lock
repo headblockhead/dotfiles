@@ -22,22 +22,6 @@
         "type": "github"
       }
     },
-    "csharpnixpkgs": {
-      "locked": {
-        "lastModified": 1648653000,
-        "narHash": "sha256-L6uICes39sUfZPBTYuZv3FWmBYuPcv3rnOnDUzaT1OA=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "fd78240ac82ada2b598d4491dbf6ff8622bd3dff",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "fd78240",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -493,7 +477,6 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "csharpnixpkgs": "csharpnixpkgs",
         "home-manager": "home-manager_2",
         "mcpelauncher": "mcpelauncher",
         "nix-minecraft": "nix-minecraft",
@@ -506,7 +489,6 @@
         "templ": "templ",
         "unitynixpkgs": "unitynixpkgs",
         "unstablenixpkgs": "unstablenixpkgs",
-        "vscodeutilsnixpkgs": "vscodeutilsnixpkgs",
         "xc": "xc",
         "xmrignixpkgs": "xmrignixpkgs"
       }
@@ -606,21 +588,6 @@
       "original": {
         "id": "nixpkgs",
         "ref": "nixos-unstable",
-        "type": "indirect"
-      }
-    },
-    "vscodeutilsnixpkgs": {
-      "locked": {
-        "lastModified": 1688392541,
-        "narHash": "sha256-lHrKvEkCPTUO+7tPfjIcb7Trk6k31rz18vkyqmkeJfY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "ea4c80b39be4c09702b0cb3b42eab59e2ba4f24b",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-22.11",
         "type": "indirect"
       }
     },

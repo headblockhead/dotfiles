@@ -16,6 +16,7 @@
       };
       "org/gnome/desktop/interface" = {
         clock-show-weekday = true;
+        clock-show-seconds = true;
         clock-format = "24h";
         color-scheme = "prefer-dark"; # Enable dark mode on GNOME
       };

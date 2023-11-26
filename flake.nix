@@ -62,11 +62,7 @@
           inputs.nix-minecraft.overlay
           (self: super: {
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };
-            immersed = super.callPackage ./custom-packages/immersed-vr.nix {
-              ffmpeg-full = unstablepkgs.ffmpeg-full;
-              pkgs = unstablepkgs;
-              libvaDriverName = "i965";
-            };
+            immersed = super.callPackage ./custom-packages/immersed-vr.nix { };
             rpi-imager = super.callPackage ./custom-packages/rpi-imager.nix {
               cmake = pkgs.cmake;
               curl = pkgs.curl;
