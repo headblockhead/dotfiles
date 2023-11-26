@@ -6,4 +6,10 @@
   services.openssh.settings.KbdInteractiveAuthentication = false;
   users.users.headb.openssh.authorizedKeys.keys = [ sshkey ];
   networking.firewall.allowedTCPPorts = [ 22 ]; # Allow SSH connections
+
+  # GPG over SSH
+  services.openssh.extraConfig = ''
+    Match User headb
+      StreamLocalBindUnlink yes
+  '';
 }
