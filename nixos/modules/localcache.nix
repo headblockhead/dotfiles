@@ -8,7 +8,7 @@
 
   nix.settings = {
     substituters = [ "http://nixcachepi:8080/global" ];
-    trusted-public-keys = [ "global:Q9Pgq8Pz0Momvpv/wIAbyeN8TykO0nR8KFOnoYTMP0Y=" ];
+    trusted-public-keys = [ "global:Kq8tfvjkPx8gxNvf2BseF4pFLbczkTRhSRW/jst8ap8=" ];
   };
 
 }
