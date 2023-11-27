@@ -22,7 +22,8 @@
     #./modules/systemd-boot.nix
     ./modules/hardware-filesystems.nix
     ./modules/homemanager.nix
-    ./modules/homecache.nix
+    ./modules/caches.nix
+    ./modules/localcache.nix
     #    ./modules/lenovo-bat-save.nix
     ./modules/network.nix
     ./modules/openrgb.nix
@@ -58,16 +59,9 @@
   # Grub slow on high resolution
   boot.loader.grub.gfxmodeEfi = "1920x1080x32";
 
-  nix.settings = {
-    extra-substituters = "https://cachix.cachix.org";
-    extra-trusted-public-keys = "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM=";
-  };
-
   systemd.tmpfiles.rules = [
     ''f+ /run/gdm/.config/monitors.xml - gdm gdm - ${builtins.readFile ../monitors/compute-01.xml}''
   ];
-
-  nix.settings.trusted-users = [ "headb" ];
 
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.enableExtensionPack = true;
