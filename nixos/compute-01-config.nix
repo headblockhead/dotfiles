@@ -22,6 +22,7 @@
     #./modules/systemd-boot.nix
     ./modules/hardware-filesystems.nix
     ./modules/homemanager.nix
+    ./modules/homecache.nix
     #    ./modules/lenovo-bat-save.nix
     ./modules/network.nix
     ./modules/openrgb.nix

@@ -16,6 +16,9 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    attic = {
+      url = "github:zhaofengli/attic";
+    };
     prismlauncher = {
       url = "github:PrismLauncher/PrismLauncher";
     };
@@ -45,7 +48,7 @@
     };
   };
 
-  outputs = inputs@{ self, agenix, unstablenixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror, templ, xc, mcpelauncher, xmrignixpkgs, ... }:
+  outputs = inputs@{ self, agenix, attic, unstablenixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror, templ, xc, mcpelauncher, xmrignixpkgs, ... }:
     let
       system = "x86_64-linux";
       sshkey = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICvr2FrC9i1bjoVzg+mdytOJ1P0KRtah/HeiMBuKD3DX cardno:23_836_181'';
@@ -61,6 +64,7 @@
         overlays = [
           inputs.nix-minecraft.overlay
           (self: super: {
+            attic = inputs.attic.packages.x86_64-linux.default;
             obinskit = super.callPackage ./custom-packages/obinskit.nix { };
             immersed = super.callPackage ./custom-packages/immersed-vr.nix { };
             rpi-imager = super.callPackage ./custom-packages/rpi-imager.nix {
