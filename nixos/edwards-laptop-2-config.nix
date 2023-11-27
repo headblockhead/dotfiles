@@ -17,6 +17,7 @@
     ./modules/grub.nix
     ./modules/homemanager.nix
     ./modules/hardware-filesystems.nix
+    ./modules/homecache.nix
     ./modules/network.nix
     ./modules/printer.nix
     ./modules/region.nix
