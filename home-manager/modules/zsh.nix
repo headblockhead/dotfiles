@@ -14,7 +14,6 @@
         export PATH="$GOBIN:$PATH"
         export ZSH_HIGHLIGHT_STYLES[comment]=fg=245,bold
         export NIXPKGS_ALLOW_UNFREE="1"
-        export PICO_SDK_PATH="~/pico-sdk"
         export QT_STYLE_OVERRIDE="adwaita-dark"
     '';
     plugins = [
