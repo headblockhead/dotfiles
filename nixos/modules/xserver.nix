@@ -5,7 +5,8 @@
     displayManager = {
       gdm = {
         enable = true;
-        #        wayland = false; # Disable wayland, causes glitches.
+        autoSuspend = false;
+        #        wayland = false; # Disable wayland, this removes support for starting gnome as wayland as well!
       };
     };
     desktopManager.gnome.enable = true;
