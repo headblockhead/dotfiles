@@ -31,6 +31,7 @@
     ./modules/users.nix
     #    ./modules/wireguard.nix
     ./modules/xserver.nix
+    ./modules/yubikey.nix
     ./modules/zsh.nix
   ];
 
