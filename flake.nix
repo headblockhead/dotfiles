@@ -2,28 +2,26 @@
   description = "NixOS and Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    rpi-nixpkgs.url = "github:NixOS/nixpkgs/d91e1f9";
-
-    unstablenixpkgs.url = "nixpkgs/nixos-unstable";
-    oldnixpkgs.url = "nixpkgs/nixos-21.05";
-    unitynixpkgs.url = "github:NixOS/nixpkgs/afb1ed8";
-    xmrignixpkgs.url = "nixpkgs/nixos-22.11";
-
-    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-23.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     attic = {
       url = "github:zhaofengli/attic";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     prismlauncher = {
       url = "github:PrismLauncher/PrismLauncher";
-    };
-    home-manager = {
-      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     playdatesdk = {
@@ -48,147 +46,111 @@
     };
   };
 
-  outputs = inputs@{ self, agenix, attic, unstablenixpkgs, nixpkgs, prismlauncher, rpi-nixpkgs, unitynixpkgs, oldnixpkgs, home-manager, playdatesdk, playdatemirror, templ, xc, mcpelauncher, xmrignixpkgs, ... }:
+  outputs =
+    { self
+    , nixpkgs
+    , home-manager
+    , agenix
+    , ...
+    }@ inputs:
     let
-      system = "x86_64-linux";
+      inherit (self) outputs;
+      systems = [
+        "x86_64-linux"
+      ];
+
+      # My public SSH key:
       sshkey = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICvr2FrC9i1bjoVzg+mdytOJ1P0KRtah/HeiMBuKD3DX cardno:23_836_181'';
 
-      oldpkgs = import oldnixpkgs { };
-      unstablepkgs = import unstablenixpkgs { };
-      unitypkgs = import unitynixpkgs { };
-      xmrigpkgs = import xmrignixpkgs { };
-
-      pkgs = import nixpkgs {
-        allowUnfree = true;
-        cudaSupport = true;
-        overlays = [
-          inputs.nix-minecraft.overlay
-          (self: super: {
-            attic = inputs.attic.packages.x86_64-linux.default;
-            obinskit = super.callPackage ./custom-packages/obinskit.nix { };
-            immersed = super.callPackage ./custom-packages/immersed-vr.nix { };
-            rpi-imager = super.callPackage ./custom-packages/rpi-imager.nix {
-              cmake = pkgs.cmake;
-              curl = pkgs.curl;
-              libarchive = pkgs.libarchive;
-              util-linux = pkgs.util-linux;
-              qtbase = pkgs.qt5.qtbase;
-              qtdeclarative = pkgs.qt5.qtdeclarative;
-              qtsvg = pkgs.qt5.qtsvg;
-              qttools = pkgs.qt5.qttools;
-              qtquickcontrols2 = pkgs.qt5.qtquickcontrols2;
-              qtgraphicaleffects = pkgs.qt5.qtgraphicaleffects;
-              wrapQtAppsHook = pkgs.qt5.wrapQtAppsHook;
-            };
-            alvr = super.callPackage ./custom-packages/alvr.nix { };
-            unityhub = unitypkgs.unityhub;
-            thonny = oldpkgs.thonny;
-            prismlauncher = inputs.prismlauncher.packages.x86_64-linux.prismlauncher;
-            pdc = playdatesdk.packages.x86_64-linux.pdc;
-            pdutil = playdatesdk.packages.x86_64-linux.pdutil;
-            PlaydateSimulator = playdatesdk.packages.x86_64-linux.PlaydateSimulator;
-            playdatemirror = inputs.playdatemirror.packages.x86_64-linux.Mirror;
-            xc = inputs.xc.packages.x86_64-linux.xc;
-            mcpelauncher = inputs.mcpelauncher.defaultPackage.x86_64-linux;
-            platformio = unstablepkgs.platformio;
-            flyctl = unstablepkgs.flyctl;
-            home-manager = inputs.home-manager;
-            openrgb = super.libsForQt5.callPackage ./custom-packages/openrgb.nix {
-              wrapQtAppsHook = pkgs.qt5.wrapQtAppsHook;
-              qtbase = pkgs.qt5.qtbase;
-              qttools = pkgs.qt5.qttools;
-              qmake = pkgs.qt5.qmake;
-            };
-            templ = inputs.templ.packages.x86_64-linux.default;
-            openrgb-with-all-plugins = unstablepkgs.openrgb-with-all-plugins;
-            xmrig = xmrigpkgs.xmrig;
-          })
-        ];
-      };
+      # This is a function that generates an attribute by calling a function you
+      # pass to it, with each system as an argument
+      forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     rec {
-      # Allow self referencing.
+      # Custom packages: accessible through 'nix build', 'nix shell', etc.
+      packages = forAllSystems (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; inherit inputs; });
+
+      # Exported overlays. Includes custom packages and flake outputs.
+      overlays = import ./overlays { inherit inputs; };
+
+      nixosModules = import ./modules/nixos;
+      homeManagerModules = import ./modules/home-manager;
+
+      #nix-minecraft.overlay
+
       nixosConfigurations = {
         compute-01 = nixpkgs.lib.nixosSystem {
-          inherit system;
-          inherit pkgs;
-          specialArgs = { inherit inputs; inherit agenix; inherit sshkey; };
+          specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
-            ./nixos/compute-01-config.nix
-            ./nixos/compute-01-hardware.nix
+            ./systems/compute-01/config.nix
+            ./systems/compute-01/hardware.nix
 
             agenix.nixosModules.default
           ];
         };
         edwards-laptop = nixpkgs.lib.nixosSystem {
-          inherit system;
-          inherit pkgs;
-          specialArgs = { inherit inputs; inherit agenix; inherit sshkey; };
+          specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
-            ./nixos/edwards-laptop-config.nix
-            ./nixos/edwards-laptop-hardware.nix
+            ./systems/edwards-laptop/config.nix
+            ./systems/edwards-laptop/hardware.nix
 
             agenix.nixosModules.default
           ];
         };
         edwards-laptop-2 = nixpkgs.lib.nixosSystem {
-          inherit system;
-          inherit pkgs;
-          specialArgs = { inherit inputs; inherit agenix; inherit sshkey; };
+          specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
-            ./nixos/edwards-laptop-2-config.nix
-            ./nixos/edwards-laptop-2-hardware.nix
+            ./systems/edwards-laptop-2/config.nix
+            ./systems/edwards-laptop-2/hardware.nix
 
             agenix.nixosModules.default
           ];
         };
         barkup-ec2 = nixpkgs.lib.nixosSystem {
-          inherit system;
-          inherit pkgs;
-          specialArgs = { inherit inputs; inherit sshkey; };
+          specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
-            ./nixos/barkup-ec2-conf.nix
+            ./systems/barkup-ec2/config.nix
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
 
             agenix.nixosModules.default
           ];
         };
-        rpi-headless-image = nixpkgs.lib.nixosSystem {
+        rpi-network-server = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs agenix sshkey; };
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; inherit sshkey; };
           modules = [
-            "${rpi-nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
-            ./nixos/rpi-headless-image-conf.nix
+            #            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
+            "${nixpkgs}/nixos/modules/installer/netboot/netboot-minimal.nix"
+            ./systems/rpi-network-server/config.nix
             {
               nixpkgs.config.allowUnsupportedSystem = true;
               nixpkgs.crossSystem.system = "aarch64-linux";
             }
-
             agenix.nixosModules.default
           ];
         };
       };
-      images.rpi-headless-image = nixosConfigurations.rpi-headless-image.config.system.build.sdImage;
+      netboot.rpi-network-server = nixosConfigurations.rpi-network-server.config.system.build.kernel;
       homeConfigurations = {
-        compute-01-headb = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./home-manager/compute-01-headb.nix ];
+        "headb@compute-01" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./systems/compute-01/users/headb.nix ];
         };
-        edwards-laptop-headb = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./home-manager/edwards-laptop-headb.nix ];
+        "headb@edwards-laptop" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./systems/edwards-laptop/users/headb.nix ];
         };
-        edwards-laptop-2-headb = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./home-manager/edwards-laptop-2-headb.nix ];
+        "headb@edwards-laptop-2" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./systems/edwards-laptop-2/users/headb.nix ];
         };
-        barkup-ec2-headb = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./home-manager/barkup-ec2-headb.nix ];
-        };
-        rpi-generic-nixos-pi = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./home-manager/rpi-generic-nixos-pi.nix ];
+        "headb@barkup" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./systems/barkup-ec2/users/headb.nix ];
         };
       };
     };

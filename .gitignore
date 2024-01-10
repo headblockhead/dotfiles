@@ -1,1 +1,2 @@
-nixos/wifi-config.nix
+systems/wifi-config.nix
+result

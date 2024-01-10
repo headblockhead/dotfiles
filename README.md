@@ -288,6 +288,15 @@ idevice_id -l
 
 ## Tasks
 
+### Switch-system
+
+Switches the current system (nixos + homemanager) to the latest config.
+
+```bash
+sudo nixos-rebuild switch --flake ".#compute-01"
+sudo -u headb home-manager switch --flake '.#headb@compute-01'
+```
+
 ### Reload-NixOS
 
 Updates NixOS with the current config.
@@ -309,7 +318,7 @@ home-manager switch --flake '.#compute-01-headb' --impure
 Builds a preconfigured, encrypted nixos image for the raspberry pi 4.
 
 ```bash
-nix build .\#images.rpi-headless-image --impure
+nix build .\#netboot.rpi-network-server --impure
 ```
 
 ### Clean
