@@ -13,6 +13,7 @@
   gtk = import ./gtk.nix;
   neovim = import ./neovim.nix;
   obinskit = import ./obinskit.nix;
+  openrgb = import ./openrgb.nix;
   picosdk = import ./picosdk.nix;
   playdatesdk = import ./playdatesdk.nix;
   terminalutils = import ./terminalutils.nix;

@@ -1,13 +1,16 @@
 {
-  description = "NixOS and Home Manager configuration";
+  description = "NixOS and Home Manager configurations for my homelab.";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
     };
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
@@ -79,16 +82,21 @@
       #nix-minecraft.overlay
 
       nixosConfigurations = {
-        compute-01 = nixpkgs.lib.nixosSystem {
+        # Network nodes.
+
+        # Build nodes.
+
+        # Client nodes.
+        edward-desktop-01 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
-            ./systems/compute-01/config.nix
-            ./systems/compute-01/hardware.nix
+            ./systems/edward-desktop-01/config.nix
+            ./systems/edward-desktop-01/hardware.nix
 
             agenix.nixosModules.default
           ];
         };
-        edwards-laptop = nixpkgs.lib.nixosSystem {
+        edward-laptop-01 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
             ./systems/edwards-laptop/config.nix
@@ -97,7 +105,7 @@
             agenix.nixosModules.default
           ];
         };
-        edwards-laptop-2 = nixpkgs.lib.nixosSystem {
+        edward-laptop-02 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
             ./systems/edwards-laptop-2/config.nix
@@ -106,51 +114,72 @@
             agenix.nixosModules.default
           ];
         };
-        barkup-ec2 = nixpkgs.lib.nixosSystem {
+
+        # AWS EC2 nodes.
+        barkup = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
-            ./systems/barkup-ec2/config.nix
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
+            ./systems/barkup/config.nix
 
             agenix.nixosModules.default
           ];
         };
-        rpi-network-server = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs agenix sshkey; };
-          system = "x86_64-linux";
+
+        # Raspberry Pi cluster nodes.
+        rpi-cluster-01 = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs agenix sshkey; systemname = "rpi-cluster-01"; systemserial = "01-dc-a6-32-31-50-3b"; };
+          system = "x86_64-linux"; # Builder system
           modules = [
-            #            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix"
-            "${nixpkgs}/nixos/modules/installer/netboot/netboot-minimal.nix"
-            ./systems/rpi-network-server/config.nix
+            "${nixpkgs}/nixos/modules/installer/netboot/netboot-minimal.nix" # Netboot system - Kernel and ramdisk builds.
+            ./systems/rpi-cluster/01.nix # This system's configuration
+            ./systems/rpi-cluster/hardware.nix # Shared hardware configuration for Raspberry Pis
+
+            "${nixpkgs}/nixos/modules/profiles/base.nix" # Base system - various utilities.
+
+            nixosModules.rpiTFTP
+
             {
               nixpkgs.config.allowUnsupportedSystem = true;
-              nixpkgs.crossSystem.system = "aarch64-linux";
+              nixpkgs.crossSystem.system = "aarch64-linux"; # Target system
             }
+
             agenix.nixosModules.default
           ];
         };
       };
-      netboot.rpi-network-server = nixosConfigurations.rpi-network-server.config.system.build.kernel;
+
+      deploy.nodes.edward-laptop-01.profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.edward-laptop-01;
+      };
+
+      # This is highly advised, and will prevent many possible mistakes
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
+
+      # Netboot outputs.
+      netboot.rpi-cluster-01.rpiTFTP = nixosConfigurations.rpi-cluster-01.config.system.build.rpiTFTP;
+
       homeConfigurations = {
-        "headb@compute-01" = home-manager.lib.homeManagerConfiguration {
+        "headb@edward-desktop-01" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/compute-01/users/headb.nix ];
+          modules = [ ./systems/edward-desktop-01/users/headb.nix ];
         };
-        "headb@edwards-laptop" = home-manager.lib.homeManagerConfiguration {
+        "headb@edward-laptop-01" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/edwards-laptop/users/headb.nix ];
+          modules = [ ./systems/edward-laptop-01/users/headb.nix ];
         };
-        "headb@edwards-laptop-2" = home-manager.lib.homeManagerConfiguration {
+        "headb@edward-laptop-02" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/edwards-laptop-2/users/headb.nix ];
+          modules = [ ./systems/edward-laptop-02/users/headb.nix ];
         };
         "headb@barkup" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/barkup-ec2/users/headb.nix ];
+          modules = [ ./systems/barkup/users/headb.nix ];
         };
       };
     };

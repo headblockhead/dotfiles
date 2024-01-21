@@ -10,10 +10,10 @@
   programs.zsh = {
     # Enable zsh as a shell, add it to the environment.
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestions.enable = true;
     enableCompletion = true;
-    enableSyntaxHighlighting = true;
-    oh-my-zsh = {
+    syntaxHighlighting.enable = true;
+    ohMyZsh = {
       enable = true;
       plugins = [ "aws" "git" ];
     };

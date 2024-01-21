@@ -1,6 +1,8 @@
 { inputs, outputs, lib, config, pkgs, agenix, ... }:
 
 {
+  networking.hostName = "edward-desktop-01";
+
   imports = with outputs.nixosModules; [
     adb
     basicConfig
@@ -10,7 +12,7 @@
     distributedBuilds
     docker
     fileSystems
-    firewall
+    #    firewall
     fonts
     gnome
     gpg
@@ -68,32 +70,48 @@
     auto-optimise-store = true;
   };
 
+  # Extra packages to install
   environment.systemPackages = [
     agenix.packages.x86_64-linux.default
     pkgs.cachix
     pkgs.git
     pkgs.vim
+    pkgs.deploy-rs
   ];
 
-  # Windows dualboot
+  # Grub settings.
   boot.loader.grub.useOSProber = true;
+  boot.loader.grub.gfxmodeEfi = "3840x2160x32";
 
-  # Grub slow on high resolution
-  boot.loader.grub.gfxmodeEfi = "1920x1080x32";
-  boot.loader.grub.timeoutStyle = "hidden";
+  networking.firewall.enable = lib.mkForce false;
+
+
+
+
+
+
 
   # https://www.mankier.com/5/tmpfiles.d
   systemd.tmpfiles.rules = [
-    #    ''C /run/gdm/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
+    ''C /run/gdm/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
   ];
+
+
+
+
+
+
 
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.enableExtensionPack = true;
 
   users.extraGroups.vboxusers.members = [ "headb" ];
 
-  # Networking settings.
-  networking.hostName = "compute-01";
+
+
+
+
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -18,6 +18,8 @@
   openrgb = import ./openrgb.nix;
   printer = import ./printer.nix;
   qt = import ./qt.nix;
+  rpiTFTP = import ./rpiTFTP.nix;
+  rpiFirmware = import ./rpiFirmware.nix;
   sheepit = import ./sheepit.nix;
   sound = import ./sound.nix;
   ssd = import ./ssd.nix;

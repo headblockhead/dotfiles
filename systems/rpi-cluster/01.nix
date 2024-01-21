@@ -1,14 +1,8 @@
-{ pkgs, sshkey, ... }:
+{ pkgs, sshkey, lib, ... }:
 
 {
-  boot = {
-    initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
-  };
-
-  boot.initrd.kernelModules = [ "usb_storage" ];
-
   # Required for the Wireless firmware
-  hardware.enableRedistributableFirmware = true;
+  hardware.enableRedistributableFirmware = lib.mkForce true;
 
   # Hostname.
   networking = {

@@ -19,6 +19,7 @@
     gtk
     neovim
     obinskit
+    openrgb
     picosdk
     playdatesdk
     terminalutils

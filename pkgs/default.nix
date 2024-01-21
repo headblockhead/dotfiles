@@ -11,14 +11,22 @@
   playdatemirror = inputs.playdatemirror.packages.x86_64-linux.Mirror;
   xc = inputs.xc.packages.x86_64-linux.xc;
   mcpelauncher = inputs.mcpelauncher.defaultPackage.x86_64-linux;
-  ##platformio = unstablepkgs.platformio;
-  home-manager = inputs.home-manager;
-  ##  openrgb = super.libsForQt5.callPackage ./custom-packages/openrgb.nix {
-  ##wrapQtAppsHook = pkgs.qt5.wrapQtAppsHook;
-  ##qtbase = pkgs.qt5.qtbase;
-  ##qttools = pkgs.qt5.qttools;
-  ##qmake = pkgs.qt5.qmake;
-  ##};
+  home-manager = inputs.home-manager.defaultPackage.x86_64-linux;
+  openrgb = pkgs.libsForQt5.callPackage ../custom-packages/openrgb.nix {
+    wrapQtAppsHook = pkgs.qt5.wrapQtAppsHook;
+    qtbase = pkgs.qt5.qtbase;
+    qttools = pkgs.qt5.qttools;
+    qmake = pkgs.qt5.qmake;
+  };
+  openrgb-plugin-effects = pkgs.callPackage ../custom-packages/openrgb-plugin-effects.nix {
+    wrapQtAppsHook = pkgs.qt5.wrapQtAppsHook;
+    qtbase = pkgs.qt5.qtbase;
+    qmake = pkgs.qt5.qmake;
+  };
+  openrgb-plugin-hardwaresync = pkgs.callPackage ../custom-packages/openrgb-plugin-hardwaresync.nix {
+    wrapQtAppsHook = pkgs.qt5.wrapQtAppsHook;
+    qtbase = pkgs.qt5.qtbase;
+    qmake = pkgs.qt5.qmake;
+  };
   templ = inputs.templ.packages.x86_64-linux.default;
-  # example = pkgs.callPackage ./example { };
 }

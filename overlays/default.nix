@@ -14,9 +14,9 @@
         "--disable-features=WaylandFractionalScaleV1"
       ];
     });
-    #    blender = prev.blender.overrideAttrs (oldAttrs: {
-    #      cudaSupport = true;
-    #    });
+    blender = prev.blender.overrideAttrs (oldAttrs: {
+      cudaSupport = true;
+    });
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

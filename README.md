@@ -290,45 +290,36 @@ idevice_id -l
 
 ### Switch-system
 
-Switches the current system (nixos + homemanager) to the latest config.
+Requires: switch-nixos, switch-home-manager
+
+Rebuilds NixOS and home-manager and applies all configration changes.
+
+### Switch-NixOS
+
+Rebuilds the system-wide NixOS configuration and applies it.
 
 ```bash
-sudo nixos-rebuild switch --flake ".#compute-01"
-sudo -u headb home-manager switch --flake '.#headb@compute-01'
+sudo nixos-rebuild switch --flake ".#`hostname`"
 ```
 
-### Reload-NixOS
+### Switch-home-manager
 
-Updates NixOS with the current config.
+Rebuilds the home directory of the headb user and applies it.
 
 ```bash
-sudo --preserve-env=NIXPKGS_ALLOW_UNFREE nixos-rebuild switch --flake ".#compute-01" --impure
+sudo -u headb home-manager switch --flake ".#headb@`hostname`"
 ```
 
-### Reload-HomeManager
+### Build-network
 
-Updates Home Manager with the current config.
+Builds all network-wide NixOS instances and uploads them to the netboot server. Devices must be rebooted for configuraton to apply.
 
 ```bash
-home-manager switch --flake '.#compute-01-headb' --impure
+echo not implementer
 ```
 
-### Build-rpi-sd-card-image
-
-Builds a preconfigured, encrypted nixos image for the raspberry pi 4.
+### Garbage-collect
 
 ```bash
-nix build .\#netboot.rpi-network-server --impure
-```
-
-### Clean
-
-Clean deletes all generations except the current, and cleans the nix store.
-
-```bash
-home-manager expire-generations -1+second
-sudo nix-collect-garbage -d
-nix-store --gc
-sudo --preserve-env=NIXPKGS_ALLOW_UNFREE nixos-rebuild switch --flake ".#compute-01" --impure
-home-manager switch --flake '.#compute-01-headb' --impure
+sudo nix-collect-garbage --quiet
 ```

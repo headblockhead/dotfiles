@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation rec {
   pname = "openrgb-plugin-hardwaresync";
-  version = "0.9";
+  version = "04e396ab3db8f80e1fd681c6d7ba9dbcc946c148";
 
   src = fetchFromGitLab {
     owner = "OpenRGBDevelopers";
     repo = "OpenRGBHardwareSyncPlugin";
-    rev = "release_${version}";
-    hash = "sha256-3sQFiqmXhuavce/6v3XBpp6PAduY7t440nXfbfCX9a0=";
+    rev = "${version}";
+    hash = "sha256-dRDIp+pJbpp2Upt4RQJvE9hQDR17IGkcfeOKq8gTxos=";
   };
 
   postPatch = ''
