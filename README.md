@@ -1,15 +1,14 @@
 # dotfiles
 
-Reproducable configuration for my nixos laptop and other gadgets. Now as a nix flake!
+Reproducable configuration for all of my devices and gadgets. Now including netbooting!
 
 ## Table of Contents
 
   * [Keyboard Configuration](#keyboard-configuration)
-  * [Compute01 Configuration](#compute-01-configuration)
-    * [What does it use?](#what-does-it-use)
-    * [Installation](#installation)
+  * [Installation](#installation)
+  * [Netbooting](#netbooting)
   * [Extras](#extras)
-  * [Tasks](#commands)
+  * [Tasks](#tasks)
 
 ## Keyboard configuration!
 
@@ -17,15 +16,9 @@ I have installed QMK on my keyboard so I decided to publish my configuration her
 
 *Update:* I have moved back to the OEM software, due to some issues I was facing with QMK. You can find my json config [in the annepro2-oem folder](keyboard/annepro2-oem/).
 
-## Compute01 Configuration
+## Installation
 
-### What does it use?
-
-The install uses Gnome managed by home-manager. It includes configured neovim, nice zsh shell and terminal emulator, Unity with C# Omnisharp language server and integrations into HomeAssistant to turn on and off my monitor and speakers when my laptop docks/undocks.
-
-### Installation:
-
-Here are a couple reminders for installing nixos on `compute-01`.
+This is for installation to a typical, permanent storage machine (such as `edward-desktop-01` or `edward-laptop-01`). For setting up netboot, see [Netbooting](#netbooting).
 
 1. Use the NixOS minimal ISO.
 
@@ -33,7 +26,7 @@ Use the NixOS mininal ISO for a more customisable install.
 
 2. Set up internet using Network Manager.
 
-    The simplest option for quick network without wires is using Network Manager. It is preinstalled and has a tui for 30-second wifi setup.
+    The simplest option for quick network without wires is using Network Manager. It is preinstalled and has a TUI for 30-second wifi setup.
 
     ```bash
     nmtui
@@ -51,16 +44,16 @@ Use the NixOS mininal ISO for a more customisable install.
       - clone hero songs,
       - the whole /home directory,
 
-    Once the check list is done, the easiest option in my opinion for simple partitioning is `cfdisk`, another TUI utility.
+    Once the check list is done, the easiest option in my opinion for simple partitioning is `cfdisk`, another TUI utility. In commands relating to disks, `whatever` is the ssd or other storage nixos is being installed onto.
 
     ```bash
-    cfdisk /dev/sda
+    cfdisk /dev/whatever
     ```
 
     Now, delete all partitions on the disk and create the new partitions:
-      - A 525M "EFI System" partition (```/dev/sda1```),
-      - a "Linux Swap" partition (```/dev/sda2```) (I went with 15G as I have 12G of RAM and would like hibernation - [size guide](https://itsfoss.com/swap-size/)),
-      - and a generic "Linux Filesystem" partition to fill the rest of the disk (```/dev/sda3```).
+      - A 525M "EFI System" partition,
+      - a "Linux Swap" partition ([size guide](https://itsfoss.com/swap-size/)),
+      - and a generic "Linux Filesystem" partition to fill the rest of the disk.
     Make sure to write the new changes before you exit `cfdisk`.
 
     Now, formatting!
@@ -68,19 +61,19 @@ Use the NixOS mininal ISO for a more customisable install.
     First, format the EFI System partition with FAT:
 
     ```bash
-    mkfs.fat -F 32 -n boot /dev/sda1
+    mkfs.fat -F 32 -n boot /dev/whatever1
     ```
 
     Then, format the swap partition, giving it the label of 'swap':
 
     ```bash
-    mkswap -L swap /dev/sda2
+    mkswap -L swap /dev/whatever2
     ```
 
     And finally, format the main Linux Filesystem partition with ext4, giving it the label of 'nixos':
 
     ```bash
-    mkfs.ext4 -L nixos /dev/sda3
+    mkfs.ext4 -L nixos /dev/whatever3
     ```
 
     Theese drive labels are referenced by the system config.
@@ -91,20 +84,20 @@ Use the NixOS mininal ISO for a more customisable install.
     First, mount the main Linux Filesystem:
 
     ```bash
-    mount /dev/sda3 /mnt
+    mount /dev/whatever3 /mnt # Mount root filesystem
     ```
 
     Then, mount the boot filesystem:
 
     ```bash
     mkdir -p /mnt/boot
-    mount /dev/sda1 /mnt/boot
+    mount /dev/whatever1 /mnt/boot # Mount boot partition
     ```
 
     Finally, enable the swap:
 
     ```bash
-    swapon /dev/sda2
+    swapon /dev/whatever2 # Use the swap partition
     ```
 
 
@@ -115,25 +108,25 @@ Use the NixOS mininal ISO for a more customisable install.
     nixos-generate-config --root /mnt
     ```
 
-    Dowload this repo.
+    Dowload this repo from github. This is used because SSH has not been set up yet.
     ```bash
     curl -LO https://github.com/headblockhead/dotfiles/archive/refs/heads/master.zip
-    unzip master.zip
-    cd dotfiles-master
+    unzip ./dotfiles-master.zip
+    mv dotfiles-master dotfiles
     ```
 
-    Build and install. Set a root password, but we will disable it later.
+    Build and install. Set a root password for first login, but we will disable direct root later.
     ```bash
-    nixos-install
+    cd dotfiles
+    nixos-install --root /mnt --flake .#HOSTNAME
     reboot
     ```
 
-
 6. First Time Login.
-    If you can't login - set your password using root.
+    Login is not possible without a password - set a password using the root account.
 
     ```bash
-    passwd YOUR_USERNAME 
+    passwd headb
     ```
 
 7. Final system setup.
@@ -142,23 +135,6 @@ Use the NixOS mininal ISO for a more customisable install.
   ```bash
   sudo passwd -dl root
   sudo usermod -L root
-  ```
-
-  Add channel for `command-not-found`:
-  ```bash
-  sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
-  sudo nix-channel --update
-  ```
-
-  Enable Wake on WLAN:
-  ```bash
-  sudo iw phy0 wowlan enable magic-packet
-  ```
-
-  Symlinks:
-  ```bash
-  ln -s ~/dotfiles/oh-my-zsh/custom.zsh-theme ~/custom.zsh-theme
-  ln -s ~/dotfiles/neovim/lua/ ~/.config/nvim/
   ```
 
   In some cases, a boot option is not found. Sometimes this needs to be run from a bootable USB and then booted from, then [the bootloader re-installed.](https://nixos.wiki/wiki/Bootloader#Re-installing_the_bootloader)
@@ -172,7 +148,16 @@ Use the NixOS mininal ISO for a more customisable install.
 
 I use this section of my dotfiles to remind me how to run various complicated tasks, in case I forget them in the future.
 
+### Enable wake-on-wlan
+
+Enables magic-packets to be recieved from wireless LAN.
+
+```bash
+sudo iw phy0 wowlan enable magic-packet
+```
+
 ### Pin `nix shell` to specific nixpkgs
+
 Get the version of nixpkgs used in your flake.
 ```bash
 nix flake info
@@ -189,102 +174,44 @@ nix registry remove flake:nixpkgs
 ```
 
 ### Running macOS using docker for XCode development.
-Allow docker containers to connect to the X Server.
+
+Allow connections to the X Server.
 ```bash
-nix-shell -p xorg.xhost
-xhost +
-exit # exits the nix shell.
+nix run nixpkgs#xorg.xhost +
 ```
 
-Create the main docker container it should appear as a QEMU window.
+Create the main docker container. It should appear as a QEMU window.
 ```bash
 docker run -it --device /dev/kvm -p 50922:10022 -e DEVICE_MODEL="iMacPro1,1" -e WIDTH=1440 -e HEIGHT=900 -e RAM=8 -e INTERNAL_SSH_PORT=23 -e AUDIO_DRIVER=pa,server=unix:/tmp/pulseaudio.socket -v "/run/user/$(id -u)/pulse/native:/tmp/pulseaudio.socket" -e CORES=2 -v /tmp/.X11-unix:/tmp/.X11-unix -e "DISPLAY=${DISPLAY:-:0.0}" -e GENERATE_UNIQUE=true -e MASTER_PLIST_URL=https://raw.githubusercontent.com/sickcodes/osx-serial-generator/master/config-custom.plist sickcodes/docker-osx:ventura
 ```
 
-Install OSX after using disk manager to format the 200gig drive. Installing may take several hours.
+Install OSX after using disk manager to format the drive. Installing may take an hour or so. 
+Then, install XCode through the app store. This will also take a large amount of time.
 
-Install XCode through the app store. Installing XCode will also take a large amount of time. This would be a good time for a break.
-
-Setting up USB Passthrough:
+Run `usbmuxd` for host forwarding.
 ```bash
-nix-shell -p usbmuxd 
-sudo usbmuxd -fv # foreground, verbose
+sudo nix run nixpkgs#usbmuxd -- -fv
 ```
-Make sure SSH is enabled.
+Make sure SSH is enabled on the host, so the socket can be forwarded.
 
-In the mac, install brew:
+In the mac, install brew and install the required packages for the forwarding script.
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-And install the required packages for the forwarding script.
-```bash
 brew install make automake autoconf libtool pkg-config gcc libimobiledevice usbmuxd socat
 ```
 
-Use this script on the mac to connect to your host machine's ssh. (172.17.0.1 inside of docker).
-Thanks to [the creator of this script - leonjza](https://gist.github.com/leonjza/3751e551437c108edd688501deafa2a1) and [their blog post](https://sensepost.com/blog/2022/using-a-cloud-mac-with-a-local-ios-device/) which both helped me with this.
-```bash
-#!/bin/bash
+Now connect the host (`172.17.0.1`) to container socket using [this script](https://gist.github.com/leonjza/3751e551437c108edd688501deafa2a1) - thanks [leonjza](https://github.com/leonjza)!
 
-# forward a remote usbmuxd socket locally.
-# useful to make remote iOS devices available to cloud macOS instances
-#
-# 2022 @leonjza
-
-set -e
-
-# arg 1 being the target. eg: leon@remote
-SSH_TARGET=$1
-
-if [ -z $SSH_TARGET ]
-then
-	echo "[+] usage: $0 ssh_target (eg: $0 user@host)"
-	exit 1
-fi
-
-REAL_SOCKET=/var/run/usbmuxd
-BACKUP_SOCKET=/var/run/usbmuxd.orig
-REMOTE_SOCKET=/var/run/usbmuxd.remote
-
-SSH_TUNNEL_PID=""
-
-# handle ^C && errors
-trap cleanup INT
-trap cleanup ERR
-
-function cleanup() {
-
-	if [ ! -z $SSH_TUNNEL_PID ]
-	then
-		echo "[+] killing ssh tunnel with PID $SSH_TUNNEL_PID"
-		kill -15 $SSH_TUNNEL_PID 
-	fi
-
-	echo "[+] restoring real usbmuxd socket"
-	mv $BACKUP_SOCKET $REAL_SOCKET
-	echo "[+] removing dangling remote socket"
-	rm -f $REMOTE_SOCKET
-
-	exit
-}
-
-echo "[+] moving real usbmuxd socket out of the way"
-mv $REAL_SOCKET $BACKUP_SOCKET
-
-echo "[+] configuring ssh tunnel to $SSH_TARGET"
-ssh -C -L $REMOTE_SOCKET:$REAL_SOCKET $SSH_TARGET -N -f
-SSH_TUNNEL_PID=$(pgrep ssh | tail -n 1)
-echo "[+] ssh tunnel PID is $SSH_TUNNEL_PID"
-
-echo "[+] connecting remote socket to local socket. ^C to quit and revert"
-socat UNIX-LISTEN:$REAL_SOCKET,mode=777,reuseaddr,fork UNIX-CONNECT:$REMOTE_SOCKET
-```
-
-Now, with both usbmuxd and the above script running, XCode should be able to see a physically connected iphone to the host computer.
-To list IOS devices, run:
+To test, list iOS devices connected.
 ```bash
 idevice_id -l
 ```
+
+#### Links
+
+  * [Helpful blog post](https://sensepost.com/blog/2022/using-a-cloud-mac-with-a-local-ios-device/)
+  * [Mac script](https://gist.github.com/leonjza/3751e551437c108edd688501deafa2a1)
+  * [Homebrew](https://brew.sh/)
 
 ## Tasks
 

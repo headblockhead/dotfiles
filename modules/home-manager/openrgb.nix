@@ -8,6 +8,8 @@
       WantedBy = [ "multi-user.target" ];
     };
     Service = {
+      Type = "simple";
+      Restart = "always";
       ExecStart = "${pkgs.writeShellScript "openrgb-run" ''
         #!/run/current-system/sw/bin/bash
         ${pkgs.openrgb}/bin/openrgb --startminimized

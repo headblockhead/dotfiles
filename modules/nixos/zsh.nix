@@ -18,7 +18,7 @@
       plugins = [ "aws" "git" ];
     };
     shellInit = ''
-      source ~/dotfiles/oh-my-zsh/custom.zsh-theme
+      source ${../../custom.zsh-theme}
     '';
     shellAliases = {
       q = "exit";

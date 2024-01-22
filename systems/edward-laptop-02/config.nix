@@ -1,6 +1,7 @@
 { inputs, outputs, lib, config, pkgs, agenix, ... }:
+
 {
-  networking.hostName = "edward-laptop-01";
+  networking.hostName = "edward-laptop-02";
 
   imports = with outputs.nixosModules; [
     basicConfig
@@ -8,7 +9,6 @@
     cachesGlobal
     cachesLocal
     distributedBuilds
-    docker
     fileSystems
     firewall
     fonts
@@ -20,7 +20,6 @@
     printer
     qt
     sound
-    ssd
     ssh
     transmission
     users
@@ -61,7 +60,7 @@
     auto-optimise-store = true;
   };
 
-  # Extra packages to install.
+  # Extra packages to install
   environment.systemPackages = [
     agenix.packages.x86_64-linux.default
     pkgs.cachix
@@ -73,20 +72,6 @@
   # Grub settings.
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.gfxmodeEfi = "1920x1080x32";
-
-
-
-
-
-  boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot/efi";
-
-  # Do not sleep on lid close when docked/plugged in.
-  services.logind.extraConfig = ''
-    HandleLidSwitch=suspend
-    HandleLidSwitchExternalPower=ignore
-    HandleLidSwitchDocked=ignore
-  '';
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

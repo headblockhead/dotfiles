@@ -4,21 +4,10 @@
 }:
 {
   imports = with outputs.homeManagerModules; [
-    appsMinimal
-    appsUseful
-    appsExtra
     baseConfig
-    dconf
     fzf
     git
-    gnome
-    gnome-terminal
-    go
-    gtk-custom-bookmarks
-    gtk
     neovim
-    picosdk
-    playdatesdk
     terminalutils
     zsh
   ];
@@ -59,4 +48,3 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
-

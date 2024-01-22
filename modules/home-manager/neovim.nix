@@ -14,12 +14,21 @@ let
     };
 in
 {
+  systemd.user.tmpfiles.rules = [
+    "d /home/headb/.vim 700 headb users - -"
+    "d /home/headb/.vim/backup 700 headb users - -"
+    "d /home/headb/.vim/swap 700 headb users - -"
+    "d /home/headb/.vim/undo 700 headb users - -"
+    "L+ /home/headb/.config/nvim/lua - - - - /home/headb/dotfiles/neovim"
+  ];
+
   home.packages = with pkgs;
     [
       silver-searcher
       sumneko-lua-language-server
       nodePackages.prettier
       nixpkgs-fmt
+      wl-clipboard
       nil
     ];
   programs.neovim = {
@@ -94,8 +103,5 @@ in
       targets-vim # https://github.com/wellle/targets.vim
     ];
     extraConfig = "lua require('init')";
-    #      " Don't spill gopass secrets.
-    #      au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
-    #    '';
   };
 }

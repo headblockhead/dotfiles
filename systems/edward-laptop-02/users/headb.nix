@@ -1,13 +1,21 @@
-{ pkgs, ... }:
+{ outputs
+, pkgs
+, ...
+}:
 {
-
-  imports = [
-    ./modules/basehomemanagersettings.nix
-    ./modules/fzf.nix
-    ./modules/git.nix
-    ./modules/neovim.nix
-    ./modules/terminalutils.nix
-    ./modules/zsh.nix
+  imports = with outputs.homeManagerModules; [
+    appsMinimal
+    baseConfig
+    dconf
+    fzf
+    git
+    gnome
+    gnome-terminal
+    gtk-custom-bookmarks
+    gtk
+    neovim
+    terminalutils
+    zsh
   ];
 
   # Home Manager needs a bit of information about you and the
@@ -18,6 +26,20 @@
 
   home.packages = [
   ];
+
+  nixpkgs = {
+    overlays = [
+      outputs.overlays.additions
+      outputs.overlays.modifications
+      outputs.overlays.unstable-packages
+    ];
+    config = {
+      allowUnfree = true;
+    };
+  };
+
+  # Nicely reload system units when changing configs
+  systemd.user.startServices = "sd-switch";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -32,3 +54,4 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
+

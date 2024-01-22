@@ -1,33 +1,17 @@
-{ inputs, outputs, lib, config, pkgs, agenix, ... }:
+{ inputs, outputs, lib, config, agenix, ... }:
 {
-  networking.hostName = "edward-laptop-01";
+  networking.hostName = "barkup";
 
   imports = with outputs.nixosModules; [
     basicConfig
-    bluetooth
     cachesGlobal
-    cachesLocal
-    distributedBuilds
-    docker
-    fileSystems
     firewall
-    fonts
-    gnome
-    gpg
-    grub
-    homeManager
-    network
-    printer
-    qt
-    sound
-    ssd
+    minecraftServer
     ssh
-    transmission
     users
-    # wireguard
-    xserver
-    yubikey
     zsh
+
+    inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
   nixpkgs = {
@@ -64,29 +48,13 @@
   # Extra packages to install.
   environment.systemPackages = [
     agenix.packages.x86_64-linux.default
-    pkgs.cachix
-    pkgs.git
-    pkgs.vim
-    pkgs.deploy-rs
   ];
 
-  # Grub settings.
-  boot.loader.grub.useOSProber = true;
-  boot.loader.grub.gfxmodeEfi = "1920x1080x32";
+  # No root!
+  services.openssh.settings.PermitRootLogin = lib.mkForce "no";
 
-
-
-
-
-  boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot/efi";
-
-  # Do not sleep on lid close when docked/plugged in.
-  services.logind.extraConfig = ''
-    HandleLidSwitch=suspend
-    HandleLidSwitchExternalPower=ignore
-    HandleLidSwitchDocked=ignore
-  '';
-
+  # Passwordless sudo for wheel group.
+  security.sudo.wheelNeedsPassword = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -96,4 +64,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
 }
-

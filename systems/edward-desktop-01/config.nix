@@ -8,17 +8,16 @@
     basicConfig
     bluetooth
     cachesGlobal
-    cachesLocal
+    # cachesLocal
     distributedBuilds
     docker
     fileSystems
-    #    firewall
+    firewall
     fonts
     gnome
     gpg
     grub
     homeManager
-    # minecraftServer
     network
     openrgb
     printer
@@ -27,7 +26,6 @@
     sound
     ssd
     ssh
-    # systemd-boot
     transmission
     users
     # wireguard
@@ -64,9 +62,7 @@
       config.nix.registry;
 
   nix.settings = {
-    # Enable flakes and new 'nix' command
     experimental-features = "nix-command flakes";
-    # Deduplicate and optimize nix store
     auto-optimise-store = true;
   };
 
@@ -81,26 +77,13 @@
 
   # Grub settings.
   boot.loader.grub.useOSProber = true;
-  boot.loader.grub.gfxmodeEfi = "3840x2160x32";
-
-  networking.firewall.enable = lib.mkForce false;
-
-
-
-
-
+  boot.loader.grub.gfxmodeEfi = "1920x1080x32";
 
 
   # https://www.mankier.com/5/tmpfiles.d
   systemd.tmpfiles.rules = [
     ''C /run/gdm/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
   ];
-
-
-
-
-
-
 
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.enableExtensionPack = true;

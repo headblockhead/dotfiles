@@ -26,5 +26,11 @@ vim.cmd("set mouse=")
 vim.cmd("set undofile")
 vim.cmd("set swapfile")
 
+vim.cmd("set undodir^=$HOME/.vim/undo//")
+vim.cmd("set backupdir^=$HOME/.vim/backup//")
+vim.cmd("set directory^=$HOME/.vim/swap//")
+
+vim.cmd("au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile")
+
 -- Use system clipboard.
---vim.api.nvim_command('set clipboard+=unnamedplus')
+vim.api.nvim_command('set clipboard+=unnamedplus')
