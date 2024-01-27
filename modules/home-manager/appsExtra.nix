@@ -1,9 +1,9 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
+    blender
     furnace # chiptune tracker
     remmina
     zoom-us
-    blender
     fractal # matrix messenger
     musescore
     obs-studio

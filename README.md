@@ -248,5 +248,5 @@ echo not implementer
 ### Garbage-collect
 
 ```bash
-sudo nix-collect-garbage --quiet
+nix-collect-garbage --quiet
 ```

@@ -6,22 +6,7 @@
 
   # Hostname.
   networking = {
-    hostName = "nixospi";
-  };
-
-  nix = {
-    # Garbage collection for small SD cards.
-    settings.auto-optimise-store = true;
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
-    # Free up to 1GiB whenever there is less than 100MiB left.
-    extraOptions = ''
-      min-free = ${toString (100 * 1024 * 1024)}
-      max-free = ${toString (1024 * 1024 * 1024)}
-    '';
+    hostName = "rpi-cluster-01";
   };
 
   # Allow SSH from authorized keys.
@@ -46,6 +31,7 @@
     vim
     git
     wget
+    hello
   ];
 
   networking.firewall = {

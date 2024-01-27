@@ -75,6 +75,50 @@
     pkgs.deploy-rs
   ];
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  services.nfs.server.enable = true;
+  services.nfs.server.exports = ''
+    /nfs         *(rw,fsid=0,no_subtree_check)
+  '';
+  networking.firewall.allowedTCPPorts = [ 2049 ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   # Grub settings.
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.gfxmodeEfi = "1920x1080x32";

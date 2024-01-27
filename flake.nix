@@ -1,5 +1,5 @@
 {
-  description = "NixOS and Home Manager configurations for my homelab.";
+  description = "Reproducable configuration for all of my devices and gadgets. Now including netbooting!";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
@@ -129,20 +129,15 @@
         # Raspberry Pi cluster nodes.
         rpi-cluster-01 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; systemname = "rpi-cluster-01"; systemserial = "01-dc-a6-32-31-50-3b"; };
-          system = "x86_64-linux"; # Builder system
+          system = "aarch64-linux";
           modules = [
-            "${nixpkgs}/nixos/modules/installer/netboot/netboot-minimal.nix" # Netboot system - Kernel and ramdisk builds.
+            #            "${nixpkgs}/nixos/modules/installer/netboot/netboot-minimal.nix" # Netboot system - Kernel and ramdisk builds.
             ./systems/rpi-cluster/01.nix # This system's configuration
             ./systems/rpi-cluster/hardware.nix # Shared hardware configuration for Raspberry Pis
 
-            "${nixpkgs}/nixos/modules/profiles/base.nix" # Base system - various utilities.
+            #            "${nixpkgs}/nixos/modules/profiles/base.nix" # Base system - various utilities.
 
-            nixosModules.rpiTFTP
-
-            {
-              nixpkgs.config.allowUnsupportedSystem = true;
-              nixpkgs.crossSystem.system = "aarch64-linux"; # Target system
-            }
+            #            nixosModules.rpiTFTP
 
             agenix.nixosModules.default
           ];

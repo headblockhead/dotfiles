@@ -36,10 +36,10 @@ esac
   
   # https://github.com/ryanoasis/powerline-extra-symbols#glyphs
   
-  SEGMENT_SEPARATOR=$'\ue0b0' # Regular powerline
-  #SEGMENT_SEPARATOR=$'\ue0d1' # LEGO POWER
+  #SEGMENT_SEPARATOR=$'\ue0b0' # Regular powerline
+  #SEGMENT_SEPARATOR=$'\ue0d1' # LEGO
   #SEGMENT_SEPARATOR=$'\ue0b4' # Curves
-  #SEGMENT_SEPARATOR=$'\ue0cc' # hexagons
+  SEGMENT_SEPARATOR=$'\ue0cc' # hexagons
   #SEGMENT_SEPARATOR=$'\ue0c0' # fire
   #SEGMENT_SEPARATOR=$'\ue0c4' # small pixel blend
   #SEGMENT_SEPARATOR=$'\ue0c6' # large pixel blend
@@ -47,6 +47,18 @@ esac
   #SEGMENT_SEPARATOR=$'\ue0c8' # spikes
   #SEGMENT_SEPARATOR=$'\ue0b8' # -45deg 
   #SEGMENT_SEPARATOR=$'\ue0bc' # 45deg 
+  
+  SEGMENT_SEPARATOR_END=$'\ue0b0' # Regular powerline
+  #SEGMENT_SEPARATOR_END=$'\ue0d1' # LEGO
+  #SEGMENT_SEPARATOR_END=$'\ue0b4' # Curves
+  #SEGMENT_SEPARATOR_END=$'\ue0cc' # hexagons
+  #SEGMENT_SEPARATOR_END=$'\ue0c0' # fire
+  #SEGMENT_SEPARATOR_END=$'\ue0c4' # small pixel blend
+  #SEGMENT_SEPARATOR=_END$'\ue0c6' # large pixel blend
+  #SEGMENT_SEPARATOR_END=$'\ue0d2' # angles
+  #SEGMENT_SEPARATOR_END=$'\ue0c8' # spikes
+  #SEGMENT_SEPARATOR_END=$'\ue0b8' # -45deg 
+  #SEGMENT_SEPARATOR_END=$'\ue0bc' # 45deg 
 }
 
 # Begin a segment
@@ -68,7 +80,7 @@ prompt_segment() {
 # End the prompt, closing any open segments
 prompt_end() {
   if [[ -n $CURRENT_BG ]]; then
-    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR_END"
   else
     echo -n "%{%k%}"
   fi
@@ -169,7 +181,7 @@ prompt_git() {
 ## Main prompt
 build_prompt() {
   RETVAL=$?
-  prompt_time
+#  prompt_time
   prompt_status
   prompt_context
 #  prompt_commands
