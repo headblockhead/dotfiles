@@ -83,6 +83,15 @@
 
       nixosConfigurations = {
         # Network nodes.
+        router = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs agenix sshkey; };
+          modules = [
+            ./systems/router/config.nix
+            ./systems/router/hardware.nix
+
+            agenix.nixosModules.default
+          ];
+        };
 
         # Build nodes.
 

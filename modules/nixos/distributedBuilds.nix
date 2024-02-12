@@ -1,13 +1,13 @@
 {
   nix.buildMachines = [
     {
-      hostName = "compute-01";
+      hostName = "edward-desktop-01";
       system = "x86_64-linux";
       sshUser = "headb";
-      protocol = "ssh";
+      protocol = "ssh-ng";
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       mandatoryFeatures = [ ];
-      maxJobs = 8; # 8-Core CPU
+      maxJobs = 16;
       speedFactor = 10;
     }
   ];

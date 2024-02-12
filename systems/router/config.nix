@@ -1,37 +1,23 @@
 { inputs, outputs, lib, config, pkgs, agenix, ... }:
 
 {
-  networking.hostName = "edward-desktop-01";
+  networking.hostName = "router";
 
   imports = with outputs.nixosModules; [
-    adb
     basicConfig
-    bluetooth
     cachesGlobal
     cachesLocal
     distributedBuilds
     docker
     fileSystems
     firewall
-    fonts
-    gnome
     gpg
     grub
-    homeManager
     network
-    openrgb
-    printer
-    qt
-    sheepit
-    sound
     ssd
     ssh
-    transmission
     users
-    # wireguard
-    virtualBox
     xserver
-    yubikey
     zsh
   ];
 
@@ -74,15 +60,6 @@
     pkgs.git
     pkgs.vim
     pkgs.deploy-rs
-  ];
-
-  # Grub settings.
-  boot.loader.grub.useOSProber = true;
-  boot.loader.grub.gfxmodeEfi = "1920x1080x32";
-
-  # https://www.mankier.com/5/tmpfiles.d
-  systemd.tmpfiles.rules = [
-    ''C /run/gdm/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
   ];
 
   # This value determines the NixOS release from which the default

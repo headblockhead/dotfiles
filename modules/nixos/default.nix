@@ -27,6 +27,7 @@
   systemd-boot = import ./systemd-boot.nix;
   transmission = import ./transmission.nix;
   users = import ./users.nix;
+  virtualBox = import ./virtualBox.nix;
   wireguard = import ./wireguard.nix;
   xserver = import ./xserver.nix;
   yubikey = import ./yubikey.nix;

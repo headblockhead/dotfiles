@@ -74,10 +74,6 @@
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.gfxmodeEfi = "1920x1080x32";
 
-
-
-
-
   boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot/efi";
 
   # Do not sleep on lid close when docked/plugged in.
@@ -86,7 +82,6 @@
     HandleLidSwitchExternalPower=ignore
     HandleLidSwitchDocked=ignore
   '';
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
