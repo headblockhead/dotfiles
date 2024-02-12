@@ -108,8 +108,8 @@
         edward-laptop-01 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
-            ./systems/edwards-laptop/config.nix
-            ./systems/edwards-laptop/hardware.nix
+            ./systems/edward-laptop-01/config.nix
+            ./systems/edward-laptop-01/hardware.nix
 
             agenix.nixosModules.default
           ];
@@ -117,8 +117,8 @@
         edward-laptop-02 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
-            ./systems/edwards-laptop-2/config.nix
-            ./systems/edwards-laptop-2/hardware.nix
+            ./systems/edward-laptop-02/config.nix
+            ./systems/edward-laptop-02/hardware.nix
 
             agenix.nixosModules.default
           ];
