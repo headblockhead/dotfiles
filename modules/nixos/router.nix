@@ -11,13 +11,13 @@ in
   };
   networking.interfaces = {
     "${lan_port}" = {
-      ipv4.address = lib.mkOverride 0 [ ];
+      ipv4.addresses = lib.mkOverride 0 [ ];
     };
     "${wan_port}" = {
-      ipv4.address = lib.mkOverride 0 [ ];
+      ipv4.addresses = lib.mkOverride 0 [ ];
     };
     "${iot_port}" = {
-      ipv4.address = lib.mkOverride 0 [ ];
+      ipv4.addresses = lib.mkOverride 0 [ ];
     };
   };
   services.dnsmasq = lib.optionalAttrs config.services.hostapd.enable {

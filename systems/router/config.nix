@@ -11,7 +11,6 @@
     docker
     fileSystems
     gpg
-    grub
     network
     router # The main one!
     ssd
