@@ -10,7 +10,6 @@
     distributedBuilds
     docker
     fileSystems
-    firewall
     gpg
     grub
     network
