@@ -14,6 +14,7 @@
     gpg
     grub
     network
+    router # The main one!
     ssd
     ssh
     users
@@ -29,7 +30,6 @@
     ];
     config = {
       allowUnfree = true;
-      cudaSupport = true;
     };
   };
 
@@ -59,7 +59,6 @@
     pkgs.cachix
     pkgs.git
     pkgs.vim
-    pkgs.deploy-rs
   ];
 
   # This value determines the NixOS release from which the default

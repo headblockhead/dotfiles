@@ -18,6 +18,7 @@
   openrgb = import ./openrgb.nix;
   printer = import ./printer.nix;
   qt = import ./qt.nix;
+  router = import ./router.nix;
   rpiTFTP = import ./rpiTFTP.nix;
   rpiFirmware = import ./rpiFirmware.nix;
   sheepit = import ./sheepit.nix;
