@@ -24,30 +24,6 @@ in
   };
 
 
-  services.dhcpd4 = {
-    enable = true;
-    interfaces = [ "lan" "iot" ];
-    extraConfig = ''
-      option domain-name-servers 10.5.1.10, 1.1.1.1;
-      option subnet-mask 255.255.255.0;
-
-      subnet 192.168.20.0 netmask 255.255.255.0 {
-        option broadcast-address 192.168.20.255;
-        option routers 192.168.20.1;
-        interface lan;
-        range 192.168.20.128 192.168.20.254;
-      }
-
-      subnet 192.168.90.0 netmask 255.255.255.0 {
-        option broadcast-address 10.1.90.255;
-        option routers 192.168.90.1;
-        option domain-name-servers 10.1.1.10;
-        interface iot;
-        range 192.168.90.128 192.168.90.254;
-      }
-    '';
-  };
-
   networking = {
     useDHCP = false;
     nat.enable = false;
