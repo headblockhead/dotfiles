@@ -131,36 +131,36 @@ in
         interface = "${iot_port}";
       };
     };
-    environment.systemPackages = with pkgs; [
-      vim # my preferred editor
-      htop # to see the system load
-      ppp # for some manual debugging of pppd
-      ethtool # manage NIC settings (offload, NIC feeatures, ...)
-      tcpdump # view network traffic
-      conntrack-tools # view network connection states
-    ];
-    interfaces = {
-      # DHCP client on the WAN interface.
-      "${wan_port}".useDHCP = true;
-      # Don't request DHCP on the LAN and IOT interfaces.
-      "${lan_port}".useDHCP = false;
-      "${iot_port}".useDHCP = false;
+  };
+  interfaces = {
+    # DHCP client on the WAN interface.
+    "${wan_port}".useDHCP = true;
+    # Don't request DHCP on the LAN and IOT interfaces.
+    "${lan_port}".useDHCP = false;
+    "${iot_port}".useDHCP = false;
 
-      # Handle the VLANs
-      wan.useDHCP = true;
-      lan = {
-        ipv4.addresses = [{
-          address = "192.168.20.1";
-          prefixLength = 24;
-        }];
-      };
-      iot = {
-        ipv4.addresses = [{
-          address = "192.168.90.1";
-          prefixLength = 24;
-        }];
-      };
+    # Handle the VLANs
+    wan.useDHCP = true;
+    lan = {
+      ipv4.addresses = [{
+        address = "192.168.20.1";
+        prefixLength = 24;
+      }];
+    };
+    iot = {
+      ipv4.addresses = [{
+        address = "192.168.90.1";
+        prefixLength = 24;
+      }];
     };
   };
+  environment.systemPackages = with pkgs; [
+    vim # my preferred editor
+    htop # to see the system load
+    ppp # for some manual debugging of pppd
+    ethtool # manage NIC settings (offload, NIC feeatures, ...)
+    tcpdump # view network traffic
+    conntrack-tools # view network connection states
+  ];
 }
 
