@@ -11,7 +11,6 @@
     docker
     fileSystems
     gpg
-    network
     router # The main one!
     ssd
     ssh
