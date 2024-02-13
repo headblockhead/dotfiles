@@ -115,7 +115,7 @@ in
       '';
     };
     hostName = "router";
-    nameserver = [ "1.1.1.1" ];
+    nameservers = [ "1.1.1.1" ];
     # Define VLANS
     vlans = {
       wan = {
