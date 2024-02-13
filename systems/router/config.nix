@@ -15,7 +15,6 @@
     ssd
     ssh
     users
-    xserver
     zsh
   ];
 
