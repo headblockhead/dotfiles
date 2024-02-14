@@ -10,6 +10,7 @@
     cachesLocal
     distributedBuilds
     fileSystems
+    git
     homeManager
     router # The main one!
     ssd
