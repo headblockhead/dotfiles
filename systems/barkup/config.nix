@@ -6,6 +6,9 @@
     basicConfig
     cachesGlobal
     firewall
+    fzf
+    git
+    homeManager
     minecraftServer
     ssh
     users

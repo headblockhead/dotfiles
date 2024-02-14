@@ -1,25 +1,19 @@
 { outputs
-, pkgs
 , ...
 }:
 {
   imports = with outputs.homeManagerModules; [
-    appsMinimal
-    appsUseful
-    appsExtra
+    atticAutoPush
     baseConfig
     dconf
     fzf
     git
-    gnome
-    gnome-terminal
-    go
-    gtk-custom-bookmarks
+    gnomeTerminal
     gtk
+    nautilusBookmarks
     neovim
-    picosdk
-    playdatesdk
-    terminalutils
+    openrgb
+    vscode
     zsh
   ];
 

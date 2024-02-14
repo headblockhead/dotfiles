@@ -4,33 +4,31 @@
   networking.hostName = "edward-desktop-01";
 
   imports = with outputs.nixosModules; [
-    adb
     basicConfig
     bluetooth
+    bootloaderGraphical
     cachesGlobal
     cachesLocal
+    desktop
+    desktopApps
+    development
     distributedBuilds
     docker
     fileSystems
     firewall
-    fonts
-    gnome
+    fzf
+    git
     gpg
-    grub
     homeManager
     network
-    openrgb
     printer
-    qt
-    sheepit
     sound
     ssd
     ssh
     transmission
     users
-    # wireguard
     virtualBox
-    xserver
+    # wireguard
     yubikey
     zsh
   ];

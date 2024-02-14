@@ -6,12 +6,13 @@
       PermitRootLogin = "no";
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
-      X11Forwarding = true;
+      X11Forwarding = false;
     };
   };
 
   # Give headb access to the machine.
   users.users.headb.openssh.authorizedKeys.keys = [ sshkey ];
+
   # Expose the SSH port.
   networking.firewall.allowedTCPPorts = [ 22 ];
 

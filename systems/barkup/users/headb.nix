@@ -1,5 +1,4 @@
 { outputs
-, pkgs
 , ...
 }:
 {
@@ -8,7 +7,6 @@
     fzf
     git
     neovim
-    terminalutils
     zsh
   ];
 

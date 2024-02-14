@@ -5,12 +5,12 @@
 
   imports = with outputs.nixosModules; [
     basicConfig
+    bootloaderText
     cachesGlobal
     cachesLocal
     distributedBuilds
-    docker
     fileSystems
-    gpg
+    homeManager
     router # The main one!
     ssd
     ssh

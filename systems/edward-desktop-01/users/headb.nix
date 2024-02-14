@@ -1,28 +1,19 @@
 { outputs
-, pkgs
 , ...
 }:
 {
   imports = with outputs.homeManagerModules; [
-    appsMinimal
-    appsUseful
-    appsExtra
+    atticAutoPush
     baseConfig
     dconf
     fzf
     git
-    gnome
-    gnome-terminal
-    go
-    gtk-custom-bookmarks
+    gnomeTerminal
     gtk
+    nautilusBookmarks
     neovim
-    obinskit
     openrgb
-    picosdk
-    playdatesdk
-    terminalutils
-    unity
+    vscode
     zsh
   ];
 
@@ -33,8 +24,6 @@
   home.enableNixpkgsReleaseCheck = true;
 
   home.packages = [
-    pkgs.godot_4
-    pkgs.immersed
   ];
 
   nixpkgs = {
@@ -45,12 +34,6 @@
     ];
     config = {
       allowUnfree = true;
-
-      # Obsidian + ObinsKit use insecure electron versions
-      permittedInsecurePackages = [
-        "electron-25.9.0"
-        "electron-13.6.9"
-      ];
     };
   };
 

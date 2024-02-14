@@ -19,6 +19,8 @@
     };
     shellInit = ''
       source ${../../custom.zsh-theme}
+            export EDITOR='vim'
+        source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
     '';
     shellAliases = {
       q = "exit";

@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     blender
     furnace # chiptune tracker
     remmina
@@ -24,5 +24,16 @@
     prismlauncher
     clonehero
     mcpelauncher # Not in nixpkgs, defined by override in flake.nix (source: github.com/headblockhead/nix-mcpelauncher)
+
+    firefox
+
+    google-chrome
+    discord
+    vlc
+    spotify
+    thunderbird
+    libreoffice
+    # obsidian # uses electron-25.9.0, outdated :(
+    audacity
   ];
 }

@@ -1,6 +1,31 @@
 { pkgs, lib, ... }: {
-  # GNOME configuration.
-  programs.dconf.enable = true;
+  services.xserver = {
+    enable = true;
+    displayManager = {
+      gdm = {
+        enable = true;
+        autoSuspend = false;
+      };
+    };
+    desktopManager.gnome = {
+      enable = true;
+
+    };
+  };
+
+  # Touchpad/touchscreen support.
+  services.xserver.libinput.enable = true;
+
+  # Exclude certain xserver packages.
+  services.xserver.excludePackages = [ pkgs.xterm ];
+
+  environment.systemPackages = with pkgs; [
+    xorg.xhost
+    gnomeExtensions.appindicator # Tray icons
+  ];
+
+  # GNOME terminal - replaces the console.
+  programs.gnome-terminal.enable = true;
 
   services.gnome.gnome-keyring.enable = lib.mkForce false; # Dont mess with SSH_AUTH_SOCK
 
@@ -29,4 +54,23 @@
   services.udev.packages = with pkgs; [
     gnome.gnome-settings-daemon
   ];
+
+  environment.sessionVariables = {
+    QT_STYLE_OVERRIDE = "adwaita-dark";
+  };
+
+  qt.style = "adwaita-dark";
+
+  # Symlink fonts into /run/current-system/sw/share/X11/fonts
+  fonts.fontDir.enable = true;
+
+  # Install fonts
+  fonts.packages = with pkgs; [
+    powerline
+    ubuntu_font_family
+    nerdfonts
+    ibm-plex
+    source-code-pro
+  ];
+
 }

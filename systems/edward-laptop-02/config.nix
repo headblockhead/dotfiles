@@ -6,25 +6,25 @@
   imports = with outputs.nixosModules; [
     basicConfig
     bluetooth
+    bootloaderGraphical
     cachesGlobal
     cachesLocal
+    desktop
+    desktopApps
     distributedBuilds
     fileSystems
     firewall
-    fonts
-    gnome
+    fzf
+    git
     gpg
-    grub
     homeManager
     network
     printer
-    qt
     sound
+    ssd
     ssh
-    transmission
     users
     # wireguard
-    xserver
     yubikey
     zsh
   ];
