@@ -52,9 +52,7 @@
   # Extra packages to install
   environment.systemPackages = [
     agenix.packages.x86_64-linux.default
-    pkgs.cachix
-    pkgs.git
-    pkgs.vim
+    pkgs.xc
   ];
 
   # This value determines the NixOS release from which the default

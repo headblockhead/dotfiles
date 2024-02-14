@@ -66,15 +66,12 @@
   # Extra packages to install.
   environment.systemPackages = [
     agenix.packages.x86_64-linux.default
-    pkgs.cachix
-    pkgs.git
-    pkgs.vim
-    pkgs.deploy-rs
+    pkgs.xc
   ];
 
   # Grub settings.
   boot.loader.grub.useOSProber = true;
-  boot.loader.grub.gfxmodeEfi = "1920x1080x32";
+  boot.loader.grub.gfxmodeEfi = "1600x900x32";
 
   boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot/efi";
 
