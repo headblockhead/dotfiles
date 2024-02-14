@@ -13,7 +13,6 @@
     nautilusBookmarks
     neovim
     openrgb
-    vscode
     zsh
   ];
 

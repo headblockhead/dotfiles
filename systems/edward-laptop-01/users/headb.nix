@@ -12,8 +12,6 @@
     gtk
     nautilusBookmarks
     neovim
-    openrgb
-    vscode
     zsh
   ];
 
