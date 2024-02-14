@@ -93,8 +93,6 @@
           ];
         };
 
-        # Build nodes.
-
         # Client nodes.
         edward-desktop-01 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
@@ -165,8 +163,13 @@
       netboot.rpi-cluster-01.rpiTFTP = nixosConfigurations.rpi-cluster-01.config.system.build.rpiTFTP;
 
       homeConfigurations = {
-        "headb@edward-desktop-01" = home-manager.lib.homeManagerConfiguration {
+        "headb@router" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./systems/router/users/headb.nix ];
+        };
+        "headb@edward-desktop-01" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./systems/edward-desktop-01/users/headb.nix ];
         };
