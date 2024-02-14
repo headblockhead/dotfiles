@@ -1,4 +1,4 @@
-{ inputs, outputs, lib, config, agenix, ... }:
+{ inputs, outputs, lib, config, agenix, pkgs, ... }:
 {
   networking.hostName = "barkup";
 
@@ -51,6 +51,7 @@
   # Extra packages to install.
   environment.systemPackages = [
     agenix.packages.x86_64-linux.default
+    pkgs.xc
   ];
 
   # No root!
