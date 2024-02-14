@@ -11,7 +11,7 @@
     };
     # Enable plymouth for boot animations
     plymouth = { enable = false; };
-    consoleLogLevel = "info";
+    consoleLogLevel = 6; # informational
     initrd = { verbose = true; };
   };
 }
