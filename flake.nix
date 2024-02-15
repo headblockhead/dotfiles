@@ -127,6 +127,9 @@
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
+            {
+              nixpkgs.hostPlatform = "x86_64-linux";
+            }
             ./systems/barkup/config.nix
 
             agenix.nixosModules.default
