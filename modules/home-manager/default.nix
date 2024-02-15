@@ -1,5 +1,4 @@
 {
-  atticAutoPush = import ./atticAutoPush.nix;
   baseConfig = import ./baseConfig.nix;
   dconf = import ./dconf.nix;
   fzf = import ./fzf.nix;

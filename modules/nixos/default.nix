@@ -1,4 +1,5 @@
 {
+  atticAutoPush = import ./atticAutoPush.nix;
   basicConfig = import ./basicConfig.nix;
   bluetooth = import ./bluetooth.nix;
   bootloaderGraphical = import ./bootloaderGraphical.nix;

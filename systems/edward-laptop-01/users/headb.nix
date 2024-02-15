@@ -3,7 +3,6 @@
 }:
 {
   imports = with outputs.homeManagerModules; [
-    atticAutoPush
     baseConfig
     dconf
     fzf
