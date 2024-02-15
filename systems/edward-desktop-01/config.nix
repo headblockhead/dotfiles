@@ -4,7 +4,6 @@
   networking.hostName = "edward-desktop-01";
 
   imports = with outputs.nixosModules; [
-    atticAutoPush
     basicConfig
     bluetooth
     bootloaderGraphical

@@ -13,7 +13,7 @@
       url = "github:serokell/deploy-rs";
     };
     nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
+      url = "github:Infinidoge/nix-minecraft/a206a57f11acea07538b341c56dd9edd1c6f1193";
     };
     agenix = {
       url = "github:ryantm/agenix";
@@ -127,9 +127,6 @@
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
-            {
-              nixpkgs.hostPlatform = "x86_64-linux";
-            }
             ./systems/barkup/config.nix
 
             agenix.nixosModules.default

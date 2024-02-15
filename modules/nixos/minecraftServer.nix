@@ -9,7 +9,7 @@
     servers.barkup = {
       enable = true;
       restart = "no";
-      jvmOpts = "-Xms6144M -Xmx6144M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20";
+      #     jvmOpts = "-Xms6144M -Xmx6144M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20";
       package = pkgs.quiltServers.quilt-1_20_1;
       symlinks = {
         mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
@@ -54,8 +54,10 @@
             sha256 = "j1AJxJF/4sfYSJHie5R10c8J12BWwCgFRZY6Q6g9gKw=";
           };
           QuiltedFabricAPI = pkgs.fetchurl {
-            url = "https://cdn.modrinth.com/data/qvIfYCYJ/versions/GjvWb8WQ/qfapi-7.4.0_qsl-6.1.2_fapi-0.90.0_mc-1.20.1.jar";
-            sha256 = "9Gq5U12jUuSOc9F2h8vdLt4JeGIo16v32ZRp26PAJ3A=";
+            #            url = "https://cdn.modrinth.com/data/qvIfYCYJ/versions/GjvWb8WQ/qfapi-7.4.0_qsl-6.1.2_fapi-0.90.0_mc-1.20.1.jar";
+            url = "https://cdn.modrinth.com/data/qvIfYCYJ/versions/qAYOU2Af/qfapi-7.5.0_qsl-6.1.2_fapi-0.91.0_mc-1.20.1.jar";
+            #            sha256 = "9Gq5U12jUuSOc9F2h8vdLt4JeGIo16v32ZRp26PAJ3A=";
+            sha256 = "lh1jwyTCQ4rRN1uD+O8la5tSKZP+pHixyixUo7OfH8k=";
           };
           Spark = pkgs.fetchurl {
             url = "https://cdn.modrinth.com/data/l6YH9Als/versions/XGW2fviP/spark-1.10.53-fabric.jar";

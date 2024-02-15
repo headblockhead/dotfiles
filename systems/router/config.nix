@@ -12,12 +12,15 @@
     fileSystems
     git
     homeManager
+    minecraftServer
     router # The main one!
     ssd
     ssh
     users
     zsh
     inputs.attic.nixosModules.atticd
+
+    inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
   services.atticd = {
@@ -59,6 +62,8 @@
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
+
+      inputs.nix-minecraft.overlay
     ];
     config = {
       allowUnfree = true;
