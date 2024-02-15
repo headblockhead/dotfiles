@@ -248,6 +248,5 @@ echo not implementer
 ### Garbage-collect
 
 ```bash
-rm $HOME/.cache/nix/binary-cache-v*.sqlite # Removes the cache of what is in and not in diferent substituters
 nix-collect-garbage --quiet
 ```
