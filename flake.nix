@@ -128,6 +128,9 @@
           modules = [
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
             ./systems/barkup/config.nix
+            {
+              nixpkgs.hostPlatform = "x86_64-linux";
+            }
 
             agenix.nixosModules.default
           ];
