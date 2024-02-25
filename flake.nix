@@ -136,34 +136,26 @@
           ];
         };
 
-        # Raspberry Pi cluster nodes.
-        rpi-cluster-01 = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs agenix sshkey; systemname = "rpi-cluster-01"; systemserial = "01-dc-a6-32-31-50-3b"; };
-          system = "aarch64-linux";
-          modules = [
-            #            "${nixpkgs}/nixos/modules/installer/netboot/netboot-minimal.nix" # Netboot system - Kernel and ramdisk builds.
-            ./systems/rpi-cluster/01.nix # This system's configuration
-            ./systems/rpi-cluster/hardware.nix # Shared hardware configuration for Raspberry Pis
+        #        # Raspberry Pi cluster nodes. These are netbooted.
+        #rpi-cluster-01 = nixpkgs.lib.nixosSystem {
+        #specialArgs = {
+        #inherit inputs outputs agenix sshkey;
+        #systemname = "rpi-cluster-01";
+        #systemserial = "01-dc-a6-32-31-50-3b";
+        #};
+        #system = "aarch64-linux";
+        #modules = [
+        #./systems/rpi-cluster/01.nix # This system's configuration
+        #./systems/rpi-cluster/hardware.nix # Shared hardware configuration for Raspberry Pis
 
-            #            "${nixpkgs}/nixos/modules/profiles/base.nix" # Base system - various utilities.
-
-            #            nixosModules.rpiTFTP
-
-            agenix.nixosModules.default
-          ];
-        };
+        #inputs.rpinetboot.nixosModules.rpi4Client # Netbooting configuration for Raspberry Pi 4
+        #agenix.nixosModules.default
+        #];
+        #};
       };
-
-      deploy.nodes.edward-laptop-01.profiles.system = {
-        user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.edward-laptop-01;
-      };
-
-      # This is highly advised, and will prevent many possible mistakes
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
 
       # Netboot outputs.
-      netboot.rpi-cluster-01.rpiTFTP = nixosConfigurations.rpi-cluster-01.config.system.build.rpiTFTP;
+      #       netboot.rpi-cluster-01.rpiTFTP = nixosConfigurations.rpi-cluster-01.config.system.build.rpiTFTP;
 
       homeConfigurations = {
         "headb@router" = home-manager.lib.homeManagerConfiguration {
