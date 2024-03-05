@@ -3,6 +3,7 @@
     blender
     furnace # chiptune tracker
     remmina
+    kicad
     zoom-us
     fractal # matrix messenger
     musescore

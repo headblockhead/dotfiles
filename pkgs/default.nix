@@ -29,4 +29,5 @@
     qmake = pkgs.qt5.qmake;
   };
   templ = inputs.templ.packages.x86_64-linux.default;
+  kicad = inputs.kicadpkgs.legacyPackages.x86_64-linux.kicad;
 }
