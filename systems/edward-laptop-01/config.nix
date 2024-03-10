@@ -10,10 +10,7 @@
     cachesGlobal
     cachesLocal
     desktop
-    desktopApps
-    development
     distributedBuilds
-    docker
     fileSystems
     firewall
     fzf
@@ -28,7 +25,6 @@
     transmission
     users
     virtualBox
-    # wireguard
     yubikey
     zsh
   ];
@@ -68,6 +64,10 @@
   environment.systemPackages = [
     agenix.packages.x86_64-linux.default
     pkgs.xc
+
+    pkgs.firefox
+    pkgs.tor-browser-bundle-bin
+    pkgs.musescore
   ];
 
   # Grub settings.

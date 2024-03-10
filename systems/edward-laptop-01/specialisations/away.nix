@@ -9,6 +9,7 @@
       services.openssh.enable = lib.mkForce false;
       networking.firewall.allowedTCPPorts = lib.mkForce [ ];
       networking.firewall.allowedUDPPorts = lib.mkForce [ ];
+      services.logind.extraConfig = lib.mkForce "";
     };
   };
 }
