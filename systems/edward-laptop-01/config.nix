@@ -73,8 +73,6 @@
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.gfxmodeEfi = "1600x900x32";
 
-  boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot/efi";
-
   # Do not sleep on lid close when docked/plugged in.
   services.logind.extraConfig = ''
     HandleLidSwitch=suspend
