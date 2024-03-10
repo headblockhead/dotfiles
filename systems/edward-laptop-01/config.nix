@@ -10,6 +10,7 @@
     cachesGlobal
     cachesLocal
     desktop
+    development
     distributedBuilds
     fileSystems
     firewall
