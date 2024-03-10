@@ -110,6 +110,8 @@
             ./systems/edward-laptop-01/config.nix
             ./systems/edward-laptop-01/hardware.nix
 
+            ./systems/edward-laptop-01/specialisations/away.nix
+
             agenix.nixosModules.default
           ];
         };
