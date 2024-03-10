@@ -24,7 +24,6 @@
     ssh
     transmission
     users
-    virtualBox
     yubikey
     zsh
   ];
