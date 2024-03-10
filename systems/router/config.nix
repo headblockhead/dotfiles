@@ -28,6 +28,16 @@
     secretKeyFile = "/var/cache-priv-key.pem";
   };
 
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    virtualHosts = {
+      "h6cache.lan" = {
+        locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
+      };
+    };
+  };
+
   nixpkgs = {
     overlays = [
       outputs.overlays.additions
