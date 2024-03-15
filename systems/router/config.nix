@@ -18,7 +18,6 @@
     ssh
     users
     zsh
-    inputs.attic.nixosModules.atticd
 
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];

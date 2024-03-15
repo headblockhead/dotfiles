@@ -7,5 +7,4 @@ in
   "wireguard-public-key.age".publicKeys = [ headb compute-01 edwards-laptop ];
   "wireguard-private-key.age".publicKeys = [ headb compute-01 edwards-laptop ];
   "monero-address.age".publicKeys = [ headb compute-01 edwards-laptop ];
-  "attic-token.age".publicKeys = [ headb compute-01 edwards-laptop ];
 }

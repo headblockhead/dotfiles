@@ -15,7 +15,7 @@
     gimp
     transgui
     monero-gui
-    rpi-imager
+    unstable.rpi-imager
     lmms
     arduino
     thonny

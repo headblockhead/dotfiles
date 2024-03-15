@@ -1,7 +1,6 @@
 # Custom packages, that can be defined similarly to ones from nixpkgs
 # You can build them using 'nix build .#example'
 { pkgs, inputs }: {
-  attic = inputs.attic.packages.x86_64-linux.default;
   immersed = pkgs.callPackage ../custom-packages/immersed-vr.nix { };
   alvr = pkgs.callPackage ../custom-packages/alvr.nix { };
   prismlauncher = inputs.prismlauncher.packages.x86_64-linux.prismlauncher;
