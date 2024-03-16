@@ -105,6 +105,7 @@ in
         "bc:f4:d4:82:6f:a9,192.168.1.6,edward-desktop-01"
         "34:02:86:2b:84:c3,192.168.1.5,edward-laptop-01"
         "d8:3a:dd:97:a9:c4,192.168.1.100,homeassistant"
+        "4c:b9:ea:5a:4f:03,192.168.1.102,scuttlebug"
       ];
     };
   };
