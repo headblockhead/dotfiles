@@ -90,7 +90,7 @@ in
       #local = "/lan/"; # Fill requests 
 
       # Custom DHCP options
-      dhcp-range = [ "192.168.1.100,192.168.1.250,12h" ]; # Assign IPs to clients between 192.168.1.100 and 192.168.1.250. Leases last 12 hours.
+      dhcp-range = [ "192.168.1.2,192.168.1.254,12h" ]; # Assign IPs to clients between 192.168.1.100 and 192.168.1.250. Leases last 12 hours.
       dhcp-option = [ "option:router,192.168.1.1" "option:dns-server,192.168.1.1" ]; # Tell DHCP clients who the router and DNS server in the network are.
 
       # This is the only DHCP server, so we can read DHCP requests from unknown hosts/leases and add their lease to the database. This means that if the database is deleted, it can be rebuilt without requiring all clients to get a new lease!
@@ -101,7 +101,9 @@ in
 
       # Custom static IPs
       dhcp-host = [
-        "a8:13:74:17:b6:18,192.168.1.101" # Hesketh-TV
+        "a8:13:74:17:b6:18,192.168.1.101,hesketh-tv"
+        "bc:f4:d4:82:6f:a9,192.168.1.6,edward-desktop-01"
+        "34:02:86:2b:84:c3,192.168.1.5,edward-laptop-01"
       ];
     };
   };
