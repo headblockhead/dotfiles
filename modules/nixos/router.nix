@@ -98,6 +98,11 @@ in
 
       # Manual hostnames to always resolve to a specific IP, and never lookup on upstream servers.
       address = "/router.lan/192.168.1.1";
+
+      # Custom static IPs
+      dhcp-host = [
+        "a8:13:74:17:b6:18,192.168.1.101" # Hesketh-TV
+      ];
     };
   };
 }
