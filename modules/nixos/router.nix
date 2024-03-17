@@ -36,38 +36,41 @@ in
     nftables = {
       enable = true;
       ruleset = ''
-               table ip filter {
-                 chain input {
-                   type filter hook input priority 0; policy drop;
+        table ip filter {
+            chain input {
+                type filter hook input priority 0; policy drop;
 
-                   iifname { "${lan_port}" } accept comment "Allow local network to access the router"
-                   iifname "${wan_port}" ct state { established, related } accept comment "Allow established traffic"
-                   iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept comment "Allow select ICMP"
-                   iifname "${wan_port}" counter drop comment "Drop all other unsolicited traffic from wan"
-                   iifname "lo" accept comment "Accept everything from loopback interface"
-                 }
-        chain forward {
-               type filter hook forward priority 0; policy drop;
-               iifname { "${lan_port}" } oifname { "${wan_port}" } accept comment "Allow trusted LAN to WAN"
-               iifname { "${wan_port}" } oifname { "${lan_port}" } ct state { established, related } accept comment "Allow established back to LANs"
-             }
-               }
+                iifname { "${lan_port}" } accept comment "Allow local network to access the router"
+                iifname "${wan_port}" ct state { established, related } accept comment "Allow established traffic"
+                iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept comment "Allow select ICMP"
+                iifname "${wan_port}" counter drop comment "Drop all other unsolicited traffic from wan"
+                iifname "lo" accept comment "Accept everything from loopback interface"
+            }
+            chain forward {
+                type filter hook forward priority 0; policy drop;
+                iifname { "${lan_port}" } oifname { "${wan_port}" } accept comment "Allow trusted LAN to WAN"
+                iifname { "${wan_port}" } oifname { "${lan_port}" } ct state { established, related } accept comment "Allow established back to LANs"
+            }
+        }
 
-               table ip nat {
-                 chain postrouting {
-                   type nat hook postrouting priority 100; policy accept;
-                   oifname "${wan_port}" masquerade
-                 }
-               }
+        table ip nat {
+            chain prerouting {
+                iifname "${wan_port}" tcp dport { 8123 } dnat to 192.168.1.100
+            }
+            chain postrouting {
+                type nat hook postrouting priority 100; policy accept;
+                oifname "${wan_port}" masquerade
+            }
+        }
 
         table ip6 filter {
-             chain input {
-               type filter hook input priority 0; policy drop;
-             }
-             chain forward {
-               type filter hook forward priority 0; policy drop;
-             }
-           }
+            chain input {
+                type filter hook input priority 0; policy drop;
+            }
+            chain forward {
+                type filter hook forward priority 0; policy drop;
+            }
+        }
       '';
     };
   };
