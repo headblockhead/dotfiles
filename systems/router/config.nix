@@ -22,16 +22,24 @@
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
+  services.prometheus = {
+    enable = true;
+    exporters.snmp = {
+      enable = true;
+      configuration = {
+        default = {
+          auth = {
+            community = "public";
+          };
+          version = 2;
+        };
+      };
+    };
+  };
+
   services.nix-serve = {
     enable = true;
     secretKeyFile = "/var/cache-priv-key.pem";
-  };
-
-  services.unifi = {
-    enable = true;
-    unifiPackage = pkgs.unifi7;
-    maximumJavaHeapSize = 256;
-    openFirewall = true;
   };
 
   services.nginx = {
@@ -41,13 +49,6 @@
       "h6cache.lan" = {
         locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
       };
-      "unifi.lan".extraConfig = ''
-        reverse_proxy localhost:8443 {
-          transport http {
-            tls_insecure_skip_verify
-          }
-        }
-      '';
     };
   };
 
