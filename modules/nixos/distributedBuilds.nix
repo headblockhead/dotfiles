@@ -23,6 +23,7 @@ in
       hostName = "edward-desktop-01";
       system = "x86_64-linux";
       sshUser = "nixbuilder";
+      sshKey = "/etc/ssh/ssh_host_ed25519_key";
       protocol = "ssh-ng";
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       mandatoryFeatures = [ ];
