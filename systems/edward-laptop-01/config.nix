@@ -12,7 +12,7 @@
     development
     distributedBuilds
     fileSystems
-    firewall
+    #    firewall
     fzf
     git
     gpg
@@ -27,6 +27,7 @@
     yubikey
     zsh
   ];
+  networking.firewall.enable = lib.mkForce false;
 
   nixpkgs = {
     overlays = [
