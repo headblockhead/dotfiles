@@ -28,6 +28,14 @@
     internalIPs = [ "enp5s0" "enp8s0" ];
   };
 
+  services.unifi = {
+    # Port 8443
+    enable = true;
+    #    unifiPackage = pkgs.unifi7;
+    maximumJavaHeapSize = 256;
+    openFirewall = true;
+  };
+
   services.nix-serve = {
     enable = true;
     secretKeyFile = "/var/cache-priv-key.pem";
