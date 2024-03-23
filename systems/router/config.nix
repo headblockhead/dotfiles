@@ -22,21 +22,6 @@
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
-  services.prometheus = {
-    enable = true;
-    exporters.snmp = {
-      enable = true;
-      configuration = {
-        default = {
-          auth = {
-            community = "public";
-          };
-          version = 2;
-        };
-      };
-    };
-  };
-
   services.nix-serve = {
     enable = true;
     secretKeyFile = "/var/cache-priv-key.pem";
