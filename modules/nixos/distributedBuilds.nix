@@ -1,6 +1,6 @@
 let
   # Computer specific keys:
-  router-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOs2G2Yt7+A53v5tymBcbAlWnT9tLZYNSW+XGqZU6ITh root@compute-01'';
+  router-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMoZzxPyZchkHOi09galHyLGiUJmLiszU0UuCUoNd1SZ root@router'';
   edward-desktop-01-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOs2G2Yt7+A53v5tymBcbAlWnT9tLZYNSW+XGqZU6ITh root@compute-01'';
   edward-laptop-01-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPBWF9ZjOUV1LMZSposuKpkaxGLetwwp5UzFOBU/bU7P root@edward-laptop-01'';
   edward-laptop-02-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOs2G2Yt7+A53v5tymBcbAlWnT9tLZYNSW+XGqZU6ITh root@compute-01'';
