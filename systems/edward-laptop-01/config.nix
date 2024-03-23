@@ -68,6 +68,8 @@
     pkgs.firefox
     pkgs.tor-browser-bundle-bin
     pkgs.musescore
+    pkgs.audacity
+    pkgs.vlc
   ];
 
   # Grub settings.
