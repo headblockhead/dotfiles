@@ -27,6 +27,7 @@
     externalInterface = "enp4s0";
     internalIPs = [ "enp5s0" "enp8s0" ];
   };
+
   services.nix-serve = {
     enable = true;
     secretKeyFile = "/var/cache-priv-key.pem";
