@@ -70,6 +70,7 @@
     pkgs.musescore
     pkgs.audacity
     pkgs.vlc
+    pkgs.x32edit
   ];
 
   # Grub settings.
