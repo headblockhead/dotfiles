@@ -22,7 +22,6 @@
     sound
     ssd
     ssh
-    transmission
     users
     yubikey
     zsh
