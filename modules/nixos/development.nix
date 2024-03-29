@@ -9,17 +9,12 @@
     bat
     cargo
     ccls
-    ccls
-    cmake
     cmake
     cmatrix
     ec2-ami-tools
     flyctl
     gcc
-    gcc
     gcc-arm-embedded
-    gcc-arm-embedded
-    gnumake
     gnumake
     go
     gopass

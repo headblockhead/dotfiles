@@ -66,11 +66,7 @@
 
   # Install fonts
   fonts.packages = with pkgs; [
-    powerline
-    ubuntu_font_family
-    nerdfonts
-    ibm-plex
-    source-code-pro
+    (nerdfonts.override { fonts = [ "SourceCodePro" ]; })
   ];
 
 }

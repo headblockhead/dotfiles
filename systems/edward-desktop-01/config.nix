@@ -16,6 +16,7 @@
     docker
     fileSystems
     firewall
+    fonts
     fzf
     git
     gpg

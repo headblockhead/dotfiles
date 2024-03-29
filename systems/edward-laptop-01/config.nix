@@ -7,12 +7,12 @@
     bluetooth
     bootloaderGraphical
     cachesGlobal
-    cachesLocal
+    #cachesLocal
     desktop
-    development
+    #development
     distributedBuilds
     fileSystems
-    #    firewall
+    #firewall
     fzf
     git
     gpg
@@ -23,7 +23,6 @@
     ssd
     ssh
     users
-    yubikey
     zsh
   ];
   networking.firewall.enable = lib.mkForce false;
@@ -68,8 +67,10 @@
     pkgs.tor-browser-bundle-bin
     pkgs.musescore
     pkgs.audacity
+    pkgs.ardour
     pkgs.vlc
     pkgs.x32edit
+    pkgs.p7zip
   ];
 
   # Grub settings.
