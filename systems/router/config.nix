@@ -23,7 +23,6 @@
   ];
 
   boot.kernelModules = [ "ip_tables" ];
-  boot.availableKernelModules = [ "ip_tables" ];
   services.miniupnpd = {
     enable = true;
     externalInterface = "enp4s0";
