@@ -29,8 +29,15 @@
     internalIPs = [ "enp5s0" "enp8s0" ];
   };
 
-  services.snapserver.enable = true;
-
+  services.snapserver = {
+    enable = true;
+    streams."spotify" = {
+      enable = true;
+      stream = "spotify";
+      name = "Spotify";
+      volume = 100;
+    };
+  };
 
   services.unifi = {
     # Port 8443
