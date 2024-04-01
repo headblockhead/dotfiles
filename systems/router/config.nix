@@ -37,6 +37,9 @@
         sampleFormat = "48000:16:2";
         codec = "flac";
       };
+      Librespot = {
+        location = "${pkgs.librespot}/bin/librespot";
+      };
     };
   };
 
