@@ -38,6 +38,7 @@
         codec = "flac";
       };
       Librespot = {
+        type = "librespot";
         location = "${pkgs.librespot}/bin/librespot";
       };
     };
