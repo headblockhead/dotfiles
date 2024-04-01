@@ -31,9 +31,11 @@
 
   services.snapserver = {
     enable = true;
-    streams."spotify" = {
-      type = "spotify";
-      location = "/Spotify";
+    streams = {
+      Radio = {
+        location = "/tmp/snapfifo";
+        sampleFormat = "48000:16:2";
+      };
     };
   };
 
