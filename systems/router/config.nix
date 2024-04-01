@@ -35,6 +35,7 @@
       Radio = {
         location = "/tmp/snapfifo";
         sampleFormat = "48000:16:2";
+        codec = "flac";
       };
     };
   };
