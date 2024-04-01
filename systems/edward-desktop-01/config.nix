@@ -34,6 +34,8 @@
     zsh
   ];
 
+  nix.distributedBuilds = lib.mkForce false;
+
   nixpkgs = {
     overlays = [
       outputs.overlays.additions
