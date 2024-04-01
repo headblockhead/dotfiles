@@ -29,12 +29,14 @@
     internalIPs = [ "enp5s0" "enp8s0" ];
   };
 
+  services.snapserver.enable = true;
+
+
   services.unifi = {
     # Port 8443
     enable = true;
     unifiPackage = pkgs.unifi7;
     maximumJavaHeapSize = 256;
-    openFirewall = true;
   };
 
   services.nix-serve = {
