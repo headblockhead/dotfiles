@@ -32,10 +32,8 @@
   services.snapserver = {
     enable = true;
     streams."spotify" = {
-      enable = true;
-      stream = "spotify";
-      name = "Spotify";
-      volume = 100;
+      type = "spotify";
+      location = "/Spotify";
     };
   };
 
