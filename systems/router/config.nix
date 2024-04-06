@@ -22,21 +22,14 @@
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
-  boot.kernelModules = [ "ip_tables" ];
-  services.miniupnpd = {
-    enable = true;
-    externalInterface = "enp4s0";
-    internalIPs = [ "enp5s0" "enp8s0" ];
-  };
-
   services.snapserver = {
     enable = true;
+    http = {
+      enable = true;
+      port = 1780;
+      docRoot = "/var/www";
+    };
     streams = {
-      Radio = {
-        location = "/tmp/snapfifo";
-        sampleFormat = "48000:16:2";
-        codec = "flac";
-      };
       Librespot = {
         type = "librespot";
         location = "${pkgs.librespot}/bin/librespot";
@@ -45,7 +38,6 @@
   };
 
   services.unifi = {
-    # Port 8443
     enable = true;
     unifiPackage = pkgs.unifi7;
     maximumJavaHeapSize = 256;
