@@ -1,5 +1,11 @@
 { inputs, outputs, lib, config, pkgs, agenix, ... }:
-
+let
+  snapweb = pkgs.fetchzip {
+    url = "https://github.com/badaix/snapweb/releases/download/v0.7.0/snapweb.zip";
+    hash = "sha256-lyUmEgmyOvg4W19ruu6DwoeK8+Xs7akCMQlfIDo1OXA=";
+    stripRoot = false; # Flat list of files
+  };
+in
 {
   networking.hostName = "router";
 
@@ -22,18 +28,35 @@
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
+  services.avahi = {
+    enable = true;
+    #    allowInterfaces = [ "enp5s0" "enp4s0" ];
+    publish = {
+      enable = true;
+      workstation = true;
+      userServices = true;
+    };
+  };
+
   services.snapserver = {
     enable = true;
     http = {
       enable = true;
       port = 1780;
-      docRoot = "/var/www";
+      docRoot = snapweb;
     };
     streams = {
-      Librespot = {
-        type = "librespot";
+      "Spotify" = {
+        type = "process";
         location = "${pkgs.librespot}/bin/librespot";
+        query = {
+          params = "--zeroconf-port=5354 --name House --bitrate 320 --backend pipe --initial-volume 100 --verbose";
+        };
       };
+      #Librespot = {
+      #  type = "librespot";
+      #  location = "${pkgs.librespot}/bin/librespot";
+      #};
     };
   };
 

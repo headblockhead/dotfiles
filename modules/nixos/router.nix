@@ -43,6 +43,13 @@ in
             iifname "${lan_port}" accept comment "Allow LAN to router"
             iifname "${wan_port}" ct state { established, related } accept comment "Allow established WAN"
             iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept comment "Allow some ICMP from WAN"
+
+            iifname "${wan_port}" udp dport mdns accept
+            iifname "${wan_port}" tcp dport 5354 accept comment "Allow spotify trafiic from WAN INSECURE"
+            iifname "${wan_port}" udp dport 5354 accept comment "Allow spotify trafiic from WAN INSECURE"
+            iifname "${wan_port}" udp dport 1780 accept comment "Allow snapweb traffic from WAN INSECURE"
+            iifname "${wan_port}" tcp dport 1780 accept comment "Allow snapweb traffic from WAN INSECURE"
+
             iifname "${wan_port}" counter drop comment "Count and drop unsolicited WAN traffic"
             iifname "lo" accept comment "Accept any loopback traffic"
           }
