@@ -45,6 +45,7 @@ in
       port = 1780;
       docRoot = snapweb;
     };
+    sampleFormat = "44100:16:2";
     streams = {
       "Spotify" = {
         type = "process";
