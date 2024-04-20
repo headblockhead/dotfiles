@@ -6,7 +6,7 @@ let
   edward-laptop-02-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOs2G2Yt7+A53v5tymBcbAlWnT9tLZYNSW+XGqZU6ITh root@compute-01'';
 in
 {
-  nix.trustedUsers = [ "nixbuilder" ];
+  nix.settings.trusted-users = [ "nixbuilder" ];
   users.users.nixbuilder = {
     isNormalUser = true;
     extraGroups = [ "libvirt" "nixbld" ];

@@ -26,7 +26,6 @@
     users
     zsh
   ];
-  networking.firewall.enable = lib.mkForce false;
 
   nixpkgs = {
     overlays = [
