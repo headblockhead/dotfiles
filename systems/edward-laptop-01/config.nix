@@ -7,18 +7,19 @@
     bluetooth
     bootloaderGraphical
     cachesGlobal
-    #cachesLocal
+    cachesLocal
     desktop
-    #development
+    development
     distributedBuilds
     fileSystems
-    #firewall
+    firewall
     fzf
     git
     gpg
     homeManager
     network
     printer
+    sdr
     sound
     ssd
     ssh

@@ -24,6 +24,7 @@
   rpiBoot = import ./rpiBoot.nix;
   rpiFirmware = import ./rpiFirmware.nix;
   rpiTFTP = import ./rpiTFTP.nix;
+  sdr = import ./sdr.nix;
   sheepit = import ./sheepit.nix;
   sound = import ./sound.nix;
   ssd = import ./ssd.nix;
