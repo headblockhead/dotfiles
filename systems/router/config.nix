@@ -50,24 +50,20 @@ in
     };
     sampleFormat = "44100:16:2";
     streams = {
-      "Spotify - Local Network" = {
+      "SpotifyLAN" = {
         type = "process";
         location = "${pkgs.librespot}/bin/librespot";
         query = {
           params = "--zeroconf-port=5354 --name House --bitrate 320 --backend pipe --initial-volume 100 --quiet";
         };
       };
-      "Spotify - Edward" = {
+      "SpotifyEdward" = {
         type = "pipe";
         location = "/tmp/snapfifo";
         query = {
           params = ''--name Snapcast --bitrate 320 --backend pipe --initial-volume 100 --quiet --username ${(builtins.readFile config.age.secrets.edward-spotify-username.path)} --password ${(builtins.readFile config.age.secrets.edward-spotify-password.path)}'';
         };
       };
-      #Librespot = {
-      #  type = "librespot";
-      #  location = "${pkgs.librespot}/bin/librespot";
-      #};
     };
   };
 
