@@ -7,6 +7,8 @@ let
   };
 in
 {
+  age.secrets.edward-spotify-username.file = ../../secrets/edward-spotify-username.age;
+  age.secrets.edward-spotify-password.file = ../../secrets/edward-spotify-password.age;
   networking.hostName = "router";
 
   imports = with outputs.nixosModules; [
@@ -30,7 +32,8 @@ in
 
   services.avahi = {
     enable = true;
-    #    allowInterfaces = [ "enp5s0" "enp4s0" ];
+    reflector = true;
+    #allowInterfaces = [ "enp5s0" "enp4s0" ];
     publish = {
       enable = true;
       workstation = true;
@@ -47,11 +50,18 @@ in
     };
     sampleFormat = "44100:16:2";
     streams = {
-      "Spotify" = {
+      "Spotify - Local Network" = {
         type = "process";
         location = "${pkgs.librespot}/bin/librespot";
         query = {
-          params = "--zeroconf-port=5354 --name House --bitrate 320 --backend pipe --initial-volume 100 --verbose";
+          params = "--zeroconf-port=5354 --name House --bitrate 320 --backend pipe --initial-volume 100 --quiet";
+        };
+      };
+      "Spotify - Edward" = {
+        type = "pipe";
+        location = "/tmp/snapfifo";
+        query = {
+          params = "--name Snapcast --bitrate 320 --backend pipe --initial-volume 100 --quiet --username " + (builtins.readFile config.age.secrets.edward-spotify-username.age) + " --password " + (builtins.readFile config.age.secrets.edward-spotify-password.age);
         };
       };
       #Librespot = {
