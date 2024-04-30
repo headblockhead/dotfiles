@@ -49,6 +49,8 @@ in
             iifname "${wan_port}" udp dport 5354 accept comment "Allow spotify trafiic from WAN INSECURE"
             iifname "${wan_port}" udp dport 1780 accept comment "Allow snapweb traffic from WAN INSECURE"
             iifname "${wan_port}" tcp dport 1780 accept comment "Allow snapweb traffic from WAN INSECURE"
+            iifname "${wan_port}" tcp dport 7000 accept comment "Allow airplay traffic from WAN INSECURE"
+            iifname "${wan_port}" udp dport 7000 accept comment "Allow airplay traffic from WAN INSECURE"
 
             iifname "${wan_port}" counter drop comment "Count and drop unsolicited WAN traffic"
             iifname "lo" accept comment "Accept any loopback traffic"

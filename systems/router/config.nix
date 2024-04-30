@@ -61,7 +61,7 @@ in
         type = "pipe";
         location = "/tmp/snapfifo";
         query = {
-          params = "--name Snapcast --bitrate 320 --backend pipe --initial-volume 100 --quiet --username " + (builtins.readFile config.age.secrets.edward-spotify-username.age) + " --password " + (builtins.readFile config.age.secrets.edward-spotify-password.age);
+          params = ''--name Snapcast --bitrate 320 --backend pipe --initial-volume 100 --quiet --username ${(builtins.readFile config.age.secrets.edward-spotify-username.path)} --password ${(builtins.readFile config.age.secrets.edward-spotify-password.path)}'';
         };
       };
       #Librespot = {
