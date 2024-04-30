@@ -58,8 +58,8 @@ in
         };
       };
       "SpotifyEdward" = {
-        type = "pipe";
-        location = "/tmp/snapfifo";
+        type = "process";
+        location = "${pkgs.librespot}/bin/librespot";
         query = {
           params = ''--name Snapcast --bitrate 320 --backend pipe --initial-volume 100 --quiet --username ${(builtins.readFile config.age.secrets.edward-spotify-username.path)} --password ${(builtins.readFile config.age.secrets.edward-spotify-password.path)}'';
         };
