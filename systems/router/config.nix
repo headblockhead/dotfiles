@@ -41,6 +41,15 @@ in
     };
   };
 
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull;
+    extraConfig = ''
+      load-module module-pipe-sink file=/tmp/snapfifo sink_name=Snapcast format=s16le rate=48000
+      update-sink-proplist Snapcast device.description=Snapcast
+    '';
+  };
+
   services.snapserver = {
     enable = true;
     http = {
@@ -50,6 +59,10 @@ in
     };
     sampleFormat = "44100:16:2";
     streams = {
+      "PulseAudio" = {
+        type = "pipe";
+        location = "pipe:///tmp/snapfifo?name=PulseAudio&mode=read";
+      };
       "SpotifyLAN" = {
         type = "process";
         location = "${pkgs.librespot}/bin/librespot";
