@@ -15,7 +15,7 @@
     distributedBuilds
     docker
     fileSystems
-    firewall
+    #    firewall
     fonts
     fzf
     git
@@ -26,13 +26,18 @@
     sound
     ssd
     ssh
-    transmission
     users
     virtualBox
     # wireguard
     yubikey
     zsh
+    sdr
+
+    p2pool
+    xmrig
   ];
+
+  networking.firewall.enable = lib.mkForce false;
 
   nix.distributedBuilds = lib.mkForce false;
 

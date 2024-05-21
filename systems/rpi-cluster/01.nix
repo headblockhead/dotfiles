@@ -26,13 +26,23 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
-  # Included packages:
-  environment.systemPackages = with pkgs; [
-    vim
-    git
-    wget
-    hello
-  ];
+  # Enable GPU acceleration
+  hardware.raspberry-pi."4".fkms-3d.enable = true;
+
+  services.xmrig = {
+    enable = true;
+    settings = {
+      autosave = true;
+      cpu = true;
+      opencl = true;
+      cuda = false;
+      pools = [
+        {
+          url = "192.168.1.6:3333";
+        }
+      ];
+    };
+  };
 
   networking.firewall = {
     enable = true;
