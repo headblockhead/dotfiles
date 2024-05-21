@@ -41,14 +41,20 @@ in
     };
   };
 
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull;
-    extraConfig = ''
-      load-module module-pipe-sink file=/tmp/snapfifo sink_name=Snapcast format=s16le rate=48000
-      update-sink-proplist Snapcast device.description=Snapcast
-    '';
-  };
+  #  hardware.pulseaudio = {
+  #enable = true;
+  #systemWide = true;
+  #zeroconf.publish.enable = true;
+  ##    tcp.enable = true;
+  ##    tcp.anonymousClients.allowAll = true;
+  #package = pkgs.pulseaudioFull;
+  #extraConfig = ''
+  #load-module module-pipe-sink file=/tmp/snapfifo sink_name=Snapcast format=s16le rate=48000
+  #update-sink-proplist Snapcast device.description=Snapcast
+  #load-module module-native-protocol-unix
+  #load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1;192.168.1.0/24 auth-anonymous=1
+  #'';
+  #};
 
   services.snapserver = {
     enable = true;
@@ -60,8 +66,11 @@ in
     sampleFormat = "44100:16:2";
     streams = {
       "PulseAudio" = {
-        type = "pipe";
-        location = "pipe:///tmp/snapfifo?name=PulseAudio&mode=read";
+        type = "tcp";
+        location = "192.168.1.6:4953";
+        query = {
+          mode = "client";
+        };
       };
       "SpotifyLAN" = {
         type = "process";
