@@ -25,7 +25,7 @@ zmq-pub=tcp://127.0.0.1:18084
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${pkgs.p2pool}/bin/p2pool --mini --host 127.0.0.1 --rpc-port 18081 --zmq-port 18084 --wallet 48pEZBjqjNRCbVptEMGRdeYeUgmXaHbz7gLErTneJnN8Uc5r2qHyEPoGmS1NSmQqaK5hUjZUvRG24jBNRKjA51qbDkWM1oX --stratum 0.0.0.0:3333 --p2p 0.0.0.0:37889";
+      ExecStart = "${pkgs.unstable.p2pool}/bin/p2pool --mini --host 127.0.0.1 --rpc-port 18081 --zmq-port 18084 --wallet 48pEZBjqjNRCbVptEMGRdeYeUgmXaHbz7gLErTneJnN8Uc5r2qHyEPoGmS1NSmQqaK5hUjZUvRG24jBNRKjA51qbDkWM1oX --stratum 0.0.0.0:3333 --p2p 0.0.0.0:37889";
       Restart = "always";
       RestartSec = 10;
     };
