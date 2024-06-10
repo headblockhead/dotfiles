@@ -76,8 +76,6 @@
       nixosModules = import ./modules/nixos;
       homeManagerModules = import ./modules/home-manager;
 
-      #nix-minecraft.overlay
-
       nixosConfigurations = {
         # Network nodes.
         router = nixpkgs.lib.nixosSystem {
@@ -135,6 +133,17 @@
           ];
         };
 
+        # Portable system.
+        portable = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs agenix sshkey; };
+          modules = [
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+            #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-x86_64.nix"
+            ./systems/portable/config.nix
+            ./systems/portable/hardware.nix
+          ];
+        };
+
         #        # Raspberry Pi cluster nodes. These are netbooted.
         #rpi-cluster-01 = nixpkgs.lib.nixosSystem {
         #specialArgs = {
@@ -155,6 +164,7 @@
 
       # Netboot outputs.
       #       netboot.rpi-cluster-01.rpiTFTP = nixosConfigurations.rpi-cluster-01.config.system.build.rpiTFTP;
+      portableiso = nixosConfigurations.portable.config.system.build.isoImage;
 
       homeConfigurations = {
         "headb@router" = home-manager.lib.homeManagerConfiguration {
