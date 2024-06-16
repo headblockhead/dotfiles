@@ -19,6 +19,7 @@
   homeManager = import ./homeManager.nix;
   minecraftServer = import ./minecraftServer.nix;
   network = import ./network.nix;
+  p2pool = import ./p2pool.nix;
   printer = import ./printer.nix;
   router = import ./router.nix;
   rpiBoot = import ./rpiBoot.nix;
@@ -33,6 +34,7 @@
   users = import ./users.nix;
   virtualBox = import ./virtualBox.nix;
   wireguard = import ./wireguard.nix;
+  xmrig = import ./xmrig.nix;
   yubikey = import ./yubikey.nix;
   zsh = import ./zsh.nix;
 }

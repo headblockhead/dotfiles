@@ -8,7 +8,7 @@
     fractal # matrix messenger
     musescore
     obs-studio
-    cura
+    prusa-slicer
     onedrive
     deja-dup
     kdenlive

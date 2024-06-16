@@ -6,8 +6,6 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  # NVIDIA
-
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
@@ -21,11 +19,10 @@
   hardware.nvidia = {
 
     # Modesetting is required.
-    modesetting.enable = true;
+    modesetting.enable = false;
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    powerManagement.enable = true;
-
+    #powerManagement.enable = true;
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = false;
@@ -50,5 +47,4 @@
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ]; # Various modules for booting and reading drives.
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

@@ -49,6 +49,8 @@ in
             iifname "${wan_port}" udp dport 5354 accept comment "Allow spotify trafiic from WAN INSECURE"
             iifname "${wan_port}" udp dport 1780 accept comment "Allow snapweb traffic from WAN INSECURE"
             iifname "${wan_port}" tcp dport 1780 accept comment "Allow snapweb traffic from WAN INSECURE"
+            iifname "${wan_port}" tcp dport 7000 accept comment "Allow airplay traffic from WAN INSECURE"
+            iifname "${wan_port}" udp dport 7000 accept comment "Allow airplay traffic from WAN INSECURE"
 
             iifname "${wan_port}" counter drop comment "Count and drop unsolicited WAN traffic"
             iifname "lo" accept comment "Accept any loopback traffic"
@@ -107,12 +109,13 @@ in
 
       # Custom static IPs
       dhcp-host = [
-        "a8:13:74:17:b6:18,192.168.1.101,hesketh-tv"
-        "bc:f4:d4:82:6f:a9,192.168.1.6,edward-desktop-01"
         "34:02:86:2b:84:c3,192.168.1.5,edward-laptop-01"
+        "bc:f4:d4:82:6f:a9,192.168.1.6,edward-desktop-01"
         "d8:3a:dd:97:a9:c4,192.168.1.100,homeassistant"
+        "a8:13:74:17:b6:18,192.168.1.101,hesketh-tv"
         "4c:b9:ea:5a:4f:03,192.168.1.102,scuttlebug"
         "0c:fe:45:1d:e6:66,192.168.1.103,ps4"
+        "e4:5f:01:3a:f5:97,192.168.1.104,printerpi"
       ];
     };
   };

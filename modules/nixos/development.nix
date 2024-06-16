@@ -2,7 +2,6 @@
 {
   programs.adb.enable = true;
   environment.systemPackages = with pkgs; [
-    #    python39
     PlaydateSimulator # Not in nixpkgs, overlayed by github:headblockhead/nix-playdatesdk. See flake.nix.
     asciinema
     awscli2
@@ -13,6 +12,7 @@
     cmatrix
     ec2-ami-tools
     flyctl
+    freecad
     gcc
     gcc-arm-embedded
     gnumake
@@ -38,11 +38,14 @@
     picotool
     platformio
     playdatemirror
+    pulseview
+    python39
     rustc
     templ
     tinygo
     tmux
     unityhub
+    usbutils
     wireguard-tools
     wireshark
     xc # Not in nixpkgs, overlayed by github:joerdav/xc. See flake.nix.

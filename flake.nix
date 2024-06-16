@@ -2,12 +2,12 @@
   description = "Reproducable configuration for all of my devices and gadgets. Now including netbooting!";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     kicadpkgs.url = "github:NixOS/nixpkgs/e70e1370a88f86ea989902e140172e9cff0d379a";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     deploy-rs = {
@@ -76,8 +76,6 @@
       nixosModules = import ./modules/nixos;
       homeManagerModules = import ./modules/home-manager;
 
-      #nix-minecraft.overlay
-
       nixosConfigurations = {
         # Network nodes.
         router = nixpkgs.lib.nixosSystem {
@@ -135,6 +133,17 @@
           ];
         };
 
+        # Portable system.
+        portable = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs agenix sshkey; };
+          modules = [
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+            #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-x86_64.nix"
+            ./systems/portable/config.nix
+            ./systems/portable/hardware.nix
+          ];
+        };
+
         #        # Raspberry Pi cluster nodes. These are netbooted.
         #rpi-cluster-01 = nixpkgs.lib.nixosSystem {
         #specialArgs = {
@@ -155,6 +164,7 @@
 
       # Netboot outputs.
       #       netboot.rpi-cluster-01.rpiTFTP = nixosConfigurations.rpi-cluster-01.config.system.build.rpiTFTP;
+      portableiso = nixosConfigurations.portable.config.system.build.isoImage;
 
       homeConfigurations = {
         "headb@router" = home-manager.lib.homeManagerConfiguration {

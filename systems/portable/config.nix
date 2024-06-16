@@ -1,45 +1,29 @@
 { inputs, outputs, lib, config, pkgs, agenix, ... }:
 
 {
-  networking.hostName = "edward-desktop-01";
+  networking.hostName = "nixos-portable";
 
   imports = with outputs.nixosModules; [
     basicConfig
     bluetooth
-    bootloaderGraphical
     cachesGlobal
-    cachesLocal
     desktop
     desktopApps
     development
-    distributedBuilds
-    docker
-    fileSystems
-    #    firewall
+    firewall
     fonts
     fzf
     git
     gpg
-    homeManager
     network
-    printer
     sound
-    ssd
-    ssh
     users
-    virtualBox
-    # wireguard
     yubikey
     zsh
-    sdr
-
-    p2pool
-    xmrig
   ];
 
-  networking.firewall.enable = lib.mkForce false;
-
-  nix.distributedBuilds = lib.mkForce false;
+  # Don't use wpa_supplicant. Enabled by installation-device.nix.
+  networking.wireless.enable = lib.mkForce false;
 
   nixpkgs = {
     overlays = [
@@ -75,20 +59,7 @@
 
   # Extra packages to install
   environment.systemPackages = [
-    agenix.packages.x86_64-linux.default
     pkgs.xc
-
-    pkgs.cachix
-    pkgs.deploy-rs
-  ];
-
-  # Grub settings.
-  boot.loader.grub.useOSProber = true;
-  boot.loader.grub.gfxmodeEfi = "1920x1080x32";
-
-  # https://www.mankier.com/5/tmpfiles.d
-  systemd.tmpfiles.rules = [
-    ''C /run/gdm/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
   ];
 
   # This value determines the NixOS release from which the default
