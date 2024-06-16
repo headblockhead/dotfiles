@@ -7,8 +7,6 @@ let
   };
 in
 {
-  age.secrets.edward-spotify-username.file = ../../secrets/edward-spotify-username.age;
-  age.secrets.edward-spotify-password.file = ../../secrets/edward-spotify-password.age;
   networking.hostName = "router";
 
   imports = with outputs.nixosModules; [
@@ -77,13 +75,6 @@ in
         location = "${pkgs.librespot}/bin/librespot";
         query = {
           params = "--zeroconf-port=5354 --name House --bitrate 320 --backend pipe --initial-volume 100 --quiet";
-        };
-      };
-      "SpotifyEdward" = {
-        type = "process";
-        location = "${pkgs.librespot}/bin/librespot";
-        query = {
-          params = ''--name Snapcast --bitrate 320 --backend pipe --initial-volume 100 --quiet --username ${(builtins.readFile config.age.secrets.edward-spotify-username.path)} --password ${(builtins.readFile config.age.secrets.edward-spotify-password.path)}'';
         };
       };
     };
