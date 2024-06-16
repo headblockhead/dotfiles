@@ -27,7 +27,7 @@
     minicom
     neofetch
     ngrok
-    nixfmt
+    nixfmt-rfc-style
     nmap
     nodePackages.aws-cdk
     nodejs

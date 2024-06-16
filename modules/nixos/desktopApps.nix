@@ -1,40 +1,36 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
+    obsidian
+    arduino
+    audacity
     blender
-    furnace # chiptune tracker
-    remmina
-    kicad
-    zoom-us
+    chiaki
+    clonehero
+    deja-dup
+    discord
+    firefox
     fractal # matrix messenger
+    furnace # chiptune tracker
+    gimp
+    google-chrome
+    kdenlive
+    kicad
+    libreoffice
+    lmms
+    mcpelauncher # Not in nixpkgs, defined by override in flake.nix (source: github.com/headblockhead/nix-mcpelauncher)
+    monero-gui
     musescore
     obs-studio
-    prusa-slicer
     onedrive
-    deja-dup
-    kdenlive
-    gimp
-    transgui
-    monero-gui
-    unstable.rpi-imager
-    lmms
-    arduino
-    thonny
-    chiaki
-
-    # Games
     prismlauncher
-    clonehero
-    mcpelauncher # Not in nixpkgs, defined by override in flake.nix (source: github.com/headblockhead/nix-mcpelauncher)
-
-    firefox
-
-    google-chrome
-    discord
-    vlc
+    remmina
     spotify
+    super-slicer
+    thonny
     thunderbird
-    libreoffice
-    # obsidian # uses electron-25.9.0, outdated :(
-    audacity
+    transgui
+    unstable.rpi-imager
+    vlc
+    zoom-us
   ];
 }
