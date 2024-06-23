@@ -34,7 +34,7 @@
     };
     nix-netboot-rpi = {
       url = "github:headblockhead/nix-netboot-rpi";
-      inputs.nixpkgs.follows = "nixpkgs";
+      #      inputs.nixpkgs.follows = "nixpkgs";
     };
     templ = {
       url = "github:a-h/templ";
@@ -148,22 +148,26 @@
           ];
         };
 
-        #        # Raspberry Pi cluster nodes. These are netbooted.
-        #rpi-cluster-01 = nixpkgs.lib.nixosSystem {
-        #specialArgs = {
-        #inherit inputs outputs agenix sshkey;
-        #systemname = "rpi-cluster-01";
-        #systemserial = "01-dc-a6-32-31-50-3b";
-        #};
-        #system = "aarch64-linux";
-        #modules = [
-        #./systems/rpi-cluster/01.nix # This system's configuration
-        #./systems/rpi-cluster/hardware.nix # Shared hardware configuration for Raspberry Pis
+        # Raspberry Pi cluster nodes. These are netbooted.
+        rpi-cluster-01 = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs agenix sshkey;
+            systemname = "rpi-cluster-01";
+            systemserial = "01-dc-a6-32-31-50-3b";
+          };
+          system = "x86_64-linux";
+          modules = [
+            {
+              nixpkgs.config.allowUnsupportedSystem = true;
+              nixpkgs.crossSystem.system = "aarch64-linux";
+            }
 
-        #inputs.rpinetboot.nixosModules.rpi4Client # Netbooting configuration for Raspberry Pi 4
-        #agenix.nixosModules.default
-        #];
-        #};
+            ./systems/rpi-cluster/01.nix # This system's configuration
+            ./systems/rpi-cluster/hardware.nix # Shared hardware configuration for Raspberry Pis
+
+            inputs.nix-netboot-rpi.outputs.nixosModules.default
+          ];
+        };
       };
 
       # Netboot outputs.
