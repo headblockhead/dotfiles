@@ -96,10 +96,9 @@ in
       server = [ "1.1.1.1" "1.0.0.1" ]; # Upstream DNS servers.
       domain = "lan"; # The domain to add to the end of hostnames. (eg. "router" -> "router.lan")
 
-      tftp-root = "${pkgs.TFTPFolder}";
+      tftp-root = "${pkgs.rpicluster-tftp}";
       enable-tftp = true;
-      dhcp-boot = "pxelinux.0,,192.168.1.1";
-      dhcp-no-override = true;
+      dhcp-boot = "pxelinux.0";
 
       # Custom DHCP options
       dhcp-range = [ "192.168.1.2,192.168.1.254,12h" ]; # Assign IPs to clients between 192.168.1.2 and 192.168.1.254. Leases last 12 hours.

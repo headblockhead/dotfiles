@@ -32,9 +32,9 @@
       url = "github:headblockhead/nix-playdatemirror";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-netboot-rpi = {
-      url = "github:headblockhead/nix-netboot-rpi";
-      #      inputs.nixpkgs.follows = "nixpkgs";
+    rpicluster = {
+      url = "github:headblockhead/rpicluster";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     templ = {
       url = "github:a-h/templ";
@@ -147,31 +147,9 @@
             ./systems/portable/hardware.nix
           ];
         };
-
-        # Raspberry Pi cluster nodes. These are netbooted.
-        rpi-cluster-01 = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs agenix sshkey;
-            systemname = "rpi-cluster-01";
-            systemserial = "01-dc-a6-32-31-50-3b";
-          };
-          system = "x86_64-linux";
-          modules = [
-            {
-              nixpkgs.config.allowUnsupportedSystem = true;
-              nixpkgs.crossSystem.system = "aarch64-linux";
-            }
-
-            ./systems/rpi-cluster/01.nix # This system's configuration
-            ./systems/rpi-cluster/hardware.nix # Shared hardware configuration for Raspberry Pis
-
-            inputs.nix-netboot-rpi.outputs.nixosModules.default
-          ];
-        };
       };
 
-      # Netboot outputs.
-      #       netboot.rpi-cluster-01.rpiTFTP = nixosConfigurations.rpi-cluster-01.config.system.build.rpiTFTP;
+      # ISO image for a portable USB stick.
       portableiso = nixosConfigurations.portable.config.system.build.isoImage;
 
       homeConfigurations = {

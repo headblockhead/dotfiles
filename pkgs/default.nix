@@ -2,9 +2,9 @@
 # You can build them using 'nix build .#example'
 { pkgs, inputs }: {
   librespot = pkgs.callPackage ../custom-packages/librespot.nix { };
-  TFTPFolder = inputs.nix-netboot-rpi.TFTPFolder;
   immersed = pkgs.callPackage ../custom-packages/immersed-vr.nix { };
   alvr = pkgs.callPackage ../custom-packages/alvr.nix { };
+  rpicluster-tftp = inputs.rpicluster.rpi-01-tftp;
   prismlauncher = inputs.prismlauncher.packages.x86_64-linux.prismlauncher;
   pdc = inputs.playdatesdk.packages.x86_64-linux.pdc;
   pdutil = inputs.playdatesdk.packages.x86_64-linux.pdutil;
