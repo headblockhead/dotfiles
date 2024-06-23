@@ -96,7 +96,7 @@ in
       server = [ "1.1.1.1" "1.0.0.1" ]; # Upstream DNS servers.
       domain = "lan"; # The domain to add to the end of hostnames. (eg. "router" -> "router.lan")
 
-      tftp-root = pkgs.TFTPFolder;
+      tftp-root = "${pkgs.TFTPFolder}";
       enable-tftp = true;
       dhcp-boot = "pxelinux.0,,192.168.1.1";
       dhcp-no-override = true;
