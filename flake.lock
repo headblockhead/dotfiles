@@ -380,24 +380,6 @@
         "type": "github"
       }
     },
-    "nix-netboot-rpi": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_3"
-      },
-      "locked": {
-        "lastModified": 1719158673,
-        "narHash": "sha256-77VH5L/BUPM+hrHbi1HgSX+Q6XqZPW2zhsBD3gfygOw=",
-        "owner": "headblockhead",
-        "repo": "nix-netboot-rpi",
-        "rev": "70433b09de6851d1770dca636f8b45a31d09d9de",
-        "type": "github"
-      },
-      "original": {
-        "owner": "headblockhead",
-        "repo": "nix-netboot-rpi",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1702272962,
@@ -448,22 +430,6 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1706098335,
-        "narHash": "sha256-r3dWjT8P9/Ah5m5ul4WqIWD8muj5F+/gbCdjiNVBKmU=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "a77ab169a83a4175169d78684ddd2e54486ac651",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-23.11",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_4": {
-      "locked": {
         "lastModified": 1718835956,
         "narHash": "sha256-wM9v2yIxClRYsGHut5vHICZTK7xdrUGfrLkXvSuv6s4=",
         "owner": "NixOS",
@@ -473,6 +439,22 @@
       },
       "original": {
         "owner": "NixOS",
+        "ref": "nixos-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1718835956,
+        "narHash": "sha256-wM9v2yIxClRYsGHut5vHICZTK7xdrUGfrLkXvSuv6s4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "dd457de7e08c6d06789b1f5b88fc9327f4d96309",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
         "ref": "nixos-24.05",
         "repo": "nixpkgs",
         "type": "github"
@@ -580,14 +562,32 @@
         "kicadpkgs": "kicadpkgs",
         "mcpelauncher": "mcpelauncher",
         "nix-minecraft": "nix-minecraft",
-        "nix-netboot-rpi": "nix-netboot-rpi",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "playdatemirror": "playdatemirror",
         "playdatesdk": "playdatesdk",
         "prismlauncher": "prismlauncher",
+        "rpicluster": "rpicluster",
         "templ": "templ",
         "xc": "xc_2"
+      }
+    },
+    "rpicluster": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1719172866,
+        "narHash": "sha256-CKc4p3MiDv4KR3CAMBgEextuYFKBI3MWY3RznO8tP/M=",
+        "owner": "headblockhead",
+        "repo": "rpicluster",
+        "rev": "26c6668b885f899145a66e41dba772e6d80c63ea",
+        "type": "github"
+      },
+      "original": {
+        "owner": "headblockhead",
+        "repo": "rpicluster",
+        "type": "github"
       }
     },
     "systems": {
