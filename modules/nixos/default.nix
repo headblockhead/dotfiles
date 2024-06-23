@@ -2,6 +2,7 @@
   basicConfig = import ./basicConfig.nix;
   openrgb = import ./openrgb.nix;
   bluetooth = import ./bluetooth.nix;
+  netbooter = import ./netbooter.nix;
   bootloaderGraphical = import ./bootloaderGraphical.nix;
   bootloaderText = import ./bootloaderText.nix;
   cachesGlobal = import ./cachesGlobal.nix;

@@ -10,6 +10,7 @@ in
   networking.hostName = "router";
 
   imports = with outputs.nixosModules; [
+    netbooter
     basicConfig
     bootloaderText
     cachesGlobal

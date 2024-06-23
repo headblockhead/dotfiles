@@ -32,6 +32,10 @@
       url = "github:headblockhead/nix-playdatemirror";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-netboot-rpi = {
+      url = "github:headblockhead/nix-netboot-rpi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     templ = {
       url = "github:a-h/templ";
       inputs.nixpkgs.follows = "nixpkgs";
