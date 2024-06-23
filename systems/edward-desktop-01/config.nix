@@ -32,6 +32,8 @@
     yubikey
     zsh
     sdr
+    openrgb
+
 
     p2pool
     xmrig

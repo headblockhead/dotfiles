@@ -25,7 +25,7 @@
     prismlauncher
     remmina
     spotify
-    super-slicer
+    #    unstable.super-slicer
     thonny
     thunderbird
     transgui

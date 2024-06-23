@@ -1,14 +1,14 @@
-{ lib, stdenv, fetchFromGitLab, qmake, wrapQtAppsHook, libusb1, hidapi, pkg-config, coreutils, mbedtls_2, qtbase, qttools, symlinkJoin, openrgb }:
+{ lib, stdenv, fetchFromGitHub, qmake, wrapQtAppsHook, libusb1, hidapi, pkg-config, coreutils, mbedtls_2, qtbase, qttools, symlinkJoin, openrgb }:
 
 stdenv.mkDerivation rec {
   pname = "openrgb";
-  version = "bc66bfb442a6542d46fed62009273ac8fcea0e53";
+  version = "55bec8a753a1a1601623033f062aa690ca79f21e";
 
-  src = fetchFromGitLab {
-    owner = "CalcProgrammer1";
+  src = fetchFromGitHub {
+    owner = "headblockhead";
     repo = "OpenRGB";
     rev = "${version}";
-    hash = "sha256-GOGY51CVgrtFDcUKiQ/CKOvUNomxFV6Lwk0/4fEbGWU=";
+    hash = "sha256-Qo3Bp340H5o5UXtSbicRlvFVuqMwNF6CoW4+Y8CTdOg=";
   };
 
   nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
@@ -17,7 +17,9 @@ stdenv.mkDerivation rec {
   postPatch = ''
     patchShebangs scripts/build-udev-rules.sh
     substituteInPlace scripts/build-udev-rules.sh \
-      --replace /bin/chmod "${coreutils}/bin/chmod"
+      --replace /bin/chmod "${coreutils}/bin/chmod" 
+    substituteInPlace scripts/build-udev-rules.sh \
+      --replace /usr/bin/env "${coreutils}/bin/env"
   '';
 
   doInstallCheck = true;
