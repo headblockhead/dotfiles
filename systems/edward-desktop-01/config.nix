@@ -97,6 +97,7 @@
   # https://www.mankier.com/5/tmpfiles.d
   systemd.tmpfiles.rules = [
     ''C /run/gdm/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
+    ''C /home/headb/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
   ];
 
   # This value determines the NixOS release from which the default

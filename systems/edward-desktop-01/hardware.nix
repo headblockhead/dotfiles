@@ -18,8 +18,8 @@
 
   # NVIDIA
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-    open = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    open = false;
     modesetting.enable = true;
   };
 

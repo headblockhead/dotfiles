@@ -1,7 +1,4 @@
 { pkgs, lib, ... }: {
-  environment.systemPackages = [
-    pkgs.gnome.dconf-editor
-  ];
   programs.dconf =
     {
       enable = true;
@@ -10,7 +7,8 @@
           {
             settings = {
               "org/gnome/mutter" = {
-                "experimental-features" = [ "scale-monitor-framebuffer" ];
+                #"experimental-features" = [ "scale-monitor-framebuffer" ];
+                "experimental-features" = [ "x11-randr-fractional-scaling" ];
               };
               "org/gnome/desktop/background" = {
                 "picture-uri" = "file://${pkgs.nixos-artwork.wallpapers.nineish.gnomeFilePath}";
@@ -114,7 +112,7 @@
     displayManager = {
       gdm = {
         enable = true;
-        wayland = true;
+        wayland = false;
         autoSuspend = false;
       };
     };
