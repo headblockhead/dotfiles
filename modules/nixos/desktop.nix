@@ -1,4 +1,7 @@
 { pkgs, lib, ... }: {
+  environment.systemPackages = [
+    pkgs.gnome.dconf-editor
+  ];
   programs.dconf =
     {
       enable = true;
@@ -12,6 +15,27 @@
               "org/gnome/desktop/background" = {
                 "picture-uri" = "file://${pkgs.nixos-artwork.wallpapers.nineish.gnomeFilePath}";
                 "picture-uri-dark" = "file://${pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath}";
+              };
+              "org/gnome/nautilus/list-view" = {
+                default-zoom-level = "small";
+                use-tree-view = false;
+                default-column-order = [
+                  "name"
+                  "size"
+                  "type"
+                  "owner"
+                  "group"
+                  "permissions"
+                  "mime_type"
+                  "where"
+                  "date_modified"
+                  "date_modified_with_time"
+                  "date_accessed"
+                  "date_created"
+                  "recency"
+                  "starred"
+                ];
+                default-visible-columns = [ "name" "size" "date_modified" ];
               };
               "org/gnome/settings-daemon/plugins/color" = {
                 "night-light-enabled" = true;
@@ -73,10 +97,6 @@
               };
               "org/gnome/nautilus/preferences" = {
                 "default-folder-viewer" = "list-view";
-              };
-              "org/gnome/nautilus/list-view" = {
-                "default-zoom-level" = "small";
-                "use-tree-view" = false;
               };
               "org/gnome/nautilus/compression" = {
                 "default-compression-method" = "7z";
