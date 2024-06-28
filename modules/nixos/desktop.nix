@@ -27,7 +27,7 @@
                 "default" = "5ddfe964-7ee6-4131-b449-26bdd97518f7";
                 "list" = [ "5ddfe964-7ee6-4131-b449-26bdd97518f7" ];
               };
-              "org/gnome/terminal/legacy/profiles:5ddfe964-7ee6-4131-b449-26bdd97518f7" = {
+              "org/gnome/terminal/legacy/profiles:/:5ddfe964-7ee6-4131-b449-26bdd97518f7" = {
                 "audible-bell" = true;
                 "background-color" = "#000000";
                 "backspace-binding" = "ascii-delete";
@@ -66,7 +66,7 @@
               "org/gnome/settings-daemon/plugins/media-keys" = {
                 "custom-keybindings" = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
               };
-              "org/gnome/settings-daemon/plugins/media-keys/custom-keybinding:org.gnome.settings-daemon.plugins.media-keys.custom-keybindings.custom0" = {
+              "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
                 "name" = "Terminal";
                 "command" = "gnome-terminal";
                 "binding" = "<Control><Alt>t";
