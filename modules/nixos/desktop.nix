@@ -45,6 +45,10 @@
                 "schema-version" = lib.gvariant.mkUint32 3;
                 "theme-variant" = "default";
               };
+              "org/gnome/terminal/legacy/keybindings" = {
+                "prev-tab" = "<Primary><Shift>Home";
+                "next-tab" = "<Primary><Shift>End";
+              };
               "org/gnome/terminal/legacy/profiles:" = {
                 "default" = "5ddfe964-7ee6-4131-b449-26bdd97518f7";
                 "list" = [ "5ddfe964-7ee6-4131-b449-26bdd97518f7" ];
