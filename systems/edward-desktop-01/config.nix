@@ -35,8 +35,8 @@
     openrgb
 
 
-    p2pool
-    xmrig
+    #  p2pool
+    #  xmrig
   ];
 
   networking.firewall.enable = lib.mkForce false;
@@ -86,7 +86,13 @@
 
   # Grub settings.
   boot.loader.grub.useOSProber = true;
-  boot.loader.grub.gfxmodeEfi = "1920x1080x32";
+  boot.loader.grub.gfxmodeEfi = "3840x2160x32";
+
+  # find / -name '*.desktop' 2> /dev/null
+  services.xserver.desktopManager.gnome.favoriteAppsOverride = ''
+    [org.gnome.shell]
+    favorite-apps=[ 'firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Settings.desktop','org.gnome.Calculator.desktop' ]
+  '';
 
   # https://www.mankier.com/5/tmpfiles.d
   systemd.tmpfiles.rules = [
