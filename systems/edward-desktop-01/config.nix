@@ -35,8 +35,8 @@
     openrgb
 
 
-    #  p2pool
-    #  xmrig
+    #p2pool
+    #xmrig
   ];
 
   networking.firewall.enable = lib.mkForce false;

@@ -10,22 +10,22 @@
 , wrapQtAppsHook
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "openrgb-plugin-effects";
-  version = "faeb99198e8fc1c1cbcdb5143564f75cfa1bce9d";
+  version = "0.9";
 
   src = fetchFromGitLab {
     owner = "OpenRGBDevelopers";
     repo = "OpenRGBEffectsPlugin";
-    rev = "${version}";
-    hash = "sha256-lYantLPoZ1O/1iQU14R69jqXBDSHcFBn3L2ycvHs44Q=";
+    rev = "release_${finalAttrs.version}";
+    hash = "sha256-8BnHifcFf7ESJgJi/q3ca38zuIVa++BoGlkWxj7gpog=";
     fetchSubmodules = true;
   };
 
   postPatch = ''
-    # Use the source of openrgb from nixpkgs instead of the submodule
-    rm -r OpenRGB
-    ln -s ${openrgb.src} OpenRGB
+       # Use the source of openrgb from nixpkgs instead of the submodule
+    #   rm -r OpenRGB
+    #   ln -s ${openrgb.src} OpenRGB
   '';
 
   nativeBuildInputs = [
@@ -47,4 +47,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.linux;
   };
-}
+})
