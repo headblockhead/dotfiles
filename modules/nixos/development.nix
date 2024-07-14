@@ -44,7 +44,7 @@
     templ
     tinygo
     tmux
-    unityhub
+    # unityhub
     usbutils
     wireguard-tools
     wireshark

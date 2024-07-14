@@ -71,6 +71,8 @@
     pkgs.vlc
     pkgs.x32edit
     pkgs.p7zip
+    pkgs.libreoffice
+    pkgs.super-slicer
   ];
 
   # Grub settings.
