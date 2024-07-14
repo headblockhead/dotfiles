@@ -26,6 +26,7 @@
     remmina
     spotify
     #    unstable.super-slicer
+    slack
     thonny
     thunderbird
     transgui
