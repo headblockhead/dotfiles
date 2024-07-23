@@ -44,6 +44,11 @@ in
             iifname "${wan_port}" ct state { established, related } accept comment "Allow established WAN"
             iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept comment "Allow some ICMP from WAN"
 
+            tcp dport 67 accept
+            tcp dport 68 accept
+            udp dport 67 accept
+            udp dport 68 accept
+
             iifname "${wan_port}" udp dport mdns accept
             iifname "${wan_port}" tcp dport 5354 accept comment "Allow spotify trafiic from WAN INSECURE"
             iifname "${wan_port}" udp dport 5354 accept comment "Allow spotify trafiic from WAN INSECURE"
