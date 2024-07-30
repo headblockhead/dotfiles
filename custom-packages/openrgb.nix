@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "openrgb";
-  version = "eb2102bd1638de0fef3d19531e57332d72e80957";
+  version = "dd9df48c8353e8b1843357328a533a5fb0f08da0";
 
   src = fetchFromGitHub {
     owner = "headblockhead";
     repo = "OpenRGB";
     rev = "${version}";
-    hash = "sha256-OD22BI45hrMFhUfAv52hBq0a/Jd5GqRg5/CphPR1878=";
+    hash = "sha256-MGbToJX91+UjKLWXTaTVxghpkyCECUlr21D/PpTQLX0=";
   };
 
   nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];

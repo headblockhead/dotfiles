@@ -25,6 +25,8 @@
     ssh
     users
     zsh
+
+    openrgb
   ];
 
   nixpkgs = {
