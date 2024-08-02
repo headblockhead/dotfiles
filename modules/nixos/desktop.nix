@@ -126,7 +126,7 @@
   };
 
   # Touchpad/touchscreen support.
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Exclude certain xserver packages.
   services.xserver.excludePackages = [ pkgs.xterm ];
