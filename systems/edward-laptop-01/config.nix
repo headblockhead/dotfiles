@@ -23,7 +23,6 @@
     ssd
     ssh
     users
-    virtualBox
     yubikey
     zsh
 
