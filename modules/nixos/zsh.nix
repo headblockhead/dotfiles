@@ -6,6 +6,9 @@
   # Root user does not have zsh themes in home directory.
   users.users.root.shell = pkgs.bash;
 
+  systemd.tmpfiles.rules = [
+    "f /home/headb/.zprofile"
+  ];
   programs.nix-index.enableZshIntegration = true;
   programs.zsh = {
     # Enable zsh as a shell, add it to the environment.

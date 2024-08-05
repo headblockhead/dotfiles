@@ -49,5 +49,15 @@
     wireguard-tools
     wireshark
     xc # Not in nixpkgs, overlayed by github:joerdav/xc. See flake.nix.
+
+    neovim
+    qemu
+
+    #    (lib.hiPrio (pkgs.runCommand "nvim.desktop-hide" { } ''
+    #mkdir -p "$out/share/applications"
+    #cat "${neovim}/share/applications/nvim.desktop" > "$out/share/applications/nvim.desktop"
+    #echo "Hidden=1" >> "$out/share/applications/nvim.desktop"
+    #''))
+
   ];
 }

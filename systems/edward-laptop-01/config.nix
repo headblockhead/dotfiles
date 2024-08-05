@@ -1,4 +1,4 @@
-{ inputs, outputs, lib, config, pkgs, agenix, ... }:
+{ inputs, outputs, lib, config, pkgs, ... }:
 {
   networking.hostName = "edward-laptop-01";
 
@@ -7,10 +7,9 @@
     bluetooth
     bootloaderGraphical
     cachesGlobal
-    cachesLocal
     desktop
+    desktopApps
     development
-    distributedBuilds
     fileSystems
     firewall
     fzf
@@ -24,6 +23,7 @@
     ssd
     ssh
     users
+    yubikey
     zsh
 
     openrgb
@@ -62,7 +62,6 @@
 
   # Extra packages to install.
   environment.systemPackages = [
-    agenix.packages.x86_64-linux.default
     pkgs.xc
 
     pkgs.firefox
@@ -102,4 +101,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
 }
-

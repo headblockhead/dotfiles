@@ -10,6 +10,14 @@
         user.databases = [
           {
             settings = {
+              "org/gnome/desktop/session" = {
+                idle-delay = lib.gvariant.mkUint32 0;
+              };
+              "org/gnome/settings-daemon/plugins/power" = {
+                power-button-action = "interactive";
+                sleep-inactive-ac-type = "nothing";
+                sleep-inactive-battery-timeout = lib.gvariant.mkInt32 1800;
+              };
               "org/gnome/mutter" = {
                 #"experimental-features" = [ "scale-monitor-framebuffer" ];
                 "experimental-features" = [ "x11-randr-fractional-scaling" ];
@@ -17,6 +25,9 @@
               "org/gnome/desktop/background" = {
                 "picture-uri" = "file://${pkgs.nixos-artwork.wallpapers.nineish.gnomeFilePath}";
                 "picture-uri-dark" = "file://${pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath}";
+              };
+              "org/gnome/desktop/input-sources" = {
+                xkb-options = [ "terminate:ctrl_alt_bksp" "lv3:ralt_switch" "compose:rctrl" ];
               };
               "org/gnome/nautilus/list-view" = {
                 default-zoom-level = "small";
