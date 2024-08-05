@@ -1,4 +1,8 @@
 { pkgs, lib, ... }: {
+
+  systemd.tmpfiles.rules = [
+    "c+ /var/lib/AccountsService/icons/headb - - - - ${./headb.png}"
+  ];
   programs.dconf =
     {
       enable = true;

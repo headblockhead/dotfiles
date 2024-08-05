@@ -5,7 +5,4 @@
     trusted-substituters = [ "http://192.168.1.1?priority=10" ];
     trusted-public-keys = [ "h6cache:N9Ghc9O46jxUCwsN7JDFomuobHwUOls7tiSFKjHo2Gs=" ];
   };
-
-  # Autoupload to cache
-  nix.settings.post-build-hook = "${builtins.toString ./post-build-hook.sh}";
 }
