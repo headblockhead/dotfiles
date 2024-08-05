@@ -3,7 +3,7 @@
     obsidian
     arduino
     audacity
-    blender
+    blender-hip
     chiaki
     clonehero
     deja-dup
