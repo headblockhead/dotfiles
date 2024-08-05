@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   sound.enable = true;
   security.rtkit.enable = true;
   hardware.pulseaudio.enable = false;
@@ -8,6 +8,10 @@
     paprefs
     qjackctl
     jack2
+
+    vimpc
+    mpd
+    plattenalbum
   ];
 
   services.pipewire = {
