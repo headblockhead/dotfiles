@@ -54,28 +54,56 @@ in
   #'';
   #};
 
+  services.nfs.server = {
+    enable = true;
+    exports = ''
+      /srv/mpd 192.168.1.1/24(rw,insecure,sync)
+    '';
+    createMountPoints = true;
+  };
+
+  services.mpd = {
+    enable = true;
+    network.listenAddress = "192.168.1.1";
+    musicDirectory = "/srv/mpd";
+    extraConfig = ''
+          audio_output {
+          type        "fifo"
+          encoder     "flac"
+          name        "snapserver"
+          format      "48000:16:2"
+      	path		"/run/snapserver/mpd"
+      	compression	"8"
+      	mixer_type	"software"
+      }
+    '';
+    fluidsynth = true;
+  };
+
   services.snapserver = {
     enable = true;
     http = {
       enable = true;
       port = 1780;
+      listenAddress = "192.168.1.1";
       docRoot = snapweb;
     };
-    sampleFormat = "44100:16:2";
+    sampleFormat = "48000:16:2";
+    codec = "flac";
+    sendToMuted = true;
     streams = {
-      "PulseAudio" = {
-        type = "tcp";
-        location = "192.168.1.6:4953";
-        query = {
-          mode = "client";
-        };
-      };
-      "SpotifyLAN" = {
+      "Spotify" = {
         type = "process";
         location = "${pkgs.librespot}/bin/librespot";
         query = {
           params = "--zeroconf-port=5354 --name House --bitrate 320 --backend pipe --initial-volume 100 --quiet";
         };
+      };
+      "mpd" = {
+        type = "pipe";
+        location = "/run/snapserver/mpd";
+        sampleFormat = "48000:16:2";
+        codec = "flac";
       };
     };
   };
@@ -152,4 +180,3 @@ in
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
 }
-
