@@ -26,6 +26,7 @@
     remmina
     spotify
     super-slicer
+    prusa-slicer
     slack
     thonny
     thunderbird

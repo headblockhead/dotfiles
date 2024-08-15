@@ -2,6 +2,10 @@
 # You can build them using 'nix build .#example'
 { pkgs, inputs }: {
   librespot = pkgs.callPackage ../custom-packages/librespot.nix { };
+  picotool = pkgs.callPackage ../custom-packages/picotool.nix {
+    pico-sdk = pkgs.callPackage ../custom-packages/pico-sdk.nix { };
+  };
+  pico-sdk = pkgs.callPackage ../custom-packages/pico-sdk.nix { };
   immersed = pkgs.callPackage ../custom-packages/immersed-vr.nix { };
   alvr = pkgs.callPackage ../custom-packages/alvr.nix { };
   rpicluster-tftp = inputs.rpicluster.rpi-01-tftp;

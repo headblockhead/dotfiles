@@ -7,6 +7,8 @@
     bluetooth
     bootloaderGraphical
     cachesGlobal
+    cachesLocal
+    distributedBuilds
     desktop
     desktopApps
     development
@@ -74,6 +76,7 @@
     pkgs.p7zip
     pkgs.libreoffice
     pkgs.super-slicer
+    pkgs.prusa-slicer
   ];
 
   # Grub settings.
