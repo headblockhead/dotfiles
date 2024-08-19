@@ -105,6 +105,10 @@ in
         sampleFormat = "48000:16:2";
         codec = "flac";
       };
+      "Home Assistant" = {
+        type = "tcp";
+        location = "192.168.1.1:4953";
+      };
     };
   };
 
