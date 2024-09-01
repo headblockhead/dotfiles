@@ -10,6 +10,9 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    raspberry-pi-nix = {
+      url = "github:nix-community/raspberry-pi-nix";
+    };
     deploy-rs = {
       url = "github:serokell/deploy-rs";
     };
@@ -92,6 +95,38 @@
           ];
         };
 
+        rpi-cluster-02 = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = { inherit inputs outputs agenix sshkey; };
+          modules = [
+            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+            {
+              raspberry-pi-nix.board = "bcm2711"; # Raspberry Pi 4
+            }
+
+            ./systems/rpi-cluster/02.nix
+
+            agenix.nixosModules.default
+          ];
+        };
+
+        rpi-cluster-01 = nixpkgs.lib.nixosSystem {
+          # system = "aarch64-linux";
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs agenix sshkey; };
+          modules = [
+            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+            {
+              nixpkgs.crossSystem.system = "aarch64-linux";
+              raspberry-pi-nix.board = "bcm2712"; # Raspberry Pi 5
+            }
+
+            ./systems/rpi-cluster/01.nix
+
+            agenix.nixosModules.default
+          ];
+        };
+
         # Client nodes.
         edward-desktop-01 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
@@ -148,7 +183,9 @@
       };
 
       # ISO image for a portable USB stick.
-      portableiso = nixosConfigurations.portable.config.system.build.isoImage;
+      portable-iso = nixosConfigurations.portable.config.system.build.isoImage;
+      rpi-cluster-01-sd = nixosConfigurations.rpi-cluster-01.config.system.build.sdImage;
+      rpi-cluster-02-sd = nixosConfigurations.rpi-cluster-02.config.system.build.sdImage;
 
       homeConfigurations = {
         "headb@router" = home-manager.lib.homeManagerConfiguration {

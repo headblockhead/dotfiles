@@ -41,6 +41,8 @@
 
   networking.firewall.enable = lib.mkForce false;
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   nix.distributedBuilds = lib.mkForce false;
 
   nixpkgs = {

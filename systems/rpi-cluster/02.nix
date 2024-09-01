@@ -6,7 +6,7 @@
 
   # Hostname.
   networking = {
-    hostName = "rpi-cluster-02";
+    hostName = "rpi-cluster-01";
   };
 
   # Allow SSH from authorized keys.
@@ -24,6 +24,9 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
+
+  # Enable GPU acceleration
+  hardware.raspberry-pi."4".fkms-3d.enable = true;
 
   networking.firewall = {
     enable = true;
