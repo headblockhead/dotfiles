@@ -15,7 +15,7 @@
     '';
     serviceConfig = {
       Type = "oneshot";
-      User = "nixbuilder";
+      User = "root";
     };
   };
 }
