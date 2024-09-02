@@ -1,5 +1,6 @@
 name: Update the Nix flake
 on: 
+  workflow_dispatch:
   schedule:
     - cron: "50 1 * * *"
 
