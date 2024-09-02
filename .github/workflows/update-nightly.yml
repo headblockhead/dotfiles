@@ -16,5 +16,7 @@ jobs:
     - run: nix flake update
     - name: Commit and push changes
       run: |
+        git config --global user.name 'Github Action Updater'
+        git config --global user.email 'headblockhead@gmail.com'
         git commit -am "automated: update inputs"
         git push
