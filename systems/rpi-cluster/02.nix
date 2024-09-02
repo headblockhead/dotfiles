@@ -1,37 +1,68 @@
-{ pkgs, sshkey, lib, ... }:
+{ inputs, outputs, config, pkgs, lib, ... }:
 
 {
-  # Required for the Wireless firmware
+  networking.hostName = "rpi-cluster-02";
+
+  imports = with outputs.nixosModules; [
+    basicConfig
+    cachesGlobal
+    cachesLocal
+    distributedBuilds
+    git
+    firewall
+    homeManager
+    users
+    ssh
+    zsh
+  ];
+
+  nixpkgs = {
+    overlays = [
+      outputs.overlays.additions
+      outputs.overlays.modifications
+      outputs.overlays.unstable-packages
+
+      inputs.nix-minecraft.overlay
+    ];
+    config = {
+      allowUnfree = true;
+    };
+  };
+
+  # This will add each flake input as a registry
+  # To make nix3 commands consistent with your flake
+  nix.registry = (lib.mapAttrs (_: flake: { inherit flake; }))
+    ((lib.filterAttrs (_: lib.isType "flake")) inputs);
+
+  # This will additionally add your inputs to the system's legacy channels
+  # Making legacy nix commands consistent as well, awesome!
+  nix.nixPath = [ "/etc/nix/path" ];
+  environment.etc =
+    lib.mapAttrs'
+      (name: value: {
+        name = "nix/path/${name}";
+        value.source = value.flake;
+      })
+      config.nix.registry;
+
+  nix.settings = {
+    experimental-features = "nix-command flakes";
+    auto-optimise-store = true;
+  };
+
+  # Extra packages to install
+  environment.systemPackages = [
+    pkgs.xc
+  ];
+
+  # Use firmware even if it has a redistributable license
   hardware.enableRedistributableFirmware = lib.mkForce true;
 
-  # Hostname.
-  networking = {
-    hostName = "rpi-cluster-01";
-  };
-
-  # Allow SSH from authorized keys.
-  services.openssh = {
-    enable = true;
-    settings.PasswordAuthentication = false;
-    settings.KbdInteractiveAuthentication = false;
-    settings.PermitRootLogin = "no";
-  };
-
-  users.users.headb.openssh.authorizedKeys.keys = [ sshkey ];
-
-  # Add the users.
-  users.users.headb = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  };
+  # Passwordless sudo for wheel group.
+  security.sudo.wheelNeedsPassword = false;
 
   # Enable GPU acceleration
   hardware.raspberry-pi."4".fkms-3d.enable = true;
-
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [ 22 ];
-  };
 
   system.stateVersion = "23.05";
 }
