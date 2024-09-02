@@ -3,6 +3,7 @@ let
   router-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFl5CJU+QEKdSV/ybMegoKGT+NamF1FBYcMcSRACZLvJ root@router'';
   edward-desktop-01-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOs2G2Yt7+A53v5tymBcbAlWnT9tLZYNSW+XGqZU6ITh root@compute-01'';
   edward-laptop-01-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDGOkGgaa7J85LK4Vfe3+NvxxQObZspyRd50OkUQz/Ox root@edward-laptop-01'';
+  rpi-cluster-01-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFnzZ9J7cRtQgXr87c0NwovZvMf1DsxaVdT1AbEXExTU root@rpi-cluster-01'';
   #  edward-laptop-02-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOs2G2Yt7+A53v5tymBcbAlWnT9tLZYNSW+XGqZU6ITh root@compute-01'';
 in
 {
@@ -14,6 +15,7 @@ in
       router-key
       edward-desktop-01-key
       edward-laptop-01-key
+      rpi-cluster-01-key
       #      edward-laptop-02-key
     ];
   };
