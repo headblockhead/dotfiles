@@ -1,4 +1,5 @@
 {
+  autoBuild = import ./autoBuild.nix;
   autoUpgrade = import ./autoUpgrade.nix;
   basicConfig = import ./basicConfig.nix;
   bluetooth = import ./bluetooth.nix;
