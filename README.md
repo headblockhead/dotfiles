@@ -226,7 +226,7 @@ Rebuilds NixOS and home-manager and applies all configration changes.
 Rebuilds the system-wide NixOS configuration and applies it.
 
 ```bash
-sudo nixos-rebuild switch --flake ".#`hostname`"
+sudo nixos-rebuild switch --flake ".#`hostname`" --accept-flake-config
 ```
 
 ### Switch-home-manager
@@ -234,7 +234,7 @@ sudo nixos-rebuild switch --flake ".#`hostname`"
 Rebuilds the home directory of the headb user and applies it.
 
 ```bash
-home-manager switch --flake ".#$USER@`hostname`"
+home-manager switch --flake ".#$USER@`hostname`" --accept-flake-config
 ```
 
 ### Build-network

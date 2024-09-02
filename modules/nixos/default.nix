@@ -1,6 +1,6 @@
 {
+  autoUpgrade = import ./autoUpgrade.nix;
   basicConfig = import ./basicConfig.nix;
-  openrgb = import ./openrgb.nix;
   bluetooth = import ./bluetooth.nix;
   bootloaderGraphical = import ./bootloaderGraphical.nix;
   bootloaderText = import ./bootloaderText.nix;
@@ -20,6 +20,7 @@
   homeManager = import ./homeManager.nix;
   minecraftServer = import ./minecraftServer.nix;
   network = import ./network.nix;
+  openrgb = import ./openrgb.nix;
   p2pool = import ./p2pool.nix;
   printer = import ./printer.nix;
   router = import ./router.nix;

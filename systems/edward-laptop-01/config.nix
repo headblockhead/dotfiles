@@ -25,6 +25,7 @@
     ssd
     ssh
     users
+    autoUpgrade
     yubikey
     zsh
 
