@@ -29,6 +29,14 @@ in
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
+  nix.optimise.automatic = true;
+  nix.optimise.dates = [ "04:00" ];
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   services.avahi = {
     enable = true;
     reflector = true;
