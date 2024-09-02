@@ -4,6 +4,11 @@
   networking.hostName = "edward-desktop-01";
 
   imports = with outputs.nixosModules; [
+    #firewall
+    #wireguard
+    #p2pool
+    #xmrig
+    autoUpgrade
     basicConfig
     bluetooth
     bootloaderGraphical
@@ -15,28 +20,22 @@
     distributedBuilds
     docker
     fileSystems
-    #    firewall
     fonts
     fzf
     git
     gpg
     homeManager
     network
+    openrgb
     printer
+    sdr
     sound
     ssd
     ssh
     users
     virtualBox
-    # wireguard
     yubikey
     zsh
-    sdr
-    openrgb
-
-
-    #p2pool
-    #xmrig
   ];
 
   networking.firewall.enable = lib.mkForce false;

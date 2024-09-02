@@ -10,6 +10,7 @@ in
   networking.hostName = "router";
 
   imports = with outputs.nixosModules; [
+    autoUpgrade
     basicConfig
     bootloaderText
     cachesGlobal
@@ -19,7 +20,7 @@ in
     git
     homeManager
     minecraftServer
-    router # The main one!
+    router
     ssd
     ssh
     users
@@ -27,6 +28,9 @@ in
 
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
+
+  system.autoUpgrade.operation = lib.mkForce "test"; # Reboot to unapply upgrades.
+  system.autoUpgrade.dates = lib.mkForce "2:00"; # Upgrade 1 hour before the other systems - we serve as the cache for them.
 
   services.avahi = {
     enable = true;

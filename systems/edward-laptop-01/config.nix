@@ -3,15 +3,16 @@
   networking.hostName = "edward-laptop-01";
 
   imports = with outputs.nixosModules; [
+    autoUpgrade
     basicConfig
     bluetooth
     bootloaderGraphical
     cachesGlobal
     cachesLocal
-    distributedBuilds
     desktop
     desktopApps
     development
+    distributedBuilds
     fileSystems
     firewall
     fzf
@@ -19,17 +20,15 @@
     gpg
     homeManager
     network
+    openrgb
     printer
     sdr
     sound
     ssd
     ssh
     users
-    autoUpgrade
     yubikey
     zsh
-
-    openrgb
   ];
 
   nixpkgs = {

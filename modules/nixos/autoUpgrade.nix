@@ -2,8 +2,10 @@
 {
   system.autoUpgrade = {
     enable = true;
-    dates = "03:10";
+    operation = "boot"; # Reboot to apply upgrades.
+    dates = "03:00";
     flake = "${config.users.users.headb.home}/dotfiles";
+    randomizedDelaySec = "30min"; # Randomize the upgrade time by up to 30 minutes, to avoid all systems upgrading at the same time.
     flags = [
       "--update-input"
       "nixpkgs"
@@ -11,8 +13,7 @@
       "nixpkgs-unstable"
       "--update-input"
       "home-manager"
-      "--commit-lock-file"
     ];
-    allowReboot = true;
+    allowReboot = false;
   };
 }
