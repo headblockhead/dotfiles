@@ -1,0 +1,19 @@
+name: Update the Nix flake
+on: 
+  schedule:
+    - cron: "50 1 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - uses: DeterminateSystems/nix-installer-action@main
+    - uses: DeterminateSystems/magic-nix-cache-action@main
+    - run: nix flake update
+    - name: Commit and push changes
+      run: |
+        git commit -am "automated: update inputs"
+        git push
