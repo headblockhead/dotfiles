@@ -103,24 +103,9 @@
           ];
         };
 
-        rpi-cluster-02 = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs agenix sshkey; };
-          modules = [
-            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
-            {
-              raspberry-pi-nix.board = "bcm2711"; # Raspberry Pi 4
-            }
-
-            ./systems/rpi-cluster/02.nix
-
-            agenix.nixosModules.default
-          ];
-        };
-
         rpi-cluster-01 = nixpkgs.lib.nixosSystem {
-          # system = "aarch64-linux";
-          system = "x86_64-linux";
+          system = "aarch64-linux";
+          # system = "x86_64-linux"; # uncomment this to cross-compile (requires boot.binfmt.emulatedSystems)
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
             inputs.raspberry-pi-nix.nixosModules.raspberry-pi
@@ -130,6 +115,22 @@
             }
 
             ./systems/rpi-cluster/01.nix
+
+            agenix.nixosModules.default
+          ];
+        };
+
+        rpi-cluster-02 = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          # system = "x86_64-linux"; # uncomment this to cross-compile (requires boot.binfmt.emulatedSystems)
+          specialArgs = { inherit inputs outputs agenix sshkey; };
+          modules = [
+            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+            {
+              raspberry-pi-nix.board = "bcm2711"; # Raspberry Pi 4
+            }
+
+            ./systems/rpi-cluster/02.nix
 
             agenix.nixosModules.default
           ];
