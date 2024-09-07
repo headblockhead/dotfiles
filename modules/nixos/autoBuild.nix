@@ -11,8 +11,7 @@
   systemd.services."build-latest-nixos" = {
     script = ''
       set -eu
-      ${pkgs.nixos-rebuild}/bin/nixos-rebuild build --flake github:headblockhead/dotfiles#router --accept-flake-config
-      ${pkgs.nixos-rebuild}/bin/nixos-rebuild build --flake github:headblockhead/dotfiles#edward-desktop-01 --accept-flake-config
+      ${pkgs.nixos-rebuild}/bin/nixos-rebuild build --flake github:headblockhead/dotfiles --accept-flake-config
     '';
     serviceConfig = {
       Type = "oneshot";

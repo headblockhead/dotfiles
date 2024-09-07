@@ -87,7 +87,7 @@
 
   # Grub settings.
   boot.loader.grub.useOSProber = true;
-  boot.loader.grub.gfxmodeEfi = "3840x2160x32";
+  boot.loader.grub.gfxmodeEfi = "1920x1080x32";
 
   # find / -name '*.desktop' 2> /dev/null
   services.xserver.desktopManager.gnome.favoriteAppsOverride = ''
