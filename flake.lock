@@ -798,11 +798,11 @@
         "xc": "xc"
       },
       "locked": {
-        "lastModified": 1725290080,
-        "narHash": "sha256-bOeWnMQp+YsU+rRbvAB0sCtLyLLokte5ZAGXRVw1otI=",
+        "lastModified": 1725636282,
+        "narHash": "sha256-zbSJkt3+eoF1kXUnooxcYHVOoMPpxvemrckQVl8Mt1A=",
         "owner": "a-h",
         "repo": "templ",
-        "rev": "3ac3c9de53ad81f43d70bebfb642a89c2c69a4c1",
+        "rev": "dcc8987d50eb770918e08bbe3d0cebab5da5afd0",
         "type": "github"
       },
       "original": {
