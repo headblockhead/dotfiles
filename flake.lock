@@ -292,8 +292,8 @@
       },
       "original": {
         "owner": "raspberrypi",
-        "ref": "v0.3.1+rpt20240906",
         "repo": "libcamera",
+        "rev": "69a894c4adad524d3063dd027f5c4774485cf9db",
         "type": "github"
       }
     },
@@ -559,11 +559,11 @@
         "u-boot-src": "u-boot-src"
       },
       "locked": {
-        "lastModified": 1726102018,
-        "narHash": "sha256-GRXzdZzMqa1aR0orAStuvlfYqDWNziyOhaz1R4LG1MI=",
+        "lastModified": 1726173668,
+        "narHash": "sha256-K+XJBQZ8UZwTjZQTmf5l0OKKy942agFpkEktGcED4NU=",
         "owner": "nix-community",
         "repo": "raspberry-pi-nix",
-        "rev": "3236d867b336c58f68923bafbcb85ef36e64690c",
+        "rev": "351301b1a13c108f5cb9d7b7b1f813583d3b5d10",
         "type": "github"
       },
       "original": {
