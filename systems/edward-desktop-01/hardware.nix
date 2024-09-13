@@ -13,8 +13,15 @@
   };
 
   # Load nvidia driver for Xorg and Wayland
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "nvidia" "amdgpu" ];
+  boot.initrd.kernelModules = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.i2c.enable = true;
+  users.users.headb.extraGroups = [ "i2c" ];
+  environment.systemPackages = with pkgs; [
+    ddcutil
+    gnomeExtensions.brightness-control-using-ddcutil
+  ];
 
   # NVIDIA
   hardware.nvidia = {

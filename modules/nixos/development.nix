@@ -12,7 +12,7 @@
     cmatrix
     ec2-ami-tools
     flyctl
-    freecad
+    unstable.freecad-wayland
     gcc
     gcc-arm-embedded
     gnumake

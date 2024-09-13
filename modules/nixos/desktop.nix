@@ -10,6 +10,38 @@
         user.databases = [
           {
             settings = {
+              "org/gnome/shell" = {
+                disabled-extentions = [
+                  "apps-menu@gnome-shell-extensions.gcampax.github.com"
+                  "native-window-placement@gnome-shell-extensions.gcampax.github.com"
+                  "drive-menu@gnome-shell-extensions.gcampax.github.com"
+                  "user-theme@gnome-shell-extensions.gcampax.github.com"
+                  "window-list@gnome-shell-extensions.gcampax.github.com"
+                  "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
+                  "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+                  "light-style@gnome-shell-extensions.gcampax.github.com"
+                  "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com"
+                  "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+                ];
+                enabled-extensions = [
+                  "appindicatorsupport@rgcjonas.gmail.com"
+                  "system-monitor@gnome-shell-extensions.gcampax.github.com"
+                  "display-brightness-ddcutil@themightydeity.github.com"
+                  "unblank@sun.wxg@gmail.com"
+                ];
+              };
+              "org/gnome/shell/extensions/display-brightness-ddcutil" = {
+                show-all-slider = false;
+                show-value-label = false;
+                show-display-name = false;
+                show-osd = false;
+                button-location = lib.gvariant.mkUint32 1;
+                hide-system-indicator = false;
+                position-system-indicator = lib.gvariant.mkDouble 2.0;
+                position-system-menu = lib.gvariant.mkDouble 3.0;
+                step-change-keyboard = lib.gvariant.mkDouble 10.0;
+                allow-zero-brightness = true;
+              };
               "org/gnome/desktop/session" = {
                 idle-delay = lib.gvariant.mkUint32 0;
               };
@@ -19,8 +51,8 @@
                 sleep-inactive-battery-timeout = lib.gvariant.mkInt32 1800;
               };
               "org/gnome/mutter" = {
-                #"experimental-features" = [ "scale-monitor-framebuffer" ];
-                "experimental-features" = [ "x11-randr-fractional-scaling" ];
+                "experimental-features" = [ "scale-monitor-framebuffer" ];
+                #"experimental-features" = [ "x11-randr-fractional-scaling" ];
               };
               "org/gnome/desktop/background" = {
                 "picture-uri" = "file://${pkgs.nixos-artwork.wallpapers.nineish.gnomeFilePath}";
@@ -148,6 +180,7 @@
 
   environment.systemPackages = with pkgs; [
     gnomeExtensions.appindicator # Tray icons
+    gnomeExtensions.unblank
   ];
 
   # GNOME terminal - replaces the console.
