@@ -24,9 +24,11 @@
   ];
 
   # NVIDIA
+  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
     open = false;
+    powerManagement.enable = true;
     modesetting.enable = true;
   };
 

@@ -79,7 +79,7 @@ in
           type        "fifo"
           encoder     "flac"
           name        "snapserver"
-          format      "46000:16:2"
+          format      "44100:16:2"
       	path		"/run/snapserver/mpd"
       	compression	"8"
       	mixer_type	"software"
@@ -96,7 +96,7 @@ in
       listenAddress = "192.168.1.1";
       docRoot = snapweb;
     };
-    sampleFormat = "46000:16:2";
+    sampleFormat = "44100:16:2";
     codec = "flac";
     sendToMuted = true;
     streams = {
@@ -110,7 +110,7 @@ in
       "mpd" = {
         type = "pipe";
         location = "/run/snapserver/mpd";
-        sampleFormat = "46000:16:2";
+        sampleFormat = "44100:16:2";
         codec = "flac";
       };
       "Home Assistant" = {
@@ -120,11 +120,11 @@ in
     };
   };
 
-  services.unifi = {
-    enable = true;
-    unifiPackage = pkgs.unifi7;
-    maximumJavaHeapSize = 256;
-  };
+  #services.unifi = {
+  #enable = true;
+  #unifiPackage = pkgs.unifi7;
+  #maximumJavaHeapSize = 256;
+  #};
 
   services.nix-serve = {
     enable = true;
