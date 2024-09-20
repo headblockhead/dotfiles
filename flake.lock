@@ -559,11 +559,11 @@
         "u-boot-src": "u-boot-src"
       },
       "locked": {
-        "lastModified": 1726173668,
-        "narHash": "sha256-K+XJBQZ8UZwTjZQTmf5l0OKKy942agFpkEktGcED4NU=",
+        "lastModified": 1726788984,
+        "narHash": "sha256-fl+wfl/xrDIF8jVR9cBvTTARaduU64LhzJEZRbvoZJA=",
         "owner": "nix-community",
         "repo": "raspberry-pi-nix",
-        "rev": "351301b1a13c108f5cb9d7b7b1f813583d3b5d10",
+        "rev": "90ff6a72a9f2e287c6890fbf6cbe60fde5115844",
         "type": "github"
       },
       "original": {
