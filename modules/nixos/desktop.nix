@@ -41,6 +41,7 @@
                 position-system-menu = lib.gvariant.mkDouble 3.0;
                 step-change-keyboard = lib.gvariant.mkDouble 10.0;
                 allow-zero-brightness = true;
+                ddcutil-binary-path = "${pkgs.ddcutil}/bin/ddcutil";
               };
               "org/gnome/desktop/session" = {
                 idle-delay = lib.gvariant.mkUint32 0;
