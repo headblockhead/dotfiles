@@ -404,11 +404,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1727348695,
-        "narHash": "sha256-J+PeFKSDV+pHL7ukkfpVzCOO7mBSrrpJ3svwBFABbhI=",
+        "lastModified": 1727634051,
+        "narHash": "sha256-S5kVU7U82LfpEukbn/ihcyNt2+EvG7Z5unsKW9H/yFA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "1925c603f17fc89f4c8f6bf6f631a802ad85d784",
+        "rev": "06cf0e1da4208d3766d898b7fdab6513366d45b9",
         "type": "github"
       },
       "original": {
@@ -532,11 +532,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1727593645,
-        "narHash": "sha256-q1/H7WJiI74tRfiWBuCmIxxivSbUF+sY02Pvl0runUs=",
+        "lastModified": 1727742728,
+        "narHash": "sha256-0KiEsGGFKyitm2SMA4/NPa4iOynaLk6fnjmfG67H8M4=",
         "owner": "PrismLauncher",
         "repo": "PrismLauncher",
-        "rev": "a63451212f0d6bd22bca4d0842d633ea3919a7c2",
+        "rev": "974c89b9c335f49759cec08441aada563d0cbdad",
         "type": "github"
       },
       "original": {
@@ -798,11 +798,11 @@
         "xc": "xc"
       },
       "locked": {
-        "lastModified": 1727429530,
-        "narHash": "sha256-fWIsThCslG0H55jCOyvRaRLq0qS39g5Sx9vpPZuAl+s=",
+        "lastModified": 1727693918,
+        "narHash": "sha256-kKb1j6ej7lLIa4vbkdcDDBjp8uRScabP+Eszjbr8Jmg=",
         "owner": "a-h",
         "repo": "templ",
-        "rev": "a4638e3f5f63acf8550f96d108a663990ffe5185",
+        "rev": "3c65b4309b5c4dbc78e60fdc3e840fbedc4169a9",
         "type": "github"
       },
       "original": {
