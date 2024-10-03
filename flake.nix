@@ -179,6 +179,15 @@
           ];
         };
 
+        # Virtualbox system.
+        brick = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs sshkey; };
+          modules = [
+            ./systems/brick/config.nix
+            ./systems/brick/hardware.nix
+          ];
+        };
+
         # Portable system.
         portable = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
