@@ -8,9 +8,8 @@
     bluetooth
     bootloaderGraphical
     cachesGlobal
-    desktop
+    # desktop
     development
-    docker
     fileSystems
     fonts
     fzf
@@ -20,6 +19,7 @@
     network
     sound
     ssh
+    ssd
     users
     zsh
   ];
