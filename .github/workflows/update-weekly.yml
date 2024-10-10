@@ -1,8 +1,8 @@
-name: Update the Nix flake
+name: Update Nix flake inputs
 on: 
   workflow_dispatch:
   schedule:
-    - cron: "50 1 * * *"
+    - cron: "50 1 * * 1" # At 1:50 every Monday
 
 jobs:
   build:
