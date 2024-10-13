@@ -2,10 +2,10 @@ name: Update Nix flake inputs
 on: 
   workflow_dispatch:
   schedule:
-    - cron: "50 1 * * 1" # At 1:50 every Monday
+    - cron: "50 1 * * 1" # At 01:50 every Monday
 
 jobs:
-  build:
+  update-inputs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
@@ -14,7 +14,7 @@ jobs:
     - uses: DeterminateSystems/nix-installer-action@b92f66560d6f97d6576405a7bae901ab57e72b6a
     - uses: DeterminateSystems/magic-nix-cache-action@a76a83091cd8728db8c37312dbdd0eeb1177a6c0
     - run: nix flake update
-    - name: Commit and push changes
+    - name: Commit and push
       run: |
         git config user.name 'github-actions[bot]'
         git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
