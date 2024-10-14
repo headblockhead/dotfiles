@@ -532,11 +532,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728802153,
-        "narHash": "sha256-KFbGqrhMU5I2SZG6cnFKuiJ/YgRwsTQEC912S7G9/6w=",
+        "lastModified": 1728848760,
+        "narHash": "sha256-LfJJZ08+suzEcgbFiCn0wyyvhvZAp9L5HEQNNqA1rO4=",
         "owner": "PrismLauncher",
         "repo": "PrismLauncher",
-        "rev": "5685bc340774da9026bbd6338593a2ec04ce7527",
+        "rev": "f239f4c17c80e88aa12635e142f7829688f122c3",
         "type": "github"
       },
       "original": {
