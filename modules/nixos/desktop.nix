@@ -180,8 +180,10 @@
   services.xserver.excludePackages = [ pkgs.xterm ];
 
   environment.systemPackages = with pkgs; [
+    gnomeExtensions.next-up # Next calendar event
     gnomeExtensions.appindicator # Tray icons
     gnomeExtensions.unblank
+    gnome.gnome-calendar
   ];
 
   # GNOME terminal - replaces the console.
