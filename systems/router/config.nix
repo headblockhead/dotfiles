@@ -18,49 +18,28 @@ in
     fileSystems
     git
     homeManager
-    minecraftServer
     router
     ssd
     ssh
     users
     zsh
-
-    inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
-  nix.optimise.automatic = true;
-  nix.optimise.dates = [ "04:00" ];
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
+  services.vault = {
+    enable = true;
+    address = "192.168.1.1:8200";
   };
 
   services.avahi = {
     enable = true;
-    reflector = true;
+    #reflector = true;
     #allowInterfaces = [ "enp5s0" "enp4s0" ];
     publish = {
       enable = true;
-      workstation = true;
+      #workstation = true;
       userServices = true;
     };
   };
-
-  #  hardware.pulseaudio = {
-  #enable = true;
-  #systemWide = true;
-  #zeroconf.publish.enable = true;
-  ##    tcp.enable = true;
-  ##    tcp.anonymousClients.allowAll = true;
-  #package = pkgs.pulseaudioFull;
-  #extraConfig = ''
-  #load-module module-pipe-sink file=/tmp/snapfifo sink_name=Snapcast format=s16le rate=48000
-  #update-sink-proplist Snapcast device.description=Snapcast
-  #load-module module-native-protocol-unix
-  #load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1;192.168.1.0/24 auth-anonymous=1
-  #'';
-  #};
 
   services.nfs.server = {
     enable = true;
@@ -75,17 +54,16 @@ in
     network.listenAddress = "192.168.1.1";
     musicDirectory = "/srv/mpd";
     extraConfig = ''
-          audio_output {
-          type        "fifo"
-          encoder     "flac"
-          name        "snapserver"
-          format      "44100:16:2"
+      audio_output {
+        type            "fifo"
+        encoder         "flac"
+        name            "snapserver"
+        format          "44100:16:2"
       	path		"/run/snapserver/mpd"
       	compression	"8"
       	mixer_type	"software"
       }
     '';
-    fluidsynth = true;
   };
 
   services.snapserver = {
@@ -116,6 +94,7 @@ in
       "Home Assistant" = {
         type = "tcp";
         location = "192.168.1.1:4953";
+        sampleFormat = "48000:16:2";
       };
     };
   };
@@ -135,10 +114,18 @@ in
     enable = true;
     recommendedProxySettings = true;
     virtualHosts = {
-      "h6cache.lan" = {
+      "local-cache.lan" = {
         locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
       };
     };
+  };
+
+  nix.optimise.automatic = true;
+  nix.optimise.dates = [ "04:00" ];
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
   };
 
   nixpkgs = {
@@ -146,8 +133,6 @@ in
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
-
-      inputs.nix-minecraft.overlay
     ];
     config = {
       allowUnfree = true;
