@@ -17,8 +17,8 @@
     gcc-arm-embedded
     gnumake
     go
+    gopass
     gopls
-    vault
     hugo
     inetutils
     killall

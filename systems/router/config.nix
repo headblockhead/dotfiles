@@ -25,11 +25,6 @@ in
     zsh
   ];
 
-  services.vault = {
-    enable = true;
-    address = "192.168.1.1:8200";
-  };
-
   services.avahi = {
     enable = true;
     #reflector = true;
