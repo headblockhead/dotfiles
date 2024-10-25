@@ -1,13 +1,9 @@
-{ inputs, outputs, lib, config, pkgs, agenix, ... }:
+{ inputs, outputs, lib, config, ... }:
 
 {
   networking.hostName = "edward-desktop-01";
 
   imports = with outputs.nixosModules; [
-    #firewall
-    #wireguard
-    #p2pool
-    #xmrig
     autoUpgrade
     basicConfig
     bluetooth
@@ -20,9 +16,11 @@
     distributedBuilds
     docker
     fileSystems
+    firewall
     fonts
     fzf
     git
+    globalApps
     gpg
     homeManager
     network
@@ -38,11 +36,8 @@
     zsh
   ];
 
-  networking.firewall.enable = lib.mkForce false;
-
+  # networking.firewall.enable = lib.mkForce false;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  nix.distributedBuilds = lib.mkForce false;
 
   nixpkgs = {
     overlays = [
@@ -76,15 +71,6 @@
     auto-optimise-store = true;
   };
 
-  # Extra packages to install
-  environment.systemPackages = [
-    agenix.packages.x86_64-linux.default
-    pkgs.xc
-
-    pkgs.cachix
-    pkgs.deploy-rs
-  ];
-
   # Grub settings.
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.gfxmodeEfi = "1920x1080x32";
@@ -92,13 +78,13 @@
   # find / -name '*.desktop' 2> /dev/null
   services.xserver.desktopManager.gnome.favoriteAppsOverride = ''
     [org.gnome.shell]
-    favorite-apps=[ 'firefox.desktop', 'obsidian.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Settings.desktop', 'org.gnome.Calculator.desktop', 'org.freecadweb.FreeCAD.desktop', 'org.kicad.kicad.desktop', 'gnome-system-monitor.desktop', 'thunderbird.desktop', 'spotify.desktop', 'org.openrgb.OpenRGB.desktop']
+    favorite-apps=[ 'firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Settings.desktop', 'org.gnome.Calculator.desktop', 'org.freecad.FreeCAD.desktop', 'org.kicad.kicad.desktop', 'gnome-system-monitor.desktop', 'thunderbird.desktop', 'slack.desktop', 'spotify.desktop', 'org.openrgb.OpenRGB.desktop']
   '';
 
   # https://www.mankier.com/5/tmpfiles.d
   systemd.tmpfiles.rules = [
-    ''C /run/gdm/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
-    ''C /home/headb/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
+    ''L+ /run/gdm/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
+    ''L+ /home/headb/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
   ];
 
   # This value determines the NixOS release from which the default

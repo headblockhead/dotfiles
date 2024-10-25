@@ -1,5 +1,6 @@
 {
   autoBuild = import ./autoBuild.nix;
+  globalApps = import ./globalApps.nix;
   autoUpgrade = import ./autoUpgrade.nix;
   basicConfig = import ./basicConfig.nix;
   bluetooth = import ./bluetooth.nix;

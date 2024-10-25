@@ -4,14 +4,9 @@
 {
   imports = with outputs.homeManagerModules; [
     baseConfig
-    dconf
-    fzf
     git
-    gnomeTerminal
-    gtk
     nautilusBookmarks
     neovim
-    openrgb
     zsh
   ];
 
@@ -37,8 +32,6 @@
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
-
-  home.file.".config/monitors.xml".text = builtins.readFile ../monitors.xml;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

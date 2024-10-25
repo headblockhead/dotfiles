@@ -218,11 +218,11 @@
     gnome.gnome-settings-daemon
   ];
 
-  environment.sessionVariables = {
-    QT_STYLE_OVERRIDE = "adwaita-dark";
+  qt = {
+    enable = true;
+    style = "adwaita-dark";
+    platformTheme = "gnome";
   };
-
-  qt.style = "adwaita-dark";
 
   # Symlink fonts into /run/current-system/sw/share/X11/fonts
   fonts.fontDir.enable = true;
