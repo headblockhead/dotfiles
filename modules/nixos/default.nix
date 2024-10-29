@@ -20,7 +20,7 @@
   globalApps = import ./globalApps.nix;
   gpg = import ./gpg.nix;
   homeManager = import ./homeManager.nix;
-  mail = import ./fail.nix;
+  mail = import ./mail.nix;
   minecraftServer = import ./minecraftServer.nix;
   network = import ./network.nix;
   openrgb = import ./openrgb.nix;
