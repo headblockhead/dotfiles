@@ -1,6 +1,6 @@
-{ inputs, outputs, lib, config, agenix, pkgs, ... }:
+{ inputs, outputs, lib, config, pkgs, ... }:
 {
-  networking.hostName = "barkup";
+  networking.hostName = "ehesketh.dev";
 
   imports = with outputs.nixosModules; [
     basicConfig
@@ -9,12 +9,9 @@
     fzf
     git
     homeManager
-    minecraftServer
     ssh
     users
     zsh
-
-    inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
   nixpkgs = {
@@ -50,12 +47,11 @@
 
   # Extra packages to install.
   environment.systemPackages = [
-    agenix.packages.x86_64-linux.default
     pkgs.xc
   ];
 
   # No root!
-  services.openssh.settings.PermitRootLogin = lib.mkForce "no";
+  # services.openssh.settings.PermitRootLogin = lib.mkForce "no";
 
   # Passwordless sudo for wheel group.
   security.sudo.wheelNeedsPassword = false;

@@ -4,7 +4,6 @@
 {
   imports = with outputs.homeManagerModules; [
     baseConfig
-    fzf
     git
     neovim
     zsh

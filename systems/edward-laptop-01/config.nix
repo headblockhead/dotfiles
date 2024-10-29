@@ -6,6 +6,7 @@
     autoUpgrade
     basicConfig
     bluetooth
+    fonts
     bootloaderGraphical
     cachesGlobal
     cachesLocal

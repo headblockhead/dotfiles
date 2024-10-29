@@ -162,16 +162,14 @@
         };
 
         # AWS EC2 nodes.
-        barkup = nixpkgs.lib.nixosSystem {
+        ehesketh.dev = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
-            ./systems/barkup/config.nix
+            ./systems/ehesketh.dev/config.nix
             {
-              nixpkgs.hostPlatform = "x86_64-linux";
+              nixpkgs.hostPlatform = "aarch64-linux";
             }
-
-            agenix.nixosModules.default
           ];
         };
 
