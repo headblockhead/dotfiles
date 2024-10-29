@@ -21,8 +21,6 @@
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
-
-      inputs.nix-minecraft.overlay
     ];
     config = {
       allowUnfree = true;
