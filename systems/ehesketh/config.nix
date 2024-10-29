@@ -1,6 +1,6 @@
 { inputs, outputs, lib, config, pkgs, ... }:
 {
-  networking.hostName = "ehesketh.dev";
+  networking.hostName = "ehesketh";
 
   imports = with outputs.nixosModules; [
     basicConfig

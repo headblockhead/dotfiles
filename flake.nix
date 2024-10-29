@@ -162,11 +162,11 @@
         };
 
         # AWS EC2 nodes.
-        "ehesketh.dev" = nixpkgs.lib.nixosSystem {
+        ehesketh = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
-            ./systems/ehesketh.dev/config.nix
+            ./systems/ehesketh/config.nix
             {
               nixpkgs.hostPlatform = "aarch64-linux";
             }
@@ -220,10 +220,10 @@
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./systems/edward-laptop-02/users/headb.nix ];
         };
-        "headb@barkup" = home-manager.lib.homeManagerConfiguration {
+        "headb@ehesketh" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/barkup/users/headb.nix ];
+          modules = [ ./systems/ehesketh/users/headb.nix ];
         };
       };
     };
