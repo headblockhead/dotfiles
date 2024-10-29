@@ -1,16 +1,18 @@
-{ inputs, outputs, lib, config, pkgs, ... }:
+{ inputs, outputs, config, pkgs, lib, ... }:
+
 {
-  networking.hostName = "ehesketh";
+  networking.hostName = "rpi-builder";
 
   imports = with outputs.nixosModules; [
     basicConfig
     cachesGlobal
-    firewall
-    fzf
+    cachesLocal
+    distributedBuilds
     git
+    firewall
     homeManager
-    ssh
     users
+    ssh
     zsh
   ];
 
@@ -19,6 +21,8 @@
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
+
+      inputs.nix-minecraft.overlay
     ];
     config = {
       allowUnfree = true;
@@ -27,7 +31,8 @@
 
   # This will add each flake input as a registry
   # To make nix3 commands consistent with your flake
-  nix.registry = (lib.mapAttrs (_: flake: { inherit flake; })) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
+  nix.registry = (lib.mapAttrs (_: flake: { inherit flake; }))
+    ((lib.filterAttrs (_: lib.isType "flake")) inputs);
 
   # This will additionally add your inputs to the system's legacy channels
   # Making legacy nix commands consistent as well, awesome!
@@ -45,22 +50,16 @@
     auto-optimise-store = true;
   };
 
-  # Extra packages to install.
+  # Extra packages to install
   environment.systemPackages = [
     pkgs.xc
   ];
 
-  # No root!
-  # services.openssh.settings.PermitRootLogin = lib.mkForce "no";
+  # Use firmware even if it has a redistributable license
+  hardware.enableRedistributableFirmware = lib.mkForce true;
 
   # Passwordless sudo for wheel group.
   security.sudo.wheelNeedsPassword = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
+  system.stateVersion = "23.05";
 }

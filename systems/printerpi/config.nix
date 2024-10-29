@@ -4,7 +4,6 @@
   networking.hostName = "rpi-cluster-02";
 
   imports = with outputs.nixosModules; [
-    autoUpgrade
     basicConfig
     cachesGlobal
     cachesLocal

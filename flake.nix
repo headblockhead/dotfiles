@@ -1,5 +1,5 @@
 {
-  description = "Reproducable configuration for all of my devices and gadgets. Now including netbooting!";
+  description = "Reproducable configuration for all of my systems";
 
   nixConfig = {
     extra-substituters = [ "https://cachix.cachix.org" "https://nix-community.cachix.org" ];
@@ -41,7 +41,6 @@
     };
     rpicluster = {
       url = "github:headblockhead/rpicluster";
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
     templ = {
       url = "github:a-h/templ";
@@ -88,7 +87,7 @@
       homeManagerModules = import ./modules/home-manager;
 
       nixosConfigurations = {
-        # Network nodes.
+        # Local servers
         router = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
@@ -99,40 +98,36 @@
           ];
         };
 
-        rpi-cluster-01 = nixpkgs.lib.nixosSystem {
+        rpi-builder = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          # system = "x86_64-linux"; # uncomment this to cross-compile (requires boot.binfmt.emulatedSystems)
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
+            ./systems/rpi-builder/config.nix
             inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             {
-              nixpkgs.crossSystem.system = "aarch64-linux";
               raspberry-pi-nix.board = "bcm2712"; # Raspberry Pi 5
             }
-
-            ./systems/rpi-cluster/01.nix
 
             agenix.nixosModules.default
           ];
         };
 
-        rpi-cluster-02 = nixpkgs.lib.nixosSystem {
+        printerpi = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          # system = "x86_64-linux"; # uncomment this to cross-compile (requires boot.binfmt.emulatedSystems)
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
+            ./systems/printerpi/config.nix
+
             inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             {
               raspberry-pi-nix.board = "bcm2711"; # Raspberry Pi 4
             }
 
-            ./systems/rpi-cluster/02.nix
-
             agenix.nixosModules.default
           ];
         };
 
-        # Client nodes.
+        # Local desktops
         edward-desktop-01 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
@@ -147,8 +142,9 @@
           modules = [
             ./systems/edward-laptop-01/config.nix
             ./systems/edward-laptop-01/hardware.nix
-
             ./systems/edward-laptop-01/specialisations/away.nix
+
+            agenix.nixosModules.default
           ];
         };
         edward-laptop-02 = nixpkgs.lib.nixosSystem {
@@ -162,14 +158,16 @@
         };
 
         # AWS EC2 nodes.
-        ehesketh = nixpkgs.lib.nixosSystem {
+        # 18.135.222.143
+        edwardh = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
-            ./systems/ehesketh/config.nix
+            ./systems/edwardh/config.nix
             {
               nixpkgs.hostPlatform = "aarch64-linux";
             }
+            agenix.nixosModules.default
           ];
         };
 
@@ -181,29 +179,27 @@
             ./systems/brick/hardware.nix
           ];
         };
-
-        # Portable system.
-        portable = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs agenix sshkey; };
-          modules = [
-            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
-            #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-x86_64.nix"
-            ./systems/portable/config.nix
-            ./systems/portable/hardware.nix
-          ];
-        };
       };
 
-      # ISO image for a portable USB stick.
-      portable-iso = nixosConfigurations.portable.config.system.build.isoImage;
-      rpi-cluster-01-sd = nixosConfigurations.rpi-cluster-01.config.system.build.sdImage;
-      rpi-cluster-02-sd = nixosConfigurations.rpi-cluster-02.config.system.build.sdImage;
+      # SD card images.
+      rpi-builder-sd = nixosConfigurations.rpi-builder.config.system.build.sdImage;
+      printerpi-sd = nixosConfigurations.printerpi.config.system.build.sdImage;
 
       homeConfigurations = {
         "headb@router" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./systems/router/users/headb.nix ];
+        };
+        "headb@rpi-builder" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./systems/rpi-builder/users/headb.nix ];
+        };
+        "headb@printerpi" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./systems/printerpi/users/headb.nix ];
         };
         "headb@edward-desktop-01" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
@@ -220,10 +216,10 @@
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./systems/edward-laptop-02/users/headb.nix ];
         };
-        "headb@ehesketh" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        "headb@edwardh" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/ehesketh/users/headb.nix ];
+          modules = [ ./systems/edwardh/users/headb.nix ];
         };
       };
     };

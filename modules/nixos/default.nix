@@ -1,6 +1,5 @@
 {
   autoBuild = import ./autoBuild.nix;
-  globalApps = import ./globalApps.nix;
   autoUpgrade = import ./autoUpgrade.nix;
   basicConfig = import ./basicConfig.nix;
   bluetooth = import ./bluetooth.nix;
@@ -18,8 +17,10 @@
   fonts = import ./fonts.nix;
   fzf = import ./fzf.nix;
   git = import ./git.nix;
+  globalApps = import ./globalApps.nix;
   gpg = import ./gpg.nix;
   homeManager = import ./homeManager.nix;
+  mail = import ./fail.nix;
   minecraftServer = import ./minecraftServer.nix;
   network = import ./network.nix;
   openrgb = import ./openrgb.nix;
