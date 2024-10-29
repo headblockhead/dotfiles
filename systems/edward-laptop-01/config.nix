@@ -76,7 +76,6 @@
     pkgs.x32edit
     pkgs.p7zip
     pkgs.libreoffice
-    pkgs.super-slicer
     pkgs.prusa-slicer
   ];
 

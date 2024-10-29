@@ -12,8 +12,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    kicadpkgs.url = "github:NixOS/nixpkgs/e70e1370a88f86ea989902e140172e9cff0d379a";
-    slicerpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,15 +37,8 @@
       url = "github:headblockhead/nix-playdatemirror";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    rpicluster = {
-      url = "github:headblockhead/rpicluster";
-    };
     templ = {
       url = "github:a-h/templ";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    xc = {
-      url = "github:joerdav/xc";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mcpelauncher = {
@@ -67,6 +58,7 @@
       inherit (self) outputs;
       systems = [
         "x86_64-linux"
+        "aarch64-linux"
       ];
 
       # My public SSH key:
@@ -78,7 +70,7 @@
     in
     rec {
       # Custom packages: accessible through 'nix build', 'nix shell', etc.
-      packages = forAllSystems (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; inherit inputs; });
+      packages = forAllSystems (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; inherit inputs system; });
 
       # Exported overlays. Includes custom packages and flake outputs.
       overlays = import ./overlays { inherit inputs; };
@@ -143,15 +135,6 @@
             ./systems/edward-laptop-01/config.nix
             ./systems/edward-laptop-01/hardware.nix
             ./systems/edward-laptop-01/specialisations/away.nix
-
-            agenix.nixosModules.default
-          ];
-        };
-        edward-laptop-02 = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs agenix sshkey; };
-          modules = [
-            ./systems/edward-laptop-02/config.nix
-            ./systems/edward-laptop-02/hardware.nix
 
             agenix.nixosModules.default
           ];

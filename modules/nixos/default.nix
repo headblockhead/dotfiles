@@ -35,7 +35,6 @@
   sound = import ./sound.nix;
   ssd = import ./ssd.nix;
   ssh = import ./ssh.nix;
-  transmission = import ./transmission.nix;
   users = import ./users.nix;
   virtualBox = import ./virtualBox.nix;
   wireguard = import ./wireguard.nix;

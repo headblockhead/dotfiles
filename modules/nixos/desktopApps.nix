@@ -28,12 +28,10 @@
     prismlauncher
     remmina
     spotify
-    super-slicer
     prusa-slicer
     slack
     thonny
     thunderbird
-    transgui
     unstable.rpi-imager
     vlc
     zoom-us

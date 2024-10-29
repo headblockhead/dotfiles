@@ -20,7 +20,8 @@ in
   nix.buildMachines = [
     {
       hostName = "edward-desktop-01";
-      systems = [ "x86_64-linux" "aarch64-linux" ];
+      #systems = [ "x86_64-linux" "aarch64-linux" ];
+      systems = [ "x86_64-linux" ];
       sshUser = "nixbuilder";
       sshKey = "/etc/ssh/ssh_host_ed25519_key";
       protocol = "ssh-ng";
@@ -38,7 +39,7 @@ in
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" ];
       mandatoryFeatures = [ ];
       maxJobs = 4;
-      speedFactor = 1;
+      speedFactor = 5;
     }
   ];
   nix.distributedBuilds = true;

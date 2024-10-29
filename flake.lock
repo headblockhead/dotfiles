@@ -130,21 +130,6 @@
         "type": "github"
       }
     },
-    "flake-utils_3": {
-      "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -227,22 +212,6 @@
         "owner": "nix-community",
         "ref": "release-24.05",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "kicadpkgs": {
-      "locked": {
-        "lastModified": 1708966390,
-        "narHash": "sha256-ZRmYF63ORv+HME/CBtUHAyMWg2u719WVPD5t8zzrY0s=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "e70e1370a88f86ea989902e140172e9cff0d379a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "e70e1370a88f86ea989902e140172e9cff0d379a",
         "type": "github"
       }
     },
@@ -411,22 +380,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
-      "locked": {
-        "lastModified": 1718835956,
-        "narHash": "sha256-wM9v2yIxClRYsGHut5vHICZTK7xdrUGfrLkXvSuv6s4=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "dd457de7e08c6d06789b1f5b88fc9327f4d96309",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-24.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "playdatemirror": {
       "inputs": {
         "nixpkgs": [
@@ -520,7 +473,6 @@
         "agenix": "agenix",
         "deploy-rs": "deploy-rs",
         "home-manager": "home-manager_2",
-        "kicadpkgs": "kicadpkgs",
         "mcpelauncher": "mcpelauncher",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
@@ -528,10 +480,7 @@
         "playdatesdk": "playdatesdk",
         "prismlauncher": "prismlauncher",
         "raspberry-pi-nix": "raspberry-pi-nix",
-        "rpicluster": "rpicluster",
-        "slicerpkgs": "slicerpkgs",
-        "templ": "templ",
-        "xc": "xc_2"
+        "templ": "templ"
       }
     },
     "rpi-bluez-firmware-src": {
@@ -633,40 +582,6 @@
         "owner": "raspberrypi",
         "ref": "v1.5.2",
         "repo": "rpicam-apps",
-        "type": "github"
-      }
-    },
-    "rpicluster": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_5"
-      },
-      "locked": {
-        "lastModified": 1719172866,
-        "narHash": "sha256-CKc4p3MiDv4KR3CAMBgEextuYFKBI3MWY3RznO8tP/M=",
-        "owner": "headblockhead",
-        "repo": "rpicluster",
-        "rev": "26c6668b885f899145a66e41dba772e6d80c63ea",
-        "type": "github"
-      },
-      "original": {
-        "owner": "headblockhead",
-        "repo": "rpicluster",
-        "type": "github"
-      }
-    },
-    "slicerpkgs": {
-      "locked": {
-        "lastModified": 1720535198,
-        "narHash": "sha256-zwVvxrdIzralnSbcpghA92tWu2DV2lwv89xZc8MTrbg=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "205fd4226592cc83fd4c0885a3e4c9c400efabb5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-23.11",
-        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -783,27 +698,6 @@
         "owner": "joerdav",
         "repo": "xc",
         "rev": "960ff9f109d47a19122cfb015721a76e3a0f23a2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "joerdav",
-        "repo": "xc",
-        "type": "github"
-      }
-    },
-    "xc_2": {
-      "inputs": {
-        "flake-utils": "flake-utils_3",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1726502039,
-        "narHash": "sha256-Zbzr88XKEpLx2D6jaq6KT8S5Cxe76Q9BeYpOcy3fXQk=",
-        "owner": "joerdav",
-        "repo": "xc",
-        "rev": "6183dd54f074aa3a1b3efb716a04966e4b8bf6e5",
         "type": "github"
       },
       "original": {
