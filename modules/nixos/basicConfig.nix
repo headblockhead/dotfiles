@@ -15,6 +15,6 @@
 
   # Set the trusted settings
   systemd.tmpfiles.rules = [
-    "f /home/headb/.local/share/nix/trusted-settings.json 0644 headb users - ${./trusted-settings.json}"
+    "f /home/headb/.local/share/nix/trusted-settings.json 0644 headb users - ${builtins.readFile ./trusted-settings.json}"
   ];
 }
