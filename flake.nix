@@ -24,16 +24,12 @@
     deploy-rs = {
       url = "github:serokell/deploy-rs";
     };
-    nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft/a206a57f11acea07538b341c56dd9edd1c6f1193";
-    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     prismlauncher = {
       url = "github:PrismLauncher/PrismLauncher";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     playdatesdk = {
       url = "github:headblockhead/nix-playdatesdk";
