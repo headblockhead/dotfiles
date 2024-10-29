@@ -4,11 +4,7 @@
 {
   imports = with outputs.homeManagerModules; [
     baseConfig
-    dconf
-    fzf
     git
-    gnomeTerminal
-    gtk
     nautilusBookmarks
     neovim
     zsh
