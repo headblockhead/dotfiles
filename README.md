@@ -234,7 +234,7 @@ sudo nixos-rebuild switch --flake ".#`hostname`" --accept-flake-config
 Rebuilds the home directory of the headb user and applies it.
 
 ```bash
-home-manager switch --flake ".#$USER@`hostname`" --accept-flake-config
+home-manager switch --flake ".#$USER@`hostname`" 
 ```
 
 ### Build-network

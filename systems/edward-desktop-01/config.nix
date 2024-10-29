@@ -36,7 +36,7 @@
     zsh
   ];
 
-  # networking.firewall.enable = lib.mkForce false;
+  networking.firewall.enable = lib.mkForce false;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   nix.distributedBuilds = lib.mkForce false; # Don't try to build on other machines
 

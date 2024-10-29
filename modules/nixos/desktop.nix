@@ -218,6 +218,8 @@
     gnome.gnome-settings-daemon
   ];
 
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   qt = {
     enable = true;
     style = "adwaita-dark";
