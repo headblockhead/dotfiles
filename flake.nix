@@ -162,7 +162,7 @@
         };
 
         # AWS EC2 nodes.
-        ehesketh.dev = nixpkgs.lib.nixosSystem {
+        "ehesketh.dev" = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs agenix sshkey; };
           modules = [
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
