@@ -162,7 +162,7 @@
           ];
         };
 
-        # Virtualbox system.
+        # Old Dell machine for emergencies.
         brick = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs sshkey; };
           modules = [
@@ -177,13 +177,42 @@
       printerpi-sd = nixosConfigurations.printerpi.config.system.build.sdImage;
 
       # deploy-rs nodes
-      deploy.nodes.edwardh = {
-        hostname = "edwardh.dev";
-        profiles.system = {
-          sshUser = "headb";
-          user = "root"; # Uses sudo
-          remoteBuild = false; # Don't build on edwardh
-          path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.edwardh;
+      deploy.nodes = {
+        router = {
+          hostname = "router.lan";
+          profiles.system = {
+            sshUser = "headb";
+            user = "root";
+            remoteBuild = false;
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.router;
+          };
+        };
+        rpi-builder = {
+          hostname = "rpi-builder.lan";
+          profiles.system = {
+            sshUser = "headb";
+            user = "root";
+            remoteBuild = false;
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi-builder;
+          };
+        };
+        printerpi = {
+          hostname = "printerpi.lan";
+          profiles.system = {
+            sshUser = "headb";
+            user = "root";
+            remoteBuild = false;
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.printerpi;
+          };
+        };
+        edwardh = {
+          hostname = "edwardh.dev";
+          profiles.system = {
+            sshUser = "headb";
+            user = "root"; # Uses sudo
+            remoteBuild = false; # Don't build on edwardh
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.edwardh;
+          };
         };
       };
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
@@ -213,11 +242,6 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./systems/edward-laptop-01/users/headb.nix ];
-        };
-        "headb@edward-laptop-02" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/edward-laptop-02/users/headb.nix ];
         };
         "headb@edwardh" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
