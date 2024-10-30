@@ -30,6 +30,7 @@ in
       nixpkgs-fmt
       wl-clipboard
       nil
+      wakatime
     ];
   programs.neovim = {
     enable = true;
@@ -37,6 +38,9 @@ in
     vimAlias = true;
     defaultEditor = true;
     plugins = with pkgs.vimPlugins; [
+      # HACKATIME
+      vim-wakatime
+
       # Theming plugins
       lualine-nvim
       dracula-nvim

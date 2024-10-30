@@ -428,11 +428,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1730274573,
-        "narHash": "sha256-pbAO+mdQckNHEMqCw6iX43R8NYSzCrUh0ePwjctvkl0=",
+        "lastModified": 1730321777,
+        "narHash": "sha256-zTXO/ite3hLt+FFyscVLhhgT+QprXORhPbUQCfbeRrw=",
         "owner": "PrismLauncher",
         "repo": "PrismLauncher",
-        "rev": "b7598c6a4168d80b659642f89f97001032c96487",
+        "rev": "887e4a964a2d87d342bbb4c8b5ca817d534e9bfe",
         "type": "github"
       },
       "original": {
