@@ -178,7 +178,7 @@
 
       # deploy-rs nodes
       deploy.nodes.edwardh = {
-        hostname = "edwardh";
+        hostname = "edwardh.dev";
         profiles.system = {
           sshUser = "headb";
           user = "root"; # Uses sudo
