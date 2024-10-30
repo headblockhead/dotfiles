@@ -21,7 +21,6 @@
   gpg = import ./gpg.nix;
   homeManager = import ./homeManager.nix;
   mail = import ./mail.nix;
-  minecraftServer = import ./minecraftServer.nix;
   network = import ./network.nix;
   openrgb = import ./openrgb.nix;
   p2pool = import ./p2pool.nix;
