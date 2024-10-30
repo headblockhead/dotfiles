@@ -52,7 +52,7 @@
   ];
 
   # No root!
-  # services.openssh.settings.PermitRootLogin = lib.mkForce "no";
+  services.openssh.settings.PermitRootLogin = lib.mkForce "no";
 
   # Passwordless sudo for wheel group.
   security.sudo.wheelNeedsPassword = false;

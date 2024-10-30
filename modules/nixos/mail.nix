@@ -1,5 +1,7 @@
 { config, ... }:
 {
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+
   imports = [
     (builtins.fetchTarball {
       # nixos-24.05 as of 2024-10-29
@@ -10,8 +12,23 @@
 
   age.secrets.mail-hashed-password.file = ../../secrets/mail-hashed-password.age;
 
+  services.roundcube = {
+    enable = true;
+    # this is the url of the vhost, not necessarily the same as the fqdn of
+    # the mailserver
+    hostName = "webmail.edwardh.dev";
+    extraConfig = ''
+      $config['smtp_server'] = "tls://${config.mailserver.fqdn}";
+      $config['smtp_user'] = "%u";
+      $config['smtp_pass'] = "%p";
+    '';
+  };
+
+  services.nginx.enable = true;
+
   mailserver = {
     enable = true;
+
     fqdn = "mail.edwardh.dev";
     domains = [ "edwardh.dev" ];
 
@@ -19,12 +36,10 @@
     loginAccounts = {
       "@edwardh.dev" = {
         hashedPasswordFile = config.age.secrets.mail-hashed-password.path;
-        aliases = [ "postmaster@edwardh.dev" ];
+        aliases = [ "outbox@edwardh.dev" ];
       };
     };
 
-    # Use Let's Encrypt certificates. Note that this needs to set up a stripped
-    # down nginx and opens port 80.
     certificateScheme = "acme-nginx";
   };
   security.acme.acceptTerms = true;
