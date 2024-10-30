@@ -67,6 +67,7 @@
   environment.systemPackages = [
     pkgs.xc
 
+    pkgs.deploy-rs
     pkgs.firefox
     pkgs.tor-browser-bundle-bin
     pkgs.musescore

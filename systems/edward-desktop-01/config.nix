@@ -1,4 +1,4 @@
-{ inputs, outputs, lib, config, ... }:
+{ inputs, outputs, lib, config, pkgs, ... }:
 
 {
   networking.hostName = "edward-desktop-01";
@@ -71,6 +71,10 @@
     experimental-features = "nix-command flakes";
     auto-optimise-store = true;
   };
+
+  environment.systemPackages = [
+    pkgs.deploy-rs
+  ];
 
   # Grub settings.
   boot.loader.grub.useOSProber = true;

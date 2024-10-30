@@ -4,7 +4,7 @@
   home-manager = inputs.home-manager.defaultPackage.${system};
 
   templ = inputs.templ.packages.${system}.default;
-
+  deploy-rs = inputs.deploy-rs.packages.${system}.default;
   prismlauncher = inputs.prismlauncher.packages.${system}.prismlauncher;
   mcpelauncher = inputs.mcpelauncher.defaultPackage.${system};
 
