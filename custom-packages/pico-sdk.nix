@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = withSubmodules;
     hash =
       if (withSubmodules) then
-        ""
+        lib.fakeHash
       else
         "sha256-d6mEjuG8S5jvJS4g8e90gFII3sEqUVlT2fgd9M9LUkA=";
   };

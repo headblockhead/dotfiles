@@ -16,11 +16,11 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    raspberry-pi-nix = {
-      url = "github:nix-community/raspberry-pi-nix";
-    };
     deploy-rs = {
       url = "github:serokell/deploy-rs";
+    };
+    raspberry-pi-nix = {
+      url = "github:nix-community/raspberry-pi-nix";
     };
     agenix = {
       url = "github:ryantm/agenix";
@@ -52,6 +52,7 @@
     , nixpkgs
     , home-manager
     , agenix
+    , deploy-rs
     , ...
     }@ inputs:
     let
@@ -70,7 +71,14 @@
     in
     rec {
       # Custom packages: accessible through 'nix build', 'nix shell', etc.
-      packages = forAllSystems (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; inherit inputs system; });
+      packages = forAllSystems
+        (system: import ./pkgs {
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+          inherit inputs system;
+        });
 
       # Exported overlays. Includes custom packages and flake outputs.
       overlays = import ./overlays { inherit inputs; };
@@ -167,6 +175,18 @@
       # SD card images.
       rpi-builder-sd = nixosConfigurations.rpi-builder.config.system.build.sdImage;
       printerpi-sd = nixosConfigurations.printerpi.config.system.build.sdImage;
+
+      # deploy-rs nodes
+      deploy.nodes.edwardh = {
+        hostname = "edwardh";
+        profiles.system = {
+          sshUser = "headb";
+          user = "root"; # Uses sudo
+          remoteBuild = false; # Don't build on edwardh
+          path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.edwardh;
+        };
+      };
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
       homeConfigurations = {
         "headb@router" = home-manager.lib.homeManagerConfiguration {
