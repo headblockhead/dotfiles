@@ -34,9 +34,9 @@
 
     # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
     loginAccounts = {
-      "@edwardh.dev" = {
+      "inbox@edwardh.dev" = {
         hashedPasswordFile = config.age.secrets.mail-hashed-password.path;
-        aliases = [ "outbox@edwardh.dev" ];
+        aliases = [ "@edwardh.dev" ];
       };
     };
 

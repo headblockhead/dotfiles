@@ -2,7 +2,7 @@
 {
   fonts.packages = with pkgs; [
     powerline
-    google-fonts.out
+    # google-fonts.out
     ubuntu_font_family
     nerdfonts
     ibm-plex
