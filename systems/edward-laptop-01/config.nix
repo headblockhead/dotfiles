@@ -32,6 +32,8 @@
     zsh
   ];
 
+  networking.firewall.allowedTCPPorts = [ 8080 ]; # Web server
+
   nixpkgs = {
     overlays = [
       outputs.overlays.additions
