@@ -27,6 +27,7 @@
     openrgb
     printer
     sdr
+    snapclient
     sound
     ssd
     ssh
@@ -36,9 +37,8 @@
     zsh
   ];
 
-  networking.firewall.enable = lib.mkForce false;
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-  nix.distributedBuilds = lib.mkForce false; # Don't try to build on other machines
+  networking.firewall.allowedTCPPorts = [ 8080 ]; # Allow port 8080 for web server access
+  nix.buildMachines = lib.lists.drop 1 config.nix.buildMachines; # Remove ourself from the build machines
 
   nixpkgs = {
     overlays = [
@@ -86,7 +86,7 @@
     favorite-apps=[ 'firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Settings.desktop', 'org.gnome.Calculator.desktop', 'org.freecad.FreeCAD.desktop', 'org.kicad.kicad.desktop', 'gnome-system-monitor.desktop', 'thunderbird.desktop', 'slack.desktop', 'spotify.desktop', 'org.openrgb.OpenRGB.desktop']
   '';
 
-  # https://www.mankier.com/5/tmpfiles.d
+  # man tmpfiles.d
   systemd.tmpfiles.rules = [
     ''L+ /run/gdm/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
     ''L+ /home/headb/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''

@@ -20,7 +20,6 @@ in
   nix.buildMachines = [
     {
       hostName = "edward-desktop-01";
-      #systems = [ "x86_64-linux" "aarch64-linux" ];
       systems = [ "x86_64-linux" ];
       sshUser = "nixbuilder";
       sshKey = "/etc/ssh/ssh_host_ed25519_key";

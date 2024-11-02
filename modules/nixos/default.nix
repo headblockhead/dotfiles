@@ -28,6 +28,7 @@
   router = import ./router.nix;
   sdr = import ./sdr.nix;
   sheepit = import ./sheepit.nix;
+  snapclient = import ./snapclient.nix;
   sound = import ./sound.nix;
   ssd = import ./ssd.nix;
   ssh = import ./ssh.nix;
