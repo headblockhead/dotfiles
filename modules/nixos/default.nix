@@ -1,6 +1,4 @@
 {
-  autoBuild = import ./autoBuild.nix;
-  autoUpgrade = import ./autoUpgrade.nix;
   basicConfig = import ./basicConfig.nix;
   bluetooth = import ./bluetooth.nix;
   bootloaderGraphical = import ./bootloaderGraphical.nix;
@@ -17,7 +15,6 @@
   fonts = import ./fonts.nix;
   fzf = import ./fzf.nix;
   git = import ./git.nix;
-  globalApps = import ./globalApps.nix;
   gpg = import ./gpg.nix;
   homeManager = import ./homeManager.nix;
   mail = import ./mail.nix;

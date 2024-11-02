@@ -1,7 +1,7 @@
 { inputs, outputs, config, pkgs, lib, ... }:
 
 {
-  networking.hostName = "rpi-cluster-02";
+  networking.hostName = "printerpi";
 
   imports = with outputs.nixosModules; [
     basicConfig
@@ -15,6 +15,27 @@
     ssh
     zsh
   ];
+
+  services.klipper = {
+    enable = true;
+    logFile = "/var/log/klipper.log";
+    settings = { };
+    firmwares.sv01 = {
+      enable = true;
+      serial = "/dev/ttyUSB0";
+      enableKlipperFlash = true;
+    };
+  };
+
+  services.moonraker = {
+    enable = true;
+    settings = { };
+    allowSystemControl = true;
+  };
+
+  services.mainsail = {
+    enable = true;
+  };
 
   nixpkgs = {
     overlays = [

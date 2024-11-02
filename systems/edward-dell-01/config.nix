@@ -1,7 +1,7 @@
-{ inputs, outputs, lib, config, pkgs, agenix, ... }:
+{ inputs, outputs, agenix, lib, config, pkgs, ... }:
 
 {
-  networking.hostName = "brick";
+  networking.hostName = "edward-dell-01";
 
   imports = with outputs.nixosModules; [
     basicConfig
@@ -91,17 +91,17 @@
     pkgs.wireshark
     pkgs.neovim
     pkgs.xc
+    pkgs.cachix
+    agenix.packages.x86_64-linux.default
 
     pkgs.libimobiledevice
     pkgs.ifuse
     pkgs.arduino
     pkgs.audacity
-    #pkgs.blender-hip
     pkgs.firefox
     pkgs.fractal
     pkgs.gimp
     pkgs.google-chrome
-    #pkgs.kdenlive
     pkgs.kicad
     pkgs.libreoffice
     pkgs.unstable.musescore

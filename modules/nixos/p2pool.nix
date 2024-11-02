@@ -3,16 +3,19 @@
   services.monero = {
     enable = true;
     dataDir = "/var/lib/monero";
-    #    priorityNodes = [
-    #      "nodes.hashvault.pro:18080"
-    #      "p2pmd.xmrvsbeast.com:18080"
-    #    ];
-    limits.upload = 1048576; # 1048576 kB/s == 1GB/s; a raise from default 2048 kB/s; contribute more to p2p network
-    limits.download = 1048576; # 1048576 kB/s == 1GB/s; a raise from default 8192 kB/s; allow for faster initial sync
+    priorityNodes = [
+      "nodes.hashvault.pro:18080"
+      "p2pmd.xmrvsbeast.com:18080"
+    ];
+    limits = {
+      # 1048576 kB/s = 1GB/s
+      upload = 1048576;
+      download = 1048576;
+    };
     extraConfig = '' 
-out-peers=64              # This will enable much faster sync and tx awareness; the default 8 is suboptimal nowadays
-in-peers=1024             # The default is unlimited; we prefer to put a cap on this
-zmq-pub=tcp://127.0.0.1:18084
+      out-peers=64              # Faster sync
+      in-peers=1024             # Default is unlimited, but we limit it to 1024
+      zmq-pub=tcp://127.0.0.1:18084
     '';
   };
   environment.systemPackages = with pkgs; [
@@ -20,7 +23,7 @@ zmq-pub=tcp://127.0.0.1:18084
     p2pool
   ];
   systemd.services.p2pool = {
-    description = "P2POOL";
+    description = "Decentralized pool for Monero mining";
     after = [ "monero.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {

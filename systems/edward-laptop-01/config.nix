@@ -1,9 +1,8 @@
-{ inputs, outputs, lib, config, pkgs, ... }:
+{ inputs, outputs, lib, config, pkgs, agenix, ... }:
 {
   networking.hostName = "edward-laptop-01";
 
   imports = with outputs.nixosModules; [
-    autoUpgrade
     basicConfig
     bluetooth
     fonts
@@ -67,19 +66,11 @@
 
   # Extra packages to install.
   environment.systemPackages = [
+    agenix.packages.x86_64-linux.default
     pkgs.xc
-
     pkgs.deploy-rs
-    pkgs.firefox
     pkgs.tor-browser-bundle-bin
-    pkgs.musescore
-    pkgs.audacity
-    pkgs.ardour
-    pkgs.vlc
     pkgs.x32edit
-    pkgs.p7zip
-    pkgs.libreoffice
-    pkgs.prusa-slicer
   ];
 
   # Grub settings.

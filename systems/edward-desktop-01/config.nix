@@ -1,10 +1,9 @@
-{ inputs, outputs, lib, config, pkgs, ... }:
+{ inputs, outputs, lib, config, pkgs, agenix, ... }:
 
 {
   networking.hostName = "edward-desktop-01";
 
   imports = with outputs.nixosModules; [
-    autoUpgrade
     basicConfig
     bluetooth
     bootloaderGraphical
@@ -20,7 +19,6 @@
     fonts
     fzf
     git
-    globalApps
     gpg
     homeManager
     network
@@ -73,7 +71,10 @@
   };
 
   environment.systemPackages = [
+    agenix.packages.x86_64-linux.default
+    pkgs.cachix
     pkgs.deploy-rs
+    pkgs.xc
   ];
 
   # Grub settings.

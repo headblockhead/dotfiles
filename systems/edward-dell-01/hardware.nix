@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, modulesPath, ... }:
 
 {
   imports =
@@ -10,6 +10,8 @@
   boot.kernelModules = [ "kvm-intel" ];
 
   networking.useDHCP = lib.mkDefault true;
+
+  # Fix hardware sound issue
   boot.extraModprobeConfig = ''
     options snd_hda_intel power_save=0
   '';

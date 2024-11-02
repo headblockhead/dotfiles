@@ -155,19 +155,19 @@
           modules = [
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
             ./systems/edwardh/config.nix
-            {
-              nixpkgs.hostPlatform = "aarch64-linux";
-            }
+            ./systems/edwardh/hardware.nix
+
             agenix.nixosModules.default
           ];
         };
 
-        # Old Dell machine for emergencies.
-        brick = nixpkgs.lib.nixosSystem {
+        # Old Dell machine.
+        edward-dell-01 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs sshkey; };
           modules = [
-            ./systems/brick/config.nix
-            ./systems/brick/hardware.nix
+            ./systems/edward-dell-01/config.nix
+            ./systems/edward-dell-01/hardware.nix
+            agenix.nixosModules.default
           ];
         };
       };
