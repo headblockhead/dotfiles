@@ -1,4 +1,4 @@
-{ inputs, outputs, lib, config, pkgs, agenix, ... }:
+{ inputs, outputs, lib, config, pkgs, ... }:
 let
   snapweb = pkgs.fetchzip {
     url = "https://github.com/badaix/snapweb/releases/download/v0.7.0/snapweb.zip";

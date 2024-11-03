@@ -1,4 +1,4 @@
-{ sshkey, ... }: {
+{ sshkeys, ... }: {
   # SSH login support.
   services.openssh = {
     enable = true;
@@ -11,7 +11,7 @@
   };
 
   # Give headb access to the machine.
-  users.users.headb.openssh.authorizedKeys.keys = [ sshkey ];
+  users.users.headb.openssh.authorizedKeys.keys = sshkeys;
 
   # Expose the SSH port.
   networking.firewall.allowedTCPPorts = [ 22 ];

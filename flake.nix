@@ -62,8 +62,10 @@
         "aarch64-linux"
       ];
 
-      # My public SSH key:
-      sshkey = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICvr2FrC9i1bjoVzg+mdytOJ1P0KRtah/HeiMBuKD3DX cardno:23_836_181'';
+      sshkeys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICvr2FrC9i1bjoVzg+mdytOJ1P0KRtah/HeiMBuKD3DX cardno:23_836_181" # RED
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIvDaJmOSXV24B83sIfZqAUurs+cZ7582L4QDePuc3p7 cardno:17_032_332" # BACKUP 
+      ];
 
       # This is a function that generates an attribute by calling a function you
       # pass to it, with each system as an argument
@@ -89,61 +91,55 @@
       nixosConfigurations = {
         # Local servers
         router = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs agenix sshkey; };
+          specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/router/config.nix
             ./systems/router/hardware.nix
-
             agenix.nixosModules.default
           ];
         };
 
         rpi-builder = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs agenix sshkey; };
+          specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/rpi-builder/config.nix
-            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             {
               raspberry-pi-nix.board = "bcm2712"; # Raspberry Pi 5
             }
-
+            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             agenix.nixosModules.default
           ];
         };
 
         printerpi = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs agenix sshkey; };
+          specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/printerpi/config.nix
-
-            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             {
               raspberry-pi-nix.board = "bcm2711"; # Raspberry Pi 4
             }
-
+            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             agenix.nixosModules.default
           ];
         };
 
         # Local desktops
         edward-desktop-01 = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs agenix sshkey; };
+          specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/edward-desktop-01/config.nix
             ./systems/edward-desktop-01/hardware.nix
-
             agenix.nixosModules.default
           ];
         };
         edward-laptop-01 = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs sshkey; };
+          specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/edward-laptop-01/config.nix
             ./systems/edward-laptop-01/hardware.nix
             ./systems/edward-laptop-01/specialisations/away.nix
-
             agenix.nixosModules.default
           ];
         };
@@ -151,19 +147,18 @@
         # AWS EC2 nodes.
         # 18.135.222.143
         edwardh = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs agenix sshkey; };
+          specialArgs = { inherit inputs outputs sshkeys; };
           modules = [
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
             ./systems/edwardh/config.nix
             ./systems/edwardh/hardware.nix
-
             agenix.nixosModules.default
           ];
         };
 
         # Old Dell machine.
         edward-dell-01 = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs sshkey; };
+          specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/edward-dell-01/config.nix
             ./systems/edward-dell-01/hardware.nix
@@ -206,7 +201,7 @@
         #};
         #};
         edwardh = {
-          hostname = "edwardh.dev";
+          hostname = "mail.edwardh.dev";
           profiles.system = {
             sshUser = "headb";
             user = "root"; # Uses sudo

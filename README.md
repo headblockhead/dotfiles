@@ -1,5 +1,7 @@
 # dotfiles
 
+[![xc compatible](https://xcfile.dev/badge.svg)](https://xcfile.dev) ![NixOS](https://img.shields.io/badge/NIXOS-5277C3.svg?style=for-the-badge&logo=NixOS&logoColor=white) 
+
 Full reproducable config for a mail server, 3D-printer controller, desktop, laptop, router, and a Raspberry Pi 5 server.
 
 ## Table of Contents
