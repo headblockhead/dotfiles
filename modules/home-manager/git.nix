@@ -18,7 +18,7 @@
   programs.git = {
     enable = true;
     userName = "Edward Hesketh";
-    userEmail = "headblockhead@gmail.com";
+    userEmail = "git@edwardh.dev";
     difftastic = {
       enable = true;
       background = "dark";
