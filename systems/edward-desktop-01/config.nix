@@ -35,8 +35,8 @@
     zsh
   ];
 
+  nix.distributedBuilds = lib.mkForce false;
   networking.firewall.allowedTCPPorts = [ 8080 ]; # Allow port 8080 for web server access
-  nix.buildMachines = lib.lists.drop 1 config.nix.buildMachines; # Remove ourself from the build machines
 
   nixpkgs = {
     overlays = [
