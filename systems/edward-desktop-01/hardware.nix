@@ -12,13 +12,15 @@
   hardware.opengl = {
     enable = true;
     driSupport = true;
+    driSupport32Bit = true;
   };
 
   # Load nvidia driver for Xorg and Wayland
-  boot.initrd.kernelModules = [ "nvidia" ];
-  services.xserver.videoDrivers = [ "nvidia" ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   environment.systemPackages = with pkgs; [
+    lact
     ddcutil
     gnomeExtensions.brightness-control-using-ddcutil
   ];
@@ -33,11 +35,14 @@
   };
 
   # AMD
+  systemd.packages = with pkgs; [ lact ];
+  systemd.services.lactd.wantedBy = [ "multi-user.target" ];
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
   hardware.opengl.extraPackages = with pkgs; [
     rocmPackages.clr.icd
+    amdvlk
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
