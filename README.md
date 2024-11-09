@@ -24,7 +24,14 @@ Full reproducable config for a mail server, 3D-printer controller, desktop, lapt
 > If you already have a wired connection, you can skip this step.
 
 ```bash
-# TODO, demo wpa_supplicant
+sudo systemctl start wpa_supplicant
+sudo wpa_cli
+> add_network
+> set_network 0 ssid "your_ssid_here"
+> set_network 0 psk "your_password_here"
+> enable_network 0
+> save_config
+> quit
 ```
 
 ### Partition and format
