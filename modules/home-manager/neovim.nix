@@ -19,7 +19,7 @@ in
     "d /home/headb/.vim/backup 700 headb users - -"
     "d /home/headb/.vim/swap 700 headb users - -"
     "d /home/headb/.vim/undo 700 headb users - -"
-    "L+ /home/headb/.config/nvim/lua - - - - /home/headb/dotfiles/neovim"
+    "L+ /home/headb/.config/nvim/lua - - - - ${../../neovim}"
   ];
 
   home.packages = with pkgs;
