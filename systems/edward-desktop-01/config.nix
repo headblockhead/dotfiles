@@ -32,11 +32,13 @@
     users
     virtualBox
     yubikey
+    xmrig
+    p2pool
     zsh
   ];
 
   nix.distributedBuilds = lib.mkForce false;
-  networking.firewall.allowedTCPPorts = [ 8080 ]; # Allow port 8080 for web server access
+  networking.firewall.enable = lib.mkForce false;
 
   nixpkgs = {
     overlays = [

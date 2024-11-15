@@ -11,7 +11,7 @@
       autosave = true;
       cpu = true;
       opencl = {
-        enabled = false;
+        enabled = true;
         loader = "${pkgs.ocl-icd}/lib/libOpenCL.so";
         platform = 0;
       };

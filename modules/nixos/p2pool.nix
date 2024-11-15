@@ -9,8 +9,9 @@
     ];
     limits = {
       # 1048576 kB/s = 1GB/s
-      upload = 1048576;
-      download = 1048576;
+      # 10485760 kB/s = 10GB/s
+      upload = 10485760;
+      download = 10485760;
     };
     extraConfig = '' 
       out-peers=64              # Faster sync
