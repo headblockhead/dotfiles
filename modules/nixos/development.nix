@@ -42,7 +42,6 @@
     python39
     rustc
     templ
-    tinygo
     tmux
     # unityhub
     usbutils

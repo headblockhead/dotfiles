@@ -30,7 +30,6 @@
   ssd = import ./ssd.nix;
   ssh = import ./ssh.nix;
   users = import ./users.nix;
-  virtualBox = import ./virtualBox.nix;
   wireguard = import ./wireguard.nix;
   xmrig = import ./xmrig.nix;
   yubikey = import ./yubikey.nix;
