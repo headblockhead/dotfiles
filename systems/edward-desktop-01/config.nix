@@ -30,7 +30,6 @@
     ssd
     ssh
     users
-    virtualBox
     yubikey
     xmrig
     p2pool

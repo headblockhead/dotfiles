@@ -6,7 +6,7 @@
     obsidian
     arduino
     audacity
-    blender-hip
+    unstable.blender-hip
     chiaki
     clonehero
     deja-dup
@@ -16,7 +16,6 @@
     furnace # chiptune tracker
     gimp
     google-chrome
-    kdenlive
     kicad
     libreoffice
     lmms
