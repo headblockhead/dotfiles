@@ -13,7 +13,6 @@
     desktopApps
     development
     distributedBuilds
-    docker
     fileSystems
     firewall
     fonts
@@ -31,8 +30,6 @@
     ssh
     users
     yubikey
-    xmrig
-    p2pool
     zsh
   ];
 
