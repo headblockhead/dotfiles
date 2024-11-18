@@ -5,7 +5,7 @@
     enable = true;
     package = pkgs.kdePackages.sddm;
     extraPackages = [
-      pkgs.libsForQt5.qt5.qtgraphicaleffects
+      pkgs.kdePackages.qt5compat
     ];
     wayland.enable = true;
     enableHidpi = true;
@@ -14,7 +14,13 @@
 
   environment.systemPackages = [
     pkgs.kitty
-    pkgs.where-is-my-sddm-theme
+    (pkgs.where-is-my-sddm-theme.override {
+      themeConfig.General = {
+        passwordCursorColor = "#FFFFFF";
+        passwordCharacter = "•";
+        font = "SourceCodePro Nerd Font";
+      };
+    })
   ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
