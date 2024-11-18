@@ -18,7 +18,7 @@
     enable = true;
     fonts = [{ name = "SauceCodePro Nerd Font Mono"; package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }); }];
     extraConfig = ''
-      font-size=30
+      font-size=24
     '';
     hwRender = true;
   };
