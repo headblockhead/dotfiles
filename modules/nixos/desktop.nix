@@ -11,7 +11,7 @@
 
   environment.systemPackages = [
     pkgs.kitty
-    pkgs.where-is-my-sddm-theme.override
+    pkgs.where-is-my-sddm-theme
   ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
