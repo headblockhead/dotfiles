@@ -4,6 +4,9 @@
   services.displayManager.sddm = {
     enable = true;
     package = pkgs.kdePackages.sddm;
+    extraPackages = [
+      pkgs.libsForQt5.qt5.qtgraphicaleffects
+    ];
     wayland.enable = true;
     enableHidpi = true;
     theme = "where_is_my_sddm_theme";
