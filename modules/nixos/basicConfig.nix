@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   # Clear the tmp directory on boot.
   boot.tmp.cleanOnBoot = true;
@@ -13,8 +14,9 @@
   # Set the trusted users.
   nix.settings.trusted-users = [ "headb" ];
 
-  # Set the trusted settings
-  systemd.tmpfiles.rules = [
-    "f /home/headb/.local/share/nix/trusted-settings.json 0644 headb users - ${builtins.readFile ./trusted-settings.json}"
-  ];
+  console = {
+    earlySetup = true;
+    #font = ./font.psf;
+    packages = with pkgs; [ (nerdfonts.override { fonts = [ "SourceCodePro" ]; }) ];
+  };
 }
