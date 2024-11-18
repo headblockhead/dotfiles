@@ -2,7 +2,7 @@
   programs.hyprland.enable = true;
 
   services.displayManager.sddm = {
-    enable = false;
+    enable = true;
     package = pkgs.kdePackages.sddm;
     extraPackages = [
       pkgs.kdePackages.qt5compat

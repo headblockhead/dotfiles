@@ -16,7 +16,7 @@
 
   services.kmscon = {
     enable = true;
-    fonts = [{ name = "SourceCodePro Nerd Font"; package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }); }];
+    fonts = [{ name = "SourceCodePro Nerd Font Mono"; package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }); }];
     hwRender = true;
   };
 }
