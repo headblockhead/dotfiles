@@ -8,7 +8,7 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ]; # Various modules for booting and reading drives.
 
-  hardware.display = {
+  hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
