@@ -1,6 +1,17 @@
 { pkgs, ... }: {
   programs.hyprland.enable = true;
 
+  services.kmscon = {
+    enable = true;
+    fonts = [{ name = "SauceCodePro Nerd Font Mono"; package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }); }];
+    extraConfig = ''
+      font-size=12
+      hwaccel
+    '';
+    hwRender = true;
+  };
+
+
   services.displayManager.sddm = {
     enable = true;
     package = pkgs.kdePackages.sddm;

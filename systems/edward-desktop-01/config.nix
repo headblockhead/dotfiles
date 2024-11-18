@@ -35,6 +35,9 @@
 
   nix.distributedBuilds = lib.mkForce false;
   networking.firewall.enable = lib.mkForce false;
+  services.kmscon.extraConfig = lib.mkAfter ''
+    font-dpi=192
+  '';
 
   nixpkgs = {
     overlays = [
