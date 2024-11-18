@@ -2,8 +2,9 @@
   programs.hyprland.enable = true;
 
   services.displayManager.sddm = {
-    package = pkgs.kdePackages.sddm;
     enable = true;
+    package = pkgs.kdePackages.sddm;
+    wayland.enable = true;
     enableHidpi = true;
     theme = "where_is_my_sddm_theme";
   };
