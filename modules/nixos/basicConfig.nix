@@ -14,9 +14,9 @@
   # Set the trusted users.
   nix.settings.trusted-users = [ "headb" ];
 
-  console = {
-    earlySetup = true;
-    #font = ./font.psf;
-    packages = with pkgs; [ (nerdfonts.override { fonts = [ "SourceCodePro" ]; }) ];
+  services.kmscon = {
+    enable = true;
+    fonts = [{ name = "SourceCodePro Nerd Font"; package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }); }];
+    hwRender = true;
   };
 }
