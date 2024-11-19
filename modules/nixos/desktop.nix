@@ -105,7 +105,7 @@
                 "cursor-colors-set" = false;
                 "cursor-shape" = "block";
                 "delete-binding" = "delete-sequence";
-                "font" = "SauceCodePro Nerd Font Mono 12";
+                "font" = "SauceCodePro Nerd Font 12";
                 "foreground-color" = "#FFFFFF";
                 "highlight-colors-set" = false;
                 "login-shell" = false;
@@ -227,7 +227,7 @@
 
   services.kmscon = {
     enable = true;
-    fonts = [{ name = "SauceCodePro Nerd Font Mono"; package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }); }];
+    fonts = [{ name = "SauceCodePro Nerd Font"; package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }); }];
     extraConfig = ''
       font-size=12
       hwaccel
