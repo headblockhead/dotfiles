@@ -186,8 +186,8 @@
 
   # Exclude certain default gnome apps.
   # See https://github.com/NixOS/nixpkgs/blob/127579d6f40593f9b9b461b17769c6c2793a053d/nixos/modules/services/x11/desktop-managers/gnome.nix#L468 for a list of apps.
-  environment.gnome.excludePackages = (with pkgs.gnome; [
-    pkgs.gnome-tour # Tour
+  environment.gnome.excludePackages = (with pkgs; [
+    gnome-tour # Tour
     # gnome-logs # Logs
     yelp # Help
     gnome-maps # Maps
@@ -195,14 +195,14 @@
     geary # Geary (Mail)
     epiphany # Web
     gnome-characters # Characters
-    pkgs.gnome-console # Console - basic terminal emulator
+    gnome-console # Console - basic terminal emulator
     totem # Videos
-    pkgs.gnome-photos # Photos
+    gnome-photos # Photos
     gnome-contacts # Contacts
     gnome-maps # Maps
     gnome-music # Music
     gnome-weather # Weather
-    pkgs.gnome-connections # Connections
+    gnome-connections # Connections
   ]);
 
   # Add udev rules.
@@ -212,7 +212,8 @@
 
   qt = {
     enable = true;
-    #style = "adwaita-dark";
+    #    style = "adwaita-dark";
+    style = "breeze";
     platformTheme = "gnome";
   };
 
