@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   # Clear the tmp directory on boot.
   boot.tmp.cleanOnBoot = true;
@@ -13,8 +14,14 @@
   # Set the trusted users.
   nix.settings.trusted-users = [ "headb" ];
 
-  # Set the trusted settings
-  systemd.tmpfiles.rules = [
-    "f /home/headb/.local/share/nix/trusted-settings.json 0644 headb users - ${builtins.readFile ./trusted-settings.json}"
-  ];
+  services.kmscon = {
+    enable = true;
+    fonts = [{ name = "SauceCodePro Nerd Font Mono"; package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }); }];
+    extraConfig = ''
+      font-size=12
+      font-dpi=192
+      hwaccel
+    '';
+    hwRender = true;
+  };
 }

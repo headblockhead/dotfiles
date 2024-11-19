@@ -49,7 +49,6 @@
               };
               "org/gnome/mutter" = {
                 "experimental-features" = [ "scale-monitor-framebuffer" ];
-                #"experimental-features" = [ "x11-randr-fractional-scaling" ];
               };
               "org/gnome/desktop/background" = {
                 "picture-uri" = "file://${pkgs.nixos-artwork.wallpapers.nineish.gnomeFilePath}";
@@ -106,7 +105,7 @@
                 "cursor-colors-set" = false;
                 "cursor-shape" = "block";
                 "delete-binding" = "delete-sequence";
-                "font" = "SauceCodePro Nerd Font 12";
+                "font" = "SauceCodePro Nerd Font Mono 12";
                 "foreground-color" = "#FFFFFF";
                 "highlight-colors-set" = false;
                 "login-shell" = false;
@@ -145,10 +144,10 @@
                 "default-folder-viewer" = "list-view";
               };
               "org/gnome/nautilus/compression" = {
-                "default-compression-method" = "7z";
+                "default-compression-format" = "7z";
               };
               "org/gnome/nautilus/icon-view" = {
-                "default-zoom-level" = "medium";
+                "default-zoom-level" = "small-plus";
               };
             };
           }
@@ -176,17 +175,14 @@
   services.xserver.excludePackages = [ pkgs.xterm ];
 
   environment.systemPackages = with pkgs; [
-    gnomeExtensions.next-up # Next calendar event
     gnomeExtensions.appindicator # Tray icons
-    gnomeExtensions.unblank
-    gnome.gnome-calendar
+    gnomeExtensions.unblank # Prevent screen from blanking when locked
   ];
 
   # GNOME terminal - replaces the console.
   programs.gnome-terminal.enable = true;
 
-  services.gnome.gnome-keyring.enable = lib.mkForce
-    false; # Dont mess with SSH_AUTH_SOCK
+  services.gnome.gnome-keyring.enable = lib.mkForce false; # Dont mess with SSH_AUTH_SOCK
 
   # Exclude certain default gnome apps.
   # See https://github.com/NixOS/nixpkgs/blob/127579d6f40593f9b9b461b17769c6c2793a053d/nixos/modules/services/x11/desktop-managers/gnome.nix#L468 for a list of apps.
@@ -214,11 +210,9 @@
     gnome.gnome-settings-daemon
   ];
 
-  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
   qt = {
     enable = true;
-    style = "adwaita-dark";
+    #style = "adwaita-dark";
     platformTheme = "gnome";
   };
 
@@ -230,4 +224,15 @@
     (nerdfonts.override { fonts = [ "SourceCodePro" ]; })
   ];
 
+  services.kmscon = {
+    enable = true;
+    fonts = [{ name = "SauceCodePro Nerd Font Mono"; package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }); }];
+    extraConfig = ''
+      font-size=12
+      hwaccel
+    '';
+    hwRender = true;
+  };
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }
