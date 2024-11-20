@@ -21,6 +21,7 @@
                   "pip-on-top@rafostar.github.com"
                   "x11gestures@joseexposito.github.io"
                   "AlphabeticalAppGrid@stuarthayhurst"
+                  "blur-my-shell@aunetx"
                 ];
               };
               "org/gnome/shell/extensions/display-brightness-ddcutil" = {
@@ -178,6 +179,9 @@
     gnomeExtensions.x11-gestures
     gnomeExtensions.desktop-cube
     gnomeExtensions.alphabetical-app-grid
+    gnomeExtensions.blur-my-shell
+
+    gnome.adwaita-icon-theme
   ];
 
   # GNOME terminal - replaces the console.
@@ -213,8 +217,7 @@
 
   qt = {
     enable = true;
-    #    style = "adwaita-dark";
-    style = "breeze";
+    style = "adwaita-dark";
     platformTheme = "gnome";
   };
 
@@ -236,5 +239,8 @@
     hwRender = true;
   };
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    GSK_RENDERER = "ngl";
+  };
 }
