@@ -8,22 +8,19 @@
             settings = {
               "org/gnome/shell" = {
                 disabled-extentions = [
-                  "apps-menu@gnome-shell-extensions.gcampax.github.com"
-                  "native-window-placement@gnome-shell-extensions.gcampax.github.com"
-                  "drive-menu@gnome-shell-extensions.gcampax.github.com"
-                  "user-theme@gnome-shell-extensions.gcampax.github.com"
                   "window-list@gnome-shell-extensions.gcampax.github.com"
-                  "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
-                  "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
-                  "light-style@gnome-shell-extensions.gcampax.github.com"
-                  "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com"
-                  "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+                  "apps-menu@gnome-shell-extensions.gcampax.github.com"
                 ];
                 enabled-extensions = [
-                  "appindicatorsupport@rgcjonas.gmail.com"
                   "system-monitor@gnome-shell-extensions.gcampax.github.com"
                   "display-brightness-ddcutil@themightydeity.github.com"
                   "unblank@sun.wxg@gmail.com"
+                  "next-up@artisticat1.github.com"
+                  "appindicatorsupport@rgcjonas.gmail.com"
+                  "desktop-cube@schneegans.github.com"
+                  "pip-on-top@rafostar.github.com"
+                  "x11gestures@joseexposito.github.io"
+                  "AlphabeticalAppGrid@stuarthayhurst"
                 ];
               };
               "org/gnome/shell/extensions/display-brightness-ddcutil" = {
@@ -177,6 +174,10 @@
   environment.systemPackages = with pkgs; [
     gnomeExtensions.appindicator # Tray icons
     gnomeExtensions.unblank # Prevent screen from blanking when locked
+    gnomeExtensions.pip-on-top
+    gnomeExtensions.x11-gestures
+    gnomeExtensions.desktop-cube
+    gnomeExtensions.alphabetical-app-grid
   ];
 
   # GNOME terminal - replaces the console.
