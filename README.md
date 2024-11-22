@@ -117,21 +117,20 @@ nixos-install --root /mnt --flake .#HOSTNAME
 reboot
 ```
 
-### Login to root
+### Set password and lock root
 
-    Use a non-graphical shell to login as root, then set the user password.
+Use a TTY shell to login as root, then set the user password.
 
-    ```bash
-    passwd headb
-    ```
+```bash
+passwd headb
+```
 
-### Final steps.
+Finally, delete the password for the root user and lock the root account.
 
-  Lock root account from login:
-  ```bash
-  sudo passwd -dl root
-  sudo usermod -L root
-  ```
+```bash
+sudo passwd -dl root
+sudo usermod -L root
+```
 
 ## Troubleshooting
 
