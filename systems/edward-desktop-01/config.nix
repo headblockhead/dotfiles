@@ -25,6 +25,7 @@
     printer
     sdr
     snapclient
+    transmission
     sound
     ssd
     ssh

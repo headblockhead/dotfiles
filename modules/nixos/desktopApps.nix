@@ -16,7 +16,7 @@
     furnace # chiptune tracker
     gimp
     google-chrome
-    #kicad
+    unstable.kicad
     libreoffice
     lmms
     mcpelauncher # Not in nixpkgs, defined by override in flake.nix (source: github.com/headblockhead/nix-mcpelauncher)

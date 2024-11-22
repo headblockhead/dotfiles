@@ -31,6 +31,7 @@
   ssh = import ./ssh.nix;
   users = import ./users.nix;
   wireguard = import ./wireguard.nix;
+  transmission = import ./transmission.nix;
   xmrig = import ./xmrig.nix;
   yubikey = import ./yubikey.nix;
   zsh = import ./zsh.nix;
