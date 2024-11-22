@@ -5,9 +5,7 @@
 , pkg-config
 , stdenv
 , openssl
-, avahi
-, avahi-compat
-, withALSA ? stdenv.isLinux
+, withALSA ? stdenv.hostPlatform.isLinux
 , alsa-lib
 , alsa-plugins
 , withPortAudio ? false
@@ -19,22 +17,22 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "librespot";
-  version = "a6065d6bed3d40dabb9613fe773124e5b8380ecc";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "librespot-org";
     repo = "librespot";
-    rev = "${version}";
-    sha256 = "rwZkNQbayOi+Bib2QU/cCjeHhzDBX/IaDaIA+vgkvyo=";
+    rev = "v${version}";
+    sha256 = "sha256-/YMICsrUMYqiL5jMlb5BbZPlHfL9btbWiv/Kt2xhRW4=";
   };
 
-  cargoSha256 = "hEWfl1WYPADA6Kod86qcxQ3cH/dxcm/izgUMh+BwDCc=";
+  cargoHash = "sha256-UOvGvseWaEqqjuvTewDfkBeR730cKMQCq55weYmu15Y=";
 
-  nativeBuildInputs = [ pkg-config makeWrapper ] ++ lib.optionals stdenv.isDarwin [
+  nativeBuildInputs = [ pkg-config makeWrapper ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     rustPlatform.bindgenHook
   ];
 
-  buildInputs = [ openssl avahi-compat ]
+  buildInputs = [ openssl ]
     ++ lib.optional withALSA alsa-lib
     ++ lib.optional withPortAudio portaudio
     ++ lib.optional withPulseAudio libpulseaudio;
@@ -43,8 +41,7 @@ rustPlatform.buildRustPackage rec {
   buildFeatures = lib.optional withRodio "rodio-backend"
     ++ lib.optional withALSA "alsa-backend"
     ++ lib.optional withPortAudio "portaudio-backend"
-    ++ lib.optional withPulseAudio "pulseaudio-backend"
-    ++ [ "with-dns-sd" ];
+    ++ lib.optional withPulseAudio "pulseaudio-backend";
 
   postFixup = lib.optionalString withALSA ''
     wrapProgram "$out/bin/librespot" \
@@ -53,10 +50,10 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description = "Open Source Spotify client library and playback daemon";
+    mainProgram = "librespot";
     homepage = "https://github.com/librespot-org/librespot";
     changelog = "https://github.com/librespot-org/librespot/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ bennofs ];
   };
 }
-

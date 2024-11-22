@@ -27,7 +27,7 @@ in
       publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU9zMkcyWXQ3K0E1M3Y1dHltQmNiQWxXblQ5dExaWU5TVytYR3FaVTZJVGggcm9vdEBjb21wdXRlLTAxCg==";
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       mandatoryFeatures = [ ];
-      maxJobs = 16;
+      maxJobs = 8;
       speedFactor = 10;
     }
     {
@@ -40,7 +40,7 @@ in
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" ];
       mandatoryFeatures = [ ];
       maxJobs = 4;
-      speedFactor = 5;
+      speedFactor = 3;
     }
   ];
   nix.distributedBuilds = true;

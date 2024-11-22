@@ -80,10 +80,10 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local server_settings = {
   nil_ls = {
     ['nil'] = {
-    formatting = {
-      command = { "nixpkgs-fmt" },
+      formatting = {
+        command = { "nixpkgs-fmt" },
+      }
     }
-  }
   },
   gopls = {
     gopls = {
@@ -96,7 +96,7 @@ local server_settings = {
       },
     },
   },
-  tsserver = {
+  ts_ls = {
     format = { enable = false },
   },
   eslint = {
@@ -136,7 +136,7 @@ local server_settings = {
 -- map buffer local keybindings when the language server attaches
 -- eslint comes from:
 -- npm i -g vscode-langservers-extracted
-local servers = { 'gopls', 'ccls', 'cmake', 'tsserver', 'templ', 'rls', 'eslint', 'lua_ls', 'jdtls', 'nil_ls' }
+local servers = { 'gopls', 'ccls', 'cmake', 'ts_ls', 'templ', 'rls', 'eslint', 'lua_ls', 'jdtls', 'nil_ls' }
 for _, lsp in ipairs(servers) do
   local opts = {
     on_attach = on_attach,

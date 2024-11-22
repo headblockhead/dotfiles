@@ -16,17 +16,18 @@
     zsh
   ];
 
-  services.klipper = {
-    enable = true;
-    logFile = "/var/log/klipper.log";
-    settings = { };
-    firmwares.sv01 = {
-      enable = true;
-      serial = "/dev/ttyUSB0";
-      enableKlipperFlash = true;
-    };
-  };
+  #  services.klipper = {
+  #enable = true;
+  #logFile = "/var/log/klipper.log";
+  #settings = { };
+  #firmwares.sv01 = {
+  #enable = true;
+  #serial = "/dev/ttyUSB0";
+  #enableKlipperFlash = true;
+  #};
+  #};
 
+  security.polkit.enable = true;
   services.moonraker = {
     enable = true;
     settings = { };

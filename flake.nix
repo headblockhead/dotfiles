@@ -108,6 +108,7 @@
               raspberry-pi-nix.board = "bcm2712"; # Raspberry Pi 5
             }
             inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+            inputs.raspberry-pi-nix.nixosModules.sd-image
             agenix.nixosModules.default
           ];
         };
@@ -121,6 +122,7 @@
               raspberry-pi-nix.board = "bcm2711"; # Raspberry Pi 4
             }
             inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+            inputs.raspberry-pi-nix.nixosModules.sd-image
             agenix.nixosModules.default
           ];
         };
