@@ -34,6 +34,18 @@
     zsh
   ];
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
+  programs.alvr = {
+    enable = true;
+    package = pkgs.unstable.alvr;
+    openFirewall = true;
+  };
+
   nix.distributedBuilds = lib.mkForce false;
   networking.firewall.enable = lib.mkForce false;
   services.kmscon.extraConfig = lib.mkAfter ''

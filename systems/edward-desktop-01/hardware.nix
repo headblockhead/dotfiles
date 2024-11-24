@@ -8,13 +8,22 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
 
-  # AMD GPU
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "amdgpu" ];
+
+  hardware.amdgpu = {
+    #initrd.enable = true;
+    #opencl.enable = true;
+    #    amdvlk = {
+    #enable = true;
+    #supportExperimental.enable = true;
+    #support32Bit.enable = true;
+    #};
+  };
+
+  # LACT
   environment.systemPackages = with pkgs; [
     lact
   ];
@@ -27,7 +36,10 @@
   ];
   hardware.opengl.extraPackages = with pkgs; [
     rocmPackages.clr.icd
-    amdvlk
+    #amdvlk
+  ];
+  hardware.opengl.extraPackages32 = with pkgs; [
+    #driversi686Linux.amdvlk
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

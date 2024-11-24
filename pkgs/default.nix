@@ -18,8 +18,6 @@
     pico-sdk = pkgs.callPackage ../custom-packages/pico-sdk.nix { };
   };
   pico-sdk = pkgs.callPackage ../custom-packages/pico-sdk.nix { };
-  immersed = pkgs.callPackage ../custom-packages/immersed-vr.nix { };
-  alvr = pkgs.callPackage ../custom-packages/alvr.nix { };
 
   openrgb = pkgs.libsForQt5.callPackage ../custom-packages/openrgb.nix {
     wrapQtAppsHook = pkgs.qt5.wrapQtAppsHook;
