@@ -13,15 +13,4 @@
 
   # Set the trusted users.
   nix.settings.trusted-users = [ "headb" ];
-
-  services.kmscon = {
-    enable = true;
-    fonts = [{ name = "SauceCodePro Nerd Font Mono"; package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }); }];
-    extraConfig = ''
-      font-size=12
-      font-dpi=192
-      hwaccel
-    '';
-    hwRender = true;
-  };
 }
