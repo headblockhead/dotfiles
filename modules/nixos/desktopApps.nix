@@ -17,6 +17,8 @@
     gimp
     google-chrome
     unstable.kicad
+    openscad-unstable
+    inkscape
     libreoffice
     lmms
     mcpelauncher # Not in nixpkgs, defined by override in flake.nix (source: github.com/headblockhead/nix-mcpelauncher)
