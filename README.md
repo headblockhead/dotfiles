@@ -6,9 +6,16 @@ Full reproducable config for a mail server, 3D-printer controller, desktop, lapt
 
 ## Table of Contents
 
+  * [Looks](#looks)
   * [Installation](#installation)
   * [Troubleshooting](#troubleshooting)
   * [Tasks](#tasks)
+
+## Looks
+
+![neofetch and web browser](screenshots/edward-desktop-01-01.png)
+![neovim and mouth dreams](screenshots/edward-desktop-01-02.png)
+![cube](screenshots/edward-desktop-01-03.png)
 
 ## Installation
 
