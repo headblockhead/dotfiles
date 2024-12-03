@@ -19,7 +19,7 @@
     sound
     ssh
     ssd
-    openrgb
+    #    openrgb
     users
     zsh
   ];
@@ -96,13 +96,11 @@
 
     pkgs.libimobiledevice
     pkgs.ifuse
-    pkgs.arduino
     pkgs.audacity
     pkgs.firefox
     pkgs.fractal
     pkgs.gimp
     pkgs.google-chrome
-    pkgs.kicad
     pkgs.libreoffice
     pkgs.unstable.musescore
     pkgs.obs-studio
