@@ -95,23 +95,38 @@
     agenix.packages.x86_64-linux.default
 
     pkgs.libimobiledevice
-    pkgs.ifuse
+    pkgs.ifuse # optional, to mount using 'ifuse'
+    pkgs.obsidian
+    pkgs.arduino
     pkgs.audacity
+    pkgs.deja-dup
+    pkgs.discord
     pkgs.firefox
-    pkgs.fractal
+    pkgs.fractal # matrix messenger
+    pkgs.furnace # chiptune tracker
     pkgs.gimp
     pkgs.google-chrome
+    pkgs.openscad-unstable
+    pkgs.inkscape
     pkgs.libreoffice
     pkgs.unstable.musescore
     pkgs.obs-studio
+    pkgs.onedrive
     pkgs.remmina
     pkgs.spotify
+    pkgs.prusa-slicer
     pkgs.slack
     pkgs.thunderbird
     pkgs.unstable.rpi-imager
     pkgs.vlc
     pkgs.zoom-us
   ];
+
+  services.xserver.desktopManager.gnome.favoriteAppsOverride = ''
+    [org.gnome.shell]
+    favorite-apps=[ 'firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Settings.desktop', 'org.gnome.Calculator.desktop', 'org.freecad.FreeCAD.desktop', 'org.kicad.kicad.desktop', 'gnome-system-monitor.desktop', 'thunderbird.desktop', 'slack.desktop', 'spotify.desktop']
+  '';
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
