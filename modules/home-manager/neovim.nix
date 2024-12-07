@@ -25,6 +25,7 @@ in
   home.packages = with pkgs;
     [
       silver-searcher
+      cmake-language-server
       sumneko-lua-language-server
       nodePackages.prettier
       nixpkgs-fmt
