@@ -32,6 +32,7 @@ in
       wl-clipboard
       nil
       wakatime
+      openscad-lsp
     ];
   programs.neovim = {
     enable = true;
@@ -39,9 +40,10 @@ in
     vimAlias = true;
     defaultEditor = true;
     plugins = with pkgs.vimPlugins; [
+      # OpenSCAD
+      openscad-nvim
       # HACKATIME
       vim-wakatime
-
       # Theming plugins
       lualine-nvim
       dracula-nvim

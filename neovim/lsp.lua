@@ -136,7 +136,8 @@ local server_settings = {
 -- map buffer local keybindings when the language server attaches
 -- eslint comes from:
 -- npm i -g vscode-langservers-extracted
-local servers = { 'gopls', 'ccls', 'cmake', 'ts_ls', 'templ', 'rls', 'eslint', 'lua_ls', 'jdtls', 'nil_ls' }
+local servers = { 'gopls', 'ccls', 'cmake', 'ts_ls', 'templ', 'rls', 'eslint', 'lua_ls', 'jdtls', 'nil_ls',
+  'openscad_lsp' }
 for _, lsp in ipairs(servers) do
   local opts = {
     on_attach = on_attach,
