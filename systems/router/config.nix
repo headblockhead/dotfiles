@@ -50,7 +50,7 @@ in
         type = "process";
         location = "${pkgs.librespot}/bin/librespot";
         query = {
-          params = "--zeroconf-port=5354 --name House --bitrate 320 --backend pipe --initial-volume 100 --quiet --passthrough";
+          params = "--zeroconf-port=5354 --name House --bitrate 320 --backend pipe --initial-volume 100 --quiet";
         };
       };
     };
