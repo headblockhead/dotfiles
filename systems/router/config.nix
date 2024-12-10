@@ -64,7 +64,8 @@ in
 
   services.nix-serve = {
     enable = true;
-    secretKeyFile = "/var/cache-priv-key.pem";
+    bindAddress = "cache.router.lan";
+    secretKeyFile = "/var/cache-private-key.pem";
   };
 
   services.nginx = {
