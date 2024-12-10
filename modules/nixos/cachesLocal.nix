@@ -1,8 +1,8 @@
 { ... }:
 {
   nix.settings = {
-    substituters = [ "http://192.168.1.1?priority=10" ];
-    trusted-substituters = [ "http://192.168.1.1?priority=10" ];
-    trusted-public-keys = [ "local-cache:03zxq07gkKt7szy/RFQHfnylEgS620rT/csKSjCX6/Q=" ];
+    substituters = [ "http://cache.router.lan?priority=10" ];
+    trusted-substituters = [ "http://cache.router.lan?priority=10" ];
+    trusted-public-keys = [ "cache.router.lan:rKwwZwV/mJs/bYpZen39re5pheISKX5C8MS+e6ww6hc=" ];
   };
 }

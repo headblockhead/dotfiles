@@ -71,7 +71,7 @@ in
     enable = true;
     recommendedProxySettings = true;
     virtualHosts = {
-      "local-cache.lan" = {
+      cache = {
         locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
       };
     };
