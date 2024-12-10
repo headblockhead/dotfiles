@@ -35,16 +35,15 @@ in
 
   services.snapserver = {
     enable = true;
-    http = {
-      enable = true;
-      port = 1780;
-      listenAddress = "192.168.1.1";
-      docRoot = snapweb;
-    };
+
+    listenAddress = "192.168.1.1";
+    port = 1704;
+
     sampleFormat = "44100:16:2";
     codec = "pcm";
     buffer = 1000;
     sendToMuted = true;
+
     streams = {
       "Spotify" = {
         type = "process";
@@ -53,6 +52,13 @@ in
           params = "--zeroconf-port=5354 --name House --bitrate 320 --backend pipe --initial-volume 100 --quiet";
         };
       };
+    };
+
+    http = {
+      enable = true;
+      port = 1780;
+      listenAddress = "192.168.1.1";
+      docRoot = snapweb;
     };
   };
 

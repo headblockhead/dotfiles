@@ -32,6 +32,9 @@
     users
     yubikey
     zsh
+
+    p2pool
+    xmrig
   ];
 
   programs.steam = {

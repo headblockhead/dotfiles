@@ -5,6 +5,7 @@
 , pkg-config
 , stdenv
 , openssl
+, avahi-compat
 , withALSA ? stdenv.hostPlatform.isLinux
 , alsa-lib
 , alsa-plugins
@@ -35,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-  buildInputs = [ openssl ]
+  buildInputs = [ openssl avahi-compat ]
     ++ lib.optional withALSA alsa-lib
     ++ lib.optional withPortAudio portaudio
     ++ lib.optional withPulseAudio libpulseaudio;
@@ -44,7 +45,8 @@ rustPlatform.buildRustPackage rec {
   buildFeatures = lib.optional withRodio "rodio-backend"
     ++ lib.optional withALSA "alsa-backend"
     ++ lib.optional withPortAudio "portaudio-backend"
-    ++ lib.optional withPulseAudio "pulseaudio-backend";
+    ++ lib.optional withPulseAudio "pulseaudio-backend"
+    ++ [ "with-dns-sd" ];
 
   postFixup = lib.optionalString withALSA ''
     wrapProgram "$out/bin/librespot" \
