@@ -1,8 +1,8 @@
 { inputs, outputs, lib, config, pkgs, ... }:
 let
   snapweb = pkgs.fetchzip {
-    url = "https://github.com/badaix/snapweb/releases/download/v0.7.0/snapweb.zip";
-    hash = "sha256-lyUmEgmyOvg4W19ruu6DwoeK8+Xs7akCMQlfIDo1OXA=";
+    url = "https://github.com/badaix/snapweb/releases/download/v0.8.0/snapweb.zip";
+    hash = "";
     stripRoot = false; # Flat list of files
   };
 in
@@ -27,38 +27,10 @@ in
 
   services.avahi = {
     enable = true;
-    #reflector = true;
-    #allowInterfaces = [ "enp5s0" "enp4s0" ];
     publish = {
       enable = true;
-      #workstation = true;
       userServices = true;
     };
-  };
-
-  services.nfs.server = {
-    enable = true;
-    exports = ''
-      /srv/mpd 192.168.1.1/24(rw,insecure,sync)
-    '';
-    createMountPoints = true;
-  };
-
-  services.mpd = {
-    enable = true;
-    network.listenAddress = "192.168.1.1";
-    musicDirectory = "/srv/mpd";
-    extraConfig = ''
-      audio_output {
-        type            "fifo"
-        encoder         "flac"
-        name            "snapserver"
-        format          "44100:16:2"
-      	path		"/run/snapserver/mpd"
-      	compression	"8"
-      	mixer_type	"software"
-      }
-    '';
   };
 
   services.snapserver = {
@@ -69,27 +41,17 @@ in
       listenAddress = "192.168.1.1";
       docRoot = snapweb;
     };
-    sampleFormat = "44100:16:2";
-    codec = "flac";
+    sampleFormat = "48000:16:2";
+    codec = "pcm";
+    buffer = 1000;
     sendToMuted = true;
     streams = {
       "Spotify" = {
         type = "process";
         location = "${pkgs.librespot}/bin/librespot";
         query = {
-          params = "--zeroconf-port=5354 --name House --bitrate 320 --backend pipe --initial-volume 100 --quiet";
+          params = "--zeroconf-port=5354 --name House --bitrate 320 --backend pipe --initial-volume 100 --quiet --passthrough";
         };
-      };
-      "mpd" = {
-        type = "pipe";
-        location = "/run/snapserver/mpd";
-        sampleFormat = "44100:16:2";
-        codec = "flac";
-      };
-      "Home Assistant" = {
-        type = "tcp";
-        location = "192.168.1.1:4953";
-        sampleFormat = "48000:16:2";
       };
     };
   };
