@@ -64,6 +64,7 @@ in
 
   services.nix-serve = {
     enable = true;
+    bindAddress = "cache.router.lan";
     secretKeyFile = "/var/cache-priv-key.pem";
   };
 
