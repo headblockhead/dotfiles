@@ -23,13 +23,6 @@
     #};
   };
 
-  # LACT
-  environment.systemPackages = with pkgs; [
-    lact
-  ];
-  systemd.packages = with pkgs; [ lact ];
-  systemd.services.lactd.wantedBy = [ "multi-user.target" ];
-
   # ROCm
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
