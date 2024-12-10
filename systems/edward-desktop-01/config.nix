@@ -34,8 +34,9 @@
     zsh
 
     p2pool
-    xmrig
   ];
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   programs.steam = {
     enable = true;
