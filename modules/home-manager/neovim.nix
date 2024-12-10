@@ -25,12 +25,14 @@ in
   home.packages = with pkgs;
     [
       silver-searcher
+      cmake-language-server
       sumneko-lua-language-server
       nodePackages.prettier
       nixpkgs-fmt
       wl-clipboard
       nil
       wakatime
+      openscad-lsp
     ];
   programs.neovim = {
     enable = true;
@@ -38,9 +40,10 @@ in
     vimAlias = true;
     defaultEditor = true;
     plugins = with pkgs.vimPlugins; [
+      # OpenSCAD
+      openscad-nvim
       # HACKATIME
       vim-wakatime
-
       # Theming plugins
       lualine-nvim
       dracula-nvim
