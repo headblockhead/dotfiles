@@ -2,7 +2,7 @@
 let
   snapweb = pkgs.fetchzip {
     url = "https://github.com/badaix/snapweb/releases/download/v0.8.0/snapweb.zip";
-    hash = "";
+    hash = "sha256-IpT1pcuzcM8kqWJUX3xxpRQHlfPNsrwhemLmY0PyzjI=";
     stripRoot = false; # Flat list of files
   };
 in
