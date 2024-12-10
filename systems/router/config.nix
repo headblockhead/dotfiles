@@ -41,7 +41,7 @@ in
       listenAddress = "192.168.1.1";
       docRoot = snapweb;
     };
-    sampleFormat = "48000:16:2";
+    sampleFormat = "44100:16:2";
     codec = "pcm";
     buffer = 1000;
     sendToMuted = true;
