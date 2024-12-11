@@ -101,12 +101,9 @@ in
       server = [ "1.1.1.1" "1.0.0.1" ]; # Upstream DNS servers.
       domain = "lan"; # The domain to add to the end of hostnames. (eg. "router" -> "router.lan")
 
-      enable-tftp = true;
-      dhcp-boot = "pxelinux.0";
-
       # Custom DHCP options
       dhcp-range = [ "192.168.1.2,192.168.1.254,12h" ]; # Assign IPs to clients between 192.168.1.2 and 192.168.1.254. Leases last 12 hours.
-      dhcp-option = [ "option:router,192.168.1.1" "option:dns-server,192.168.1.1" "43,\"Raspberry Pi Boot\"" ]; # Tell DHCP clients who the router and DNS server in the network are.
+      dhcp-option = [ "option:router,192.168.1.1" "option:dns-server,192.168.1.1" ]; # Tell DHCP clients who the router and DNS server in the network are.
 
       # This is the only DHCP server, so we can read DHCP requests from unknown hosts/leases and add their lease to the database. This means that if the database is deleted, it can be rebuilt without requiring all clients to get a new lease!
       dhcp-authoritative = true;
