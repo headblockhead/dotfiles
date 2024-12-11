@@ -194,15 +194,15 @@
             path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi-builder;
           };
         };
-        #        printerpi = {
-        #hostname = "printerpi.lan";
-        #profiles.system = {
-        #sshUser = "headb";
-        #user = "root";
-        #remoteBuild = false;
-        #path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.printerpi;
-        #};
-        #};
+        printerpi = {
+          hostname = "printerpi.lan";
+          profiles.system = {
+            sshUser = "headb";
+            user = "root";
+            remoteBuild = false;
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.printerpi;
+          };
+        };
         edwardh = {
           hostname = "mail.edwardh.dev";
           profiles.system = {
