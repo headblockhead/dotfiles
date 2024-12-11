@@ -159,7 +159,7 @@
         dir_pin = "PB4";
         enable_pin = "!PD1";
         microsteps = 16;
-        rotation_distance = 7.49290479373;
+        rotation_distance = 7.492905;
         nozzle_diameter = 0.400;
         filament_diameter = 1.750;
         heater_pin = "PC8";

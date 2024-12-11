@@ -11,7 +11,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-24.11";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -118,6 +118,7 @@
           specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/printerpi/config.nix
+            ./systems/wifi-config.nix
             {
               raspberry-pi-nix.board = "bcm2711"; # Raspberry Pi 4
             }
