@@ -4,6 +4,7 @@ let
   edward-desktop-01-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOs2G2Yt7+A53v5tymBcbAlWnT9tLZYNSW+XGqZU6ITh'';
   edward-laptop-01-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDGOkGgaa7J85LK4Vfe3+NvxxQObZspyRd50OkUQz/Ox'';
   rpi-builder-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFnzZ9J7cRtQgXr87c0NwovZvMf1DsxaVdT1AbEXExTU'';
+  printerpi-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1ULDVHDscwoicWFYgNPumTF2l5clw6Nh6hr9tdLDll'';
 in
 {
   nix.settings.trusted-users = [ "nixbuilder" ];
@@ -13,6 +14,7 @@ in
     openssh.authorizedKeys.keys = [
       router-key
       edward-desktop-01-key
+      printerpi-key
       edward-laptop-01-key
       rpi-builder-key
     ];
