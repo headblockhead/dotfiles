@@ -10,6 +10,7 @@
     distributedBuilds
     git
     firewall
+    fzf
     homeManager
     users
     ssh
