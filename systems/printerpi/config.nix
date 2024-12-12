@@ -18,7 +18,8 @@
 
   services.klipper = {
     enable = true;
-    logFile = "/var/log/klipper.log";
+    user = "klipper";
+    group = "klipper";
     settings = {
       printer = {
         kinematics = "cartesian";
@@ -35,22 +36,11 @@
         cs_pin = "EXP1_7";
         sclk_pin = "EXP1_6";
         sid_pin = "EXP1_8";
-        encoder_pins = [ "^EXP1_5" "^EXP1_3" ];
+        encoder_pins = "^EXP1_5, ^EXP1_3";
         click_pin = "^!EXP1_2";
       };
       board_pins = {
-        aliases = [
-          "EXP1_1=PB5"
-          "EXP1_3=PA9"
-          "EXP1_5=PA10"
-          "EXP1_7=PB8"
-          "EXP1_9=<GND>"
-          "EXP1_2=PA15"
-          "EXP1_4=<RST>"
-          "EXP1_6=PB9"
-          "EXP1_8=PD6"
-          "EXP1_10=<5V>"
-        ];
+        aliases = "EXP1_1=PB5,EXP1_3=PA9,EXP1_5=PA10,EXP1_7=PB8,EXP1_9=<GND>,EXP1_2=PA15,EXP1_4=<RST>,EXP1_6=PB9,EXP1_8=PD6,EXP1_10=<5V>";
       };
       idle_timeout = {
         timeout = 39600; # 11 hours
@@ -62,19 +52,19 @@
         type = "disabled";
       };
       bed_screws = {
-        screw1 = [ 38 35 ];
-        screw2 = [ 242 35 ];
-        screw3 = [ 242 214 ];
-        screw4 = [ 38 214 ];
+        screw1 = "38,35";
+        screw2 = "242,35";
+        screw3 = "242,214";
+        screw4 = "38,214";
       };
       screws_tilt_adjust = {
-        screw1 = [ 69 43 ];
+        screw1 = "69,43";
         screw1_name = "front left screw";
-        screw2 = [ 276 43 ];
+        screw2 = "276,43";
         screw2_name = "front right screw";
-        screw3 = [ 276 217 ];
+        screw3 = "276,217";
         screw3_name = "rear right screw";
-        screw4 = [ 69 217 ];
+        screw4 = "69,217";
         screw4_name = "rear left screw";
         horizontal_move_z = 10;
         speed = 50;
@@ -83,20 +73,20 @@
       bed_mesh = {
         speed = 150;
         horizontal_move_z = 5;
-        mesh_min = [ 38 35 ];
-        mesh_max = [ 242 214 ];
-        probe_count = [ 3 3 ];
+        mesh_min = "38,35";
+        mesh_max = "242,214";
+        probe_count = "3,3";
         move_check_distance = 10;
         split_delta_z = 0.025;
         fade_start = 1;
         fade_end = 10;
         fade_target = 0;
-        mesh_pps = [ 2 2 ];
+        mesh_pps = "2,2";
         algorithm = "bicubic";
         bicubic_tension = 0.2;
       };
       safe_z_home = {
-        home_xy_position = [ 140 130 ];
+        home_xy_position = "140,130";
         speed = 50;
         z_hop = 10;
         z_hop_speed = 5;
@@ -236,16 +226,50 @@
     };
   };
 
+  users.groups.klipper = {
+    gid = 982;
+  };
+
+  users.users.klipper = {
+    uid = 982;
+    group = "klipper";
+    isSystemUser = true;
+  };
+
   security.polkit.enable = true;
   services.moonraker = {
     enable = true;
-    settings = { };
+    settings = {
+      authorization = {
+        cors_domains = [
+          "https://my.mainsail.xyz"
+          "http://my.mainsail.xyz"
+          "http://*.local"
+          "http://*.lan"
+        ];
+        trusted_clients = [
+          "10.0.0.0/8"
+          "127.0.0.0/8"
+          "169.254.0.0/16"
+          "172.16.0.0/12"
+          "192.168.0.0/16"
+          "FE80::/10"
+          "::1/128"
+        ];
+      };
+    };
+    group = "klipper";
+    address = "0.0.0.0";
+    port = 7125;
     allowSystemControl = true;
   };
 
   services.mainsail = {
     enable = true;
+    hostName = "printerpi.lan";
   };
+
+  networking.firewall.allowedTCPPorts = [ 80 443 7125 ];
 
   nixpkgs = {
     overlays = [
