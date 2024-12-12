@@ -217,6 +217,33 @@
         min_temp = 0;
         max_temp = 100;
       };
+      # Mainsail config
+      virtual_sdcard = {
+        path = "~/printer_data/gcodes";
+      };
+      display_status = { };
+      pause_resume = { };
+      "gcode_macro PAUSE" = {
+        description = "Pause the actual running print";
+        rename_existing = "PAUSE_BASE";
+        gcode = "\n    PAUSE_BASE\n    _TOOLHEAD_PARK_PAUSE_CANCEL";
+      };
+      "gcode_macro RESUME" = {
+        description = "Resume the actual running print";
+        rename_existing = "RESUME_BASE";
+        gcode = "\n     ##### read extrude from  _TOOLHEAD_PARK_PAUSE_CANCEL  macro #####\n     {% set extrude = printer['gcode_macro _TOOLHEAD_PARK_PAUSE_CANCEL'].extrude %}\n     #### get VELOCITY parameter if specified ####\n     {% if 'VELOCITY' in params|upper %}\n     {% set get_params = ('VELOCITY=' + params.VELOCITY)  %}\n     {%else %}\n     {% set get_params = \"\" %}\n     {% endif %}\n     ##### end of definitions #####\n     {% if printer.extruder.can_extrude|lower == 'true' %}\n     M83\n     G1 E{extrude} F2100\n     {% if printer.gcode_move.absolute_extrude |lower == 'true' %} M82 {% endif %}\n     {% else %}\n     {action_respond_info(\"Extruder not hot enough\")}\n     {% endif %}\n     RESUME_BASE {get_params}\n";
+      };
+      "gcode_macro CANCEL_PRINT" = {
+        description = "Cancel the actual running print";
+        rename_existing = "CANCEL_PRINT_BASE";
+        variable_park = "True";
+        gcode = "\n     ## Move head and retract only if not already in the pause state and park set to true\n     {% if printer.pause_resume.is_paused|lower == 'false' and park|lower == 'true'%}\n     _TOOLHEAD_PARK_PAUSE_CANCEL\n     {% endif %}\n     TURN_OFF_HEATERS\n     CANCEL_PRINT_BASE";
+      };
+      "gcode_macro _TOOLHEAD_PARK_PAUSE_CANCEL" = {
+        description = "Helper: park toolhead used in PAUSE and CANCEL_PRINT";
+        variable_extrude = 1;
+        gcode = "\n     ##### set park positon for x and y #####\n     # default is your max posion from your printer.cfg\n     {% set x_park = printer.toolhead.axis_maximum.x|float - 5.0 %}\n     {% set y_park = printer.toolhead.axis_maximum.y|float - 5.0 %}\n     {% set z_park_delta = 2.0 %}\n     ##### calculate save lift position #####\n     {% set max_z = printer.toolhead.axis_maximum.z|float %}\n     {% set act_z = printer.toolhead.position.z|float %}\n     {% if act_z < (max_z - z_park_delta) %}\n     {% set z_safe = z_park_delta %}\n     {% else %}\n     {% set z_safe = max_z - act_z %}\n     {% endif %}\n     ##### end of definitions #####\n     {% if printer.extruder.can_extrude|lower == 'true' %}\n     M83\n     G1 E-{extrude} F2100\n     {% if printer.gcode_move.absolute_extrude |lower == 'true' %} M82 {% endif %}\n     {% else %}\n     {action_respond_info(\"Extruder not hot enough\")}\n     {% endif %}\n     {% if \"xyz\" in printer.toolhead.homed_axes %}\n     G91\n     G1 Z{z_safe} F900\n     G90\n     G1 X{x_park} Y{y_park} F6000\n     {% if printer.gcode_move.absolute_coordinates|lower == 'false' %} G91 {% endif %}\n     {% else %}\n     {action_respond_info(\"Printer not homed\")}\n     {% endif %}";
+      };
     };
     firmwares.mcu = {
       enable = true;
