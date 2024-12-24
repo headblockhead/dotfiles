@@ -187,6 +187,8 @@
     gnomeExtensions.desktop-cube
     gnomeExtensions.alphabetical-app-grid
     gnomeExtensions.blur-my-shell
+    gnomeExtensions.brightness-control-using-ddcutil
+    ddcutil
 
     gnome.adwaita-icon-theme
   ];
