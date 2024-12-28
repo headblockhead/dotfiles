@@ -220,7 +220,7 @@
       };
       # Mainsail config
       virtual_sdcard = {
-        path = "~/printer_data/gcodes";
+        path = "/var/lib/moonraker/gcodes";
       };
       display_status = { };
       pause_resume = { };

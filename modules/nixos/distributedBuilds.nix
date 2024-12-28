@@ -26,6 +26,7 @@ in
       sshUser = "nixbuilder";
       sshKey = "/etc/ssh/ssh_host_ed25519_key";
       protocol = "ssh-ng";
+      # base64 -w0
       publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU9zMkcyWXQ3K0E1M3Y1dHltQmNiQWxXblQ5dExaWU5TVytYR3FaVTZJVGggcm9vdEBjb21wdXRlLTAxCg==";
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       mandatoryFeatures = [ ];
@@ -38,6 +39,7 @@ in
       sshUser = "nixbuilder";
       sshKey = "/etc/ssh/ssh_host_ed25519_key";
       protocol = "ssh-ng";
+      # base64 -w0
       publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUZuelo5SjdjUnRRZ1hyODdjME53b3Zadk1mMURzeGFWZFQxQWJFWEV4VFUgcm9vdEBycGktY2x1c3Rlci0wMQo=";
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" ];
       mandatoryFeatures = [ ];

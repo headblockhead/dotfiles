@@ -31,6 +31,7 @@
     zsh
   ];
 
+  services.flatpak.enable = true;
   networking.firewall.allowedTCPPorts = [ 8080 ]; # Web server
 
   nixpkgs = {
@@ -67,6 +68,7 @@
   # Extra packages to install.
   environment.systemPackages = [
     agenix.packages.x86_64-linux.default
+    pkgs.ardour
     pkgs.xc
     pkgs.deploy-rs
     pkgs.tor-browser-bundle-bin
