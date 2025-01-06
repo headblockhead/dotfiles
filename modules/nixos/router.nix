@@ -7,7 +7,7 @@ let
 in
 {
   # Replace the builtin dnsmasq service with our custom ones.
-  disabledModules = [ "services/networking/dnsmasq.nix" ];
+  #disabledModules = [ "services/networking/dnsmasq.nix" ];
   imports = [
     ../../custom-services/dnsmasq-shared.nix
     ../../custom-services/dnsmasq-lan.nix
