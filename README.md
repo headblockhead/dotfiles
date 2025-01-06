@@ -167,7 +167,7 @@ Switch to the new nixos and home-manager configurations.
 Deploy the nixos configurations to all machines with deploy-rs.
 
 ```bash
-deploy -s
+deploy path:.# -s
 ```
 
 ### Switch-NixOS

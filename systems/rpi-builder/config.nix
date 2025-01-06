@@ -14,6 +14,7 @@
     users
     ssh
     zsh
+    githubActions
   ];
 
   nixpkgs = {

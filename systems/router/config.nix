@@ -62,11 +62,11 @@ in
     };
   };
 
-  #services.unifi = {
-  #enable = true;
-  #unifiPackage = pkgs.unifi7;
-  #maximumJavaHeapSize = 256;
-  #};
+  services.unifi = {
+    enable = true;
+    unifiPackage = pkgs.unifi8;
+    mongodbPackage = pkgs.mongodb-7_0;
+  };
 
   services.nix-serve = {
     enable = true;

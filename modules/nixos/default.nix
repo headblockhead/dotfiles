@@ -9,6 +9,7 @@
   desktopApps = import ./desktopApps.nix;
   development = import ./development.nix;
   distributedBuilds = import ./distributedBuilds.nix;
+  githubActions = import ./githubActions.nix;
   docker = import ./docker.nix;
   fileSystems = import ./fileSystems.nix;
   firewall = import ./firewall.nix;
