@@ -90,7 +90,7 @@ in
       '';
     };
   };
-  services.dnsmasq-lan = {
+  services.dnsmasq = {
     enable = true;
     settings = {
       # Limit to the LAN port only.
