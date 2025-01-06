@@ -6,10 +6,8 @@ let
   iot_port = "enp8s0";
 in
 {
-  # Replace the builtin dnsmasq service with our custom ones.
-  #disabledModules = [ "services/networking/dnsmasq.nix" ];
+  # Add our custom dnsmasq service.
   imports = [
-    ../../custom-services/dnsmasq-lan.nix
     ../../custom-services/dnsmasq-iot.nix
   ];
 
