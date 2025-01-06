@@ -51,9 +51,7 @@ in
             iifname "lo" accept comment "Accept any loopback traffic"
 
             iifname "${lan_port}" accept comment "Allow incoming LAN to router"
-
-            iifname "${iot_port}" udp dport { 53, 67 } accept comment "Allow incoming IOT DNS and DHCP to router"
-            iifname "${iot_port}" tcp dport 53 accept comment "Allow incoming IOT DNS to router"
+            iifname "${iot_port}" accept comment "Allow incoming IOT to router"
 
             iifname "${wan_port}" ct state { established, related } accept comment "Allow established WAN to router"
             iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept comment "Allow some ICMP from WAN to router"
@@ -122,6 +120,7 @@ in
 
       # Custom static IPs
       dhcp-host = [
+        "28:70:4e:8b:98:91,192.168.1.200,johnconnor"
         "34:02:86:2b:84:c3,192.168.1.5,edward-laptop-01"
         "bc:f4:d4:82:6f:a9,192.168.1.6,edward-desktop-01"
       ];
