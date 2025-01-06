@@ -128,6 +128,7 @@ in
     settings = {
       # Limit to the IOT port only.
       interface = iot_port;
+      except-interface = "lo"; # Don't listen on the loopback interface.
       bind-interfaces = true; # This prevents DNSMASQ from binding to the wildcard (all interfaces), and forces it to only bind to chosen interfaces.
 
       # Sensible config
