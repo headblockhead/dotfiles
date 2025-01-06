@@ -21,62 +21,122 @@ let
   };
 
   dnsmasqConf = settingsFormat.generate "dnsmasq.conf" cfg.settings;
+
 in
+
 {
+
+  imports = [
+    (lib.mkRenamedOptionModule [ "services" "dnsmasq-iot" "servers" ] [ "services" "dnsmasq-iot" "settings" "server" ])
+    (lib.mkRemovedOptionModule [ "services" "dnsmasq-iot" "extraConfig" ] "This option has been replaced by `services.dnsmasq-iot.settings`")
+  ];
+
   ###### interface
+
   options = {
+
     services.dnsmasq-iot = {
+
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
+        description = ''
+          Whether to run dnsmasq.
+        '';
       };
+
       package = lib.mkPackageOption pkgs "dnsmasq" { };
+
       resolveLocalQueries = lib.mkOption {
         type = lib.types.bool;
         default = true;
+        description = ''
+          Whether dnsmasq should resolve local queries (i.e. add 127.0.0.1 to
+          /etc/resolv.conf).
+        '';
       };
 
       alwaysKeepRunning = lib.mkOption {
         type = lib.types.bool;
         default = false;
+        description = ''
+          If enabled, systemd will always respawn dnsmasq even if shut down manually. The default, disabled, will only restart it on error.
+        '';
       };
 
       settings = lib.mkOption {
         type = lib.types.submodule {
+
           freeformType = settingsFormat.type;
+
           options.server = lib.mkOption {
             type = lib.types.listOf lib.types.str;
             default = [ ];
+            example = [ "8.8.8.8" "8.8.4.4" ];
+            description = ''
+              The DNS servers which dnsmasq should query.
+            '';
           };
 
         };
         default = { };
+        description = ''
+          Configuration of dnsmasq. Lists get added one value per line (empty
+          lists and false values don't get added, though false values get
+          turned to comments). Gets merged with
+
+              {
+                dhcp-leasefile = "${stateDir}/dnsmasq.leases";
+                conf-file = optional cfg.resolveLocalQueries "/etc/dnsmasq-conf.conf";
+                resolv-file = optional cfg.resolveLocalQueries "/etc/dnsmasq-resolv.conf";
+              }
+        '';
+        example = lib.literalExpression ''
+          {
+            domain-needed = true;
+            dhcp-range = [ "192.168.0.2,192.168.0.254" ];
+          }
+        '';
       };
+
     };
+
   };
 
+
   ###### implementation
+
   config = lib.mkIf cfg.enable {
+
     services.dnsmasq-iot.settings = {
       dhcp-leasefile = lib.mkDefault "${stateDir}/dnsmasq.leases";
-      conf-file = lib.mkDefault (lib.optional cfg.resolveLocalQueries "/etc/dnsmasq-conf.conf");
-      resolv-file = lib.mkDefault (lib.optional cfg.resolveLocalQueries "/etc/dnsmasq-resolv.conf");
+      conf-file = lib.mkDefault (lib.optional cfg.resolveLocalQueries "/etc/dnsmasq-iot-conf.conf");
+      resolv-file = lib.mkDefault (lib.optional cfg.resolveLocalQueries "/etc/dnsmasq-iot-resolv.conf");
     };
 
     networking.nameservers =
       lib.optional cfg.resolveLocalQueries "127.0.0.1";
 
+    services.dbus.packages = [ dnsmasq ];
+
+    users.users.dnsmasq = {
+      isSystemUser = true;
+      group = "dnsmasq";
+      description = "Dnsmasq daemon user";
+    };
+    users.groups.dnsmasq = { };
+
     networking.resolvconf = lib.mkIf cfg.resolveLocalQueries {
       useLocalResolver = lib.mkDefault true;
 
       extraConfig = ''
-        dnsmasq_conf=/etc/dnsmasq-conf.conf
-        dnsmasq_resolv=/etc/dnsmasq-resolv.conf
+        dnsmasq_conf=/etc/dnsmasq-iot-conf.conf
+        dnsmasq_resolv=/etc/dnsmasq-iot-resolv.conf
       '';
 
       subscriberFiles = [
-        "/etc/dnsmasq-conf.conf"
-        "/etc/dnsmasq-resolv.conf"
+        "/etc/dnsmasq-iot-conf.conf"
+        "/etc/dnsmasq-iot-resolv.conf"
       ];
     };
 
