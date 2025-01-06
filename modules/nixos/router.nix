@@ -67,8 +67,8 @@ in
             iifname "${lan_port}" oifname "${wan_port}" accept comment "Allow LAN to WAN forwarding"
             iifname "${wan_port}" oifname "${lan_port}" ct state { established, related } accept comment "Allow established WAN back to LAN"
 
-            iifname "${lan_port}" oifname "${iot_port}" tcp ip daddr 192.168.2.100 accept comment "Allow LAN to Home Assistant"
-            iifname "${iot_port}" oifname "${lan_port}" tcp ip saddr 192.168.2.100 state { established, related } accept comment "Allow established Home Assistant back to LAN"
+            iifname "${lan_port}" oifname "${iot_port}" tcp dport { 8123, 4357 } ip daddr 192.168.2.100 accept comment "Allow LAN to Home Assistant"
+            iifname "${iot_port}" oifname "${lan_port}" tcp sport { 8123, 4357 } ip saddr 192.168.2.100 state { established, related } accept comment "Allow established Home Assistant back to LAN"
 
             iifname "${iot_port}" oifname "${wan_port}" accept comment "Allow IOT to WAN forwarding"
             iifname "${wan_port}" oifname "${iot_port}" ct state { established, related } accept comment "Allow established WAN back to IOT"
