@@ -130,6 +130,7 @@ in
 
       address = [
         "/router.lan/192.168.1.1"
+        "/router.lan/192.168.2.1"
       ];
 
       # Custom static IPs and hostnames
