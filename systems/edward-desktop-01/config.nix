@@ -25,10 +25,11 @@
     printer
     sdr
     snapclient
-    transmission
     sound
     ssd
     ssh
+    time
+    transmission
     users
     yubikey
     zsh

@@ -8,13 +8,14 @@
     cachesGlobal
     cachesLocal
     distributedBuilds
-    git
     firewall
-    homeManager
-    users
-    ssh
-    zsh
+    git
     githubActions
+    homeManager
+    ssh
+    time
+    users
+    zsh
   ];
 
   nixpkgs = {

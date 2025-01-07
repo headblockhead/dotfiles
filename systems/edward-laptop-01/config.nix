@@ -5,7 +5,6 @@
   imports = with outputs.nixosModules; [
     basicConfig
     bluetooth
-    fonts
     bootloaderGraphical
     cachesGlobal
     cachesLocal
@@ -15,6 +14,7 @@
     distributedBuilds
     fileSystems
     firewall
+    fonts
     fzf
     git
     gpg
@@ -26,6 +26,7 @@
     sound
     ssd
     ssh
+    time
     users
     yubikey
     zsh

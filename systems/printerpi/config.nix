@@ -8,12 +8,13 @@
     cachesGlobal
     cachesLocal
     distributedBuilds
-    git
     firewall
     fzf
+    git
     homeManager
-    users
     ssh
+    time
+    users
     zsh
   ];
 

@@ -9,13 +9,13 @@
   desktopApps = import ./desktopApps.nix;
   development = import ./development.nix;
   distributedBuilds = import ./distributedBuilds.nix;
-  githubActions = import ./githubActions.nix;
   docker = import ./docker.nix;
   fileSystems = import ./fileSystems.nix;
   firewall = import ./firewall.nix;
   fonts = import ./fonts.nix;
   fzf = import ./fzf.nix;
   git = import ./git.nix;
+  githubActions = import ./githubActions.nix;
   gpg = import ./gpg.nix;
   homeManager = import ./homeManager.nix;
   mail = import ./mail.nix;
@@ -30,9 +30,10 @@
   sound = import ./sound.nix;
   ssd = import ./ssd.nix;
   ssh = import ./ssh.nix;
+  time = import ./time.nix;
+  transmission = import ./transmission.nix;
   users = import ./users.nix;
   wireguard = import ./wireguard.nix;
-  transmission = import ./transmission.nix;
   xmrig = import ./xmrig.nix;
   yubikey = import ./yubikey.nix;
   zsh = import ./zsh.nix;
