@@ -26,7 +26,6 @@
     sound
     ssd
     ssh
-    time
     users
     yubikey
     zsh

@@ -13,7 +13,6 @@
     git
     homeManager
     ssh
-    time
     users
     zsh
   ];

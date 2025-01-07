@@ -28,7 +28,6 @@
     sound
     ssd
     ssh
-    time
     transmission
     users
     yubikey

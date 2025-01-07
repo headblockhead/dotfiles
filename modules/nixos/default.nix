@@ -30,7 +30,6 @@
   sound = import ./sound.nix;
   ssd = import ./ssd.nix;
   ssh = import ./ssh.nix;
-  time = import ./time.nix;
   transmission = import ./transmission.nix;
   users = import ./users.nix;
   wireguard = import ./wireguard.nix;

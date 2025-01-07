@@ -128,6 +128,10 @@ in
       # We are the only DHCP server on the network.
       dhcp-authoritative = true;
 
+      address = [
+        "/router.lan/192.168.1.1"
+      ];
+
       # Custom static IPs and hostnames
       dhcp-host = [
         # LAN

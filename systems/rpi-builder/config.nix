@@ -13,7 +13,6 @@
     githubActions
     homeManager
     ssh
-    time
     users
     zsh
   ];
