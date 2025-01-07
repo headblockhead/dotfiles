@@ -41,7 +41,8 @@ in
             iifname "lo" accept
 
             iifname "${lan_port}" accept
-            iifname "${iot_port}" udp dport { mdns, llmnr } counter accept
+            iifname "${iot_port}" udp dport { mdns, llmnr, 53, 67 } counter accept
+            iifname "${iot_port}" tcp dport { 53 } counter accept
 
             iifname "${wan_port}" ct state { established, related } accept
             iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept
@@ -115,13 +116,13 @@ in
       dhcp-option = [
         "tag:lan,option:router,192.168.1.1"
         "tag:lan,option:dns-server,192.168.1.1"
-        "tag:lan,option:domain-search,lan"
         "tag:lan,option:ntp-server,192.168.1.1"
+        "tag:lan,option:domain-search,lan"
 
         "tag:iot,option:router,192.168.2.1"
         "tag:iot,option:dns-server,192.168.2.1"
-        "tag:iot,option:domain-search,lan"
         "tag:iot,option:ntp-server,192.168.2.1"
+        "tag:iot,option:domain-search,lan"
       ];
 
       # We are the only DHCP server on the network.
@@ -152,3 +153,4 @@ in
     };
   };
 }
+
