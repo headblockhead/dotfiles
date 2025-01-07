@@ -115,7 +115,7 @@ in
   services.dnsmasq = {
     enable = true;
     settings = {
-      interface = [ "lan" "iot" "guest" ];
+      interface = [ "lan" "iot" "guest" lan_port ];
       bind-interfaces = true; # Bind only to interfaces specified above.
 
       domain-needed = true; # Don't forward DNS requests without dots/domain parts to upstream servers.
