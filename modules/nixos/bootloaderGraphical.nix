@@ -14,7 +14,7 @@
       "plymouth.use-simpledrm"
     ];
     loader = {
-      timeout = 2;
+      timeout = 0;
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot";
