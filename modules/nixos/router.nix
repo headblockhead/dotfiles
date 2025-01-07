@@ -68,13 +68,13 @@ in
           chain forward {
             type filter hook forward priority 0; policy drop;
 
-            iifname {"lan" "iot" "guest"} oifname "${wan_port}" accept
-            iifname "${wan_port}" oifname {"lan" "iot" "guest"} ct state { established, related } accept
+            iifname {"lan", "iot", "guest"} oifname "${wan_port}" accept
+            iifname "${wan_port}" oifname {"lan", "iot", "guest"} ct state { established, related } accept
 
-            iifname "lan" oifname {"iot" "guest"} accept
-            iifname {"iot" "guest"} oifname "lan" ct state { established, related } accept
+            iifname "lan" oifname {"iot", "guest"} accept
+            iifname {"iot", "guest"} oifname "lan" ct state { established, related } accept
 
-            iifname "guest" oifname {"lan" "iot"} counter drop
+            iifname "guest" oifname {"lan", "iot"} counter drop
           }
           chain output {
             type filter hook output priority 100; policy accept;
