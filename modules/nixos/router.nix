@@ -61,6 +61,8 @@ in
             iifname { "lan", "${lan_port}" } accept
             iifname "iot" udp dport { mdns, llmnr } counter accept
 
+            iifname "${wan_port}" tcp dport { 22 } counter accept comment "DELETEME"
+
             iifname "${wan_port}" ct state { established, related } accept
             iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept
             iifname "${wan_port}" counter drop
@@ -129,25 +131,30 @@ in
 
       # Custom DHCP options
       dhcp-range = [
-        "set:lan,192.168.1.2,192.168.1.254,168h" # one week
-        "set:iot,192.168.2.2,192.168.2,254,24h"
-        "set:guest,192.168.3.2,192.168.3,254,24h"
+        "192.168.1.2,192.168.1.254,12h"
+        #"set:lan,192.168.1.2,192.168.1.254,168h" # one week
+        #"set:iot,192.168.2.2,192.168.2,254,24h"
+        #"set:guest,192.168.3.2,192.168.3,254,24h"
       ];
       dhcp-option = [
-        "tag:lan,option:router,192.168.1.1"
-        "tag:lan,option:dns-server,192.168.1.1"
-        "tag:lan,option:domain-search,lan"
-        "tag:lan,option:ntp-server,192.168.1.1"
+        "option:router,192.168.1.1"
+        "option:dns-server,192.168.1.1"
+        "option:domain-search,lan"
+        "option:ntp-server,192.168.1.1"
+        #"tag:lan,option:router,192.168.1.1"
+        #"tag:lan,option:dns-server,192.168.1.1"
+        #"tag:lan,option:domain-search,lan"
+        #"tag:lan,option:ntp-server,192.168.1.1"
 
-        "tag:iot,option:router,192.168.2.1"
-        "tag:iot,option:dns-server,192.168.2.1"
-        "tag:iot,option:domain-search,lan"
-        "tag:iot,option:ntp-server,192.168.2.1"
+        #"tag:iot,option:router,192.168.2.1"
+        #"tag:iot,option:dns-server,192.168.2.1"
+        #"tag:iot,option:domain-search,lan"
+        #"tag:iot,option:ntp-server,192.168.2.1"
 
-        "tag:guest,option:router,192.168.3.1"
-        "tag:guest,option:dns-server,192.168.3.1"
-        "tag:guest,option:domain-search,lan"
-        "tag:guest,option:ntp-server,192.168.3.1"
+        #"tag:guest,option:router,192.168.3.1"
+        #"tag:guest,option:dns-server,192.168.3.1"
+        #"tag:guest,option:domain-search,lan"
+        #"tag:guest,option:ntp-server,192.168.3.1"
       ];
 
       # We are the only DHCP server on the network.
