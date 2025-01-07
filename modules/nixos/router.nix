@@ -1,43 +1,55 @@
 { lib, pkgs, ... }:
 let
-  # Physical ports. Defined seperatly so they can be changed.
-  lan_port = "enp5s0";
+  # Physical ports. Defined seperatly so they can be changed easily.
   wan_port = "enp4s0";
+  lan_port = "enp5s0";
   iot_port = "enp8s0";
 in
 {
-  # Add our custom dnsmasq service.
-  imports = [
-    ../../custom-services/dnsmasq-iot.nix
-  ];
-
   # Allow packet forwarding
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = true;
     "net.ipv6.conf.all.forwarding" = false;
   };
   networking = {
-    # These are replaced by nftables
+    # Replaced by nftables
     firewall.enable = false;
-    nat.enable = false;
 
-    # Do not use DHCP on all interfaces.
     useDHCP = lib.mkDefault false;
-
-    # Setup custom setttings for each port.
     interfaces = {
       "${wan_port}" = {
-        useDHCP = true; # Enable DHCP for the wan port to connect to the modem as a client.
+        # DHCP client.
+        useDHCP = true;
       };
-      "${lan_port}" = {
-        useDHCP = false; # DHCP client disabled, as this is the DHCP server.
+      lan = {
+        useDHCP = false;
         ipv4.addresses = [{ address = "192.168.1.1"; prefixLength = 24; }];
       };
-      "${iot_port}" = {
+      iot = {
         useDHCP = false;
         ipv4.addresses = [{ address = "192.168.2.1"; prefixLength = 24; }];
       };
+      guest = {
+        useDHCP = false;
+        ipv4.addresses = [{ address = "192.168.3.1"; prefixLength = 24; }];
+      };
     };
+
+    vlans = {
+      lan = {
+        inteface = lan_port;
+        id = 1;
+      };
+      iot = {
+        inteface = iot_port;
+        id = 2;
+      };
+      guest = {
+        inteface = lan_port;
+        id = 3;
+      };
+    };
+
     nftables = {
       enable = true;
       flushRuleset = true;
@@ -45,31 +57,24 @@ in
         table inet filter {
           chain input {
             type filter hook input priority 0; policy drop;
-            iifname "lo" accept comment "Accept any loopback traffic"
 
-            iifname "${lan_port}" accept comment "Allow incoming LAN to router"
-            iifname "${iot_port}" accept comment "Allow incoming IOT to router"
+            iifname "lan" accept
+            iifname "iot" udp dport { mdns, llmnr } counter accept
 
-            iifname "${wan_port}" ct state { established, related } accept comment "Allow established WAN to router"
-            iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept comment "Allow some ICMP from WAN to router"
-
-            iifname "${wan_port}" counter drop comment "Count and drop unsolicited WAN traffic to router"
-            iifname "${iot_port}" counter drop comment "Count and drop unsolicited IOT traffic to router"
+            iifname "${wan_port}" ct state { established, related } accept
+            iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept
+            iifname "${wan_port}" counter drop
           }
           chain forward {
             type filter hook forward priority 0; policy drop;
 
-            iifname "${lan_port}" oifname "${wan_port}" accept comment "Allow LAN to WAN forwarding"
-            iifname "${wan_port}" oifname "${lan_port}" ct state { established, related } accept comment "Allow established WAN back to LAN"
+            iifname {"lan" "iot" "guest"} oifname "${wan_port}" accept
+            iifname "${wan_port}" oifname {"lan" "iot" "guest"} ct state { established, related } accept
 
-            iifname "${lan_port}" oifname "${iot_port}" accept comment "Allow LAN to IOT"
-            iifname "${iot_port}" oifname "${lan_port}" ct state { established, related } accept comment "Allow established IOT back to LAN"
+            iifname "lan" oifname {"iot" "guest"} accept
+            iifname {"iot" "guest"} oifname "lan" ct state { established, related } accept
 
-            iifname "${iot_port}" oifname "${wan_port}" accept comment "Allow IOT to WAN forwarding"
-            iifname "${wan_port}" oifname "${iot_port}" ct state { established, related } accept comment "Allow established WAN back to IOT"
-
-            iifname "${iot_port}" oifname "${lan_port}" counter drop comment "Count and drop unsolicited IOT to LAN"
-            iifname "${lan_port}" oifname "${iot_port}" counter drop comment "Count and drop unsolicited LAN to IOT"
+            iifname "guest" oifname {"lan" "iot"} counter drop
           }
           chain output {
             type filter hook output priority 100; policy accept;
@@ -81,86 +86,94 @@ in
           }
           chain postrouting {
             type nat hook postrouting priority 100; policy accept;
-            oifname "${wan_port}" masquerade comment "Masquerade WAN output"
-            oifname "${iot_port}" masquerade comment "Masquerade IOT output"
+            oifname "${wan_port}" masquerade
           }
         }
       '';
     };
   };
+  services.chrony = {
+    enable = true;
+    initstepslew.enabled = true;
+    enableRTCTrimming = true;
+    enableNTS = true;
+    servers = [ "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" "3.pool.ntp.org" ];
+  };
+  services.avahi = {
+    enable = true;
+    domainName = "local";
+    reflector = true;
+    allowInterfaces = [ "lan" "iot" ];
+    publish = {
+      enable = true;
+      addresses = true;
+      domain = true;
+    };
+    nssmdns4 = true;
+    hostName = "router";
+  };
   services.dnsmasq = {
     enable = true;
     settings = {
-      # Limit to the LAN port only.
-      interface = lan_port;
-      bind-interfaces = true; # This prevents DNSMASQ from binding to the wildcard (all interfaces), and forces it to only bind to chosen interfaces.
+      interface = [ "lan" "iot" "guest" ];
+      bind-interfaces = true; # Bind only to interfaces specified above.
 
-      # Sensible config
       domain-needed = true; # Don't forward DNS requests without dots/domain parts to upstream servers.
       bogus-priv = true; # If a private IP lookup (192.168.x.x, etc.) fails, it will be answered with "no such domain", instead of forwarded to upstream.
       no-resolv = true; # Don't read upstream servers from /etc/resolv.conf
-      no-hosts = true; # Don't obtain any hosts from /etc/hosts, as this would make 'localhost' this machine for all clients!
+      no-hosts = true; # Don't obtain any hosts from /etc/hosts (this would make 'localhost' = this machine for all clients!)
 
       # Custom DNS options
       server = [ "1.1.1.1" "1.0.0.1" ]; # Upstream DNS servers.
       domain = "lan"; # The domain to add to the end of hostnames. (eg. "router" -> "router.lan")
 
       # Custom DHCP options
-      dhcp-range = [ "192.168.1.2,192.168.1.254,12h" ]; # Assign IPs to clients between 192.168.1.2 and 192.168.1.254. Leases last 12 hours.
-      dhcp-option = [ "option:router,192.168.1.1" "option:dns-server,192.168.1.1" ]; # Tell DHCP clients who the router and DNS server in the network are.
-
-      # This is the only DHCP server, so we can read DHCP requests from unknown hosts/leases and add their lease to the database. This means that if the database is deleted, it can be rebuilt without requiring all clients to get a new lease!
-      dhcp-authoritative = true;
-
-      # Manual hostnames to always resolve to a specific IP, and never lookup on upstream servers.
-      address = "/router.lan/192.168.1.1";
-
-      # Custom static IPs
-      dhcp-host = [
-        "28:70:4e:8b:98:91,192.168.1.200,johnconnor"
-        "34:02:86:2b:84:c3,192.168.1.5,edward-laptop-01"
-        "bc:f4:d4:82:6f:a9,192.168.1.6,edward-desktop-01"
+      dhcp-range = [
+        "set:lan,192.168.1.2,192.168.1.254,168h" # one week
+        "set:iot,192.168.2.2,192.168.2,254,24h"
+        "set:guest,192.168.3.2,192.168.3,254,24h"
       ];
-    };
-  };
-  services.dnsmasq-iot = {
-    enable = true;
-    settings = {
-      # Limit to the IOT port only.
-      interface = iot_port;
-      except-interface = "lo"; # Don't listen on the loopback interface.
-      bind-interfaces = true; # This prevents DNSMASQ from binding to the wildcard (all interfaces), and forces it to only bind to chosen interfaces.
+      dhcp-option = [
+        "tag:lan,option:router,192.168.1.1"
+        "tag:lan,option:dns-server,192.168.1.1"
+        "tag:lan,option:domain-search,lan"
+        "tag:lan,option:ntp-server,192.168.1.1"
 
-      # Sensible config
-      domain-needed = true; # Don't forward DNS requests without dots/domain parts to upstream servers.
-      bogus-priv = true; # If a private IP lookup (192.168.x.x, etc.) fails, it will be answered with "no such domain", instead of forwarded to upstream.
-      no-resolv = true; # Don't read upstream servers from /etc/resolv.conf
-      no-hosts = true; # Don't obtain any hosts from /etc/hosts, as this would make 'localhost' this machine for all clients!
+        "tag:iot,option:router,192.168.2.1"
+        "tag:iot,option:dns-server,192.168.2.1"
+        "tag:iot,option:domain-search,lan"
+        "tag:iot,option:ntp-server,192.168.2.1"
 
-      # Custom DNS options
-      server = [ "1.1.1.1" "1.0.0.1" ]; # Upstream DNS servers.
-      domain = "iot"; # The domain to add to the end of hostnames. (eg. "router" -> "router.iot")
+        "tag:guest,option:router,192.168.3.1"
+        "tag:guest,option:dns-server,192.168.3.1"
+        "tag:guest,option:domain-search,lan"
+        "tag:guest,option:ntp-server,192.168.3.1"
+      ];
 
-      # Custom DHCP options
-      dhcp-range = [ "192.168.2.2,192.168.2.254,12h" ]; # Assign IPs between 192.168.2.2 and 192.168.2.254 with a 12 hour lease time.
-      dhcp-option = [ "option:router,192.168.2.1" "option:dns-server,192.168.2.1" ]; # Tell DHCP clients who the router and DNS server in the network are.
-
-      # This is the only DHCP server on the subnet, so we can read DHCP requests from unknown hosts/leases and add their lease to the database. This means that if the database is deleted, it can be rebuilt without requiring all clients to get a new lease!
+      # We are the only DHCP server on the network.
       dhcp-authoritative = true;
 
-      # Manual hostnames to always resolve to a specific IP, and never lookup on upstream servers.
-      address = "/router.iot/192.168.2.1";
-
-      # Custom static IPs
+      # Custom static IPs and hostnames
       dhcp-host = [
+        # LAN
+        "28:70:4e:8b:98:91,192.168.1.10,johnconnor" # AP
+        "bc:f4:d4:82:6f:a9,192.168.1.1,edward-desktop-01"
+        "34:02:86:2b:84:c3,192.168.1.2,edward-laptop-01"
+        # IOT
+        "74:83:c2:3c:9f:6e,192.168.2.10,skynet" # AP
         "e4:5f:01:11:a6:8e,192.168.2.100,homeassistant"
-
-        "a8:13:74:17:b6:18,192.168.2.2,hesketh-tv"
-        "4c:b9:ea:5a:4f:03,192.168.2.3,scuttlebug"
-        "0c:fe:45:1d:e6:66,192.168.2.4,ps4"
-        "dc:a6:32:31:50:3c,192.168.2.5,printerpi"
-        "00:0b:81:87:e5:5f,192.168.2.6,officepi"
-        "d8:3a:dd:97:a9:c4,192.168.2.7,rpi-builder"
+        "a8:13:74:17:b6:18,192.168.2.101,hesketh-tv"
+        "4c:b9:ea:5a:4f:03,192.168.2.102,scuttlebug"
+        "4c:b9:ea:58:81:22,192.168.2.103,sentinel"
+        "0c:fe:45:1d:e6:66,192.168.2.104,ps4"
+        "dc:a6:32:31:50:3c,192.168.2.105,printerpi"
+        "00:0b:81:87:e5:5f,192.168.2.106,officepi"
+        "d8:3a:dd:97:a9:c4,192.168.2.107,rpi-builder"
+        "48:e7:29:18:6f:b0,192.168.2.108,charlie-charger"
+        "30:c9:22:19:70:14,192.168.2.109,octo-cadlite"
+        "48:e1:e9:9f:32:e6,192.168.2.110,meross-bedroom-lamp"
+        "48:e1:e9:2d:c9:76,192.168.2.111,meross-printer-lamp"
+        "48:e1:e9:2d:c9:70,192.168.2.112,meross-printer-power"
       ];
     };
   };
