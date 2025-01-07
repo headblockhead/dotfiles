@@ -40,10 +40,6 @@ in
         interface = lan_port;
         id = 1;
       };
-      iot = {
-        interface = iot_port;
-        id = 2;
-      };
       guest = {
         interface = lan_port;
         id = 3;
@@ -58,9 +54,10 @@ in
           chain input {
             type filter hook input priority 0; policy drop;
 
-            iifname { "lan", "${lan_port}" } accept
-            iifname "iot" udp dport { mdns, llmnr } counter accept
+            iifname "lan" accept
+            iifname "${iot_port}" udp dport { mdns, llmnr } counter accept
 
+            iifname "${lan_port}" counter accept comment "DELETEME"
             iifname "${wan_port}" tcp dport { 22 } counter accept comment "DELETEME"
 
             iifname "${wan_port}" ct state { established, related } accept
@@ -70,13 +67,13 @@ in
           chain forward {
             type filter hook forward priority 0; policy drop;
 
-            iifname {"lan", "${lan_port}", "iot", "guest"} oifname "${wan_port}" accept
-            iifname "${wan_port}" oifname {"lan", "${lan_port}", "iot", "guest"} ct state { established, related } accept
+            iifname {"lan", "${iot_port}", "guest"} oifname "${wan_port}" accept
+            iifname "${wan_port}" oifname {"lan", "${iot_port}", "guest"} ct state { established, related } accept
 
-            iifname "lan" oifname {"iot", "guest"} accept
-            iifname {"iot", "guest"} oifname "lan" ct state { established, related } accept
+            iifname "lan" oifname {"${iot_port}", "guest"} accept
+            iifname {"${iot_port}", "guest"} oifname "lan" ct state { established, related } accept
 
-            iifname "guest" oifname {"lan", "iot"} counter drop
+            iifname "guest" oifname {"lan", "${iot_port}"} counter drop
           }
           chain output {
             type filter hook output priority 100; policy accept;
@@ -117,7 +114,7 @@ in
   services.dnsmasq = {
     enable = true;
     settings = {
-      interface = [ "lan" "iot" "guest" lan_port ];
+      interface = [ lan_port ];
       bind-interfaces = true; # Bind only to interfaces specified above.
 
       domain-needed = true; # Don't forward DNS requests without dots/domain parts to upstream servers.
