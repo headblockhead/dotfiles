@@ -37,15 +37,15 @@ in
 
     vlans = {
       lan = {
-        inteface = lan_port;
+        interface = lan_port;
         id = 1;
       };
       iot = {
-        inteface = iot_port;
+        interface = iot_port;
         id = 2;
       };
       guest = {
-        inteface = lan_port;
+        interface = lan_port;
         id = 3;
       };
     };
