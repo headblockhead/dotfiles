@@ -21,28 +21,13 @@ in
         # DHCP client.
         useDHCP = true;
       };
-      lan = {
+      "${lan_port}" = {
         useDHCP = false;
         ipv4.addresses = [{ address = "192.168.1.1"; prefixLength = 24; }];
       };
-      iot = {
+      "${iot_port}" = {
         useDHCP = false;
         ipv4.addresses = [{ address = "192.168.2.1"; prefixLength = 24; }];
-      };
-      guest = {
-        useDHCP = false;
-        ipv4.addresses = [{ address = "192.168.3.1"; prefixLength = 24; }];
-      };
-    };
-
-    vlans = {
-      lan = {
-        interface = lan_port;
-        id = 1;
-      };
-      guest = {
-        interface = lan_port;
-        id = 3;
       };
     };
 
@@ -53,12 +38,10 @@ in
         table inet filter {
           chain input {
             type filter hook input priority 0; policy drop;
+            iifname "lo" accept
 
-            iifname "lan" accept
+            iifname "${lan_port}" accept
             iifname "${iot_port}" udp dport { mdns, llmnr } counter accept
-
-            iifname "${lan_port}" counter accept comment "DELETEME"
-            iifname "${wan_port}" tcp dport { 22 } counter accept comment "DELETEME"
 
             iifname "${wan_port}" ct state { established, related } accept
             iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept
@@ -67,13 +50,11 @@ in
           chain forward {
             type filter hook forward priority 0; policy drop;
 
-            iifname {"lan", "${iot_port}", "guest"} oifname "${wan_port}" accept
-            iifname "${wan_port}" oifname {"lan", "${iot_port}", "guest"} ct state { established, related } accept
+            iifname {"${lan_port}", "${iot_port}"} oifname "${wan_port}" accept
+            iifname "${wan_port}" oifname {"${lan_port}", "${iot_port}"} ct state { established, related } accept
 
-            iifname "lan" oifname {"${iot_port}", "guest"} accept
-            iifname {"${iot_port}", "guest"} oifname "lan" ct state { established, related } accept
-
-            iifname "guest" oifname {"lan", "${iot_port}"} counter drop
+            iifname "${lan_port}" oifname "${iot_port}" accept
+            iifname "${iot_port}" oifname "${lan_port}" ct state { established, related } accept
           }
           chain output {
             type filter hook output priority 100; policy accept;
@@ -102,7 +83,7 @@ in
     enable = true;
     domainName = "local";
     reflector = true;
-    allowInterfaces = [ "lan" "iot" ];
+    allowInterfaces = [ lan_port iot_port ];
     publish = {
       enable = true;
       addresses = true;
@@ -114,7 +95,7 @@ in
   services.dnsmasq = {
     enable = true;
     settings = {
-      interface = [ lan_port ];
+      interface = [ lan_port iot_port ];
       bind-interfaces = true; # Bind only to interfaces specified above.
 
       domain-needed = true; # Don't forward DNS requests without dots/domain parts to upstream servers.
@@ -128,30 +109,19 @@ in
 
       # Custom DHCP options
       dhcp-range = [
-        "192.168.1.2,192.168.1.254,12h"
-        #"set:lan,192.168.1.2,192.168.1.254,168h" # one week
-        #"set:iot,192.168.2.2,192.168.2,254,24h"
-        #"set:guest,192.168.3.2,192.168.3,254,24h"
+        "set:lan,192.168.1.2,192.168.1.254,168h" # one week
+        "set:iot,192.168.2.2,192.168.2.254,24h"
       ];
       dhcp-option = [
-        "option:router,192.168.1.1"
-        "option:dns-server,192.168.1.1"
-        "option:domain-search,lan"
-        "option:ntp-server,192.168.1.1"
-        #"tag:lan,option:router,192.168.1.1"
-        #"tag:lan,option:dns-server,192.168.1.1"
-        #"tag:lan,option:domain-search,lan"
-        #"tag:lan,option:ntp-server,192.168.1.1"
+        "tag:lan,option:router,192.168.1.1"
+        "tag:lan,option:dns-server,192.168.1.1"
+        "tag:lan,option:domain-search,lan"
+        "tag:lan,option:ntp-server,192.168.1.1"
 
-        #"tag:iot,option:router,192.168.2.1"
-        #"tag:iot,option:dns-server,192.168.2.1"
-        #"tag:iot,option:domain-search,lan"
-        #"tag:iot,option:ntp-server,192.168.2.1"
-
-        #"tag:guest,option:router,192.168.3.1"
-        #"tag:guest,option:dns-server,192.168.3.1"
-        #"tag:guest,option:domain-search,lan"
-        #"tag:guest,option:ntp-server,192.168.3.1"
+        "tag:iot,option:router,192.168.2.1"
+        "tag:iot,option:dns-server,192.168.2.1"
+        "tag:iot,option:domain-search,lan"
+        "tag:iot,option:ntp-server,192.168.2.1"
       ];
 
       # We are the only DHCP server on the network.
