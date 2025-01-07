@@ -58,7 +58,7 @@ in
           chain input {
             type filter hook input priority 0; policy drop;
 
-            iifname "lan" accept
+            iifname { "lan", "${lan_port}" } accept
             iifname "iot" udp dport { mdns, llmnr } counter accept
 
             iifname "${wan_port}" ct state { established, related } accept
@@ -68,8 +68,8 @@ in
           chain forward {
             type filter hook forward priority 0; policy drop;
 
-            iifname {"lan", "iot", "guest"} oifname "${wan_port}" accept
-            iifname "${wan_port}" oifname {"lan", "iot", "guest"} ct state { established, related } accept
+            iifname {"lan", "${lan_port}", "iot", "guest"} oifname "${wan_port}" accept
+            iifname "${wan_port}" oifname {"lan", "${lan_port}", "iot", "guest"} ct state { established, related } accept
 
             iifname "lan" oifname {"iot", "guest"} accept
             iifname {"iot", "guest"} oifname "lan" ct state { established, related } accept
