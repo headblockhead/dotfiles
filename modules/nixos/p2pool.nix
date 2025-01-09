@@ -25,7 +25,7 @@
   ];
   systemd.services.p2pool = {
     description = "Decentralized pool for Monero mining";
-    after = [ "monero.service" ];
+    after = [ "monero.service" "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "simple";

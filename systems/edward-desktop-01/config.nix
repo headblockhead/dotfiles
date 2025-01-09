@@ -34,7 +34,10 @@
     zsh
 
     p2pool
+    xmrig
   ];
+
+  systemd.services.xmrig.wantedBy = lib.mkForce [ ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
