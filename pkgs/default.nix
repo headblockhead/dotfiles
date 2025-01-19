@@ -6,7 +6,6 @@
   templ = inputs.templ.packages.${system}.default;
   deploy-rs = inputs.deploy-rs.packages.${system}.default;
   prismlauncher = inputs.prismlauncher.packages.${system}.prismlauncher;
-  mcpelauncher = inputs.mcpelauncher.defaultPackage.${system};
 
   pdc = inputs.playdatesdk.packages.${system}.pdc;
   pdutil = inputs.playdatesdk.packages.${system}.pdutil;

@@ -21,7 +21,6 @@
     inkscape
     libreoffice
     lmms
-    mcpelauncher # Not in nixpkgs, defined by override in flake.nix (source: github.com/headblockhead/nix-mcpelauncher)
     monero-gui
     unstable.musescore
     obs-studio

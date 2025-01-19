@@ -41,10 +41,6 @@
       url = "github:a-h/templ";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    mcpelauncher = {
-      url = "github:headblockhead/nix-mcpelauncher";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
