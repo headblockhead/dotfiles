@@ -36,7 +36,7 @@ in
   services.snapserver = {
     enable = true;
 
-    listenAddress = "192.168.1.1";
+    listenAddress = "192.168.2.1";
     port = 1704;
 
     sampleFormat = "44100:16:2";

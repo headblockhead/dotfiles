@@ -24,7 +24,6 @@
     openrgb
     printer
     sdr
-    snapclient
     sound
     ssd
     ssh
