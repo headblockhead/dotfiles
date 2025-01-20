@@ -73,13 +73,6 @@ in
       '';
     };
   };
-  services.chrony = {
-    enable = true;
-    initstepslew.enabled = true;
-    enableRTCTrimming = true;
-    enableNTS = true;
-    servers = [ "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" "3.pool.ntp.org" ];
-  };
   services.avahi = {
     enable = true;
     domainName = "local";
