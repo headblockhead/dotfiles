@@ -1,4 +1,4 @@
-{ outputs, pkgs, lib, ... }:
+{ outputs, pkgs, ... }:
 
 {
   networking.hostName = "printerpi";

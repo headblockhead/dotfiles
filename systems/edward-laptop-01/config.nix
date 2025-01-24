@@ -32,7 +32,6 @@
   ];
 
   services.flatpak.enable = true;
-  networking.firewall.allowedTCPPorts = [ 8080 ]; # Web server
 
   # Extra packages to install.
   environment.systemPackages = [
@@ -60,4 +59,6 @@
     [org.gnome.shell]
     favorite-apps=[ 'firefox.desktop', 'torbrowser.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Settings.desktop','org.gnome.Calculator.desktop', 'org.rncbc.qjackctl.desktop', 'ardour8.desktop', 'vlc.desktop', 'audacity.desktop' ]
   '';
+
+  system.stateVersion = "22.05";
 }

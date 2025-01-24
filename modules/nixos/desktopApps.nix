@@ -16,13 +16,13 @@
     furnace # chiptune tracker
     gimp
     google-chrome
-    unstable.kicad
+    kicad
     openscad-unstable
     inkscape
     libreoffice
     lmms
     monero-gui
-    unstable.musescore
+    musescore
     obs-studio
     onedrive
     prismlauncher
@@ -32,7 +32,7 @@
     slack
     thonny
     thunderbird
-    unstable.rpi-imager
+    rpi-imager
     vlc
     zoom-us
   ];

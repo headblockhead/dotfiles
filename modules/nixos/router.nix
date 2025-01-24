@@ -44,6 +44,10 @@ in
             iifname "${iot_port}" udp dport { mdns, llmnr, 53, 67 } counter accept
             iifname "${iot_port}" tcp dport { 53 } counter accept
 
+            iifname "${wan_port}" udp dport mdns accept comment "DELETEME: allow mdns"
+            iifname "${wan_port}" tcp dport 5354 accept comment "DELETEME: allow zeroconf"
+            iifname "${wan_port}" udp dport 5354 accept comment "DELETEME: allow zeroconf"
+
             iifname "${wan_port}" ct state { established, related } accept
             iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept
             iifname "${wan_port}" counter drop

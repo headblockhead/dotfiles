@@ -76,5 +76,6 @@
     ''L+ /run/gdm/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
     ''L+ /home/headb/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
   ];
-}
 
+  system.stateVersion = "22.05";
+}

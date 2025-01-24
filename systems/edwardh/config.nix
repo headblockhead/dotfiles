@@ -22,4 +22,6 @@
   services.openssh.settings.PermitRootLogin = lib.mkForce "no";
 
   security.sudo.wheelNeedsPassword = false;
+
+  system.stateVersion = "22.05";
 }

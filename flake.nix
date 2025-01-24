@@ -1,5 +1,5 @@
 {
-  description = "Reproducable configuration for all of my systems";
+  description = "Reproducable NixOS and homemanager config for my local servers, cloud servers, desktops, and laptops,";
 
   nixConfig = {
     extra-substituters = [ "https://cachix.cachix.org" "https://nix-community.cachix.org" ];
@@ -16,39 +16,22 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-    };
-    raspberry-pi-nix = {
-      url = "github:nix-community/raspberry-pi-nix";
-    };
-    agenix = {
-      url = "github:ryantm/agenix";
-    };
-    prismlauncher = {
-      url = "github:PrismLauncher/PrismLauncher";
-    };
-    playdatesdk = {
-      url = "github:headblockhead/nix-playdatesdk";
-    };
-    playdatemirror = {
-      url = "github:headblockhead/nix-playdatemirror";
-    };
-    templ = {
-      url = "github:a-h/templ";
-    };
+
+    deploy-rs.url = "github:serokell/deploy-rs";
+    raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
+    agenix.url = "github:ryantm/agenix";
+    prismlauncher.url = "github:PrismLauncher/PrismLauncher";
+    playdatesdk.url = "github:headblockhead/nix-playdatesdk";
+    playdatemirror.url = "github:headblockhead/nix-playdatemirror";
+    templ.url = "github:a-h/templ";
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , agenix
-    , deploy-rs
-    , ...
-    }@ inputs:
+    { self, nixpkgs, home-manager, agenix, deploy-rs, ... }@ inputs:
     let
       inherit (self) outputs;
+
+      # System types we want to build our packages for, used to generate pkgs.
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -83,6 +66,7 @@
       nixosConfigurations = {
         # Local servers
         router = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/router/config.nix
@@ -122,6 +106,7 @@
 
         # Local desktops
         edward-desktop-01 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/edward-desktop-01/config.nix
@@ -130,6 +115,7 @@
           ];
         };
         edward-laptop-01 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/edward-laptop-01/config.nix
@@ -142,17 +128,18 @@
         # AWS EC2 nodes.
         # 18.135.222.143
         edwardh = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
           specialArgs = { inherit inputs outputs sshkeys; };
           modules = [
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
             ./systems/edwardh/config.nix
-            ./systems/edwardh/hardware.nix
             agenix.nixosModules.default
           ];
         };
 
-        # Old Dell machine.
+        # Old Dell desktop machine.
         edward-dell-01 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/edward-dell-01/config.nix
@@ -166,7 +153,7 @@
       rpi-builder-sd = nixosConfigurations.rpi-builder.config.system.build.sdImage;
       printerpi-sd = nixosConfigurations.printerpi.config.system.build.sdImage;
 
-      # deploy-rs nodes
+      # deploy-rs configuration
       deploy.nodes = {
         router = {
           hostname = "router.lan";
@@ -199,8 +186,8 @@
           hostname = "mail.edwardh.dev";
           profiles.system = {
             sshUser = "headb";
-            user = "root"; # Uses sudo
-            remoteBuild = false; # Don't build on edwardh
+            user = "root";
+            remoteBuild = false;
             path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.edwardh;
           };
         };
@@ -208,11 +195,6 @@
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
       homeConfigurations = {
-        "headb@edward-dell-01" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/edward-dell-01/users/headb.nix ];
-        };
         "headb@router" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
@@ -242,6 +224,11 @@
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./systems/edwardh/users/headb.nix ];
+        };
+        "headb@edward-dell-01" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./systems/edward-dell-01/users/headb.nix ];
         };
       };
     };
