@@ -41,8 +41,9 @@ in
             iifname "lo" accept
 
             iifname "${lan_port}" accept
-            iifname "${iot_port}" udp dport { mdns, llmnr, 53, 67 } counter accept
+            iifname "${iot_port}" udp dport { mdns, 53, 67 } counter accept
             iifname "${iot_port}" tcp dport { 53 } counter accept
+            iifname "${iot_port}" tcp dport 1704 accept comment "Snapcast clients"
 
             iifname "${wan_port}" udp dport mdns accept comment "DELETEME: allow mdns"
             iifname "${wan_port}" tcp dport 5354 accept comment "DELETEME: allow zeroconf"
@@ -81,7 +82,11 @@ in
     enable = true;
     domainName = "local";
     reflector = true;
-    allowInterfaces = [ lan_port iot_port ];
+    allowInterfaces = [
+      lan_port
+      iot_port
+      wan_port # DELETEME: Allow mDNS on WAN
+    ];
     publish = {
       enable = true;
       addresses = true;
