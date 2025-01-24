@@ -1,11 +1,8 @@
-# This file defines overlays
 { inputs, ... }: {
-  # This one brings our custom packages from the 'pkgs' directory
+  # Add custom packages to nixpkgs from our definitions in the 'pkgs' folder.
   additions = final: _prev: import ../pkgs { pkgs = final; inherit inputs; system = final.system; };
 
-  # This one contains whatever you want to overlay
-  # You can change versions, add patches, set compilation flags, anything really.
-  # https://nixos.wiki/wiki/Overlays
+  # Modify existing packages in nixpkgs.
   modifications = final: prev: {
     google-chrome = prev.google-chrome.overrideAttrs (oldAttrs: {
       commandLineArgs = [

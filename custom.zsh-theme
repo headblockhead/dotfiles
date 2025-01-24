@@ -1,16 +1,6 @@
 # vim:ft=zsh ts=2 sw=2 sts=2
 
-# A modified agnoster made to fit a pink/purple system theme.
-# Produced by github.com/headblockhead
-
-# In order for this theme to render correctly, you will need a
-# [Powerline-patched font](https://github.com/Lokaltog/powerline-fonts).
-# Make sure you have a recent version: the code points that Powerline
-# uses changed in 2012, and older versions will display incorrectly,
-# in confusing ways.
-
-### Segment drawing
-# A few utility functions to make it easy and re-usable to draw segmented prompts
+# A theme by agnoster, modified by headblockhead for NixOS.
 
 CURRENT_BG='NONE'
 DEFAULT_USER='headb'
@@ -19,21 +9,9 @@ case ${SOLARIZED_THEME:-dark} in
     *)     CURRENT_FG='black';;
 esac
 
-# Special Powerline characters
-
 () {
   local LC_ALL="" LC_CTYPE="en_US.UTF-8"
-  # NOTE: This segment separator character is correct.  In 2012, Powerline changed
-  # the code points they use for their special characters. This is the new code point.
-  # If this is not working for you, you probably have an old version of the
-  # Powerline-patched fonts installed. Download and install the new version.
-  # Do not submit PRs to change this unless you have reviewed the Powerline code point
-  # history and have new information.
-  # This is defined using a Unicode escape sequence so it is unambiguously readable, regardless of
-  # what font the user is viewing this source code in. Do not replace the
-  # escape sequence with a single literal character.
-  # Do not change this! Do not make it '\u2b80'; that is the old, wrong code point.
-  
+
   # https://github.com/ryanoasis/powerline-extra-symbols#glyphs
   
   #SEGMENT_SEPARATOR=$'\ue0b0' # Regular powerline
@@ -88,18 +66,13 @@ prompt_end() {
   CURRENT_BG=''
 }
 
-### Prompt components
-# Each component will draw itself, and hide itself if no information needs to be shown
-
-# Time: Show the current time.
+# show the time
 prompt_time() {
   prompt_segment 93 255 '%*'
 }
 
-# Status:
-# - was there an error (red X + err number)
-# - am I root (lighhtningbolt)
-# - are there background jobs? (cog)
+# if there was there an error, display red X + err number
+# if we are root, display a red warning triangle
 prompt_status() {
   local symbols
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{grey}%}✘ %? "
@@ -107,27 +80,22 @@ prompt_status() {
   [[  -n "$symbols" ]] && prompt_segment 196 255 "$symbols"
 }
 
-# Context: user@hostname (who am I and where am I)
+# user@hostname, but only if we are in SSH, or have changed user and are not root
 prompt_context() {
-  if [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+  if [[ "$USERNAME" != "$DEFAULT_USER" && "$UID" != 0 || -n "$SSH_CLIENT" ]]; then
     prompt_segment 92 255 "%(!.%{%F{bright-white}%}.)%n@%m"
   fi
 }
 
-# nix-shell: if currently running nix-shell
+# if there are /nix/store entries in the PATH, infer that we are in a nix-shell
 prompt_nix_shell() {
   NIXSHELL=$(echo $PATH | tr ':' '\n' | grep '/nix/store' | sed 's#^/nix/store/[a-z0-9]\+-##' | sed 's#-[^-]\+$##' | xargs -n2 -d'\n')
-  if [ "$NIXSHELL"  ]; then # Detectes flakes.
+  if [ "$NIXSHELL"  ]; then 
     prompt_segment 164 255 "nix-shell"
   fi
 }
 
-# Commands: a count of commands executed.
-prompt_commands() {
-  prompt_segment 129 255 '%!'
-}
-
-# Dir: current working directory
+# Current DIR.
 prompt_dir() {
   prompt_segment 165 255 '%~'
 }
@@ -178,13 +146,11 @@ prompt_git() {
   fi
 }
 
-## Main prompt
 build_prompt() {
   RETVAL=$?
 #  prompt_time
   prompt_status
   prompt_context
-#  prompt_commands
   prompt_nix_shell
   prompt_dir
   prompt_git

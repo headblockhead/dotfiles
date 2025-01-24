@@ -11,7 +11,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,22 +24,18 @@
     };
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     prismlauncher = {
       url = "github:PrismLauncher/PrismLauncher";
     };
     playdatesdk = {
       url = "github:headblockhead/nix-playdatesdk";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     playdatemirror = {
       url = "github:headblockhead/nix-playdatemirror";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     templ = {
       url = "github:a-h/templ";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -114,7 +110,7 @@
           specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/printerpi/config.nix
-            ./systems/wifi-config.nix
+            ./systems/wifi-config.nix # gitignored, see wifi-config-template.nix
             {
               raspberry-pi-nix.board = "bcm2711"; # Raspberry Pi 4
             }

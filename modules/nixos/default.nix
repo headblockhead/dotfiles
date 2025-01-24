@@ -18,6 +18,7 @@
   githubActions = import ./githubActions.nix;
   gpg = import ./gpg.nix;
   homeManager = import ./homeManager.nix;
+  klipper = import ./klipper.nix;
   mail = import ./mail.nix;
   network = import ./network.nix;
   openrgb = import ./openrgb.nix;

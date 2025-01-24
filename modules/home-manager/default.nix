@@ -1,7 +1,5 @@
 {
-  baseConfig = import ./baseConfig.nix;
-  git = import ./git.nix;
-  nautilusBookmarks = import ./nautilusBookmarks.nix;
+  basicConfig = import ./basicConfig.nix;
   neovim = import ./neovim.nix;
   zsh = import ./zsh.nix;
 }
