@@ -264,7 +264,7 @@
     };
     firmwares.mcu = {
       enable = true;
-      configFile = ./printer.cfg;
+      configFile = ../../3dprinter/printer.cfg;
       serial = "/dev/serial/by-id/usb-Klipper_stm32g0b1xx_3C003B000350415339373620-if00";
       enableKlipperFlash = true;
     };

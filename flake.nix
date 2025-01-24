@@ -169,7 +169,7 @@
           profiles.system = {
             sshUser = "headb";
             user = "root";
-            remoteBuild = false;
+            remoteBuild = true; # aarch64-linux builds are faster on aarch64-linux :)
             path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi-builder;
           };
         };
