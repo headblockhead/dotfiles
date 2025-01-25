@@ -12,10 +12,15 @@
     });
   };
 
-  # When applied, the unstable nixpkgs set (declared in the flake inputs) will
-  # be accessible through 'pkgs.unstable'
+  # nixpkgs-unstable and nixpkgs-master defined in flake inputs.
   unstable-packages = final: _prev: {
+    # pkgs.unstable is the nixpkgs unstable branch.
     unstable = import inputs.nixpkgs-unstable {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+    # pkgs.master is the nixpkgs master branch, very unstable, and no cache!
+    master = import inputs.nixpkgs-master {
       system = final.system;
       config.allowUnfree = true;
     };
