@@ -48,12 +48,6 @@
                 sleep-inactive-ac-type = "nothing";
                 sleep-inactive-battery-timeout = lib.gvariant.mkInt32 1800;
               };
-              "org/gnome/mutter" = {
-                "experimental-features" = [
-                  "scale-monitor-framebuffer"
-                  #"xwayland-native-scaling"
-                ];
-              };
               "org/gnome/desktop/background" = {
                 "picture-uri" = "file://${pkgs.nixos-artwork.wallpapers.nineish.gnomeFilePath}";
                 "picture-uri-dark" = "file://${pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath}";

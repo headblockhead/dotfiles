@@ -11,6 +11,7 @@
     ccls
     cmake
     cmatrix
+    dconf-editor
     ec2-ami-tools
     flyctl
     freecad-wayland
@@ -20,6 +21,7 @@
     go
     gopass
     gopls
+    htop
     hugo
     inetutils
     killall

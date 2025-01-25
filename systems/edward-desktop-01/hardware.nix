@@ -7,10 +7,18 @@
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+      #amdvlk
+    ];
+    extraPackages32 = with pkgs; [
+      #driversi686Linux.amdvlk
+    ];
   };
 
   hardware.amdgpu = {
@@ -25,17 +33,8 @@
 
   # ROCm
   systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
-  hardware.opengl.extraPackages = with pkgs; [
-    rocmPackages.clr.icd
-    #amdvlk
-  ];
-  hardware.opengl.extraPackages32 = with pkgs; [
-    #driversi686Linux.amdvlk
+    "L+ /opt/rocm/hip - - - - ${pkgs.rocmPackages.clr}"
   ];
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  system.stateVersion = "22.05";
 }

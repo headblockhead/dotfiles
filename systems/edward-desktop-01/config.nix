@@ -1,4 +1,4 @@
-{ outputs, lib, pkgs, agenix, ... }:
+{ outputs, lib, pkgs, agenix, buildMachines, ... }:
 
 {
   networking.hostName = "edward-desktop-01";
@@ -36,6 +36,9 @@
     xmrig
   ];
 
+  # Exclude ourself from the buildMachines list.
+  nix.buildMachines = lib.lists.remove (lib.lists.findFirst (m: m.hostName == config.networking.hostName) buildMachines) buildMachines;
+
   systemd.services.xmrig.wantedBy = lib.mkForce [ ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -52,7 +55,6 @@
     openFirewall = true;
   };
 
-  nix.distributedBuilds = lib.mkForce false;
   networking.firewall.enable = lib.mkForce false;
   services.kmscon.extraConfig = lib.mkAfter ''
     font-dpi=192

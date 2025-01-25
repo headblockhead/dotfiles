@@ -44,6 +44,7 @@ in
             iifname "${iot_port}" udp dport { mdns, 53, 67 } counter accept
             iifname "${iot_port}" tcp dport { 53 } counter accept
 
+            iifname "${iot_port}" tcp dport 80 accept comment "Nix cache"
             iifname "${iot_port}" tcp dport 1704 accept comment "Snapcast clients"
 
             iifname "${wan_port}" udp dport mdns counter accept comment "DELETEME: allow mdns on WAN"
