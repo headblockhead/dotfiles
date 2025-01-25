@@ -38,7 +38,7 @@ let
 in
 {
   # Exclude ourself from the buildMachines list.
-  nix.buildMachines = lib.lists.remove (lib.lists.findFirst (m: m.hostName == config.networking.hostName) buildMachines) buildMachines;
+  nix.buildMachines = lib.lists.remove (lib.lists.findFirst (m: m.hostName == config.networking.hostName) { } buildMachines) buildMachines;
 
   nix.settings.trusted-users = [ "nixbuilder" ];
   users.users.nixbuilder = {
