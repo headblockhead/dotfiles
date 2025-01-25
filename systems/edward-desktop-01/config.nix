@@ -1,4 +1,4 @@
-{ outputs, lib, pkgs, agenix, buildMachines, ... }:
+{ outputs, lib, pkgs, agenix, ... }:
 
 {
   networking.hostName = "edward-desktop-01";
@@ -35,9 +35,6 @@
     p2pool
     xmrig
   ];
-
-  # Exclude ourself from the buildMachines list.
-  nix.buildMachines = lib.lists.remove (lib.lists.findFirst (m: m.hostName == config.networking.hostName) buildMachines) buildMachines;
 
   systemd.services.xmrig.wantedBy = lib.mkForce [ ];
 
