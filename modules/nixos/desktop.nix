@@ -184,7 +184,7 @@
     gnomeExtensions.brightness-control-using-ddcutil
     ddcutil
 
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
   ];
 
   # GNOME terminal - replaces the console.
@@ -215,7 +215,7 @@
 
   # Add udev rules.
   services.udev.packages = with pkgs; [
-    gnome.gnome-settings-daemon
+    gnome-settings-daemon
   ];
 
   qt = {

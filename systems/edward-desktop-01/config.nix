@@ -14,7 +14,6 @@
     development
     distributedBuilds
     fileSystems
-    firewall
     fonts
     fzf
     git
@@ -52,7 +51,6 @@
     openFirewall = true;
   };
 
-  networking.firewall.enable = lib.mkForce false;
   services.kmscon.extraConfig = lib.mkAfter ''
     font-dpi=192
   '';

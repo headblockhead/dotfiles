@@ -13,7 +13,6 @@
     development
     distributedBuilds
     fileSystems
-    firewall
     fonts
     fzf
     git

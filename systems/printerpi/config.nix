@@ -8,7 +8,6 @@
     cachesGlobal
     cachesLocal
     distributedBuilds
-    firewall
     fzf
     git
     homeManager

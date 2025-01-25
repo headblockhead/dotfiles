@@ -11,7 +11,6 @@
   distributedBuilds = import ./distributedBuilds.nix;
   docker = import ./docker.nix;
   fileSystems = import ./fileSystems.nix;
-  firewall = import ./firewall.nix;
   fonts = import ./fonts.nix;
   fzf = import ./fzf.nix;
   git = import ./git.nix;

@@ -5,7 +5,6 @@
   imports = with outputs.nixosModules; [
     basicConfig
     cachesGlobal
-    firewall
     fzf
     git
     homeManager
