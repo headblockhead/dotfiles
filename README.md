@@ -2,16 +2,24 @@
 
 ![NixOS](https://img.shields.io/badge/NIXOS-5277C3.svg?logo=NixOS&logoColor=white) [![xc compatible](https://xcfile.dev/badge.svg)](https://xcfile.dev) 
 
-Full reproducable config for a mail server, 3D-printer controller, desktop, laptop, router, and a Raspberry Pi 5 server.
+A continuously updated reproducable config for:
+- a desktop workstation
+- a mail server running in AWS
+- a 3D-printer controller running on a Raspberry Pi 4
+- a laptop (Lenovo Thinkpad)
+- a router (old DELL Optiplex machine)
+
+Where **everything** about my systems are controlled by NixOS, in every last excruciating detail, making for a perfectly-configured install *every time*. 
+No longer will we have to suffer through hours of 'oops I forgot to install X' or 'oops I forgot to copy/simlink/create file Y' every new install, because it was already configured in the NixOS config, down to [the seconds on the clock](https://github.com/headblockhead/dotfiles/blob/dddba60346632e95b1840a7c95379396a8193fd1/modules/nixos/desktop.nix#L125)!
 
 ## Table of Contents
 
-  * [Looks](#looks)
+  * [Desktop Screenshots](#desktop-screenshots)
   * [Installation](#installation)
   * [Troubleshooting](#troubleshooting)
   * [Tasks](#tasks)
 
-## Looks
+## Desktop Screenshots
 
 ![neofetch and web browser](screenshots/edward-desktop-01-01.png)
 ![neovim and mouth dreams](screenshots/edward-desktop-01-02.png)
@@ -23,7 +31,6 @@ Full reproducable config for a mail server, 3D-printer controller, desktop, lapt
 
 > [!TIP]
 > Using the minimal installation media is recommended, as it is smaller and faster to download. However, you cannot use network manager (`nmtui`) to setup wireless networking with the minimal image.
-
 
 ### Set up internet
 
