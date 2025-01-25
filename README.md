@@ -8,6 +8,7 @@ A continuously updated reproducable config for:
 - a 3D-printer controller running on a Raspberry Pi 4
 - a laptop (Lenovo Thinkpad)
 - a router (old DELL Optiplex machine)
+- a Nix binary cache server running on a Raspberry Pi 5
 
 Where **everything** about my systems are controlled by NixOS, in every last excruciating detail, making for a perfectly-configured install *every time*. 
 No longer will we have to suffer through hours of 'oops I forgot to install X' or 'oops I forgot to copy/simlink/create file Y' every new install, because it was already configured in the NixOS config, down to [the seconds on the clock](https://github.com/headblockhead/dotfiles/blob/dddba60346632e95b1840a7c95379396a8193fd1/modules/nixos/desktop.nix#L125)!
