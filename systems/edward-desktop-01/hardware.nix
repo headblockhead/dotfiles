@@ -13,22 +13,22 @@
     enable = true;
     enable32Bit = true;
     extraPackages = with pkgs; [
-      master.rocmPackages.clr.icd
-      #amdvlk
+      rocmPackages.clr.icd
+      amdvlk
     ];
     extraPackages32 = with pkgs; [
-      #driversi686Linux.amdvlk
+      driversi686Linux.amdvlk
     ];
   };
 
   hardware.amdgpu = {
-    #initrd.enable = true;
-    #opencl.enable = true;
-    #    amdvlk = {
-    #enable = true;
-    #supportExperimental.enable = true;
-    #support32Bit.enable = true;
-    #};
+    initrd.enable = true;
+    opencl.enable = true;
+    amdvlk = {
+      enable = true;
+      supportExperimental.enable = true;
+      support32Bit.enable = true;
+    };
   };
 
   # ROCm

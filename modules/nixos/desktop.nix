@@ -228,13 +228,15 @@
   fonts.fontDir.enable = true;
 
   # Install fonts
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "SourceCodePro" ]; })
+  fonts.packages = [
+    pkgs.nerd-fonts.sauce-code-pro
   ];
 
   services.kmscon = {
     enable = true;
-    fonts = [{ name = "SauceCodePro Nerd Font"; package = (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; }); }];
+    fonts = [
+      { name = "SauceCodePro Nerd Font"; package = pkgs.nerd-fonts.sauce-code-pro; }
+    ];
     extraConfig = ''
       font-size=12
       hwaccel

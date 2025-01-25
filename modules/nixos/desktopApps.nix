@@ -1,12 +1,8 @@
 { pkgs, ... }: {
   services.usbmuxd.enable = true;
   environment.systemPackages = with pkgs; [
-    libimobiledevice
-    ifuse # optional, to mount using 'ifuse'
-    obsidian
     arduino
     audacity
-    unstable.blender-hip
     chiaki
     clonehero
     deja-dup
@@ -16,23 +12,28 @@
     furnace # chiptune tracker
     gimp
     google-chrome
-    kicad
-    openscad-unstable
+    ifuse # optional, to mount using 'ifuse'
     inkscape
+    kicad
+    libimobiledevice
     libreoffice
     lmms
     monero-gui
     musescore
     obs-studio
+    obsidian
     onedrive
+    openscad-unstable
     prismlauncher
-    remmina
-    spotify
     prusa-slicer
+    remmina
+    rpi-imager
     slack
+    spotify
     thonny
     thunderbird
-    rpi-imager
+    tor-browser-bundle-bin
+    unstable.blender-hip
     vlc
     zoom-us
   ];
