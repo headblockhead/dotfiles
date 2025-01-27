@@ -4,21 +4,31 @@
 
 A continuously updated reproducable config for:
 - a desktop workstation
-- a mail server running in AWS
-- a 3D-printer controller running on a Raspberry Pi 4
+- a mail server running in AWS ([mail](modules/nixos/mail.nix))
+- a 3D-printer controller running on a Raspberry Pi 4 ([klipper](modules/nixos/klipper.nix))
 - a laptop (Lenovo Thinkpad)
-- a router (old DELL Optiplex machine)
+- a router (old DELL Optiplex machine) ([router](modules/nixos/router.nix))
 - a Nix binary cache server running on a Raspberry Pi 5
 
-Where **everything** about my systems are controlled by NixOS, in every last excruciating detail, making for a perfectly-configured install *every time*. 
-No longer will we have to suffer through hours of 'oops I forgot to install X' or 'oops I forgot to copy/simlink/create file Y' every new install, because it was already configured in the NixOS config, down to [the seconds on the clock](https://github.com/headblockhead/dotfiles/blob/dddba60346632e95b1840a7c95379396a8193fd1/modules/nixos/desktop.nix#L125)!
+Where **everything** about my systems is controlled by NixOS in plenty of detail, making for a perfectly-configured install *every time*, down to [the seconds on the clock](https://github.com/headblockhead/dotfiles/blob/dddba60346632e95b1840a7c95379396a8193fd1/modules/nixos/desktop.nix#L125)!
 
 ## Table of Contents
 
+  * [Tour](#tour)
   * [Desktop Screenshots](#desktop-screenshots)
   * [Installation](#installation)
   * [Troubleshooting](#troubleshooting)
   * [Tasks](#tasks)
+
+## Tour
+
+Here is an overview of the most important files and folders in my config:
+
+  * [modules/nixos](modules/nixos) is the **most most important** folder, as it contains the core of my configuration (desktop environment/theming, ssh config, git config, zsh config, etc.) as parts that can be included and reused across systems.
+  * [systems](systems) contains the individual configurations for each of my systems, importing some of the modules, and adding some per-device extras.
+  * [flake.nix](flake.nix) defines the ssh keys used for login across all of my systems, along with the versions of nixpkgs to use, and the files to use for each machine's config.
+  * [custom-packages](custom-packages) contains modified versions of existing programs used by me.
+  * [neovim](neovim) contains lua-based neovim configuration, [modified from @a-h's config](https://github.com/a-h/dotfiles/tree/3037eb252c0aab44d420c52b61fb98f17c6923a0/.config/nvim/lua).
 
 ## Desktop Screenshots
 
