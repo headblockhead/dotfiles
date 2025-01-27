@@ -40,6 +40,7 @@
     pkgs.deploy-rs
     pkgs.tor-browser-bundle-bin
     pkgs.x32edit
+    pkgs.fastfetch
   ];
 
   # Grub settings.
