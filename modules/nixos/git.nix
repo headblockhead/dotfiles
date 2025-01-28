@@ -2,12 +2,13 @@
 {
   environment.systemPackages = with pkgs; [
     gh
+    difftastic
   ];
   programs.git = {
     enable = true;
     prompt.enable = true;
     config = {
-      diff.external = "${pkgs.difftastic}/bin/difftastic --color auto --background dark --display inline";
+      diff.external = "${pkgs.difftastic}/bin/difft --color auto --background dark --display inline";
       init.defaultBranch = "main";
       commit.gpgsign = true;
       gpg.program = "${pkgs.gnupg}/bin/gpg";
