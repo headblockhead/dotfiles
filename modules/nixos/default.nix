@@ -18,12 +18,10 @@
   gpg = import ./gpg.nix;
   homeManager = import ./homeManager.nix;
   klipper = import ./klipper.nix;
-  mail = import ./mail.nix;
   network = import ./network.nix;
   openrgb = import ./openrgb.nix;
   p2pool = import ./p2pool.nix;
   printer = import ./printer.nix;
-  router = import ./router.nix;
   sdr = import ./sdr.nix;
   sheepit = import ./sheepit.nix;
   snapclient = import ./snapclient.nix;

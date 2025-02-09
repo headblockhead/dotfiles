@@ -222,11 +222,6 @@
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./systems/edward-laptop-01/users/headb.nix ];
         };
-        "headb@edwardh" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-linux;
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/edwardh/users/headb.nix ];
-        };
         "headb@edward-dell-01" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };

@@ -5,7 +5,7 @@
       description = "Edward Hesketh";
       isNormalUser = true;
       extraGroups =
-        [ "wheel" "adbusers" "dialout" "docker" ];
+        [ "wheel" "adbusers" "dialout" "docker" "wireshark" ];
     };
   };
 }

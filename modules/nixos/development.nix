@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   programs.adb.enable = true;
+  programs.wireshark.enable = true;
   environment.systemPackages = with pkgs; [
     # unityhub
     PlaydateSimulator
