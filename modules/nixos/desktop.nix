@@ -18,7 +18,6 @@
                   "next-up@artisticat1.github.com"
                   "appindicatorsupport@rgcjonas.gmail.com"
                   "desktop-cube@schneegans.github.com"
-                  "pip-on-top@rafostar.github.com"
                   "x11gestures@joseexposito.github.io"
                   "AlphabeticalAppGrid@stuarthayhurst"
                   "blur-my-shell@aunetx"
@@ -176,7 +175,6 @@
   environment.systemPackages = with pkgs; [
     gnomeExtensions.appindicator # Tray icons
     gnomeExtensions.unblank # Prevent screen from blanking when locked
-    gnomeExtensions.pip-on-top
     gnomeExtensions.x11-gestures
     gnomeExtensions.desktop-cube
     gnomeExtensions.alphabetical-app-grid

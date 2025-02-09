@@ -19,7 +19,7 @@
       pools = [
         {
           # P2Pool
-          url = "192.168.1.6:3333";
+          url = "edward-desktop-01:3333";
         }
       ];
     };

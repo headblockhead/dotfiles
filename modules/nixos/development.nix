@@ -7,11 +7,13 @@
     asciinema
     awscli2
     bat
+    bind
     cargo
     ccls
     cmake
     cmatrix
     dconf-editor
+    dig
     ec2-ami-tools
     flyctl
     freecad-wayland
