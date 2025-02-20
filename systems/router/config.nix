@@ -186,6 +186,7 @@ in
         "48:e1:e9:9f:32:e6,192.168.2.110,meross-bedroom-lamp"
         "48:e1:e9:2d:c9:76,192.168.2.111,meross-printer-lamp"
         "48:e1:e9:2d:c9:70,192.168.2.112,meross-printer-power"
+        "ec:64:c9:e9:97:9a,192.168.2.113,prusa-mk4"
       ];
     };
   };
