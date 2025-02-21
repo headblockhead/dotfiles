@@ -22,7 +22,6 @@ in
     fileSystems
     git
     homeManager
-    router
     ssd
     ssh
     users
@@ -238,7 +237,7 @@ in
     recommendedProxySettings = true;
     virtualHosts = {
       "cache.edwardh.dev" = {
-        listenAddresses = "192.168.1.1";
+        listenAddresses = [ "192.168.1.1" "192.168.2.1" ];
         locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
       };
     };
