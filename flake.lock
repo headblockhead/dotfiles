@@ -256,11 +256,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1739758591,
-        "narHash": "sha256-9qZhfv4DBUYfzPI053xsEEv6oZui7IdzBGP0dzSoSuY=",
+        "lastModified": 1740361989,
+        "narHash": "sha256-tctMMxf3GmhfioUim4c4QiuvwIM5txlnNb1v43oWPpU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "23c19d9c503a55631cb25c6c008692316e91521e",
+        "rev": "e09ab7d9fc403448021212fafcc5cc3a9fa59d1c",
         "type": "github"
       },
       "original": {
@@ -272,11 +272,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1739580444,
-        "narHash": "sha256-+/bSz4EAVbqz8/HsIGLroF8aNaO8bLRL7WfACN+24g4=",
+        "lastModified": 1740126099,
+        "narHash": "sha256-ozoOtE2hGsqh4XkTJFsrTkNxkRgShxpQxDynaPZUGxk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8bb37161a0488b89830168b81c48aed11569cb93",
+        "rev": "32fb99ba93fea2798be0e997ea331dd78167f814",
         "type": "github"
       },
       "original": {
@@ -320,11 +320,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1739624908,
-        "narHash": "sha256-f84lBmLl4tkDp1ZU5LBTSFzlxXP4926DVW3KnXrke10=",
+        "lastModified": 1740162160,
+        "narHash": "sha256-SSYxFhqCOb3aiPb6MmN68yEzBIltfom8IgRz7phHscM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a60651b217d2e529729cbc7d989c19f3941b9250",
+        "rev": "11415c7ae8539d6292f2928317ee7a8410b28bb9",
         "type": "github"
       },
       "original": {
@@ -350,27 +350,27 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1730137625,
-        "narHash": "sha256-9z8oOgFZiaguj+bbi3k4QhAD6JabWrnv7fscC/mt0KE=",
+        "lastModified": 1740162160,
+        "narHash": "sha256-SSYxFhqCOb3aiPb6MmN68yEzBIltfom8IgRz7phHscM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "64b80bfb316b57cdb8919a9110ef63393d74382a",
+        "rev": "11415c7ae8539d6292f2928317ee7a8410b28bb9",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-24.05",
+        "ref": "nixos-24.11",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1738410390,
-        "narHash": "sha256-xvTo0Aw0+veek7hvEVLzErmJyQkEcRk6PSR4zsRQFEc=",
+        "lastModified": 1739446958,
+        "narHash": "sha256-+/bYK3DbPxMIvSL4zArkMX0LQvS7rzBKXnDXLfKyRVc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3a228057f5b619feb3186e986dbe76278d707b6e",
+        "rev": "2ff53fe64443980e139eaa286017f53f88336dd0",
         "type": "github"
       },
       "original": {
@@ -435,11 +435,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1730371348,
-        "narHash": "sha256-0H0p38lSJfp2WLHmgiBkILSDcEqquEHt/IjhPA0QFHc=",
+        "lastModified": 1740357941,
+        "narHash": "sha256-GJroy2e4UDeW+UCkAZX6nu1FzE++JCu2+VX6R+WGh/k=",
         "owner": "headblockhead",
         "repo": "nix-playdatesdk",
-        "rev": "432c353f78f88436e1f6240cb647c0943fdc47fe",
+        "rev": "abf431fe0a84350b702286e689c6674caff690aa",
         "type": "github"
       },
       "original": {
@@ -456,11 +456,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1739482861,
-        "narHash": "sha256-PWiBxL7hPOlR4s6grpERmn5Hl5/1mOC+zPot8aBX5Gs=",
+        "lastModified": 1739949461,
+        "narHash": "sha256-i5gX7ox0gipbjQj+HepK1LafyBx5wozTkZHSHtQ6iHs=",
         "owner": "PrismLauncher",
         "repo": "PrismLauncher",
-        "rev": "3295b0717a8c4805022eccb74fee2304361d8dab",
+        "rev": "0af021fef2628e35ff9ebaa8340e080d0ddd6556",
         "type": "github"
       },
       "original": {
@@ -480,15 +480,14 @@
         "rpi-linux-6_12_11-src": "rpi-linux-6_12_11-src",
         "rpi-linux-6_6_67-src": "rpi-linux-6_6_67-src",
         "rpi-linux-stable-src": "rpi-linux-stable-src",
-        "rpicam-apps-src": "rpicam-apps-src",
-        "u-boot-src": "u-boot-src"
+        "rpicam-apps-src": "rpicam-apps-src"
       },
       "locked": {
-        "lastModified": 1738949424,
-        "narHash": "sha256-w+OitboChUZUZAn2lFA3YGxUBSz4F5TLqBwEkkEtN+0=",
+        "lastModified": 1740187527,
+        "narHash": "sha256-thcUeJlXJ6lD5s1UDKE3jYyzdSRxMjcE/mSWf5Y0KHU=",
         "owner": "nix-community",
         "repo": "raspberry-pi-nix",
-        "rev": "f3171167258766def0851915685b9a6e7ca7e96e",
+        "rev": "4f6706677c4adeca591ada531fc4d7b7b68c0414",
         "type": "github"
       },
       "original": {
@@ -670,30 +669,17 @@
         "xc": "xc"
       },
       "locked": {
-        "lastModified": 1739454173,
-        "narHash": "sha256-vC20XdRjq6fOCFNnGS0rk+opeakPEwqH+UKpfF8hP/c=",
+        "lastModified": 1740302490,
+        "narHash": "sha256-+0MgNrbsnvD53Xf3EmNXXJ8NzzMxjPWYvKHuvVRcwkI=",
         "owner": "a-h",
         "repo": "templ",
-        "rev": "486882f8f79a898428c4324810821bd66361f777",
+        "rev": "98f1ae232a920260576c61cbbd0f16a40956ad71",
         "type": "github"
       },
       "original": {
         "owner": "a-h",
         "repo": "templ",
         "type": "github"
-      }
-    },
-    "u-boot-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1719857238,
-        "narHash": "sha256-mJ2TBy0Y5ZtcGFgtU5RKr0UDUp5FWzojbFb+o/ebRJU=",
-        "type": "tarball",
-        "url": "https://ftp.denx.de/pub/u-boot/u-boot-2024.07.tar.bz2"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://ftp.denx.de/pub/u-boot/u-boot-2024.07.tar.bz2"
       }
     },
     "utils": {
