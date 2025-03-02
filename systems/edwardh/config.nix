@@ -74,7 +74,7 @@
 
   services.automx2 = {
     enable = true;
-    domain = "mail.edwardh.dev";
+    domain = "edwardh.dev";
     port = 4243;
     # https://rseichter.github.io/automx2/#_sqlite
     settings = ''
