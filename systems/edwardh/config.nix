@@ -139,16 +139,15 @@
     domain = "edwardh.dev";
     port = 4243;
     # https://rseichter.github.io/automx2/#_sqlite
-    settings = ''
+    settings =
       {
-        "provider": "Edward Hesketh",
-        "domains": ["edwardh.dev"],
-        "servers": [
-          {"type": "imap", "name": "mail.edwardh.dev"},
-          {"type": "smtp", "name": "mail.edwardh.dev"}
-        ]
-      }
-    '';
+        provider = "Edward Hesketh";
+        domains = [ "edwardh.dev" ];
+        servers = [
+          { type = "imap"; name = "mail.edwardh.dev"; }
+          { type = "smtp"; name = "mail.edwardh.dev"; }
+        ];
+      };
   };
 
   security.acme.acceptTerms = true;
