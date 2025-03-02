@@ -76,6 +76,17 @@
     enable = true;
     domain = "mail.edwardh.dev";
     port = 4243;
+    # https://rseichter.github.io/automx2/#_sqlite
+    settings = ''
+      {
+        "provider": "Edward Hesketh",
+        "domains": ["edwardh.dev"],
+        "servers": [
+          {"type": "imap", "name": "mail.edwardh.dev"},
+          {"type": "smtp", "name": "mail.edwardh.dev"}
+        ]
+      }
+    '';
   };
 
   security.acme.acceptTerms = true;
@@ -113,6 +124,7 @@
       allow-query-cache { none; };
       version "not currently available";
     '';
+    listenOn = [ "0.0.0.0" ];
     zones."edwardh.dev" = {
       master = true;
       file = ./db.edwardh.dev;
