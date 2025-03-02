@@ -1,10 +1,10 @@
-$TTL 604800
+$TTL 86400
 @ IN SOA ns.edwardh.dev. admin.edwardh.dev. (
-2025030101 	; Serial, must be updated every change
-604800      ; Refresh period
+2025030201 	; Serial, must be updated every change
+86400       ; Refresh period
 86400       ; Retry period
-2419200     ; Expire time
-604800 )    ; Negative Cache TTL
+86400       ; Expire time
+86400 )     ; Negative Cache TTL
 ; Nameserver
 edwardh.dev. IN NS ns.edwardh.dev.
 ns IN A 18.135.222.143
