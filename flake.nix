@@ -77,11 +77,11 @@
           ];
         };
 
-        rpi-builder = nixpkgs.lib.nixosSystem {
+        rpi5-01 = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
-            ./systems/rpi-builder/config.nix
+            ./systems/rpi5-01/config.nix
             {
               raspberry-pi-nix.board = "bcm2712"; # Raspberry Pi 5
             }
@@ -152,7 +152,7 @@
       };
 
       # SD card images.
-      rpi-builder-sd = nixosConfigurations.rpi-builder.config.system.build.sdImage;
+      rpi5-01-sd = nixosConfigurations.rpi5-01.config.system.build.sdImage;
       printerpi-sd = nixosConfigurations.printerpi.config.system.build.sdImage;
 
       # deploy-rs configuration
@@ -166,13 +166,13 @@
             path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.router;
           };
         };
-        rpi-builder = {
-          hostname = "rpi-builder.lan";
+        rpi5-01 = {
+          hostname = "rpi5-01.lan";
           profiles.system = {
             sshUser = "headb";
             user = "root";
             remoteBuild = true; # aarch64-linux builds are faster on aarch64-linux :)
-            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi-builder;
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi5-01;
           };
         };
         printerpi = {
@@ -202,10 +202,10 @@
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./systems/router/users/headb.nix ];
         };
-        "headb@rpi-builder" = home-manager.lib.homeManagerConfiguration {
+        "headb@rpi5-01" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/rpi-builder/users/headb.nix ];
+          modules = [ ./systems/rpi5-01/users/headb.nix ];
         };
         "headb@printerpi" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
