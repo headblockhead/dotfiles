@@ -17,7 +17,7 @@ ns IN A 18.135.222.143
 @ 600 IN AAAA 2606:50c0:8001::153
 @ 600 IN AAAA 2606:50c0:8002::153
 @ 600 IN AAAA 2606:50c0:8003::153
-www 600 IN headblockhead.github.io.
+www 600 IN CNAME headblockhead.github.io.
 ; Mailserver
 mail 10800 IN A 18.135.222.143
 @ 600 IN MX 10 mail.edwardh.dev.
