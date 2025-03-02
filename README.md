@@ -4,10 +4,9 @@
 
 A continuously updated reproducable config for:
 - a desktop workstation
-- a mail server running in AWS ([mail](modules/nixos/mail.nix))
-- a 3D-printer controller running on a Raspberry Pi 4 ([klipper](modules/nixos/klipper.nix))
+- a mail+DNS server running in AWS ([edwardh](systems/edwardh))
 - a laptop (Lenovo Thinkpad)
-- a router (old DELL Optiplex machine) ([router](modules/nixos/router.nix))
+- a router (old DELL Optiplex machine) ([router](systems/router))
 - a Nix binary cache server running on a Raspberry Pi 5
 
 Where **everything** about my systems is controlled by NixOS in plenty of detail, making for a perfectly-configured install *every time*, down to [the seconds on the clock](https://github.com/headblockhead/dotfiles/blob/dddba60346632e95b1840a7c95379396a8193fd1/modules/nixos/desktop.nix#L125)!
