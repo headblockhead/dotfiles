@@ -19,9 +19,6 @@
     })
   ];
 
-  boot.loader.grub.enable = lib.mkForce false;
-  boot.loader.systemd-boot.enable = true;
-
   age.secrets.mail-hashed-password.file = ../../secrets/mail-hashed-password.age;
 
   services.openssh = {
