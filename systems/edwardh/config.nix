@@ -124,10 +124,10 @@
       allow-query-cache { none; };
       version "not currently available";
     '';
-    listenOn = [ "0.0.0.0" ];
     zones."edwardh.dev" = {
       master = true;
       file = ./db.edwardh.dev;
+      allowQuery = [ "any" ];
       extraConfig = ''
         dnssec-policy default;
         inline-signing yes;
