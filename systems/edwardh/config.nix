@@ -61,7 +61,6 @@
     extraOptions = ''
       recursion no;
       allow-transfer { none; };
-      allow-query { any; };
       allow-query-cache { none; };
       version "not currently available";
     '';
