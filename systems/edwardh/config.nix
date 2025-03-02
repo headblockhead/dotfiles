@@ -1,4 +1,4 @@
-{ outputs, lib, pkgs, config, ... }:
+{ outputs, lib, pkgs, config, sshkeys, ... }:
 {
   networking.hostName = "edwardh";
   networking.domain = "dev";
@@ -9,7 +9,6 @@
     fzf
     git
     homeManager
-    ssh
     users
     zsh
 
@@ -22,8 +21,28 @@
 
   age.secrets.mail-hashed-password.file = ../../secrets/mail-hashed-password.age;
 
-  networking.firewall.allowedTCPPorts = [ 80 443 53 ];
-  networking.firewall.allowedUDPPorts = [ 53 ];
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = lib.mkForce "no";
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      X11Forwarding = false;
+    };
+  };
+  users.users.headb.openssh.authorizedKeys.keys = sshkeys;
+
+  networking.firewall.allowedTCPPorts = [
+    80 # HTTP
+    443 # HTTPS
+    53 # DNS
+    4243 # Automx2
+    22 # SSH
+  ];
+  networking.firewall.allowedUDPPorts = [
+    53 # DNS
+  ];
+
   services.roundcube = {
     enable = true;
     # Web interface accessible from hostName.
@@ -53,8 +72,38 @@
     certificateScheme = "acme-nginx";
   };
 
+  services.automx2 = {
+    enable = true;
+    domain = "mail.edwardh.dev";
+    port = 4243;
+  };
+
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "security@edwardh.dev";
+
+  services.fail2ban = {
+    enable = true;
+    maxretry = 10;
+    bantime = "24h";
+    bantime-increment.enable = true;
+    jails = {
+      # SSHD is added by default
+      dovecot = {
+        settings = {
+          # block IPs which failed to log-in
+          # aggressive mode add blocking for aborted connections
+          filter = "dovecot[mode=aggressive]";
+          maxretry = 5;
+        };
+      };
+      postfix = {
+        settings = {
+          filter = "postfix[mode=aggressive]";
+          maxretry = 5;
+        };
+      };
+    };
+  };
 
   services.bind = {
     enable = true;
@@ -77,8 +126,6 @@
   environment.systemPackages = [
     pkgs.xc
   ];
-
-  services.openssh.settings.PermitRootLogin = lib.mkForce "no";
 
   security.sudo.wheelNeedsPassword = false;
 
