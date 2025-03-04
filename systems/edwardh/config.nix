@@ -74,14 +74,97 @@
     sendingFqdn = "edwardh.dev";
     domains = [ "edwardh.dev" ];
 
+    backup.enable = true; # Backup to /var/rsnapshot
+
     # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
     loginAccounts = {
       "inbox@edwardh.dev" = {
         hashedPasswordFile = config.age.secrets.mail-hashed-password.path;
         aliases = [ "@edwardh.dev" ];
-        # TODO
         sieveScript = ''
+          require ["fileinto", "mailbox"];
 
+          if address :contains "To" "airtable" {
+            fileinto "Organizations.Airtable";
+            stop;
+          }      
+          if address :contains "To" "apple" {
+            fileinto "Organizations.Apple";
+            stop;
+          }
+          if address :contains "To" "bsky" {
+            fileinto "Organizations.Bluesky";
+            stop;
+          }
+          if address :contains "From" "github.com" {
+            fileinto "Organizations.GitHub";
+            stop;
+          }
+          if address :contains "To" "google" {
+            fileinto "Organizations.Google";
+            stop;
+          }
+          if address :contains "To" "hackclub" {
+            fileinto "Organizations.Hack Club";
+            stop;
+          }
+          if address :contains "To" "immobilise" {
+            fileinto "Organizations.Immobilise";
+            stop;
+          }
+          if address :contains "To" "itch" {
+            fileinto "Organizations.Itch";
+            stop;
+          }
+          if address :contains "To" "jlc" {
+            fileinto "Organizations.JLCPCB";
+            stop;
+          }
+          if address :contains "To" "lner" {
+            fileinto "Organizations.LNER";
+            stop;
+          }
+          if address :contains "To" "meta" {
+            fileinto "Organizations.Meta";
+            stop;
+          }
+          if address :contains "To" "modrinth" {
+            fileinto "Organizations.Modrinth";
+            stop;
+          }
+          if address :contains "To" "nasa" {
+            fileinto "Organizations.NASA";
+            stop;
+          }
+          if address :contains "From" "pcbway.com" {
+            fileinto "Organizations.PCBWay";
+            stop;
+          }
+          if address :contains "From" "pcbx.com" {
+            fileinto "Organizations.PCBX";
+            stop;
+          }
+          if address :contains "To" "prusa" {
+            fileinto "Organizations.Prusa";
+            stop;
+          }
+          if address :contains "To" "steam" {
+            fileinto "Organizations.Steam";
+            stop;
+          }
+          if address :contains "To" "thepihut" {
+            fileinto "Organizations.ThePiHut";
+            stop;
+          }
+          if address :contains "To" "abuseipdb" {
+            fileinto "Organizations.AbuseIPDB";
+            stop;
+          }
+
+          if address :contains "To" "security" {
+            fileinto "Security";
+            stop;
+          }
         '';
       };
     };
@@ -109,26 +192,37 @@
         specialUse = "Archive";
       };
 
-
       # Individual organizations, sorted by sieve scripts.
-      "Hack Club" = { auto = "subscribe"; };
-      Airtable = { auto = "subscribe"; };
-      Bluesky = { auto = "subscribe"; };
-      Google = { auto = "subscribe"; };
-      Itch = { auto = "subscribe"; };
-      JLCPCB = { auto = "subscribe"; };
-      LinkedIn = { auto = "subscribe"; };
-      Meta = { auto = "subscribe"; };
-      Modrinth = { auto = "subscribe"; };
-      PCBX = { auto = "subscribe"; };
-      Prusa = { auto = "subscribe"; };
-      Security = { auto = "subscribe"; }; # LetsEncrypt
-      Steam = { auto = "subscribe"; };
+      "Organizations.Airtable" = { auto = "subscribe"; };
+      "Organizations.Apple" = { auto = "subscribe"; };
+      "Organizations.BAFTA" = { auto = "subscribe"; }; # not autosorted
+      "Organizations.Bluesky" = { auto = "subscribe"; };
+      "Organizations.GitHub" = { auto = "subscribe"; }; # sorted via sender
+      "Organizations.Google" = { auto = "subscribe"; };
+      "Organizations.Hack Club" = { auto = "subscribe"; };
+      "Organizations.Immobilise" = { auto = "subscribe"; };
+      "Organizations.Itch" = { auto = "subscribe"; };
+      "Organizations.JLCPCB" = { auto = "subscribe"; };
+      "Organizations.LNER" = { auto = "subscribe"; };
+      "Organizations.Meta" = { auto = "subscribe"; };
+      "Organizations.Modrinth" = { auto = "subscribe"; };
+      "Organizations.NASA" = { auto = "subscribe"; };
+      "Organizations.PCBWay" = { auto = "subscribe"; }; # sorted via sender
+      "Organizations.PCBX" = { auto = "subscribe"; }; # sorted via sender
+      "Organizations.Prusa" = { auto = "subscribe"; };
+      "Organizations.Steam" = { auto = "subscribe"; };
+      "Organizations.ThePiHut" = { auto = "subscribe"; };
+      "Organizations.AbuseIPDB" = { auto = "subscribe"; };
+
+      # Individual people
+      "People" = { auto = "subscribe"; };
 
       # General categories
-      Recipts = { auto = "subscribe"; };
-      "Sponsorship Offers" = { auto = "subscribe"; };
-      School = { auto = "subscribe"; };
+      "Shipping and Recipts" = { auto = "subscribe"; };
+      "School" = { auto = "subscribe"; };
+      "Performances" = { auto = "subscribe"; };
+      "Music" = { auto = "subscribe"; };
+      "Security" = { auto = "subscribe"; }; # LetsEncrypt
     };
 
     certificateScheme = "acme-nginx";
