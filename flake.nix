@@ -82,8 +82,23 @@
           specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/rpi5-01/config.nix
+            ./systems/wifi-config.nix # gitignored, see wifi-config-template.nix
             {
-              raspberry-pi-nix.board = "bcm2712"; # Raspberry Pi 5
+              raspberry-pi-nix = {
+                board = "bcm2712"; # Raspberry Pi 5
+                pin-inputs.enable = true; # pin inputs to latest cachix build
+              };
+              hardware.raspberry-pi = {
+                config.all.base-dt-params = {
+                  nvme = {
+                    enable = true;
+                  };
+                  pciex1_gen = {
+                    enable = true;
+                    value = 3;
+                  };
+                };
+              };
             }
             inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             inputs.raspberry-pi-nix.nixosModules.sd-image
@@ -98,7 +113,10 @@
             ./systems/printerpi/config.nix
             ./systems/wifi-config.nix # gitignored, see wifi-config-template.nix
             {
-              raspberry-pi-nix.board = "bcm2711"; # Raspberry Pi 4
+              raspberry-pi-nix = {
+                board = "bcm2711"; # Raspberry Pi 4
+                pin-inputs.enable = true; # pin inputs to latest cachix build
+              };
             }
             inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             inputs.raspberry-pi-nix.nixosModules.sd-image
