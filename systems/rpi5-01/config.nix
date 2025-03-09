@@ -17,12 +17,6 @@
     zsh
   ];
 
-  #  fileSystems."/nix/store" = {
-  #device = "/dev/disk/by-label/store";
-  #fsType = "btrfs";
-  #neededForBoot = true;
-  #};
-
   environment.systemPackages = [
     pkgs.xc
   ];

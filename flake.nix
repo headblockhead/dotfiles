@@ -169,7 +169,7 @@
         };
       };
 
-      # SD card images.
+      # SD card images. Also works for NVME drives!
       rpi5-01-sd = nixosConfigurations.rpi5-01.config.system.build.sdImage;
       printerpi-sd = nixosConfigurations.printerpi.config.system.build.sdImage;
 
