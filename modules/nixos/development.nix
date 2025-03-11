@@ -21,7 +21,7 @@
     gcc
     gcc-arm-embedded
     gnumake
-    go
+    unstable.go_1_24
     gopass
     gopls
     htop

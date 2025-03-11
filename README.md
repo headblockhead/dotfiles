@@ -156,6 +156,16 @@ sudo passwd -dl root
 sudo usermod -L root
 ```
 
+### Post-installation
+
+#### GNOME theme for Firefox
+
+source: [firefox-gnome-theme](https://github.com/rafaelmardojai/firefox-gnome-theme)
+
+```bash
+curl -s -o- https://raw.githubusercontent.com/rafaelmardojai/firefox-gnome-theme/master/scripts/install-by-curl.sh | bash
+```
+
 ## Troubleshooting
 
 ### Missing boot option
