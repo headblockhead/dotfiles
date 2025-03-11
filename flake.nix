@@ -67,12 +67,12 @@
 
       nixosConfigurations = {
         # Local servers
-        router = nixpkgs.lib.nixosSystem {
+        gateway = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
-            ./systems/router/config.nix
-            ./systems/router/hardware.nix
+            ./systems/gateway/config.nix
+            ./systems/gateway/hardware.nix
             agenix.nixosModules.default
           ];
         };
@@ -175,13 +175,13 @@
 
       # deploy-rs configuration
       deploy.nodes = {
-        router = {
-          hostname = "router.lan";
+        gateway = {
+          hostname = "gateway.edwardh.lan";
           profiles.system = {
             sshUser = "headb";
             user = "root";
             remoteBuild = false;
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.router;
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.gateway;
           };
         };
         rpi5-01 = {
@@ -193,32 +193,14 @@
             path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi5-01;
           };
         };
-        printerpi = {
-          hostname = "printerpi.lan";
-          profiles.system = {
-            sshUser = "headb";
-            user = "root";
-            remoteBuild = false;
-            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.printerpi;
-          };
-        };
-        edwardh = {
-          hostname = "mail.edwardh.dev";
-          profiles.system = {
-            sshUser = "headb";
-            user = "root";
-            remoteBuild = false;
-            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.edwardh;
-          };
-        };
       };
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
       homeConfigurations = {
-        "headb@router" = home-manager.lib.homeManagerConfiguration {
+        "headb@gateway" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/router/users/headb.nix ];
+          modules = [ ./systems/gateway/users/headb.nix ];
         };
         "headb@rpi5-01" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux;

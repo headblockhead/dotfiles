@@ -11,7 +11,7 @@ let
   iot_port = "enp8s0";
 in
 {
-  networking.hostName = "router";
+  networking.hostName = "gateway";
 
   imports = with outputs.nixosModules; [
     basicConfig
@@ -122,7 +122,7 @@ in
       userServices = true;
     };
     nssmdns4 = true;
-    hostName = "router";
+    hostName = "gateway";
   };
   services.dnsmasq = {
     enable = true;
@@ -135,9 +135,8 @@ in
       no-resolv = true; # Don't read upstream servers from /etc/resolv.conf
       no-hosts = true; # Don't obtain any hosts from /etc/hosts (this would make 'localhost' = this machine for all clients!)
 
-      # Custom DNS options
-      server = [ "1.1.1.1" "1.0.0.1" ]; # Upstream DNS servers.
-      domain = "lan"; # The domain to add to the end of hostnames. (eg. "router" -> "router.lan")
+      # Disable the DNS server
+      port = 0;
 
       # Custom DHCP options
       dhcp-range = [
@@ -147,21 +146,21 @@ in
       dhcp-option = [
         "tag:lan,option:router,192.168.1.1"
         "tag:lan,option:dns-server,192.168.1.1"
-        "tag:lan,option:ntp-server,192.168.1.1"
-        "tag:lan,option:domain-search,lan"
+        "tag:lan,option:domain-search,edwardh.lan"
+        "tag:iot,option:domain-name,edwardh.lan"
 
         "tag:iot,option:router,192.168.2.1"
         "tag:iot,option:dns-server,192.168.2.1"
-        "tag:iot,option:ntp-server,192.168.2.1"
-        "tag:iot,option:domain-search,lan"
+        "tag:iot,option:domain-search,edwardh.iot"
+        "tag:iot,option:domain-name,edwardh.iot"
       ];
 
       # We are the only DHCP server on the network.
       dhcp-authoritative = true;
 
       address = [
-        "/router.lan/192.168.1.1"
-        "/router.lan/192.168.2.1"
+        "/gateway.edwardh.lan/192.168.1.1"
+        "/gateway.edwardh.iot/192.168.2.1"
       ];
 
       # Custom static IPs and hostnames
@@ -225,30 +224,22 @@ in
     mongodbPackage = pkgs.mongodb-7_0;
   };
 
-  services.nix-serve = {
+  services.bind = {
     enable = true;
-    bindAddress = "cache.router.lan";
-    package = pkgs.nix-serve-ng;
-    secretKeyFile = "/var/cache-private-key.pem";
-  };
-
-  services.nginx = {
-    enable = true;
-    recommendedProxySettings = true;
-    virtualHosts = {
-      "cache.edwardh.dev" = {
-        listenAddresses = [ "192.168.1.1" "192.168.2.1" ];
-        locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
-      };
+    listenOn = [ "192.168.1.1" "192.168.2.1" ];
+    cacheNetworks = [ "127.0.0.0/8" "192.168.1.0/24" "192.168.2.0/24" ];
+    forwarders = [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
+    extraOptions = ''
+      version "not currently available";
+    '';
+    zones."edwardh.lan" = {
+      master = true;
+      file = ./db.edwardh.lan;
+      extraConfig = ''
+        dnssec-policy default;
+        inline-signing yes;
+      '';
     };
-  };
-
-  nix.optimise.automatic = true;
-  nix.optimise.dates = [ "04:00" ];
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
   };
 
   security.sudo.wheelNeedsPassword = false;

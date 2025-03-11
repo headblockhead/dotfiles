@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   # Computer specific keys:
-  router-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFl5CJU+QEKdSV/ybMegoKGT+NamF1FBYcMcSRACZLvJ'';
+  gateway-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFl5CJU+QEKdSV/ybMegoKGT+NamF1FBYcMcSRACZLvJ'';
   edward-desktop-01-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOs2G2Yt7+A53v5tymBcbAlWnT9tLZYNSW+XGqZU6ITh'';
   edward-laptop-01-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDGOkGgaa7J85LK4Vfe3+NvxxQObZspyRd50OkUQz/Ox'';
   rpi-builder-key = ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFnzZ9J7cRtQgXr87c0NwovZvMf1DsxaVdT1AbEXExTU'';
@@ -45,7 +45,7 @@ in
     isNormalUser = true;
     extraGroups = [ "libvirt" "nixbld" ];
     openssh.authorizedKeys.keys = [
-      router-key
+      gateway-key
       edward-desktop-01-key
       printerpi-key
       edward-laptop-01-key

@@ -6,7 +6,7 @@ A continuously updated reproducable config for:
 - a desktop workstation
 - a mail+DNS server running in AWS ([edwardh](systems/edwardh))
 - a laptop (Lenovo Thinkpad)
-- a router (old DELL Optiplex machine) ([router](systems/router))
+- a router (old DELL Optiplex machine) ([gateway](systems/gateway))
 - a Nix binary cache server running on a Raspberry Pi 5
 
 Where **everything** about my systems is controlled by NixOS in plenty of detail, making for a perfectly-configured install *every time*, down to [the seconds on the clock](https://github.com/headblockhead/dotfiles/blob/dddba60346632e95b1840a7c95379396a8193fd1/modules/nixos/desktop.nix#L125)!

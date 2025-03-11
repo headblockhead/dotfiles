@@ -256,20 +256,23 @@
       # SSHD is added by default
       dovecot = {
         settings = {
-          # block IPs which failed to log-in
-          # aggressive mode add blocking for aborted connections
-          filter = "dovecot[mode=aggressive]";
           maxretry = 5;
         };
       };
       postfix = {
         settings = {
-          filter = "postfix[mode=aggressive]";
           maxretry = 5;
         };
       };
     };
   };
+
+  # Store zones in /etc so they can be signed without errors due to trying to write to the store.
+  systemd.tmpfiles.rules = [
+    "d /etc/bind/zones 755 named root -"
+    "C+ /etc/bind/zones/db.edwardh.dev - - - - ${./db.edwardh.dev}"
+    "z /etc/bind/zones/db.edwardh.dev 744 named root -"
+  ];
 
   services.bind = {
     enable = true;
@@ -281,7 +284,7 @@
     '';
     zones."edwardh.dev" = {
       master = true;
-      file = ./db.edwardh.dev;
+      file = "/etc/bind/zones/db.edwardh.dev";
       allowQuery = [ "any" ];
       extraConfig = ''
         dnssec-policy default;
