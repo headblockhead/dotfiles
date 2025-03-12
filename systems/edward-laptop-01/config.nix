@@ -19,7 +19,6 @@
     gpg
     homeManager
     network
-    openrgb
     printer
     sdr
     sound
