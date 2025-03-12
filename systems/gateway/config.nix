@@ -12,6 +12,7 @@ let
 in
 {
   networking.hostName = "gateway";
+  networking.domain = "edwardh.lan";
 
   imports = with outputs.nixosModules; [
     basicConfig
@@ -135,8 +136,8 @@ in
       no-resolv = true; # Don't read upstream servers from /etc/resolv.conf
       no-hosts = true; # Don't obtain any hosts from /etc/hosts (this would make 'localhost' = this machine for all clients!)
 
-      # Disable the DNS server
-      port = 0;
+      server = [ "1.1.1.1" "1.0.0.1" ];
+      domain = "edwardh.lan";
 
       # Custom DHCP options
       dhcp-range = [
@@ -147,12 +148,12 @@ in
         "tag:lan,option:router,192.168.1.1"
         "tag:lan,option:dns-server,192.168.1.1"
         "tag:lan,option:domain-search,edwardh.lan"
-        "tag:iot,option:domain-name,edwardh.lan"
+        "tag:lan,option:domain-name,edwardh.lan"
 
         "tag:iot,option:router,192.168.2.1"
         "tag:iot,option:dns-server,192.168.2.1"
-        "tag:iot,option:domain-search,edwardh.iot"
-        "tag:iot,option:domain-name,edwardh.iot"
+        "tag:iot,option:domain-search,edwardh.lan"
+        "tag:iot,option:domain-name,edwardh.lan"
       ];
 
       # We are the only DHCP server on the network.
@@ -160,7 +161,9 @@ in
 
       address = [
         "/gateway.edwardh.lan/192.168.1.1"
-        "/gateway.edwardh.iot/192.168.2.1"
+        "/gateway.edwardh.lan/192.168.2.1"
+
+        "/cache.edwardh.lan/192.168.2.107" # rpi5-01
       ];
 
       # Custom static IPs and hostnames
@@ -222,24 +225,6 @@ in
     enable = true;
     unifiPackage = pkgs.unifi8;
     mongodbPackage = pkgs.mongodb-7_0;
-  };
-
-  services.bind = {
-    enable = true;
-    listenOn = [ "192.168.1.1" "192.168.2.1" ];
-    cacheNetworks = [ "127.0.0.0/8" "192.168.1.0/24" "192.168.2.0/24" ];
-    forwarders = [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
-    extraOptions = ''
-      version "not currently available";
-    '';
-    zones."edwardh.lan" = {
-      master = true;
-      file = ./db.edwardh.lan;
-      extraConfig = ''
-        dnssec-policy default;
-        inline-signing yes;
-      '';
-    };
   };
 
   security.sudo.wheelNeedsPassword = false;

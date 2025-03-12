@@ -22,10 +22,6 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
     agenix.url = "github:ryantm/agenix";
-    prismlauncher.url = "github:PrismLauncher/PrismLauncher";
-    playdatesdk.url = "github:headblockhead/nix-playdatesdk";
-    playdatemirror.url = "github:headblockhead/nix-playdatemirror";
-    templ.url = "github:a-h/templ";
   };
 
   outputs =
@@ -82,7 +78,6 @@
           specialArgs = { inherit inputs outputs agenix sshkeys; };
           modules = [
             ./systems/rpi5-01/config.nix
-            ./systems/wifi-config.nix # gitignored, see wifi-config-template.nix
             {
               raspberry-pi-nix = {
                 board = "bcm2712"; # Raspberry Pi 5

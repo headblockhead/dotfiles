@@ -6,5 +6,6 @@
     ubuntu_font_family
     ibm-plex
     source-code-pro
+    unstable.nerd-fonts._3270
   ];
 }

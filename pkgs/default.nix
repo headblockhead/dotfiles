@@ -2,15 +2,7 @@
 # You can build them using 'nix build .#example'
 { pkgs, system, inputs }: {
   home-manager = inputs.home-manager.defaultPackage.${system};
-
-  templ = inputs.templ.packages.${system}.default;
   deploy-rs = inputs.deploy-rs.packages.${system}.default;
-  prismlauncher = inputs.prismlauncher.packages.${system}.prismlauncher;
-
-  pdc = inputs.playdatesdk.packages.${system}.pdc;
-  pdutil = inputs.playdatesdk.packages.${system}.pdutil;
-  PlaydateSimulator = inputs.playdatesdk.packages.${system}.PlaydateSimulator;
-  playdatemirror = inputs.playdatemirror.packages.${system}.Mirror;
 
   librespot = pkgs.callPackage ../custom-packages/librespot.nix { };
   picotool = pkgs.callPackage ../custom-packages/picotool.nix {

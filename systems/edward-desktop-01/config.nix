@@ -2,6 +2,7 @@
 
 {
   networking.hostName = "edward-desktop-01";
+  networking.domain = "edwardh.lan";
 
   imports = with outputs.nixosModules; [
     basicConfig
@@ -32,11 +33,11 @@
     yubikey
     zsh
 
-    p2pool
-    xmrig
+    #p2pool
+    #xmrig
   ];
 
-  systemd.services.xmrig.wantedBy = lib.mkForce [ ];
+  #systemd.services.xmrig.wantedBy = lib.mkForce [ ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 

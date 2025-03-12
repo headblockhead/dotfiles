@@ -4,7 +4,6 @@
   programs.wireshark.enable = true;
   environment.systemPackages = with pkgs; [
     # unityhub
-    PlaydateSimulator
     asciinema
     awscli2
     bat
@@ -39,12 +38,9 @@
     nodePackages.aws-cdk
     nodejs
     p7zip
-    pdc
-    pdutil
     pico-sdk
     picotool
     platformio
-    playdatemirror
     pulseview
     python39
     qemu

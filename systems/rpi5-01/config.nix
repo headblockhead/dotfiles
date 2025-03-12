@@ -8,7 +8,7 @@
     cachesLocal
     distributedBuilds
     git
-    githubActions
+    #githubActions
     homeManager
     ssh
     users
@@ -17,10 +17,11 @@
 
   services.nix-serve = {
     enable = true;
-    bindAddress = "127.0.0.1"; # Forwarded by nginx
     package = pkgs.nix-serve-ng;
     secretKeyFile = "/var/cache-private-key.pem";
   };
+
+  networking.firewall.allowedTCPPorts = [ 80 ];
 
   services.nginx = {
     enable = true;
