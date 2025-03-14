@@ -31,7 +31,7 @@
     slack
     spotify
     thonny
-    thunderbird
+    unstable.thunderbird-latest
     tor-browser-bundle-bin
     unstable.blender-hip
     vlc
