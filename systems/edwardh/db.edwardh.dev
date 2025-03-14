@@ -30,3 +30,5 @@ mail._domainkey 10800 IN TXT "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCB
 _dmarc 10800 IN TXT "v=DMARC1; p=quarantine"
 ; BlueSky
 _atproto 600 IN TXT "did=did:plc:hmxed7odvvlp2xvoc7n52fqn"
+; VPN
+;vpn 600 IN A 18.135.222.143

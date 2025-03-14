@@ -247,6 +247,13 @@
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "security@edwardh.dev";
 
+  #  environment.etc = {
+  #"fail2ban/filter.d/nginx-req-limit.conf".text = ''
+  #[Definition]
+  #failregex = limiting requests, excess:.* by zone.*client: <HOST>
+  #'';
+  #};
+
   services.fail2ban = {
     enable = true;
     maxretry = 10;
@@ -264,6 +271,13 @@
         enabled = true;
         maxretry = 5;
       };
+      #      nginx-req-limit.settings = {
+      #enabled = true;
+      #maxretry = 15;
+      #action = "iptables-multiport[name=ReqLimit, port=\"http,https\", protocol=tcp]";
+      #findtime = "5m";
+      #bantime = "5m";
+      #};
     };
   };
 
@@ -299,8 +313,16 @@
       default = true;
       forceSSL = true;
       enableACME = true;
-      root = edwardh-dev;
+      locations."/" = {
+        root = edwardh-dev;
+        #extraConfig = ''
+        #limit_req zone=req_limit burst=30 nodelay;
+        #'';
+      };
     };
+    #appendHttpConfig = ''
+    #limit_req_zone $binary_remote_addr zone=req_limit:10m rate=10r/s;
+    #'';
   };
 
   environment.systemPackages = [
