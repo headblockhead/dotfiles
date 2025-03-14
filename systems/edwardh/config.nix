@@ -253,21 +253,19 @@
     bantime = "24h";
     bantime-increment.enable = true;
     jails = {
-      # SSHD is added by default
-      dovecot = {
-        settings = {
-          maxretry = 5;
-        };
+      sshd.settings = {
+        enabled = true;
       };
-      postfix = {
-        settings = {
-          maxretry = 5;
-        };
+      dovecot.settings = {
+        enabled = true;
+        maxretry = 5;
       };
-      nginx = {
-        settings = {
-          maxretry = 5;
-        };
+      postfix.settings = {
+        enabled = true;
+        maxretry = 5;
+      };
+      nginx.settings = {
+        enabled = true;
       };
     };
   };
