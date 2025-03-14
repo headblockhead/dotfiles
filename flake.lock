@@ -63,6 +63,24 @@
         "type": "github"
       }
     },
+    "edwardh-dev": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1741982276,
+        "narHash": "sha256-O9TVW3Nak+U0JsPaMnscHDHAc/jGgLFuN+ZwJyXclt0=",
+        "owner": "headblockhead",
+        "repo": "edwardh.dev",
+        "rev": "ad0d721b2bc5885a0db0206b500e2eae57edfcf6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "headblockhead",
+        "repo": "edwardh.dev",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -173,11 +191,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1741572244,
-        "narHash": "sha256-2TTb77EhLZriHmiXJhY0TzQ7ohwLd8m0SSNJviL3Ung=",
+        "lastModified": 1741982359,
+        "narHash": "sha256-ylKb2YmvDmvFx964/Sty4SM13j4ZrCmJ3xl+AeR09A8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "dba02c7790249c2d05dfcc3e2dc39a38631cd0db",
+        "rev": "8e2858f91cd26e93537b9580f896eb4517a8bd72",
         "type": "github"
       },
       "original": {
@@ -189,11 +207,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1741379970,
-        "narHash": "sha256-Wh7esNh7G24qYleLvgOSY/7HlDUzWaL/n4qzlBePpiw=",
+        "lastModified": 1741851582,
+        "narHash": "sha256-cPfs8qMccim2RBgtKGF+x9IBCduRvd/N5F4nYpU0TVE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "36fd87baa9083f34f7f5027900b62ee6d09b1f2f",
+        "rev": "6607cf789e541e7873d40d3a8f7815ea92204f32",
         "type": "github"
       },
       "original": {
@@ -221,11 +239,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1741445498,
-        "narHash": "sha256-F5Em0iv/CxkN5mZ9hRn3vPknpoWdcdCyR0e4WklHwiE=",
+        "lastModified": 1741862977,
+        "narHash": "sha256-prZ0M8vE/ghRGGZcflvxCu40ObKaB+ikn74/xQoNrGQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "52e3095f6d812b91b22fb7ad0bfc1ab416453634",
+        "rev": "cdd2ef009676ac92b715ff26630164bb88fec4e0",
         "type": "github"
       },
       "original": {
@@ -236,6 +254,22 @@
       }
     },
     "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1741862977,
+        "narHash": "sha256-prZ0M8vE/ghRGGZcflvxCu40ObKaB+ikn74/xQoNrGQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "cdd2ef009676ac92b715ff26630164bb88fec4e0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1736061677,
         "narHash": "sha256-DjkQPnkAfd7eB522PwnkGhOMuT9QVCZspDpJJYyOj60=",
@@ -255,7 +289,7 @@
       "inputs": {
         "libcamera-src": "libcamera-src",
         "libpisp-src": "libpisp-src",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_5",
         "rpi-bluez-firmware-src": "rpi-bluez-firmware-src",
         "rpi-firmware-nonfree-src": "rpi-firmware-nonfree-src",
         "rpi-firmware-src": "rpi-firmware-src",
@@ -282,8 +316,9 @@
       "inputs": {
         "agenix": "agenix",
         "deploy-rs": "deploy-rs",
+        "edwardh-dev": "edwardh-dev",
         "home-manager": "home-manager_2",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "raspberry-pi-nix": "raspberry-pi-nix"

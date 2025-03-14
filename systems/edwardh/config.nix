@@ -1,4 +1,4 @@
-{ outputs, lib, pkgs, config, sshkeys, ... }:
+{ outputs, lib, pkgs, config, sshkeys, edwardh-dev, ... }:
 {
   networking.hostName = "edwardh";
   networking.domain = "dev";
@@ -264,13 +264,18 @@
           maxretry = 5;
         };
       };
+      nginx = {
+        settings = {
+          maxretry = 5;
+        };
+      };
     };
   };
 
   # Store zones in /etc so they can be signed without errors due to trying to write to the store.
   systemd.tmpfiles.rules = [
     "d /etc/bind/zones 755 named root -"
-    "C+ /etc/bind/zones/db.edwardh.dev - - - - ${./db.edwardh.dev}"
+    "L+ /etc/bind/zones/db.edwardh.dev - - - - ${./db.edwardh.dev}"
     "z /etc/bind/zones/db.edwardh.dev 744 named root -"
   ];
 
@@ -290,6 +295,16 @@
         dnssec-policy default;
         inline-signing yes;
       '';
+    };
+  };
+
+  services.nginx = {
+    enable = true;
+    virtualHosts."edwardh.dev" = {
+      default = true;
+      forceSSL = true;
+      enableACME = true;
+      root = edwardh-dev;
     };
   };
 

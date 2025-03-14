@@ -22,10 +22,12 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
     agenix.url = "github:ryantm/agenix";
+
+    edwardh-dev.url = "github:headblockhead/edwardh.dev";
   };
 
   outputs =
-    { self, nixpkgs, home-manager, agenix, deploy-rs, ... }@ inputs:
+    { self, nixpkgs, home-manager, agenix, deploy-rs, edwardh-dev, ... }@ inputs:
     let
       inherit (self) outputs;
 
@@ -144,7 +146,10 @@
         # 18.135.222.143
         edwardh = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs sshkeys; };
+          specialArgs = {
+            inherit inputs outputs sshkeys;
+            edwardh-dev = edwardh-dev.packages.edwardh-dev;
+          };
           modules = [
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
             ./systems/edwardh/config.nix
