@@ -264,9 +264,6 @@
         enabled = true;
         maxretry = 5;
       };
-      nginx.settings = {
-        enabled = true;
-      };
     };
   };
 
