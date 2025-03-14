@@ -24,6 +24,7 @@
     gopass
     gopls
     htop
+    btop
     hugo
     inetutils
     killall
