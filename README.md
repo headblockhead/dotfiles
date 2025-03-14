@@ -183,21 +183,7 @@ Try adding `nomodeset` to the kernel parameters in GRUB.
 
 ## Tasks
 
-### Switch
-
-Requires: switch-nixos, switch-home-manager
-
-Switch to the new nixos and home-manager configurations.
-
-### Deploy
-
-Deploy the nixos configurations to all machines with deploy-rs.
-
-```bash
-deploy path:.# -s
-```
-
-### Switch-NixOS
+### nixos
 
 Switch to the new nixos configuration.
 
@@ -205,7 +191,7 @@ Switch to the new nixos configuration.
 sudo nixos-rebuild switch --flake .# --accept-flake-config
 ```
 
-### Switch-home-manager
+### home-manager
 
 Switch to the new home-manager configuration for the current user.
 
@@ -213,18 +199,22 @@ Switch to the new home-manager configuration for the current user.
 home-manager switch --flake ".#$USER@`hostname`" 
 ```
 
-### Garbage-collect
+### test-deploy
 
-Cleanup unused nix store paths, then print a summary.
+Deploy the nixos configurations to all machines, without setting the boot-default.
 
 ```bash
-nix-collect-garbage --quiet
+nixos-rebuild test --target-host gateway.edwardh.lan --use-remote-sudo --flake .#gateway
+nixos-rebuild test --target-host rpi5-01.edwardh.lan --use-remote-sudo --flake .#rpi5-01
+nixos-rebuild test --target-host mail.edwardh.dev --use-remote-sudo --flake .#edwardh
 ```
 
-### Garbage-collect-delete
+### rollout
 
-Deletes all but the current generation of NixOS and cleanup leftovers, then print a summary.
+Deploy the nixos configurations to all machines, setting the boot-default.
 
 ```bash
-sudo nix-collect-garbage -d --quiet
+nixos-rebuild switch --target-host gateway.edwardh.lan --use-remote-sudo --flake .#gateway
+nixos-rebuild switch --target-host rpi5-01.edwardh.lan --use-remote-sudo --flake .#rpi5-01
+nixos-rebuild switch --target-host mail.edwardh.dev --use-remote-sudo --flake .#edwardh
 ```

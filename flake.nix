@@ -168,29 +168,6 @@
       rpi5-01-sd = nixosConfigurations.rpi5-01.config.system.build.sdImage;
       printerpi-sd = nixosConfigurations.printerpi.config.system.build.sdImage;
 
-      # deploy-rs configuration
-      deploy.nodes = {
-        gateway = {
-          hostname = "gateway.edwardh.lan";
-          profiles.system = {
-            sshUser = "headb";
-            user = "root";
-            remoteBuild = false;
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.gateway;
-          };
-        };
-        rpi5-01 = {
-          hostname = "rpi5-01.lan";
-          profiles.system = {
-            sshUser = "headb";
-            user = "root";
-            remoteBuild = true; # aarch64-linux builds are faster on aarch64-linux :)
-            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi5-01;
-          };
-        };
-      };
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-
       homeConfigurations = {
         "headb@gateway" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
