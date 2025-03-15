@@ -4,7 +4,6 @@
     arduino
     audacity
     chiaki
-    clonehero
     deja-dup
     discord
     firefox
@@ -24,7 +23,6 @@
     obsidian
     onedrive
     openscad-unstable
-    prismlauncher
     prusa-slicer
     remmina
     rpi-imager
@@ -33,7 +31,6 @@
     thonny
     unstable.thunderbird-latest
     tor-browser-bundle-bin
-    unstable.blender-hip
     vlc
     zoom-us
   ];

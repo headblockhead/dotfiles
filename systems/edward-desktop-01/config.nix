@@ -62,9 +62,12 @@
 
   environment.systemPackages = [
     agenix.packages.x86_64-linux.default
-    pkgs.cachix
-    pkgs.deploy-rs
     pkgs.xc
+
+    pkgs.cachix
+    pkgs.clonehero
+    pkgs.unstable.blender-hip
+    pkgs.prismlauncher
   ];
 
   # find / -name '*.desktop' 2> /dev/null

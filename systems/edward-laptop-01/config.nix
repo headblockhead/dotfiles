@@ -34,9 +34,9 @@
   # Extra packages to install.
   environment.systemPackages = [
     agenix.packages.x86_64-linux.default
-    pkgs.ardour
     pkgs.xc
-    pkgs.deploy-rs
+
+    pkgs.ardour
     pkgs.tor-browser-bundle-bin
     pkgs.x32edit
     pkgs.fastfetch
