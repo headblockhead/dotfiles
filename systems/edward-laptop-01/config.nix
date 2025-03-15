@@ -29,7 +29,7 @@
     zsh
   ];
 
-  services.flatpak.enable = true;
+  services.tailscale.enable = true;
 
   # Extra packages to install.
   environment.systemPackages = [

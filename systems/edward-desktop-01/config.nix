@@ -36,8 +36,9 @@
     #p2pool
     #xmrig
   ];
-
   #systemd.services.xmrig.wantedBy = lib.mkForce [ ];
+
+  services.tailscale.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
