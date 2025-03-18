@@ -1,4 +1,4 @@
-{ inputs, outputs, agenix, lib, config, pkgs, ... }:
+{ outputs, agenix, pkgs, ... }:
 
 {
   networking.hostName = "edward-dell-01";
@@ -23,69 +23,67 @@
     zsh
   ];
 
-  networking.firewall.enable = lib.mkForce false;
-
   # Extra packages to install
   environment.systemPackages = [
+    agenix.packages.x86_64-linux.default
+    pkgs.arduino
+    pkgs.audacity
+    pkgs.cachix
     pkgs.ccls
+    pkgs.ciscoPacketTracer8
     pkgs.cmake
-    pkgs.unstable.freecad-wayland
+    pkgs.deja-dup
+    pkgs.discord
+    pkgs.firefox
+    pkgs.fractal # matrix messenger
+    pkgs.furnace # chiptune tracker
     pkgs.gcc
     pkgs.gcc-arm-embedded
+    pkgs.gimp
     pkgs.gnumake
     pkgs.go
+    pkgs.google-chrome
     pkgs.gopass
     pkgs.gopls
+    pkgs.ifuse # optional, to mount using 'ifuse'
     pkgs.inetutils
+    pkgs.inkscape
     pkgs.killall
+    pkgs.libimobiledevice
+    pkgs.libreoffice
     pkgs.lm_sensors
     pkgs.lua5_4
     pkgs.minicom
     pkgs.neofetch
+    pkgs.neovim
     pkgs.ngrok
     pkgs.nixfmt-rfc-style
     pkgs.nmap
     pkgs.nodejs
+    pkgs.obs-studio
+    pkgs.obsidian
+    pkgs.onedrive
+    pkgs.onedrivegui
+    pkgs.openscad-unstable
     pkgs.p7zip
     pkgs.pico-sdk
     pkgs.picotool
     pkgs.platformio
     pkgs.pulseview
     pkgs.python39
-    pkgs.rustc
-    pkgs.tmux
-    pkgs.usbutils
-    pkgs.wireshark
-    pkgs.neovim
-    pkgs.xc
-    pkgs.cachix
-    agenix.packages.x86_64-linux.default
-
-    pkgs.libimobiledevice
-    pkgs.ifuse # optional, to mount using 'ifuse'
-    pkgs.obsidian
-    pkgs.arduino
-    pkgs.audacity
-    pkgs.deja-dup
-    pkgs.discord
-    pkgs.firefox
-    pkgs.fractal # matrix messenger
-    pkgs.furnace # chiptune tracker
-    pkgs.gimp
-    pkgs.google-chrome
-    pkgs.openscad-unstable
-    pkgs.inkscape
-    pkgs.libreoffice
-    pkgs.unstable.musescore
-    pkgs.obs-studio
-    pkgs.onedrive
     pkgs.remmina
-    pkgs.spotify
-    pkgs.prusa-slicer
+    pkgs.rustc
     pkgs.slack
+    pkgs.spotify
     pkgs.thunderbird
+    pkgs.tmux
+    pkgs.unstable.freecad-wayland
+    pkgs.unstable.musescore
     pkgs.unstable.rpi-imager
+    pkgs.usbutils
     pkgs.vlc
+    pkgs.wireshark
+    pkgs.xc
     pkgs.zoom-us
   ];
 
