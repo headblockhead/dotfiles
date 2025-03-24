@@ -6,5 +6,6 @@ let
 in
 {
   "mail-hashed-password.age".publicKeys = [ edward-desktop-01 edwardh ];
+  "minio-credentials.age".publicKeys = [ edward-desktop-01 edwardh ];
   "github-actions-token.age".publicKeys = [ edward-desktop-01 rpi-builder ];
 }

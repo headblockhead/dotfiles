@@ -1,6 +1,6 @@
 $TTL 86400
 @ IN SOA ns.edwardh.dev. admin.edwardh.dev. (
-2025031401 	; Serial, must be updated every change
+2025032404 	; Serial, must be updated every change
 86400       ; Refresh period
 86400       ; Retry period
 86400       ; Expire time
@@ -11,6 +11,8 @@ ns IN A 18.135.222.143
 ; Webserver
 @ 600 IN A 18.135.222.143
 www 600 IN CNAME edwardh.dev.
+; Obsidian Remotely Save (minio)
+obsidian 600 IN A 18.135.222.143
 ; Mailserver
 mail 10800 IN A 18.135.222.143
 @ 600 IN MX 10 mail.edwardh.dev.

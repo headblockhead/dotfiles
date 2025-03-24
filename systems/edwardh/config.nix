@@ -20,6 +20,7 @@
   ];
 
   age.secrets.mail-hashed-password.file = ../../secrets/mail-hashed-password.age;
+  age.secrets.minio-credentials.file = ../../secrets/minio-credentials.age;
 
   services.openssh = {
     enable = true;
@@ -37,6 +38,7 @@
     443 # HTTPS
     53 # DNS
     4243 # Automx2
+    9000 # Minio
     22 # SSH
   ];
   networking.firewall.allowedUDPPorts = [
@@ -247,37 +249,27 @@
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "security@edwardh.dev";
 
-  #  environment.etc = {
-  #"fail2ban/filter.d/nginx-req-limit.conf".text = ''
-  #[Definition]
-  #failregex = limiting requests, excess:.* by zone.*client: <HOST>
-  #'';
-  #};
-
   services.fail2ban = {
     enable = true;
-    maxretry = 10;
-    bantime = "24h";
-    bantime-increment.enable = true;
+    bantime = "8h";
+    bantime-increment = {
+      enable = true;
+      rndtime = "30m";
+      maxtime = "168h";
+    };
     jails = {
       sshd.settings = {
         enabled = true;
+        maxretry = 3;
       };
       dovecot.settings = {
         enabled = true;
-        maxretry = 5;
+        maxretry = 3;
       };
       postfix.settings = {
         enabled = true;
-        maxretry = 5;
+        maxretry = 1;
       };
-      #      nginx-req-limit.settings = {
-      #enabled = true;
-      #maxretry = 15;
-      #action = "iptables-multiport[name=ReqLimit, port=\"http,https\", protocol=tcp]";
-      #findtime = "5m";
-      #bantime = "5m";
-      #};
     };
   };
 
@@ -307,22 +299,33 @@
     };
   };
 
+  services.minio = {
+    enable = true;
+    region = "eu-west-2";
+    rootCredentialsFile = config.age.secrets.minio-credentials.path;
+    browser = false;
+  };
+
   services.nginx = {
     enable = true;
-    virtualHosts."edwardh.dev" = {
-      default = true;
-      forceSSL = true;
-      enableACME = true;
-      locations."/" = {
-        root = edwardh-dev;
-        #extraConfig = ''
-        #limit_req zone=req_limit burst=30 nodelay;
-        #'';
+    virtualHosts = {
+      "edwardh.dev" = {
+        default = true;
+        forceSSL = true;
+        enableACME = true;
+        locations."/" = {
+          root = edwardh-dev;
+        };
+      };
+      "obsidian.edwardh.dev" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:9000";
+          recommendedProxySettings = true;
+        };
       };
     };
-    #appendHttpConfig = ''
-    #limit_req_zone $binary_remote_addr zone=req_limit:10m rate=10r/s;
-    #'';
   };
 
   environment.systemPackages = [
