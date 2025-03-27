@@ -48,8 +48,8 @@
                 sleep-inactive-battery-timeout = lib.gvariant.mkInt32 1800;
               };
               "org/gnome/desktop/background" = {
-                "picture-uri" = "file://${pkgs.nixos-artwork.wallpapers.nineish.gnomeFilePath}";
-                "picture-uri-dark" = "file://${pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath}";
+                picture-uri = "file://${pkgs.nixos-artwork.wallpapers.nineish.gnomeFilePath}";
+                picture-uri-dark = "file://${pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath}";
               };
               "org/gnome/desktop/input-sources" = {
                 xkb-options = [ "terminate:ctrl_alt_bksp" "lv3:ralt_switch" "compose:rctrl" ];
@@ -76,75 +76,75 @@
                 default-visible-columns = [ "name" "size" "date_modified" ];
               };
               "org/gnome/settings-daemon/plugins/color" = {
-                "night-light-enabled" = true;
-                "night-light-schedule-automatic" = true;
-                "night-light-temperature" = lib.gvariant.mkUint32 2700;
+                night-light-enabled = true;
+                night-light-schedule-automatic = true;
+                night-light-temperature = lib.gvariant.mkUint32 2700;
               };
               "org/gnome/terminal/legacy" = {
-                "default-show-menubar" = false;
-                "schema-version" = lib.gvariant.mkUint32 3;
-                "theme-variant" = "default";
+                default-show-menubar = false;
+                schema-version = lib.gvariant.mkUint32 3;
+                theme-variant = "default";
               };
               "org/gnome/terminal/legacy/keybindings" = {
-                "prev-tab" = "<Primary><Shift>Home";
-                "next-tab" = "<Primary><Shift>End";
+                prev-tab = "<Primary><Shift>Home";
+                next-tab = "<Primary><Shift>End";
               };
               "org/gnome/terminal/legacy/profiles:" = {
-                "default" = "5ddfe964-7ee6-4131-b449-26bdd97518f7";
-                "list" = [ "5ddfe964-7ee6-4131-b449-26bdd97518f7" ];
+                default = "5ddfe964-7ee6-4131-b449-26bdd97518f7";
+                list = [ "5ddfe964-7ee6-4131-b449-26bdd97518f7" ];
               };
               "org/gnome/terminal/legacy/profiles:/:5ddfe964-7ee6-4131-b449-26bdd97518f7" = {
-                "audible-bell" = true;
-                "background-color" = "#000000";
-                "backspace-binding" = "ascii-delete";
-                "bold-color-same-as-fg" = true;
-                "cursor-blink-mode" = "system";
-                "cursor-colors-set" = false;
-                "cursor-shape" = "block";
-                "delete-binding" = "delete-sequence";
-                "font" = "SauceCodePro Nerd Font 12";
-                "foreground-color" = "#FFFFFF";
-                "highlight-colors-set" = false;
-                "login-shell" = false;
-                "palette" = [ "#000000" "#aa0000" "#00aa00" "#aa5500" "#0000aa" "#aa00aa" "#00aaaa" "#aaaaaa" "#555555" "#ff5555" "#55ff55" "#ffff55" "#5555ff" "#ff55ff" "#55ffff" "#ffffff" ];
-                "scrollback-lines" = lib.gvariant.mkInt32 10000;
-                "scrollbar-policy" = "never";
-                "scroll-on-output" = false;
-                "use-custom-command" = false;
-                "use-system-font" = false;
-                "use-theme-colors" = false;
-                "visible-name" = "NixOS";
+                audible-bell = true;
+                background-color = "#000000";
+                backspace-binding = "ascii-delete";
+                bold-color-same-as-fg = true;
+                cursor-blink-mode = "system";
+                cursor-colors-set = false;
+                cursor-shape = "block";
+                delete-binding = "delete-sequence";
+                font = "SauceCodePro Nerd Font 12";
+                foreground-color = "#FFFFFF";
+                highlight-colors-set = false;
+                login-shell = false;
+                palette = [ "#000000" "#aa0000" "#00aa00" "#aa5500" "#0000aa" "#aa00aa" "#00aaaa" "#aaaaaa" "#555555" "#ff5555" "#55ff55" "#ffff55" "#5555ff" "#ff55ff" "#55ffff" "#ffffff" ];
+                scrollback-lines = lib.gvariant.mkInt32 10000;
+                scrollbar-policy = "never";
+                scroll-on-output = false;
+                use-custom-command = false;
+                use-system-font = false;
+                use-theme-colors = false;
+                visible-name = "NixOS";
               };
               "org/gnome/desktop/interface" = {
-                "clock-format" = "24h";
-                "gtk-theme" = "Adwaita-dark";
-                "color-scheme" = "prefer-dark";
-                "clock-show-weekday" = true;
-                "show-battery-percentage" = true;
-                "clock-show-seconds" = true;
+                clock-format = "24h";
+                gtk-theme = "Adwaita-dark";
+                color-scheme = "prefer-dark";
+                clock-show-weekday = true;
+                show-battery-percentage = true;
+                clock-show-seconds = true;
               };
               "org/gnome/desktop/privacy" = {
-                "old-files-age" = lib.gvariant.mkInt32 7;
-                "recent-files-max-age" = lib.gvariant.mkInt32 7;
-                "remove-old-temp-files" = true;
-                "remove-old-trash-files" = true;
+                old-files-age = lib.gvariant.mkInt32 7;
+                recent-files-max-age = lib.gvariant.mkInt32 7;
+                remove-old-temp-files = true;
+                remove-old-trash-files = true;
               };
               "org/gnome/settings-daemon/plugins/media-keys" = {
-                "custom-keybindings" = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
+                custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
               };
               "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-                "name" = "Terminal";
-                "command" = "gnome-terminal";
-                "binding" = "<Control><Alt>t";
+                name = "Terminal";
+                command = "gnome-terminal";
+                binding = "<Control><Alt>t";
               };
               "org/gnome/nautilus/preferences" = {
-                "default-folder-viewer" = "list-view";
+                default-folder-viewer = "list-view";
               };
               "org/gnome/nautilus/compression" = {
-                "default-compression-format" = "7z";
+                default-compression-format = "7z";
               };
               "org/gnome/nautilus/icon-view" = {
-                "default-zoom-level" = "small-plus";
+                default-zoom-level = "small-plus";
               };
             };
           }
@@ -183,32 +183,27 @@
     ddcutil
 
     adwaita-icon-theme
+    adwaita-qt
   ];
 
   # GNOME terminal - replaces the console.
   programs.gnome-terminal.enable = true;
 
-  services.gnome.gnome-keyring.enable = lib.mkForce false; # Dont mess with SSH_AUTH_SOCK
+  services.gnome = {
+    gnome-online-accounts.enable = true;
+    gnome-keyring.enable = true;
+    gnome-settings-daemon.enable = true;
+  };
+
 
   # Exclude certain default gnome apps.
   # See https://github.com/NixOS/nixpkgs/blob/127579d6f40593f9b9b461b17769c6c2793a053d/nixos/modules/services/x11/desktop-managers/gnome.nix#L468 for a list of apps.
   environment.gnome.excludePackages = (with pkgs; [
     gnome-tour # Tour
-    # gnome-logs # Logs
+    gnome-logs # Logs
     yelp # Help
-    gnome-maps # Maps
-    gnome-music # Music
-    geary # Geary (Mail)
     epiphany # Web
-    gnome-characters # Characters
     gnome-console # Console - basic terminal emulator
-    totem # Videos
-    gnome-photos # Photos
-    gnome-contacts # Contacts
-    gnome-maps # Maps
-    gnome-music # Music
-    gnome-weather # Weather
-    gnome-connections # Connections
   ]);
 
   # Add udev rules.

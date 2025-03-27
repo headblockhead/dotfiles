@@ -1,6 +1,6 @@
 $TTL 86400
 @ IN SOA ns.edwardh.dev. admin.edwardh.dev. (
-2025032404 	; Serial, must be updated every change
+2025032406 	; Serial, must be updated every change
 86400       ; Refresh period
 86400       ; Retry period
 86400       ; Expire time
@@ -11,8 +11,11 @@ ns IN A 18.135.222.143
 ; Webserver
 @ 600 IN A 18.135.222.143
 www 600 IN CNAME edwardh.dev.
-; Obsidian Remotely Save (minio)
-obsidian 600 IN A 18.135.222.143
+; MinIO (S3)
+s3 600 IN A 18.135.222.143
+; CalDAV and CardDAV
+calendar 600 IN A 18.135.222.143
+contacts 600 IN A 18.135.222.143
 ; Mailserver
 mail 10800 IN A 18.135.222.143
 @ 600 IN MX 10 mail.edwardh.dev.
@@ -32,5 +35,3 @@ mail._domainkey 10800 IN TXT "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCB
 _dmarc 10800 IN TXT "v=DMARC1; p=quarantine"
 ; BlueSky
 _atproto 600 IN TXT "did=did:plc:hmxed7odvvlp2xvoc7n52fqn"
-; VPN
-;vpn 600 IN A 18.135.222.143

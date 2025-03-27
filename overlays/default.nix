@@ -10,6 +10,11 @@
         "--disable-features=WaylandFractionalScaleV1"
       ];
     });
+    gnome-keyring = prev.gnome-keyring.overrideAttrs (oldAttrs: {
+      configureFlags = (builtins.filter (flag: flag != "--enable-ssh-agent") oldAttrs.configureFlags) ++ [
+        "--disable-ssh-agent"
+      ];
+    });
   };
 
   # nixpkgs-unstable and nixpkgs-master defined in flake inputs.

@@ -24,7 +24,6 @@
     onedrive
     openscad-unstable
     prusa-slicer
-    remmina
     rpi-imager
     slack
     spotify

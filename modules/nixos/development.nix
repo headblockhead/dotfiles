@@ -8,6 +8,7 @@
     awscli2
     bat
     bind
+    btop
     cargo
     ccls
     cmake
@@ -20,11 +21,9 @@
     gcc
     gcc-arm-embedded
     gnumake
-    unstable.go_1_24
     gopass
     gopls
     htop
-    btop
     hugo
     inetutils
     killall
@@ -48,9 +47,11 @@
     rustc
     templ
     tmux
+    unstable.go_1_24
     usbutils
     wireguard-tools
     wireshark
     xc
+    pciutils
   ];
 }

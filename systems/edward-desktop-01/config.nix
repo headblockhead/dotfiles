@@ -38,7 +38,10 @@
   ];
   #systemd.services.xmrig.wantedBy = lib.mkForce [ ];
 
-  services.tailscale.enable = true;
+  services.ollama = {
+    enable = true;
+    acceleration = "rocm";
+  };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
@@ -62,9 +65,8 @@
 
   environment.systemPackages = [
     agenix.packages.x86_64-linux.default
-    pkgs.xc
 
-    pkgs.cachix
+    pkgs.adwsteamgtk
     pkgs.clonehero
     pkgs.unstable.blender-hip
     pkgs.prismlauncher

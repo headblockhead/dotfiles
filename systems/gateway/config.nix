@@ -163,6 +163,7 @@ in
         "/gateway.edwardh.lan/192.168.2.1"
 
         "/cache.edwardh.lan/192.168.2.107" # rpi5-01
+        "/hass.edwardh.lan/192.168.2.100" # homeassistant
       ];
 
       # Custom static IPs and hostnames

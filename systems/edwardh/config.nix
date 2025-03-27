@@ -21,6 +21,7 @@
 
   age.secrets.mail-hashed-password.file = ../../secrets/mail-hashed-password.age;
   age.secrets.minio-credentials.file = ../../secrets/minio-credentials.age;
+  age.secrets.radicale-htpasswd.file = ../../secrets/radicale-htpasswd.age;
 
   services.openssh = {
     enable = true;
@@ -38,7 +39,6 @@
     443 # HTTPS
     53 # DNS
     4243 # Automx2
-    9000 # Minio
     22 # SSH
   ];
   networking.firewall.allowedUDPPorts = [
@@ -78,9 +78,9 @@
 
     backup.enable = true; # Backup to /var/rsnapshot
 
-    # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
     loginAccounts = {
       "inbox@edwardh.dev" = {
+        # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
         hashedPasswordFile = config.age.secrets.mail-hashed-password.path;
         aliases = [ "@edwardh.dev" ];
         sieveScript = ''
@@ -162,6 +162,10 @@
             fileinto "Organizations.AbuseIPDB";
             stop;
           }
+          if address :contains "To" "obsidian" {
+            fileinto "Organizations.Obsidian";
+            stop;
+          }
 
           if address :contains "To" "security" {
             fileinto "Security";
@@ -215,6 +219,7 @@
       "Organizations.Steam" = { auto = "subscribe"; };
       "Organizations.ThePiHut" = { auto = "subscribe"; };
       "Organizations.AbuseIPDB" = { auto = "subscribe"; };
+      "Organizations.Obsidian" = { auto = "subscribe"; };
 
       # Individual people
       "People" = { auto = "subscribe"; };
@@ -242,6 +247,8 @@
         servers = [
           { type = "imap"; name = "mail.edwardh.dev"; }
           { type = "smtp"; name = "mail.edwardh.dev"; }
+          { type = "caldav"; port = 443; url = "https://radicale.edwardh.dev/SOGo/dav/%EMAILADDRESS%/Calendar/personal/"; }
+          { type = "carddav"; port = 443; url = "https://radicale.edwardh.dev/SOGo/dav/%EMAILADDRESS%/Contacts/personal/"; }
         ];
       };
   };
@@ -278,6 +285,10 @@
     "d /etc/bind/zones 755 named root -"
     "L+ /etc/bind/zones/db.edwardh.dev - - - - ${./db.edwardh.dev}"
     "z /etc/bind/zones/db.edwardh.dev 744 named root -"
+
+    "d /etc/radicale 755 root root -"
+    "C+ /etc/radicale/htpasswd - - - - ${config.age.secrets.radicale-htpasswd.path}"
+    "z /etc/radicale/htpasswd 700 radicale radicale -"
   ];
 
   services.bind = {
@@ -306,6 +317,18 @@
     browser = false;
   };
 
+  services.radicale = {
+    enable = true;
+    settings = {
+      server.hosts = [ "0.0.0.0:5232" ];
+      auth = {
+        type = "htpasswd";
+        htpasswd_filename = "/etc/radicale/htpasswd";
+        htpasswd_encryption = "bcrypt";
+      };
+    };
+  };
+
   services.nginx = {
     enable = true;
     virtualHosts = {
@@ -317,11 +340,20 @@
           root = edwardh-dev;
         };
       };
-      "obsidian.edwardh.dev" = {
+      "s3.edwardh.dev" = {
         forceSSL = true;
         enableACME = true;
         locations."/" = {
           proxyPass = "http://127.0.0.1:9000";
+          recommendedProxySettings = true;
+        };
+      };
+      "calendar.edwardh.dev" = {
+        forceSSL = true;
+        enableACME = true;
+        serverAliases = [ "contacts.edwardh.dev" ];
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:5232";
           recommendedProxySettings = true;
         };
       };
