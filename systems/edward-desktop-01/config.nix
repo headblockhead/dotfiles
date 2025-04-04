@@ -30,6 +30,7 @@
     ssh
     transmission
     users
+    virtualisation
     yubikey
     zsh
 

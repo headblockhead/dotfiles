@@ -182,6 +182,8 @@
     gnomeExtensions.brightness-control-using-ddcutil
     ddcutil
 
+    gnome-pomodoro
+
     adwaita-icon-theme
     adwaita-qt
   ];
@@ -195,7 +197,6 @@
     gnome-settings-daemon.enable = true;
   };
 
-
   # Exclude certain default gnome apps.
   # See https://github.com/NixOS/nixpkgs/blob/127579d6f40593f9b9b461b17769c6c2793a053d/nixos/modules/services/x11/desktop-managers/gnome.nix#L468 for a list of apps.
   environment.gnome.excludePackages = (with pkgs; [
@@ -203,7 +204,7 @@
     gnome-logs # Logs
     yelp # Help
     epiphany # Web
-    gnome-console # Console - basic terminal emulator
+    gnome-console # Console - basic terminal emulator, not very good
   ]);
 
   # Add udev rules.
