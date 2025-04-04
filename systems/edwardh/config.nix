@@ -166,7 +166,10 @@
             fileinto "Organizations.Obsidian";
             stop;
           }
-
+          if address :contains "To" "microsoft" {
+            fileinto "Organizations.Microsoft";
+            stop;
+          }
           if address :contains "To" "security" {
             fileinto "Security";
             stop;
@@ -220,6 +223,7 @@
       "Organizations.ThePiHut" = { auto = "subscribe"; };
       "Organizations.AbuseIPDB" = { auto = "subscribe"; };
       "Organizations.Obsidian" = { auto = "subscribe"; };
+      "Organizations.Microsoft" = { auto = "subscribe"; };
 
       # Individual people
       "People" = { auto = "subscribe"; };
