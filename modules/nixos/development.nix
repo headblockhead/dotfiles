@@ -42,7 +42,7 @@
     picotool
     platformio
     pulseview
-    python39
+    python313
     qemu
     rustc
     templ

@@ -1,4 +1,4 @@
-{ outputs, lib, pkgs, config, sshkeys, edwardh-dev, ... }:
+{ outputs, lib, config, sshkeys, edwardh-dev, ... }:
 {
   networking.hostName = "edwardh";
   networking.domain = "dev";
@@ -20,7 +20,6 @@
   ];
 
   age.secrets.mail-hashed-password.file = ../../secrets/mail-hashed-password.age;
-  #age.secrets.minio-credentials.file = ../../secrets/minio-credentials.age;
   age.secrets.radicale-htpasswd.file = ../../secrets/radicale-htpasswd.age;
 
   services.openssh = {
@@ -314,14 +313,6 @@
     };
   };
 
-  #  services.minio = {
-  #enable = true;
-  #region = "eu-west-2";
-  #rootCredentialsFile = config.age.secrets.minio-credentials.path;
-  #listenAddress = "0.0.0.0:9000";
-  #browser = false;
-  #};
-
   services.radicale = {
     enable = true;
     settings = {
@@ -366,7 +357,6 @@
   };
 
   environment.systemPackages = [
-    pkgs.xc
   ];
 
   security.sudo.wheelNeedsPassword = false;

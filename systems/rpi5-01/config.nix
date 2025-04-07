@@ -8,7 +8,6 @@
     cachesLocal
     distributedBuilds
     git
-    #githubActions
     homeManager
     ssh
     users
@@ -33,10 +32,7 @@
     };
   };
 
-
-
   environment.systemPackages = [
-    pkgs.xc
   ];
 
   security.sudo.wheelNeedsPassword = false;

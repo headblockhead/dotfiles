@@ -24,10 +24,6 @@ in
     zsh
   ];
 
-  environment.systemPackages = [
-    pkgs.xc
-  ];
-
   # Allow packet forwarding
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.forwarding" = true;
@@ -215,6 +211,9 @@ in
     unifiPackage = pkgs.unifi8;
     mongodbPackage = pkgs.mongodb-7_0;
   };
+
+  environment.systemPackages = [
+  ];
 
   security.sudo.wheelNeedsPassword = false;
 

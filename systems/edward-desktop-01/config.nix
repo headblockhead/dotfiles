@@ -64,23 +64,14 @@
     font-dpi=192
   '';
 
-  environment.systemPackages = [
-    pkgs.adwsteamgtk
-    pkgs.clonehero
-    pkgs.unstable.blender-hip
-    pkgs.prismlauncher
-  ];
-
-  # find / -name '*.desktop' 2> /dev/null
-  services.xserver.desktopManager.gnome.favoriteAppsOverride = ''
-    [org.gnome.shell]
-    favorite-apps=[ 'firefox.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Settings.desktop', 'org.gnome.Calculator.desktop', 'org.freecad.FreeCAD.desktop', 'org.kicad.kicad.desktop', 'gnome-system-monitor.desktop', 'thunderbird.desktop', 'slack.desktop', 'spotify.desktop', 'steam.desktop', 'org.openrgb.OpenRGB.desktop']
-  '';
-
-  # man tmpfiles.d
   systemd.tmpfiles.rules = [
     ''L+ /run/gdm/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
     ''L+ /home/headb/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
+  ];
+
+  environment.systemPackages = [
+    pkgs.clonehero
+    pkgs.unstable.blender-hip
   ];
 
   system.stateVersion = "22.05";

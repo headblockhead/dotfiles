@@ -1,5 +1,4 @@
-{ outputs, pkgs, ... }:
-
+{ outputs, ... }:
 {
   networking.hostName = "rpi4-01";
 
@@ -15,12 +14,6 @@
     users
     zsh
   ];
-
-  environment.systemPackages = [
-    pkgs.xc
-  ];
-
-  security.sudo.wheelNeedsPassword = false;
 
   networking.firewall.allowedTCPPorts = [ 80 443 7125 ];
 
@@ -293,6 +286,10 @@
     };
   };
 
+  environment.systemPackages = [
+  ];
+
+  security.sudo.wheelNeedsPassword = false;
 
   system.stateVersion = "23.05";
 }
