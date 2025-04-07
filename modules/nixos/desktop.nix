@@ -226,17 +226,17 @@
     pkgs.unstable.nerd-fonts.sauce-code-pro
   ];
 
-  services.kmscon = {
-    enable = true;
-    fonts = [
-      { name = "SauceCodePro Nerd Font"; package = pkgs.unstable.nerd-fonts.sauce-code-pro; }
-    ];
-    extraConfig = ''
-      font-size=12
-      hwaccel
-    '';
-    hwRender = true;
-  };
+  #  services.kmscon = {
+  #enable = true;
+  #fonts = [
+  #{ name = "SauceCodePro Nerd Font"; package = pkgs.unstable.nerd-fonts.sauce-code-pro; }
+  #];
+  #extraConfig = ''
+  #font-size=12
+  #hwaccel
+  #'';
+  #hwRender = true;
+  #};
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
