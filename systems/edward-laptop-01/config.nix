@@ -6,8 +6,6 @@
     basicConfig
     bluetooth
     bootloaderGraphical
-    cachesGlobal
-    cachesLocal
     desktop
     desktopApps
     development

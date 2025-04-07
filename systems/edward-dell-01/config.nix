@@ -7,7 +7,6 @@
     basicConfig
     bluetooth
     bootloaderGraphical
-    cachesGlobal
     desktop
     desktopApps
     fileSystems

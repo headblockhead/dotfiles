@@ -4,8 +4,6 @@
 
   imports = with outputs.nixosModules; [
     basicConfig
-    cachesGlobal
-    cachesLocal
     distributedBuilds
     fzf
     git

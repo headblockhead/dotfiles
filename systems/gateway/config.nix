@@ -12,8 +12,6 @@ in
   imports = with outputs.nixosModules; [
     basicConfig
     bootloaderText
-    cachesGlobal
-    cachesLocal
     distributedBuilds
     fileSystems
     git
@@ -154,7 +152,7 @@ in
         "/gateway.edwardh.lan/192.168.1.1"
         "/gateway.edwardh.lan/192.168.2.1"
 
-        "/cache.edwardh.lan/192.168.2.107" # rpi5-01
+        "/cache.edwardh.dev/192.168.2.107" # rpi5-01 (deliberate DNS poisoning for the sake of speed)
         "/hass.edwardh.lan/192.168.2.100" # homeassistant
       ];
 

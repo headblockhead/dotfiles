@@ -3,10 +3,9 @@
   bluetooth = import ./bluetooth.nix;
   bootloaderGraphical = import ./bootloaderGraphical.nix;
   bootloaderText = import ./bootloaderText.nix;
-  cachesGlobal = import ./cachesGlobal.nix;
-  cachesLocal = import ./cachesLocal.nix;
   desktop = import ./desktop.nix;
   desktopApps = import ./desktopApps.nix;
+  ncps = import ./ncps.nix;
   development = import ./development.nix;
   distributedBuilds = import ./distributedBuilds.nix;
   docker = import ./docker.nix;

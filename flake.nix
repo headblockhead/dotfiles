@@ -82,6 +82,7 @@
             ./systems/rpi5-01/hardware.nix
             inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             inputs.raspberry-pi-nix.nixosModules.sd-image
+            agenix.nixosModules.default
           ];
         };
 
