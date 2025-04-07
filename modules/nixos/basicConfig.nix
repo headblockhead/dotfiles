@@ -1,4 +1,4 @@
-{ inputs, outputs, lib, config, ... }:
+{ inputs, outputs, lib, config, pkgs, ... }:
 {
   # Clear the tmp directory on boot.
   boot.tmp.cleanOnBoot = true;
@@ -45,4 +45,10 @@
     experimental-features = "nix-command flakes";
     auto-optimise-store = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    git
+    xc
+    neovim
+  ];
 }
