@@ -65,8 +65,8 @@
   '';
 
   systemd.tmpfiles.rules = [
-    ''L+ /run/gdm/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
-    ''L+ /home/headb/.config/monitors.xml - - - - ${builtins.toString ./monitors.xml}''
+    ''C+ /run/gdm/.config/monitors.xml - - - - ${./monitors.xml}''
+    ''C+ /home/headb/.config/monitors.xml - - - - ${./monitors.xml}''
   ];
 
   environment.systemPackages = [

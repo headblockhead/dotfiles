@@ -13,9 +13,9 @@
     zsh
 
     (builtins.fetchTarball {
-      # nixos-24.11 as of 2024-02-09
-      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/6b425d13f5a9d73cb63973d3609acacef4d1e261/nixos-mailserver-6b425d13f5a9d73cb63973d3609acacef4d1e261.tar.gz";
-      sha256 = "0apbd7123kga7kzd2ilgcsg49grhvrabv3hdk6c5yqapf04izdan";
+      # nixos-unstable as of 2025-04-07
+      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/b4fbffe79c00f19be94b86b4144ff67541613659/nixos-mailserver-b4fbffe79c00f19be94b86b4144ff67541613659.tar.gz";
+      sha256 = "0r8c0mkj7cn2cz0r6m45h51w5qwf2cyiiv956bz75p3fcps4qj1n";
     })
   ];
 
@@ -250,8 +250,8 @@
         servers = [
           { type = "imap"; name = "mail.edwardh.dev"; }
           { type = "smtp"; name = "mail.edwardh.dev"; }
-          { type = "caldav"; port = 443; url = "https://radicale.edwardh.dev/SOGo/dav/%EMAILADDRESS%/Calendar/personal/"; }
-          { type = "carddav"; port = 443; url = "https://radicale.edwardh.dev/SOGo/dav/%EMAILADDRESS%/Contacts/personal/"; }
+          { type = "caldav"; port = 443; url = "https://calendar.edwardh.dev/SOGo/dav/%EMAILADDRESS%/Calendar/personal/"; }
+          { type = "carddav"; port = 443; url = "https://contacts.edwardh.dev/SOGo/dav/%EMAILADDRESS%/Contacts/personal/"; }
         ];
       };
   };
@@ -270,15 +270,15 @@
     jails = {
       sshd.settings = {
         enabled = true;
-        maxretry = 3;
+        mode = "aggressive";
       };
       dovecot.settings = {
         enabled = true;
-        maxretry = 3;
+        mode = "aggressive";
       };
       postfix.settings = {
         enabled = true;
-        maxretry = 1;
+        mode = "aggressive";
       };
     };
   };
@@ -299,7 +299,6 @@
     extraOptions = ''
       recursion no;
       allow-transfer { none; };
-      allow-query-cache { none; };
       version "not currently available";
     '';
     zones."edwardh.dev" = {
@@ -334,14 +333,6 @@
         enableACME = true;
         locations."/" = {
           root = edwardh-dev.packages.edwardh-dev;
-        };
-      };
-      "s3.edwardh.dev" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:9000";
-          recommendedProxySettings = true;
         };
       };
       "calendar.edwardh.dev" = {

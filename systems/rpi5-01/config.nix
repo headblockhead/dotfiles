@@ -14,23 +14,34 @@
     zsh
   ];
 
-  services.nix-serve = {
-    enable = true;
-    package = pkgs.nix-serve-ng;
-    secretKeyFile = "/var/cache-private-key.pem";
-  };
+  # TODO: add harmonia cert
+  #services.harmonia = {
+  #enable = true;
+  #signKeyPaths = [ config.age.secrets.harmonia-signing-key.path ];
+  #};
 
-  networking.firewall.allowedTCPPorts = [ 80 ];
+  # TODO: add NCPS
+  #  services.ncps = {
+  #enable = true;
+  #server.addr = "127.0.0.1:8501";
+  #upstream.caches = [
+  ## TODO: add harmonia
+  #"https://nix-community.cachix.org"
+  #"https://cache.nixos.org/"
+  #];
+  #};
 
-  services.nginx = {
-    enable = true;
-    recommendedProxySettings = true;
-    virtualHosts = {
-      "cache.edwardh.lan" = {
-        locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
-      };
-    };
-  };
+  #networking.firewall.allowedTCPPorts = [ 80 ]; # TODO: switch to HTTPS
+
+  #  services.nginx = {
+  #enable = true;
+  #recommendedProxySettings = true;
+  #virtualHosts = {
+  #"cache.edwardh.lan" = {
+  #locations."/".proxyPass = "http://${config.services.ncps.server.addr}:8501";
+  #};
+  #};
+  #};
 
   environment.systemPackages = [
   ];
