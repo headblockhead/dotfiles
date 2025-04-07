@@ -14,10 +14,8 @@
   fonts = import ./fonts.nix;
   fzf = import ./fzf.nix;
   git = import ./git.nix;
-  githubActions = import ./githubActions.nix;
   gpg = import ./gpg.nix;
   homeManager = import ./homeManager.nix;
-  klipper = import ./klipper.nix;
   network = import ./network.nix;
   openrgb = import ./openrgb.nix;
   p2pool = import ./p2pool.nix;
@@ -31,7 +29,6 @@
   transmission = import ./transmission.nix;
   users = import ./users.nix;
   virtualisation = import ./virtualisation.nix;
-  wireguard = import ./wireguard.nix;
   xmrig = import ./xmrig.nix;
   yubikey = import ./yubikey.nix;
   zsh = import ./zsh.nix;

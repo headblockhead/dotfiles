@@ -9,7 +9,7 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master"; # Very unstable! Useful for same-day hotfixes.
 
@@ -21,13 +21,12 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
     agenix.url = "github:ryantm/agenix";
-    ncps.url = "github:kalbasit/ncps";
 
     edwardh-dev.url = "github:headblockhead/edwardh.dev";
   };
 
   outputs =
-    { self, nixpkgs, home-manager, agenix, deploy-rs, edwardh-dev, ncps, ... }@ inputs:
+    { self, nixpkgs, home-manager, agenix, deploy-rs, edwardh-dev, ... }@ inputs:
     let
       inherit (self) outputs;
 
@@ -67,91 +66,61 @@
         # Local servers
         gateway = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs agenix sshkeys; };
+          specialArgs = { inherit inputs outputs sshkeys; };
           modules = [
             ./systems/gateway/config.nix
             ./systems/gateway/hardware.nix
-            agenix.nixosModules.default
           ];
         };
 
         rpi5-01 = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs agenix sshkeys ncps; };
+          specialArgs = { inherit inputs outputs sshkeys; };
           modules = [
             ./systems/rpi5-01/config.nix
-            {
-              raspberry-pi-nix = {
-                board = "bcm2712"; # Raspberry Pi 5
-                pin-inputs.enable = true; # pin inputs to latest cachix build
-              };
-              hardware.raspberry-pi = {
-                config.all.base-dt-params = {
-                  nvme = {
-                    enable = true;
-                  };
-                  pciex1_gen = {
-                    enable = true;
-                    value = 3;
-                  };
-                };
-              };
-            }
+            ./systems/rpi5-01/hardware.nix
             inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             inputs.raspberry-pi-nix.nixosModules.sd-image
           ];
         };
 
-        printerpi = nixpkgs.lib.nixosSystem {
+        rpi4-01 = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs agenix sshkeys; };
+          specialArgs = { inherit inputs outputs sshkeys; };
           modules = [
-            ./systems/printerpi/config.nix
+            ./systems/rpi4-01/config.nix
+            ./systems/rpi4-01/hardware.nix
             ./systems/wifi-config.nix # gitignored, see wifi-config-template.nix
-            {
-              raspberry-pi-nix = {
-                board = "bcm2711"; # Raspberry Pi 4
-                pin-inputs.enable = true; # pin inputs to latest cachix build
-              };
-            }
             inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             inputs.raspberry-pi-nix.nixosModules.sd-image
-            agenix.nixosModules.default
           ];
         };
 
-        # Local desktops
+        # Local clients
         edward-desktop-01 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs agenix sshkeys; };
+          specialArgs = { inherit inputs outputs sshkeys; };
           modules = [
             ./systems/edward-desktop-01/config.nix
             ./systems/edward-desktop-01/hardware.nix
-            agenix.nixosModules.default
           ];
         };
         edward-laptop-01 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs agenix sshkeys; };
+          specialArgs = { inherit inputs outputs sshkeys; };
           modules = [
             ./systems/edward-laptop-01/config.nix
             ./systems/edward-laptop-01/hardware.nix
-            ./systems/edward-laptop-01/specialisations/away.nix
-            agenix.nixosModules.default
           ];
         };
 
-        # AWS EC2 nodes.
-        # 18.135.222.143
+        # AWS EC2 nodes
         edwardh = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = {
-            inherit inputs outputs sshkeys;
-            edwardh-dev = edwardh-dev.packages.edwardh-dev;
-          };
+          specialArgs = { inherit inputs outputs sshkeys edwardh-dev; };
           modules = [
-            "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
             ./systems/edwardh/config.nix
+            "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
             agenix.nixosModules.default
           ];
         };
@@ -159,11 +128,10 @@
         # Old Dell desktop machine.
         edward-dell-01 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs agenix sshkeys; };
+          specialArgs = { inherit inputs outputs sshkeys; };
           modules = [
             ./systems/edward-dell-01/config.nix
             ./systems/edward-dell-01/hardware.nix
-            agenix.nixosModules.default
           ];
         };
       };
@@ -183,10 +151,10 @@
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./systems/rpi5-01/users/headb.nix ];
         };
-        "headb@printerpi" = home-manager.lib.homeManagerConfiguration {
+        "headb@rpi4-01" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/printerpi/users/headb.nix ];
+          modules = [ ./systems/rpi4-01/users/headb.nix ];
         };
         "headb@edward-desktop-01" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;

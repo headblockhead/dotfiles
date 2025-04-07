@@ -1,4 +1,4 @@
-{ outputs, pkgs, agenix, ... }:
+{ outputs, pkgs, ... }:
 {
   networking.hostName = "edward-laptop-01";
 
@@ -33,9 +33,7 @@
 
   # Extra packages to install.
   environment.systemPackages = [
-    agenix.packages.x86_64-linux.default
     pkgs.xc
-
     pkgs.ardour
     pkgs.tor-browser-bundle-bin
     pkgs.x32edit

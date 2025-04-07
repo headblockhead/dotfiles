@@ -342,7 +342,7 @@
         forceSSL = true;
         enableACME = true;
         locations."/" = {
-          root = edwardh-dev;
+          root = edwardh-dev.packages.edwardh-dev;
         };
       };
       "s3.edwardh.dev" = {

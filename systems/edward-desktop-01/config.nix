@@ -1,4 +1,4 @@
-{ outputs, lib, pkgs, agenix, ... }:
+{ outputs, lib, pkgs, ... }:
 
 {
   networking.hostName = "edward-desktop-01";
@@ -65,8 +65,6 @@
   '';
 
   environment.systemPackages = [
-    agenix.packages.x86_64-linux.default
-
     pkgs.adwsteamgtk
     pkgs.clonehero
     pkgs.unstable.blender-hip

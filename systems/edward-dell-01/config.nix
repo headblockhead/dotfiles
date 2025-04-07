@@ -1,4 +1,4 @@
-{ outputs, agenix, pkgs, ... }:
+{ outputs, pkgs, ... }:
 
 {
   networking.hostName = "edward-dell-01";
@@ -25,7 +25,6 @@
 
   # Extra packages to install
   environment.systemPackages = [
-    agenix.packages.x86_64-linux.default
     pkgs.arduino
     pkgs.audacity
     pkgs.cachix

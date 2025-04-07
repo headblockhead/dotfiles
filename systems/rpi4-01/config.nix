@@ -1,4 +1,27 @@
+{ outputs, pkgs, ... }:
+
 {
+  networking.hostName = "rpi4-01";
+
+  imports = with outputs.nixosModules; [
+    basicConfig
+    cachesGlobal
+    cachesLocal
+    distributedBuilds
+    fzf
+    git
+    homeManager
+    ssh
+    users
+    zsh
+  ];
+
+  environment.systemPackages = [
+    pkgs.xc
+  ];
+
+  security.sudo.wheelNeedsPassword = false;
+
   networking.firewall.allowedTCPPorts = [ 80 443 7125 ];
 
   security.polkit.enable = true;
@@ -269,4 +292,7 @@
       enableKlipperFlash = true;
     };
   };
+
+
+  system.stateVersion = "23.05";
 }

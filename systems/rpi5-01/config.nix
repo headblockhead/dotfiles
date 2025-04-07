@@ -1,4 +1,4 @@
-{ outputs, pkgs, config, ncps, ... }:
+{ outputs, pkgs, config, ... }:
 {
   networking.hostName = "rpi5-01";
 
@@ -32,6 +32,8 @@
       };
     };
   };
+
+
 
   environment.systemPackages = [
     pkgs.xc
