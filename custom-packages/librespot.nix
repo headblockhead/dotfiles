@@ -5,7 +5,6 @@
 , pkg-config
 , stdenv
 , openssl
-, avahi-compat
 , withALSA ? stdenv.hostPlatform.isLinux
 , alsa-lib
 , alsa-plugins
@@ -14,39 +13,50 @@
 , withPulseAudio ? false
 , libpulseaudio
 , withRodio ? true
+, withAvahi ? false
+, withMDNS ? true
+, avahi-compat
+,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "librespot";
-  # version = "0.6.0";
-  version = "0.5.0";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "librespot-org";
     repo = "librespot";
-    rev = "v${version}";
-    #sha256 = "sha256-dGQDRb7fgIkXelZKa+PdodIs9DxbgEMlVGJjK/hU3Mo=";
-    sha256 = "sha256-/YMICsrUMYqiL5jMlb5BbZPlHfL9btbWiv/Kt2xhRW4=";
+    tag = "v${version}";
+    sha256 = "sha256-dGQDRb7fgIkXelZKa+PdodIs9DxbgEMlVGJjK/hU3Mo=";
   };
 
-  #cargoHash = "sha256-GScAUqALoocqvsHz4XgPytI8cl0hiuWjqaO/ItNo4v4=";
-  cargoHash = "sha256-UOvGvseWaEqqjuvTewDfkBeR730cKMQCq55weYmu15Y=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-SqvJSHkyd1IicT6c4pE96dBJNNodULhpyG14HRGVWCk=";
 
-  nativeBuildInputs = [ pkg-config makeWrapper ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    rustPlatform.bindgenHook
-  ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      makeWrapper
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      rustPlatform.bindgenHook
+    ];
 
-  buildInputs = [ openssl avahi-compat ]
+  buildInputs =
+    [ openssl ]
     ++ lib.optional withALSA alsa-lib
+    ++ lib.optional withAvahi avahi-compat
     ++ lib.optional withPortAudio portaudio
     ++ lib.optional withPulseAudio libpulseaudio;
 
   buildNoDefaultFeatures = true;
-  buildFeatures = lib.optional withRodio "rodio-backend"
+  buildFeatures =
+    lib.optional withRodio "rodio-backend"
     ++ lib.optional withALSA "alsa-backend"
+    ++ lib.optional withMDNS "with-libmdns"
+    ++ lib.optional withAvahi "with-avahi"
     ++ lib.optional withPortAudio "portaudio-backend"
-    ++ lib.optional withPulseAudio "pulseaudio-backend"
-    ++ [ "with-dns-sd" ];
+    ++ lib.optional withPulseAudio "pulseaudio-backend";
 
   postFixup = lib.optionalString withALSA ''
     wrapProgram "$out/bin/librespot" \

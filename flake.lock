@@ -68,11 +68,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1741991542,
-        "narHash": "sha256-gtIlqzgGjaKWN6sdrXoInmBWm/Lrj4DsriY6YI/6t9Q=",
+        "lastModified": 1744045588,
+        "narHash": "sha256-zfXC2yHth2Q6Hy1mUJ0/MdGtC6doaz4DIpWeVs11aVQ=",
         "owner": "headblockhead",
         "repo": "edwardh.dev",
-        "rev": "16d8b401097b4395001ea0dc7ab59702878e2956",
+        "rev": "f9664ebebc31819dbc105e9599e70aebb6d1814a",
         "type": "github"
       },
       "original": {
@@ -191,11 +191,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1744027626,
-        "narHash": "sha256-+SOZFaP83ZeRwsEEtUVDRGz5E0gN/VpYqhYcD0FCkC4=",
+        "lastModified": 1744042683,
+        "narHash": "sha256-OcbNmAMhC1i9W9qlG9dA+NMz3oKo4T4s2TRCeqoncPs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "64dafff20fbd67fc9a365631941d91bdfc018adc",
+        "rev": "d0fb58c032aa16827be81bcb4592213797edf6e5",
         "type": "github"
       },
       "original": {

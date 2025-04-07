@@ -226,6 +226,7 @@
     pkgs.unstable.nerd-fonts.sauce-code-pro
   ];
 
+  # un-comment when NixOS/nixpkgs#385497 is fixed
   #  services.kmscon = {
   #enable = true;
   #fonts = [
