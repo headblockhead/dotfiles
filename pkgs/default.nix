@@ -4,7 +4,11 @@
   home-manager = inputs.home-manager.defaultPackage.${system};
   deploy-rs = inputs.deploy-rs.packages.${system}.default;
 
-  librespot = pkgs.callPackage ../custom-packages/librespot.nix { };
+  # can be removed and moved to overlays when #396637 is merged
+  librespot = pkgs.callPackage ../custom-packages/librespot.nix {
+    withDNS-SD = true;
+  };
+
   picotool = pkgs.callPackage ../custom-packages/picotool.nix {
     pico-sdk = pkgs.callPackage ../custom-packages/pico-sdk.nix { };
   };

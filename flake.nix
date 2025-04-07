@@ -1,5 +1,5 @@
 {
-  description = "Reproducable NixOS and homemanager config for my local servers, cloud servers, desktops, and laptops,";
+  description = "Reproducable NixOS and homemanager config for my local servers, cloud servers, desktops, and laptops.";
 
   nixConfig = {
     extra-substituters = [ "https://nix-community.cachix.org" ];

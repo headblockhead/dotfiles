@@ -314,7 +314,7 @@
   services.radicale = {
     enable = true;
     settings = {
-      server.hosts = [ "0.0.0.0:5232" ];
+      server.hosts = [ "127.0.0.1:5232" ];
       auth = {
         type = "htpasswd";
         htpasswd_filename = "/etc/radicale/htpasswd";
@@ -340,6 +340,25 @@
         serverAliases = [ "contacts.edwardh.dev" ];
         locations."/" = {
           proxyPass = "http://127.0.0.1:5232";
+          recommendedProxySettings = true;
+        };
+      };
+      # Local services
+      "cache.edwardh.dev" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/" = {
+          # This looks super strange, but the DNS here is resolved from the VPN peer
+          # meaning this resolves to an IP of a device on my local network.
+          proxyPass = "http://cache.edwardh.dev";
+          recommendedProxySettings = true;
+        };
+      };
+      "hass.edwardh.dev" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/" = {
+          proxyPass = "http://hass.edwardh.dev:8123";
           recommendedProxySettings = true;
         };
       };
