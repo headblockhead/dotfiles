@@ -1,4 +1,4 @@
-{ outputs, pkgs, config, ... }:
+{ outputs, pkgs, config, ncps, ... }:
 {
   networking.hostName = "rpi5-01";
 

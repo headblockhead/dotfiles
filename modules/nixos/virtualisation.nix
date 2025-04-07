@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = [
-    pkgs.gnome-boxes
+    pkgs.virt-manager
   ];
   virtualisation.libvirtd = {
     enable = true;

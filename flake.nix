@@ -21,12 +21,13 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
     agenix.url = "github:ryantm/agenix";
+    ncps.url = "github:kalbasit/ncps";
 
     edwardh-dev.url = "github:headblockhead/edwardh.dev";
   };
 
   outputs =
-    { self, nixpkgs, home-manager, agenix, deploy-rs, edwardh-dev, ... }@ inputs:
+    { self, nixpkgs, home-manager, agenix, deploy-rs, edwardh-dev, ncps, ... }@ inputs:
     let
       inherit (self) outputs;
 
@@ -76,7 +77,7 @@
 
         rpi5-01 = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs agenix sshkeys; };
+          specialArgs = { inherit inputs outputs agenix sshkeys ncps; };
           modules = [
             ./systems/rpi5-01/config.nix
             {
@@ -98,7 +99,6 @@
             }
             inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             inputs.raspberry-pi-nix.nixosModules.sd-image
-            agenix.nixosModules.default
           ];
         };
 

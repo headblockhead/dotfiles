@@ -1,10 +1,5 @@
-{ outputs, config, pkgs, lib, ... }:
+{ outputs, pkgs, lib, ... }:
 let
-  snapweb = pkgs.fetchzip {
-    url = "https://github.com/badaix/snapweb/releases/download/v0.8.0/snapweb.zip";
-    hash = "sha256-IpT1pcuzcM8kqWJUX3xxpRQHlfPNsrwhemLmY0PyzjI=";
-    stripRoot = false; # Flat list of files
-  };
   # Physical ports. Defined seperatly so they can be changed easily.
   wan_port = "enp4s0";
   lan_port = "enp5s0";
@@ -38,8 +33,9 @@ in
     "net.ipv4.conf.all.forwarding" = true;
     "net.ipv6.conf.all.forwarding" = false;
   };
+
   networking = {
-    # Replaced by nftables
+    # Builtin firewall is replaced by nftables
     firewall.enable = false;
 
     useDHCP = lib.mkDefault false;
@@ -211,13 +207,6 @@ in
           params = "--zeroconf-port=5354 --name House --bitrate 320 --backend pipe --initial-volume 100 --quiet";
         };
       };
-    };
-
-    http = {
-      enable = true;
-      port = 1780;
-      listenAddress = "192.168.1.1";
-      docRoot = snapweb;
     };
   };
 
