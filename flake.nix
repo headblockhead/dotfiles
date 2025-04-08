@@ -2,9 +2,9 @@
   description = "Reproducable NixOS and homemanager config for my local servers, cloud servers, desktops, and laptops.";
 
   nixConfig = {
-    extra-substituters = [ "https://nix-community.cachix.org" ];
+    extra-substituters = [ "http://cache.edwardh.dev" ];
     extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "cache.edwardh.dev-1:/i5z0aYaRDBcT8Qf9uDFi8z0FEKIZsK7RVZLMKNJMGg="
     ];
   };
 
