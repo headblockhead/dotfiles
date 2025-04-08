@@ -168,6 +168,10 @@
             fileinto "Organizations.Microsoft";
             stop;
           }
+          if address :contains "To" "ubisoft" {
+            fileinto "Organizations.Ubisoft";
+            stop;
+          }
 
           if address :contains "To" "security" {
             fileinto "Security";
@@ -225,6 +229,7 @@
       "Organizations.PCBWay" = { auto = "subscribe"; }; # sorted via sender
       "Organizations.PCBX" = { auto = "subscribe"; }; # sorted via sender
       "Organizations.Prusa" = { auto = "subscribe"; };
+      "Organizations.Ubisoft" = { auto = "subscribe"; };
       "Organizations.Steam" = { auto = "subscribe"; };
       "Organizations.ThePiHut" = { auto = "subscribe"; };
 
