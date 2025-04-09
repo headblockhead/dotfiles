@@ -118,7 +118,7 @@ in
     enable = true;
     settings = {
       interface = [ lan_port iot_port ];
-      bind-interfaces = true; # Bind only to interfaces specified above.
+      bind-dynamic = true; # Bind only to interfaces specified above.
 
       domain-needed = true; # Don't forward DNS requests without dots/domain parts to upstream servers.
       bogus-priv = true; # If a private IP lookup (192.168.x.x, etc.) fails, it will be answered with "no such domain", instead of forwarded to upstream.
