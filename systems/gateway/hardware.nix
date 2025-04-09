@@ -8,8 +8,7 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
 
-  boot.blacklistedKernelModules = [ "r8169" ];
-  boot.kernelModules = [ "r8125" ];
+  boot.kernelModules = [ "r8125" "r8169" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [
     r8125
   ];
