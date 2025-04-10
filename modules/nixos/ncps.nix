@@ -1,4 +1,4 @@
-# taken from #396901, can be removed when merged
+# taken from #396901 and #397685, can be removed when merged
 { config
 , pkgs
 , lib
@@ -241,7 +241,8 @@ in
     systemd.services.ncps = {
       description = "ncps binary cache proxy service";
 
-      after = [ "network.target" ];
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
 
       preStart = ''

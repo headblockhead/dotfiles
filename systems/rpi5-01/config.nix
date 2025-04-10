@@ -3,7 +3,7 @@
   networking.hostName = "rpi5-01";
 
   disabledModules = [
-    "services/networking/ncps.nix" # upstream nixpkgs has errors, remove when #396901 merged
+    "services/networking/ncps.nix" # upstream nixpkgs has errors, remove when #396901 and #397685 merged
   ];
 
   imports = with outputs.nixosModules; [
@@ -24,6 +24,11 @@
   services.harmonia = {
     enable = true;
     signKeyPaths = [ config.age.secrets.harmonia-signing-key.path ];
+    settings = {
+      workers = 8;
+      max_connection_rate = 1024;
+      priority = 20;
+    };
   };
 
   services.ncps = {
