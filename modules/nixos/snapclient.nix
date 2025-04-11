@@ -8,7 +8,7 @@
       "pipewire.service"
     ];
     serviceConfig = {
-      ExecStart = "${pkgs.snapcast}/bin/snapclient -h 192.168.2.1";
+      ExecStart = "${pkgs.snapcast}/bin/snapclient -h gateway";
     };
   };
 }

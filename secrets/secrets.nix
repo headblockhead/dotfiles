@@ -10,4 +10,5 @@ in
   "radicale-htpasswd.age".publicKeys = [ edward-desktop-01 edwardh ];
   "harmonia-signing-key.age".publicKeys = [ edward-desktop-01 rpi5-01 ];
   "ncps-signing-key.age".publicKeys = [ edward-desktop-01 rpi5-01 ];
+  "wireguard-key.age".publicKeys = [ edward-desktop-01 gateway ];
 }

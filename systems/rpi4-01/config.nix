@@ -22,19 +22,19 @@
       authorization = {
         trusted_clients = [
           "127.0.0.0/8"
-          "192.168.1.0/24"
+          "172.16.0.0/12"
         ];
       };
     };
     group = "klipper";
-    address = "0.0.0.0";
+    address = "172.16.0.0";
     port = 7125;
     allowSystemControl = true;
   };
 
   services.mainsail = {
     enable = true;
-    hostName = "0.0.0.0";
+    hostName = "172.16.0.0";
   };
 
   users.groups.klipper = {

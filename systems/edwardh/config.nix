@@ -21,6 +21,7 @@
 
   age.secrets.mail-hashed-password.file = ../../secrets/mail-hashed-password.age;
   age.secrets.radicale-htpasswd.file = ../../secrets/radicale-htpasswd.age;
+  age.secrets.wireguard-key.file = ../../secrets/wireguard-key.age;
 
   networking.firewall.allowedTCPPorts = [
     80 # HTTP
@@ -31,6 +32,7 @@
   ];
   networking.firewall.allowedUDPPorts = [
     53 # DNS
+    33545 # Wireguard
   ];
 
   # Manually set DNS nameservers, to avoid trying to use our selfhosted non-recursive DNS server.
@@ -326,6 +328,20 @@
     };
   };
 
+  networking.wg-quick.interfaces = {
+    wg0 = {
+      address = [ "172.16.5.0/24" ];
+      listenPort = 51820;
+      privateKeyFile = config.age.secrets.wireguard-key.path;
+      peers = [{
+        publicKey = "JMk7o494sDBjq9EAOeeAwPHxbF6TpbpFSHGSk2DnJHU=";
+        presharedKeyFile = config.age.secrets.wireguard-key.path;
+        allowedIPs = [ "172.16.0.0/12" ];
+      }];
+    };
+  };
+
+
   services.nginx = {
     enable = true;
     virtualHosts = {
@@ -351,9 +367,7 @@
         forceSSL = true;
         enableACME = true;
         locations."/" = {
-          # This looks super strange, but the DNS here is resolved from the VPN peer
-          # meaning this resolves to an IP of a device on my local network.
-          proxyPass = "http://cache.edwardh.dev";
+          proxyPass = "http://172.16.3.101";
           recommendedProxySettings = true;
         };
       };
@@ -361,7 +375,7 @@
         forceSSL = true;
         enableACME = true;
         locations."/" = {
-          proxyPass = "http://hass.edwardh.dev:8123";
+          proxyPass = "http://172.16.3.100:8123";
           recommendedProxySettings = true;
         };
       };

@@ -1,4 +1,4 @@
-{ outputs, pkgs, lib, ... }:
+{ outputs, pkgs, lib, config, ... }:
 let
   # Physical ports. Defined seperatly so they can be changed easily.
   wan_port = "enp4s0";
@@ -16,6 +16,7 @@ in
     fileSystems
     git
     homeManager
+    wireguard
     ssd
     ssh
     users
@@ -40,11 +41,11 @@ in
       };
       "${lan_port}" = {
         useDHCP = false;
-        ipv4.addresses = [{ address = "192.168.1.1"; prefixLength = 24; }];
+        ipv4.addresses = [{ address = "172.16.1.1"; prefixLength = 24; }];
       };
       "${iot_port}" = {
         useDHCP = false;
-        ipv4.addresses = [{ address = "192.168.2.1"; prefixLength = 24; }];
+        ipv4.addresses = [{ address = "172.16.2.1"; prefixLength = 24; }];
       };
     };
 
@@ -55,17 +56,13 @@ in
         table inet filter {
           chain input {
             type filter hook input priority 0; policy drop;
+
             iifname "lo" accept
 
             iifname "${lan_port}" accept
-            iifname "${iot_port}" udp dport { mdns, 53, 67 } counter accept
-            iifname "${iot_port}" tcp dport { 53 } counter accept
 
-            iifname "${iot_port}" tcp dport 1704 accept comment "Snapcast clients"
-
-            iifname "${wan_port}" udp dport mdns counter accept comment "DELETEME: allow mdns on WAN"
-            iifname "${wan_port}" tcp dport 5354 counter accept comment "DELETEME: allow zeroconf"
-            iifname "${wan_port}" udp dport 5354 counter accept comment "DELETEME: allow zeroconf"
+            iifname "${iot_port}" udp dport { 53, 67, 5353 } counter accept
+            iifname "${iot_port}" tcp dport { 53, 1704 } counter accept
 
             iifname "${wan_port}" ct state { established, related } accept
             iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept
@@ -117,11 +114,11 @@ in
   services.dnsmasq = {
     enable = true;
     settings = {
-      interface = [ lan_port iot_port ];
+      interface = [ lan_port iot_port "wg0" ];
       bind-dynamic = true; # Bind only to interfaces specified above.
 
       domain-needed = true; # Don't forward DNS requests without dots/domain parts to upstream servers.
-      bogus-priv = true; # If a private IP lookup (192.168.x.x, etc.) fails, it will be answered with "no such domain", instead of forwarded to upstream.
+      bogus-priv = true; # If a private IP lookup fails, it will be answered with "no such domain", instead of forwarded to upstream.
       no-resolv = true; # Don't read upstream servers from /etc/resolv.conf
       no-hosts = true; # Don't obtain any hosts from /etc/hosts (this would make 'localhost' = this machine for all clients!)
 
@@ -130,55 +127,72 @@ in
 
       # Custom DHCP options
       dhcp-range = [
-        "set:lan,192.168.1.2,192.168.1.254,168h" # one week
-        "set:iot,192.168.2.2,192.168.2.254,24h"
+        "set:lan,172.16.1.2,172.16.1.254,168h" # one week
+        "set:iot,172.16.2.2,172.16.2.254,24h"
+        "set:srv,172.16.3.2,172.16.3.254,168h"
+        "set:gst,172.16.4.2,172.16.4.254,1h"
+        "set:wrg,172.16.5.2,172.16.5.254,168h"
       ];
       dhcp-option = [
-        "tag:lan,option:router,192.168.1.1"
-        "tag:lan,option:dns-server,192.168.1.1"
-        "tag:lan,option:domain-search,edwardh.lan"
-        "tag:lan,option:domain-name,edwardh.lan"
+        "tag:lan,option:router,172.16.1.1"
+        "tag:lan,option:dns-server,172.16.1.1"
+        "tag:lan,option:domain-search,lan"
+        "tag:lan,option:domain-name,lan"
 
-        "tag:iot,option:router,192.168.2.1"
-        "tag:iot,option:dns-server,192.168.2.1"
-        "tag:iot,option:domain-search,edwardh.lan"
-        "tag:iot,option:domain-name,edwardh.lan"
+        "tag:iot,option:router,172.16.2.1"
+        "tag:iot,option:dns-server,172.16.2.1"
+        "tag:iot,option:domain-search,iot.lan"
+        "tag:iot,option:domain-name,iot.lan"
+
+        "tag:srv,option:router,172.16.3.1"
+        "tag:srv,option:dns-server,172.16.3.1"
+        "tag:srv,option:domain-search,server.lan"
+        "tag:srv,option:domain-name,server.lan"
+
+        "tag:gst,option:router,172.16.4.1"
+        "tag:gst,option:dns-server,172.16.4.1"
+        "tag:gst,option:domain-search,guest.lan"
+        "tag:gst,option:domain-name,guest.lan"
       ];
 
       # We are the only DHCP server on the network.
       dhcp-authoritative = true;
 
       address = [
-        "/gateway.edwardh.lan/192.168.1.1"
-        "/gateway.edwardh.lan/192.168.2.1"
+        "/gateway.lan/172.16.1.1"
+        "/gateway.iot.lan/172.16.2.1"
+        "/gateway.server.lan/172.16.3.1"
+        "/gateway.guest.lan/172.16.4.1"
+        "/gateway.wg.edwardh.dev/172.16.5.1"
 
         # Services I host locally have deliberate DNS poisoning here for the sake of speed
-        "/cache.edwardh.dev/192.168.2.107" # rpi5-01
-        "/hass.edwardh.dev/192.168.2.100" # homeassistant
+        "/cache.edwardh.dev/172.16.3.33" # rpi5-01
+        "/hass.edwardh.dev/172.16.3.100" # homeassistant
       ];
 
       # Custom static IPs and hostnames
       dhcp-host = [
         # LAN
-        "28:70:4e:8b:98:91,192.168.1.10,johnconnor" # AP
-        "bc:f4:d4:82:6f:a9,192.168.1.1,edward-desktop-01"
-        "34:02:86:2b:84:c3,192.168.1.2,edward-laptop-01"
+        "28:70:4e:8b:98:91,172.16.1.2,johnconnor" # AP
+        "bc:f4:d4:82:6f:a9,172.16.1.3,edward-desktop-01"
+        "34:02:86:2b:84:c3,172.16.1.4,edward-laptop-01"
         # IOT
-        "74:83:c2:3c:9f:6e,192.168.2.10,skynet" # AP
-        "e4:5f:01:11:a6:8e,192.168.2.100,homeassistant"
-        "a8:13:74:17:b6:18,192.168.2.101,hesketh-tv"
-        "4c:b9:ea:5a:4f:03,192.168.2.102,scuttlebug"
-        "4c:b9:ea:58:81:22,192.168.2.103,sentinel"
-        "0c:fe:45:1d:e6:66,192.168.2.104,ps4"
-        "dc:a6:32:31:50:3c,192.168.2.105,printerpi"
-        "00:0b:81:87:e5:5f,192.168.2.106,officepi"
-        "d8:3a:dd:97:a9:c4,192.168.2.107,rpi5-01"
-        "48:e7:29:18:6f:b0,192.168.2.108,charlie-charger"
-        "30:c9:22:19:70:14,192.168.2.109,octo-cadlite"
-        "48:e1:e9:9f:32:e6,192.168.2.110,meross-bedroom-lamp"
-        "48:e1:e9:2d:c9:76,192.168.2.111,meross-printer-lamp"
-        "48:e1:e9:2d:c9:70,192.168.2.112,meross-printer-power"
-        "ec:64:c9:e9:97:9a,192.168.2.113,prusa-mk4"
+        "74:83:c2:3c:9f:6e,172.16.2.2,skynet" # AP
+        "a8:13:74:17:b6:18,172.16.2.101,hesketh-tv"
+        "4c:b9:ea:5a:4f:03,172.16.2.102,scuttlebug"
+        "4c:b9:ea:58:81:22,172.16.2.103,sentinel"
+        "0c:fe:45:1d:e6:66,172.16.2.104,ps4"
+        "dc:a6:32:31:50:3c,172.16.2.105,printerpi"
+        "00:0b:81:87:e5:5f,172.16.2.106,officepi"
+        "48:e7:29:18:6f:b0,172.16.2.108,charlie-charger"
+        "30:c9:22:19:70:14,172.16.2.109,octo-cadlite"
+        "48:e1:e9:9f:32:e6,172.16.2.110,meross-bedroom-lamp"
+        "48:e1:e9:2d:c9:76,172.16.2.111,meross-printer-lamp"
+        "48:e1:e9:2d:c9:70,172.16.2.112,meross-printer-power"
+        "ec:64:c9:e9:97:9a,172.16.2.113,prusa-mk4"
+        # SRV
+        "e4:5f:01:11:a6:8e,172.16.3.100,homeassistant"
+        "d8:3a:dd:97:a9:c4,172.16.3.101,rpi5-01"
       ];
     };
   };
@@ -186,7 +200,7 @@ in
   services.snapserver = {
     enable = true;
 
-    listenAddress = "192.168.2.1";
+    listenAddress = "172.16.0.0";
     port = 1704;
 
     sampleFormat = "44100:16:2";
