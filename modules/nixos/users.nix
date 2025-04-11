@@ -1,11 +1,11 @@
+{ account, ... }:
 {
   users.users = {
     root.hashedPassword = "!"; # Disable root login
-    headb = {
-      description = "Edward Hesketh";
+    ${account.username} = {
+      description = account.realname;
       isNormalUser = true;
-      extraGroups =
-        [ "wheel" "adbusers" "dialout" "docker" "wireshark" ];
+      extraGroups = [ "wheel" "adbusers" "dialout" "docker" "wireshark" ];
     };
   };
 }

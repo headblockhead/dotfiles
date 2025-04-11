@@ -1,4 +1,4 @@
-{ inputs, outputs, lib, config, pkgs, ... }:
+{ inputs, outputs, lib, config, pkgs, account, ... }:
 {
   # Clear the tmp directory on boot.
   boot.tmp.cleanOnBoot = true;
@@ -12,7 +12,7 @@
   console.keyMap = "us";
 
   # Set the trusted users.
-  nix.settings.trusted-users = [ "headb" ];
+  nix.settings.trusted-users = [ account.username ];
 
   # Set the overlays.
   nixpkgs = {

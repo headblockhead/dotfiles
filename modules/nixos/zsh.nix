@@ -1,10 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, account, ... }:
+let
+  customTheme = pkgs.replaceVars ../../custom.zsh-theme { username = account.username; };
+in
 {
   # Default user shell is zsh.
   users.defaultUserShell = pkgs.zsh;
 
   systemd.tmpfiles.rules = [
-    "f /home/headb/.zprofile"
+    "f /home/${account.username}/.zprofile"
   ];
   programs.nix-index.enableZshIntegration = true;
   programs.zsh = {
@@ -18,7 +21,7 @@
       plugins = [ "aws" "git" ];
     };
     shellInit = ''
-      source ${../../custom.zsh-theme}
+      source ${customTheme}
       export EDITOR='vim'
       source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
     '';

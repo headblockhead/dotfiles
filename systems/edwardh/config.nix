@@ -1,4 +1,4 @@
-{ outputs, lib, config, sshkeys, edwardh-dev, ... }:
+{ outputs, config, edwardh-dev, ... }:
 {
   networking.hostName = "edwardh";
   networking.domain = "dev";
@@ -8,6 +8,7 @@
     fzf
     git
     homeManager
+    ssh
     users
     zsh
 
@@ -20,17 +21,6 @@
 
   age.secrets.mail-hashed-password.file = ../../secrets/mail-hashed-password.age;
   age.secrets.radicale-htpasswd.file = ../../secrets/radicale-htpasswd.age;
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = lib.mkForce "no";
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      X11Forwarding = false;
-    };
-  };
-  users.users.headb.openssh.authorizedKeys.keys = sshkeys;
 
   networking.firewall.allowedTCPPorts = [
     80 # HTTP

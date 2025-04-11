@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, account, ... }:
 
 let
   pluginGit = owner: repo: ref: sha:
@@ -15,11 +15,11 @@ let
 in
 {
   systemd.user.tmpfiles.rules = [
-    "d /home/headb/.vim 700 headb users - -"
-    "d /home/headb/.vim/backup 700 headb users - -"
-    "d /home/headb/.vim/swap 700 headb users - -"
-    "d /home/headb/.vim/undo 700 headb users - -"
-    "L+ /home/headb/.config/nvim/lua - - - - ${../../neovim}"
+    "d /home/${account.username}/.vim 700 ${account.username} users - -"
+    "d /home/${account.username}/.vim/backup 700 ${account.username} users - -"
+    "d /home/${account.username}/.vim/swap 700 ${account.username} users - -"
+    "d /home/${account.username}/.vim/undo 700 ${account.username} users - -"
+    "L+ /home/${account.username}/.config/nvim/lua - - - - ${../../neovim}"
   ];
 
   home.packages = with pkgs;

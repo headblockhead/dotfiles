@@ -1,3 +1,4 @@
+{ account, ... }:
 {
   # Transmission service
   # Downloads in /var/lib/transmission/Downloads
@@ -7,8 +8,8 @@
       # The RPC is the web interface to communicate with transmission.
       rpc-whitelist = "127.0.0.1,::1"; # Only allow connections from localhost.
       rpc-host-whitelist = "127.0.0.1,::1"; # Only connect to localhost.
-      rpc-user = "headb";
-      rpc-username = "";
+      rpc-user = account.username;
+      rpc-account = "";
       rpc-password = "";
 
       start-added-torrents =

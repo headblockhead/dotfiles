@@ -122,7 +122,7 @@ local server_settings = {
         globals = { 'playdate', 'import', 'vim' },
       },
       --      workspace = {
-      --        library = { "/home/headb/playdate_sdk-1.12.3/CoreLibs/" },
+      --        library = { "/home/headb/playdatesdk-2.6.2/CoreLibs/" },
       --      },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {

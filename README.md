@@ -1,15 +1,15 @@
-# dotfiles
+# nixos-network
 
 ![NixOS](https://img.shields.io/badge/NIXOS-5277C3.svg?logo=NixOS&logoColor=white) [![xc compatible](https://xcfile.dev/badge.svg)](https://xcfile.dev) 
 
 A continuously updated reproducable config for:
 - a desktop workstation
-- a mail+DNS server running in AWS ([edwardh](systems/edwardh))
+- a mail+calendar+web+DNS server running in AWS ([edwardh](systems/edwardh))
 - a laptop (Lenovo Thinkpad)
 - a router (old DELL Optiplex machine) ([gateway](systems/gateway))
 - a Nix binary cache server running on a Raspberry Pi 5
 
-Where **everything** about my systems is controlled by NixOS in plenty of detail, making for a perfectly-configured install *every time*, down to [the seconds on the clock](https://github.com/headblockhead/dotfiles/blob/dddba60346632e95b1840a7c95379396a8193fd1/modules/nixos/desktop.nix#L125)!
+Where **everything** about my systems is controlled by NixOS in plenty of detail, making for a perfectly-configured install *every time*, down to [the seconds on the clock](https://github.com/headblockhead/nixos-network/blob/dddba60346632e95b1840a7c95379396a8193fd1/modules/nixos/desktop.nix#L125)!
 
 ## Table of Contents
 
@@ -128,15 +128,15 @@ nixos-generate-config --root ./
 Download this repo. This is stored in a tmpfs, so it will be lost on reboot.
 ```bash
 nix-shell -p git
-git clone https://github.com/headblockhead/dotfiles.git
+git clone https://github.com/headblockhead/nixos-network.git
 ```
 
 > [!WARNING]
-> Changes made to this copy of the dotfiles are not saved, so copy changes to the /mnt folder or other means of persistance to avoid pain later.
+> Changes made to this copy of the nixos-network are not saved, so copy changes to the /mnt folder or other means of persistance to avoid pain later.
 
 Build and install. Set a root password, it can be anything as we will disable direct root in a minute.
 ```bash
-cd dotfiles
+cd nixos-network
 nixos-install --root /mnt --flake .#HOSTNAME
 reboot
 ```

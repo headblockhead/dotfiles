@@ -1,5 +1,5 @@
 {
-  description = "Reproducable NixOS and homemanager config for my local servers, cloud servers, desktops, and laptops.";
+  description = "Reproducable NixOS (and homemanager) config for my local servers, cloud servers, desktops, and laptops.";
 
   nixConfig = {
     extra-substituters = [ "http://cache.edwardh.dev" ];
@@ -42,6 +42,11 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBexdKZYlyseEcm1S3xNDqPTGZMfm/NcW1ygY91weDhC cardno:30_797_561" # thunder-mountain
       ];
 
+      account = {
+        username = "headb";
+        realname = "Edward Hesketh";
+      };
+
       # This is a function that generates an attribute by calling a function you
       # pass to it, with each system as an argument
       forAllSystems = nixpkgs.lib.genAttrs systems;
@@ -67,7 +72,7 @@
         # Local servers
         gateway = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs sshkeys; };
+          specialArgs = { inherit inputs outputs sshkeys account; };
           modules = [
             ./systems/gateway/config.nix
             ./systems/gateway/hardware.nix
@@ -76,7 +81,7 @@
 
         rpi5-01 = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs sshkeys; };
+          specialArgs = { inherit inputs outputs sshkeys account; };
           modules = [
             ./systems/rpi5-01/config.nix
             ./systems/rpi5-01/hardware.nix
@@ -88,7 +93,7 @@
 
         rpi4-01 = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs sshkeys; };
+          specialArgs = { inherit inputs outputs sshkeys account; };
           modules = [
             ./systems/rpi4-01/config.nix
             ./systems/rpi4-01/hardware.nix
@@ -101,7 +106,7 @@
         # Local clients
         edward-desktop-01 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs sshkeys; };
+          specialArgs = { inherit inputs outputs sshkeys account; };
           modules = [
             ./systems/edward-desktop-01/config.nix
             ./systems/edward-desktop-01/hardware.nix
@@ -109,7 +114,7 @@
         };
         edward-laptop-01 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs sshkeys; };
+          specialArgs = { inherit inputs outputs sshkeys account; };
           modules = [
             ./systems/edward-laptop-01/config.nix
             ./systems/edward-laptop-01/hardware.nix
@@ -119,7 +124,7 @@
         # AWS EC2 nodes
         edwardh = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs sshkeys edwardh-dev; };
+          specialArgs = { inherit inputs outputs sshkeys account edwardh-dev; };
           modules = [
             ./systems/edwardh/config.nix
             "${nixpkgs}/nixos/modules/virtualisation/amazon-image.nix"
@@ -130,7 +135,7 @@
         # Old Dell desktop machine.
         edward-dell-01 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs sshkeys; };
+          specialArgs = { inherit inputs outputs sshkeys account; };
           modules = [
             ./systems/edward-dell-01/config.nix
             ./systems/edward-dell-01/hardware.nix

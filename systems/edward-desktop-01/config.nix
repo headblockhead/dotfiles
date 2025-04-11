@@ -1,4 +1,4 @@
-{ outputs, lib, pkgs, ... }:
+{ outputs, lib, pkgs, account, ... }:
 
 {
   networking.hostName = "edward-desktop-01";
@@ -64,7 +64,7 @@
 
   systemd.tmpfiles.rules = [
     ''C+ /run/gdm/.config/monitors.xml - - - - ${./monitors.xml}''
-    ''C+ /home/headb/.config/monitors.xml - - - - ${./monitors.xml}''
+    ''C+ /home/${account.username}/.config/monitors.xml - - - - ${./monitors.xml}''
   ];
 
   # find / -name '*.desktop' 2> /dev/null

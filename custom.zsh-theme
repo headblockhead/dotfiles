@@ -3,11 +3,7 @@
 # A theme by agnoster, modified by headblockhead for NixOS.
 
 CURRENT_BG='NONE'
-DEFAULT_USER='headb'
-
-case ${SOLARIZED_THEME:-dark} in
-    *)     CURRENT_FG='black';;
-esac
+DEFAULT_USER='@username@' # Value overwritten using Nix using replaceVars
 
 () {
   local LC_ALL="" LC_CTYPE="en_US.UTF-8"
