@@ -1,9 +1,9 @@
-{ sshkeys, account, ... }: {
+{ sshkeys, account, lib, ... }: {
   networking.firewall.allowedTCPPorts = [ 22 ];
   services.openssh = {
     enable = true;
     settings = {
-      PermitRootLogin = "no";
+      PermitRootLogin = lib.mkDefault "no";
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       X11Forwarding = false;

@@ -204,8 +204,8 @@ home-manager switch --flake ".#$USER@`hostname`"
 Deploy the nixos configurations to all machines, without setting the boot-default.
 
 ```bash
-nixos-rebuild test --target-host gateway.edwardh.lan --use-remote-sudo --flake .#gateway
-nixos-rebuild test --target-host rpi5-01.edwardh.lan --use-remote-sudo --flake .#rpi5-01 --fast
+nixos-rebuild test --target-host gateway --use-remote-sudo --flake .#gateway
+nixos-rebuild test --target-host rpi5-01 --use-remote-sudo --flake .#rpi5-01 --fast
 nixos-rebuild test --target-host edwardh.dev --use-remote-sudo --flake .#edwardh --fast
 ```
 
@@ -214,7 +214,7 @@ nixos-rebuild test --target-host edwardh.dev --use-remote-sudo --flake .#edwardh
 Deploy the nixos configurations to all machines, setting the boot-default.
 
 ```bash
-nixos-rebuild switch --target-host gateway.edwardh.lan --use-remote-sudo --flake .#gateway
-nixos-rebuild switch --target-host rpi5-01.edwardh.lan --use-remote-sudo --flake .#rpi5-01 --fast
+nixos-rebuild switch --target-host gateway --use-remote-sudo --flake .#gateway
+nixos-rebuild switch --target-host rpi5-01 --use-remote-sudo --flake .#rpi5-01 --fast
 nixos-rebuild switch --target-host edwardh.dev --use-remote-sudo --flake .#edwardh --fast
 ```

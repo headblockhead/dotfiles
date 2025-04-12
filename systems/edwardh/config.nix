@@ -32,7 +32,7 @@
   ];
   networking.firewall.allowedUDPPorts = [
     53 # DNS
-    33545 # Wireguard
+    51820 # Wireguard
   ];
 
   # Manually set DNS nameservers, to avoid trying to use our selfhosted non-recursive DNS server.
@@ -330,17 +330,17 @@
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      address = [ "172.16.5.0/24" ];
+      address = [ "172.16.5.2/24" ];
       listenPort = 51820;
       privateKeyFile = config.age.secrets.wireguard-key.path;
-      peers = [{
-        publicKey = "JMk7o494sDBjq9EAOeeAwPHxbF6TpbpFSHGSk2DnJHU=";
-        presharedKeyFile = config.age.secrets.wireguard-key.path;
-        allowedIPs = [ "172.16.0.0/12" ];
-      }];
+      peers = [
+        {
+          publicKey = "1Gs85rAE+d++lojXtc04P448bXcZNdLZjIx/uWo0pSM=";
+          allowedIPs = [ "172.16.0.0/12" ];
+        }
+      ];
     };
   };
-
 
   services.nginx = {
     enable = true;

@@ -28,7 +28,6 @@
   transmission = import ./transmission.nix;
   users = import ./users.nix;
   virtualisation = import ./virtualisation.nix;
-  wireguard = import ./wireguard.nix;
   xmrig = import ./xmrig.nix;
   yubikey = import ./yubikey.nix;
   zsh = import ./zsh.nix;

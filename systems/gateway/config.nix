@@ -16,12 +16,13 @@ in
     fileSystems
     git
     homeManager
-    wireguard
     ssd
     ssh
     users
     zsh
   ];
+
+  age.secrets.wireguard-gateway-key.file = ../../secrets/wireguard-gateway-key.age;
 
   # Allow packet forwarding
   boot.kernel.sysctl = {
@@ -60,6 +61,7 @@ in
             iifname "lo" accept
 
             iifname "${lan_port}" accept
+            iifname "wg0" accept
 
             iifname "${iot_port}" udp dport { 53, 67, 5353 } counter accept
             iifname "${iot_port}" tcp dport { 53, 1704 } counter accept
@@ -123,7 +125,7 @@ in
       no-hosts = true; # Don't obtain any hosts from /etc/hosts (this would make 'localhost' = this machine for all clients!)
 
       server = [ "1.1.1.1" "1.0.0.1" ];
-      domain = "edwardh.lan";
+      domain = "lan";
 
       # Custom DHCP options
       dhcp-range = [
@@ -131,7 +133,6 @@ in
         "set:iot,172.16.2.2,172.16.2.254,24h"
         "set:srv,172.16.3.2,172.16.3.254,168h"
         "set:gst,172.16.4.2,172.16.4.254,1h"
-        "set:wrg,172.16.5.2,172.16.5.254,168h"
       ];
       dhcp-option = [
         "tag:lan,option:router,172.16.1.1"
@@ -141,33 +142,30 @@ in
 
         "tag:iot,option:router,172.16.2.1"
         "tag:iot,option:dns-server,172.16.2.1"
-        "tag:iot,option:domain-search,iot.lan"
-        "tag:iot,option:domain-name,iot.lan"
+        "tag:iot,option:domain-search,lan"
+        "tag:iot,option:domain-name,lan"
 
         "tag:srv,option:router,172.16.3.1"
         "tag:srv,option:dns-server,172.16.3.1"
-        "tag:srv,option:domain-search,server.lan"
-        "tag:srv,option:domain-name,server.lan"
+        "tag:srv,option:domain-search,lan"
+        "tag:srv,option:domain-name,lan"
 
         "tag:gst,option:router,172.16.4.1"
         "tag:gst,option:dns-server,172.16.4.1"
-        "tag:gst,option:domain-search,guest.lan"
-        "tag:gst,option:domain-name,guest.lan"
+        "tag:gst,option:domain-search,lan"
+        "tag:gst,option:domain-name,lan"
       ];
 
       # We are the only DHCP server on the network.
       dhcp-authoritative = true;
 
       address = [
+        "/gateway/172.16.1.1"
         "/gateway.lan/172.16.1.1"
-        "/gateway.iot.lan/172.16.2.1"
-        "/gateway.server.lan/172.16.3.1"
-        "/gateway.guest.lan/172.16.4.1"
-        "/gateway.wg.edwardh.dev/172.16.5.1"
 
         # Services I host locally have deliberate DNS poisoning here for the sake of speed
-        "/cache.edwardh.dev/172.16.3.33" # rpi5-01
-        "/hass.edwardh.dev/172.16.3.100" # homeassistant
+        "/cache.edwardh.dev/172.16.2.199" # rpi5-01
+        "/hass.edwardh.dev/172.16.2.100" # homeassistant
       ];
 
       # Custom static IPs and hostnames
@@ -190,9 +188,10 @@ in
         "48:e1:e9:2d:c9:76,172.16.2.111,meross-printer-lamp"
         "48:e1:e9:2d:c9:70,172.16.2.112,meross-printer-power"
         "ec:64:c9:e9:97:9a,172.16.2.113,prusa-mk4"
-        # SRV
-        "e4:5f:01:11:a6:8e,172.16.3.100,homeassistant"
-        "d8:3a:dd:97:a9:c4,172.16.3.101,rpi5-01"
+
+        # TODO: SRV interface
+        "d8:3a:dd:97:a9:c4,172.16.2.199,rpi5-01"
+        "e4:5f:01:11:a6:8e,172.16.2.100,homeassistant"
       ];
     };
   };
@@ -223,6 +222,22 @@ in
     enable = true;
     unifiPackage = pkgs.unifi8;
     mongodbPackage = pkgs.mongodb-7_0;
+  };
+
+  networking.wg-quick.interfaces = {
+    wg0 = {
+      address = [ "172.16.5.1/24" ];
+      listenPort = 51820;
+      privateKeyFile = config.age.secrets.wireguard-gateway-key.path;
+      peers = [
+        {
+          publicKey = "JMk7o494sDBjq9EAOeeAwPHxbF6TpbpFSHGSk2DnJHU=";
+          allowedIPs = [ "172.16.5.2/32" ];
+          endpoint = "18.135.222.143:51820";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
   };
 
   environment.systemPackages = [

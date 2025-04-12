@@ -76,6 +76,7 @@
           modules = [
             ./systems/gateway/config.nix
             ./systems/gateway/hardware.nix
+            agenix.nixosModules.default
           ];
         };
 
