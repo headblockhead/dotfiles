@@ -44,7 +44,7 @@
   nix.settings = {
     experimental-features = "nix-command flakes";
     auto-optimise-store = true;
-    substituters = [ "http://cache.edwardh.dev" ];
+    substituters = [ "https://cache.edwardh.dev" ];
     trusted-public-keys = [ "cache.edwardh.dev-1:/i5z0aYaRDBcT8Qf9uDFi8z0FEKIZsK7RVZLMKNJMGg=" ];
     download-buffer-size = 524288000; # 500MB
   };
