@@ -76,8 +76,8 @@ in
             iifname {"${lan_port}", "${iot_port}"} oifname "${wan_port}" accept
             iifname "${wan_port}" oifname {"${lan_port}", "${iot_port}"} ct state { established, related } accept
 
-            iifname "${lan_port}" oifname "${iot_port}" accept
-            iifname "${iot_port}" oifname "${lan_port}" ct state { established, related } accept
+            iifname {"${lan_port}", "wg0"} oifname "${iot_port}" accept
+            iifname "${iot_port}" oifname {"${lan_port}", "wg0"} ct state { established, related } accept
           }
           chain output {
             type filter hook output priority 100; policy accept;
@@ -124,7 +124,7 @@ in
       no-resolv = true; # Don't read upstream servers from /etc/resolv.conf
       no-hosts = true; # Don't obtain any hosts from /etc/hosts (this would make 'localhost' = this machine for all clients!)
 
-      server = [ "1.1.1.1" "1.0.0.1" ];
+      server = [ "127.0.0.1#54" ]; # Stubby
       domain = "lan";
 
       # Custom DHCP options
@@ -162,10 +162,6 @@ in
       address = [
         "/gateway/172.16.1.1"
         "/gateway.lan/172.16.1.1"
-
-        # Services I host locally have deliberate DNS poisoning here for the sake of speed
-        "/cache.edwardh.dev/172.16.2.199" # rpi5-01
-        "/hass.edwardh.dev/172.16.2.100" # homeassistant
       ];
 
       # Custom static IPs and hostnames
@@ -193,6 +189,30 @@ in
         "d8:3a:dd:97:a9:c4,172.16.2.199,rpi5-01"
         "e4:5f:01:11:a6:8e,172.16.2.100,homeassistant"
       ];
+    };
+  };
+
+  services.stubby = {
+    enable = true;
+    settings = pkgs.stubby.passthru.settingsExample // {
+      listen_addresses = [ "127.0.0.1@54" ];
+      upstream_recursive_servers = [{
+        address_data = "1.1.1.1";
+        tls_auth_name = "cloudflare-dns.com";
+        tls_pubkey_pinset = [{
+          digest = "sha256";
+          # echo | openssl s_client -connect '1.1.1.1:853' 2>/dev/null | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
+          value = "SPfg6FluPIlUc6a5h313BDCxQYNGX+THTy7ig5X3+VA=";
+        }];
+      }
+        {
+          address_data = "1.0.0.1";
+          tls_auth_name = "cloudflare-dns.com";
+          tls_pubkey_pinset = [{
+            digest = "sha256";
+            value = "SPfg6FluPIlUc6a5h313BDCxQYNGX+THTy7ig5X3+VA=";
+          }];
+        }];
     };
   };
 

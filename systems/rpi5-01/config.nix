@@ -25,6 +25,7 @@
     enable = true;
     signKeyPaths = [ config.age.secrets.harmonia-signing-key.path ];
     settings = {
+      bind = "127.0.0.1:5000";
       workers = 8;
       max_connection_rate = 1024;
       priority = 20;
@@ -52,7 +53,7 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 80 ];
 
   services.nginx = {
     enable = true;
