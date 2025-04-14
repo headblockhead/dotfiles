@@ -1,9 +1,10 @@
 { outputs, pkgs, lib, config, ... }:
 let
   # Physical ports. Defined seperatly so they can be changed easily.
-  wan_port = "enp4s0";
-  lan_port = "enp5s0";
-  iot_port = "enp8s0";
+  wan_port = "enp5s0";
+  lan_port = "enp6s0";
+  iot_port = "enp9s0";
+  srv_port = "enp1s0f0";
 in
 {
   networking.hostName = "gateway";
@@ -36,17 +37,21 @@ in
 
     useDHCP = lib.mkDefault false;
     interfaces = {
-      "${wan_port}" = {
+      ${wan_port} = {
         # DHCP client.
         useDHCP = true;
       };
-      "${lan_port}" = {
+      ${lan_port} = {
         useDHCP = false;
         ipv4.addresses = [{ address = "172.16.1.1"; prefixLength = 24; }];
       };
-      "${iot_port}" = {
+      ${iot_port} = {
         useDHCP = false;
         ipv4.addresses = [{ address = "172.16.2.1"; prefixLength = 24; }];
+      };
+      ${srv_port} = {
+        useDHCP = false;
+        ipv4.addresses = [{ address = "172.16.3.1"; prefixLength = 24; }];
       };
     };
 
@@ -61,23 +66,34 @@ in
             iifname "lo" accept
 
             iifname "${lan_port}" accept
-            iifname "wg0" accept
 
-            iifname "${iot_port}" udp dport { 53, 67, 5353 } counter accept
-            iifname "${iot_port}" tcp dport { 53, 1704 } counter accept
+            iifname "${iot_port}" tcp dport { 53, 1704 } accept
+            iifname "${iot_port}" udp dport { 53, 67, 5353 } accept
+
+            iifname "${srv_port}" tcp dport { 53 } accept
+            iifname "${srv_port}" udp dport { 53, 67 } accept
+
+            iifname "wg0" tcp dport { 53 } accept
+            iifname "wg0" udp dport { 53 } accept
 
             iifname "${wan_port}" ct state { established, related } accept
-            iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } counter accept
-            iifname "${wan_port}" counter drop
+            iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } accept
+
+            conter drop
           }
           chain forward {
             type filter hook forward priority 0; policy drop;
 
-            iifname {"${lan_port}", "${iot_port}"} oifname "${wan_port}" accept
-            iifname "${wan_port}" oifname {"${lan_port}", "${iot_port}"} ct state { established, related } accept
+            iifname {"${lan_port}", "${iot_port}", "${srv_port}"} oifname "${wan_port}" accept
+            iifname "${wan_port}" oifname {"${lan_port}", "${iot_port}", "${srv_port}"} ct state { established, related } accept
 
-            iifname {"${lan_port}", "wg0"} oifname "${iot_port}" accept
-            iifname "${iot_port}" oifname {"${lan_port}", "wg0"} ct state { established, related } accept
+            iifname {"${lan_port}", "${srv_port}"} oifname "${iot_port}" accept
+            iifname "${iot_port}" oifname {"${lan_port}", "${srv_port}"} ct state { established, related } accept
+
+            iifname {"${lan_port}", "${iot_port}", "wg0"} oifname "${srv_port}" accept
+            iifname "${srv_port}" oifname {"${lan_port}", "${iot_port}", "wg0"} ct state { established, related } accept
+
+            counter drop
           }
           chain output {
             type filter hook output priority 100; policy accept;
@@ -102,6 +118,7 @@ in
     allowInterfaces = [
       lan_port
       iot_port
+      srv_port
       wan_port # DELETEME: Allow mDNS on WAN
     ];
     publish = {
@@ -116,7 +133,7 @@ in
   services.dnsmasq = {
     enable = true;
     settings = {
-      interface = [ lan_port iot_port "wg0" ];
+      interface = [ lan_port iot_port srv_port "wg0" ];
       bind-dynamic = true; # Bind only to interfaces specified above.
 
       domain-needed = true; # Don't forward DNS requests without dots/domain parts to upstream servers.
@@ -132,7 +149,6 @@ in
         "set:lan,172.16.1.2,172.16.1.254,168h" # one week
         "set:iot,172.16.2.2,172.16.2.254,24h"
         "set:srv,172.16.3.2,172.16.3.254,168h"
-        "set:gst,172.16.4.2,172.16.4.254,1h"
       ];
       dhcp-option = [
         "tag:lan,option:router,172.16.1.1"
@@ -149,11 +165,6 @@ in
         "tag:srv,option:dns-server,172.16.3.1"
         "tag:srv,option:domain-search,lan"
         "tag:srv,option:domain-name,lan"
-
-        "tag:gst,option:router,172.16.4.1"
-        "tag:gst,option:dns-server,172.16.4.1"
-        "tag:gst,option:domain-search,lan"
-        "tag:gst,option:domain-name,lan"
       ];
 
       # We are the only DHCP server on the network.
@@ -176,7 +187,7 @@ in
         "4c:b9:ea:5a:4f:03,172.16.2.102,scuttlebug"
         "4c:b9:ea:58:81:22,172.16.2.103,sentinel"
         "0c:fe:45:1d:e6:66,172.16.2.104,ps4"
-        "dc:a6:32:31:50:3c,172.16.2.105,printerpi"
+        "dc:a6:32:31:50:3c,172.16.2.105,rpi4-01"
         "00:0b:81:87:e5:5f,172.16.2.106,officepi"
         "48:e7:29:18:6f:b0,172.16.2.108,charlie-charger"
         "30:c9:22:19:70:14,172.16.2.109,octo-cadlite"
@@ -184,10 +195,9 @@ in
         "48:e1:e9:2d:c9:76,172.16.2.111,meross-printer-lamp"
         "48:e1:e9:2d:c9:70,172.16.2.112,meross-printer-power"
         "ec:64:c9:e9:97:9a,172.16.2.113,prusa-mk4"
-
-        # TODO: SRV interface
-        "d8:3a:dd:97:a9:c4,172.16.2.199,rpi5-01"
-        "e4:5f:01:11:a6:8e,172.16.2.100,homeassistant"
+        # SRV
+        "d8:3a:dd:97:a9:c4,172.16.3.10,rpi5-01"
+        "e4:5f:01:11:a6:8e,172.16.3.100,homeassistant"
       ];
     };
   };
