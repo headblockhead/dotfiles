@@ -79,7 +79,7 @@ in
             iifname "${wan_port}" ct state { established, related } accept
             iifname "${wan_port}" icmp type { echo-request, destination-unreachable, time-exceeded } accept
 
-            conter drop
+            counter drop
           }
           chain forward {
             type filter hook forward priority 0; policy drop;
