@@ -98,6 +98,28 @@
           modules = [
             ./systems/rpi4-01/config.nix
             ./systems/rpi4-01/hardware.nix
+            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+            inputs.raspberry-pi-nix.nixosModules.sd-image
+          ];
+        };
+
+        rpi4-02 = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = { inherit inputs outputs sshkeys account; };
+          modules = [
+            ./systems/rpi4-02/config.nix
+            ./systems/rpi4-02/hardware.nix
+            inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+            inputs.raspberry-pi-nix.nixosModules.sd-image
+          ];
+        };
+
+        printerpi = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = { inherit inputs outputs sshkeys account; };
+          modules = [
+            ./systems/printerpi/config.nix
+            ./systems/printerpi/hardware.nix
             ./systems/wifi-config.nix # gitignored, see wifi-config-template.nix
             inputs.raspberry-pi-nix.nixosModules.raspberry-pi
             inputs.raspberry-pi-nix.nixosModules.sd-image
@@ -146,6 +168,8 @@
 
       # SD card images. Also works for NVME drives!
       rpi5-01-sd = nixosConfigurations.rpi5-01.config.system.build.sdImage;
+      rpi4-01-sd = nixosConfigurations.rpi4-01.config.system.build.sdImage;
+      rpi4-02-sd = nixosConfigurations.rpi4-02.config.system.build.sdImage;
       printerpi-sd = nixosConfigurations.printerpi.config.system.build.sdImage;
 
       homeConfigurations = {
@@ -154,15 +178,10 @@
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./systems/gateway/users/headb.nix ];
         };
-        "headb@rpi5-01" = home-manager.lib.homeManagerConfiguration {
+        "headb@printerpi" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/rpi5-01/users/headb.nix ];
-        };
-        "headb@rpi4-01" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-linux;
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./systems/rpi4-01/users/headb.nix ];
+          modules = [ ./systems/printerpi/users/headb.nix ];
         };
         "headb@edward-desktop-01" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;

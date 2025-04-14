@@ -1,6 +1,6 @@
 { outputs, ... }:
 {
-  networking.hostName = "rpi4-01";
+  networking.hostName = "rpi4-02";
 
   imports = with outputs.nixosModules; [
     basicConfig
