@@ -34,7 +34,7 @@ in
   networking = {
     # Builtin firewall is replaced by nftables
     firewall.enable = false;
-
+    enableIPv6 = false;
     useDHCP = lib.mkDefault false;
     interfaces = {
       ${wan_port} = {

@@ -364,7 +364,7 @@
         forceSSL = true;
         enableACME = true;
         locations."/" = {
-          proxyPass = "http://172.16.2.199"; # rpi5-01
+          proxyPass = "http://172.16.3.10"; # rpi5-01
           recommendedProxySettings = true;
         };
       };
