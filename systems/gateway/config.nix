@@ -180,6 +180,7 @@ in
         "28:70:4e:8b:98:91,172.16.1.2,johnconnor" # AP
         "bc:f4:d4:82:6f:a9,172.16.1.3,edward-desktop-01"
         "34:02:86:2b:84:c3,172.16.1.4,edward-laptop-01"
+        "be:d4:81:34:98:3d,172.16.1.5,edward-iphone"
         # IOT
         "74:83:c2:3c:9f:6e,172.16.2.2,skynet" # AP
         "a8:13:74:17:b6:18,172.16.2.101,hesketh-tv"
