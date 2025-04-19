@@ -375,6 +375,7 @@
         enableACME = true;
         locations."/" = {
           proxyPass = "http://172.16.3.41:8123"; # rpi4-01
+          proxyWebsockets = true;
           recommendedProxySettings = true;
         };
       };
