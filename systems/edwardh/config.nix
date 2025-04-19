@@ -306,6 +306,8 @@
       master = true;
       file = "/etc/bind/zones/db.edwardh.dev";
       allowQuery = [ "any" ];
+      # To get the DS record:
+      # dig dnskey edwardh.dev | dnssec-dsfromkey -f - edwardh.dev
       extraConfig = ''
         dnssec-policy default;
         inline-signing yes;
