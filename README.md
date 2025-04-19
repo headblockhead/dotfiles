@@ -206,6 +206,8 @@ Deploy the nixos configurations to all machines, without setting the boot-defaul
 ```bash
 nixos-rebuild test --target-host gateway --use-remote-sudo --flake .#gateway
 nixos-rebuild test --target-host rpi5-01 --use-remote-sudo --flake .#rpi5-01 --fast
+nixos-rebuild test --target-host rpi4-01 --use-remote-sudo --flake .#rpi4-01 --fast
+nixos-rebuild test --target-host rpi4-02 --use-remote-sudo --flake .#rpi4-02 --fast
 nixos-rebuild test --target-host edwardh.dev --use-remote-sudo --flake .#edwardh --fast
 ```
 
@@ -216,5 +218,7 @@ Deploy the nixos configurations to all machines, setting the boot-default.
 ```bash
 nixos-rebuild switch --target-host gateway --use-remote-sudo --flake .#gateway
 nixos-rebuild switch --target-host rpi5-01 --use-remote-sudo --flake .#rpi5-01 --fast
+nixos-rebuild switch --target-host rpi4-01 --use-remote-sudo --flake .#rpi4-01 --fast
+nixos-rebuild switch --target-host rpi4-02 --use-remote-sudo --flake .#rpi4-02 --fast
 nixos-rebuild switch --target-host edwardh.dev --use-remote-sudo --flake .#edwardh --fast
 ```
