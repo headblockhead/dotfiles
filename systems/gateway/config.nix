@@ -71,7 +71,7 @@ in
             iifname "${iot_port}" udp dport { 53, 67, 5353 } accept
 
             iifname "${srv_port}" tcp dport { 53 } accept
-            iifname "${srv_port}" udp dport { 53, 67 } accept
+            iifname "${srv_port}" udp dport { 53, 67, 5353 } accept
 
             iifname "wg0" tcp dport { 53 } accept
             iifname "wg0" udp dport { 53 } accept
@@ -119,7 +119,6 @@ in
       lan_port
       iot_port
       srv_port
-      wan_port # DELETEME: Allow mDNS on WAN
     ];
     publish = {
       enable = true;
@@ -196,9 +195,9 @@ in
         "48:e1:e9:2d:c9:70,172.16.2.112,meross-printer-power"
         "ec:64:c9:e9:97:9a,172.16.2.113,prusa-mk4"
         # SRV
-        "d8:3a:dd:97:a9:c4,172.16.3.10,rpi5-01"
-        "dc:a6:32:31:50:3c,172.16.3.11,rpi4-01"
-        "e4:5f:01:11:a6:8e,172.16.3.100,homeassistant"
+        "d8:3a:dd:97:a9:c4,172.16.3.51,rpi5-01"
+        "dc:a6:32:31:50:3c,172.16.3.41,rpi4-01"
+        "e4:5f:01:11:a6:8e,172.16.3.42,rpi4-02"
       ];
     };
   };
