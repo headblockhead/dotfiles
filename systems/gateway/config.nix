@@ -230,8 +230,14 @@ in
   services.snapserver = {
     enable = true;
 
-    listenAddress = "172.16.0.0";
+    listenAddress = "172.16.2.1";
     port = 1704;
+
+    tcp = {
+      listenAddress = "172.16.3.1";
+      port = 1705;
+    };
+    http.enable = false;
 
     sampleFormat = "44100:16:2";
     codec = "pcm";
